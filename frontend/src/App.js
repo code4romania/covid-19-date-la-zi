@@ -1,33 +1,34 @@
 import React from 'react'
-import { LineChart } from './components/charts/line'
-import {Doughnut} from './components/charts/doughnut'
 import {TopNav} from './components/layout/nav/top-nav'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import { DemoComponent } from './components/demo-component';
+import { ChartsDemo } from './components/charts/charts-demo';
 
 function App() {
-  const chartData = {
-    xAxisData: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], 
-    series: [26, 37, 11, 56, 122, 233, 98]
-  }
-  const doughnutChartData = {
-    legend: chartData.xAxisData,
-    series: chartData.series.map((v, i) => ({ value: v, name: chartData.xAxisData[i] }))
-  }
   return (
-    <div id="app">
-      <TopNav></TopNav>
-      <div className="container">
-        <section>
-          <div className="columns is-mobile">
-            <div className="column">
-              <LineChart title={'My line chart'} chartData={chartData} />
-            </div>
-            <div className="column">
-              <Doughnut title={'My doughnut chart'} chartData={doughnutChartData} />
-            </div>
-          </div>
-        </section>
+    <Router>
+      <div id="app">
+        <TopNav></TopNav>
+        <Switch>
+          <Route path="/charts">
+            <ChartsDemo title={'charts here'} subtitle={'A page with charts!'} />
+          </Route>
+          <Route path="/not-charts">
+            <DemoComponent title={'No beautiful charts here'} subtitle={'A page without charts!'} />
+          </Route>
+          <Route path="/register">
+            <DemoComponent title={'Register page'} subtitle={'Just for demo purposes!'} />
+          </Route>
+          <Route path="/">
+            <DemoComponent title={'Home page'} subtitle={'Made with Bulma!'} />
+          </Route>
+        </Switch>
       </div>
-    </div>
+    </Router>
   )
 }
 

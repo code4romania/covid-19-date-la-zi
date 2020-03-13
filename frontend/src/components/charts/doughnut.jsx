@@ -8,6 +8,7 @@ export class Doughnut extends React.PureComponent {
     const chartOptions = {
       tooltip: {
         trigger: 'item',
+        formatter: '{a} <br/>{b}: {c} ({d}%)'
       },
       legend: {
         orient: 'vertical',
@@ -16,7 +17,7 @@ export class Doughnut extends React.PureComponent {
       },
       series: [
         {
-          name: 'asdf',
+          name: 'Descriptive name',
           type: 'pie',
           radius: ['50%', '70%'],
           avoidLabelOverlap: false,
