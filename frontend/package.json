@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "bulma": "^0.8.0",
+    "echarts": "^4.6.0",
+    "echarts-for-react": "^2.0.15-beta.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0"
