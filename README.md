@@ -1,4 +1,4 @@
-# Project name
+# Vizualization App to track the COVID-19 virus epidemic
 
 [![GitHub contributors](https://img.shields.io/github/contributors/code4romania/NEW_REPO_SLUG_HERE.svg?style=for-the-badge)](https://github.com/code4romania/NEW_REPO_SLUG_HERE/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/NEW_REPO_SLUG_HERE.svg?style=for-the-badge)](https://github.com/code4romania/NEW_REPO_SLUG_HERE/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
 
@@ -19,6 +19,10 @@ You can also list any pending features and planned improvements for the project 
 ## Built With
 
 ### Programming languages
+
+Backend: .NET Core
+
+Frontend: React
 
 ### Platforms
 
