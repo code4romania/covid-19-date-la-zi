@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Code4Ro.CoViz19.Models;
 using Code4Ro.CoViz19.Parser.Commands;
-using Code4Ro.CoViz19.Parser.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
