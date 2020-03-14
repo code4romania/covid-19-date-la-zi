@@ -17,40 +17,43 @@ export class SummaryCard extends React.PureComponent {
         type: 'value'
       },
       series: [{
-        data: data.series,
+        data: data,
         type: 'line',
       }]
     };
   }
 
+  getTotal(data) {
+    return data && data.reduce((a, b) => a + b, 0);
+  }
+
   render() {
-    const { title, chartData, special, to } = this.props;
-    const total = chartData.series.reduce((a, b) => a + b, 0);
+    const { title, data, special } = this.props;
+    const total = this.getTotal(data);
     return (
-      <Link to={to}>
-        <Card>
-          <h3>{title}</h3>
-          <h4 className="is-inline-block">{total}</h4>
-          {
-            special && <span className="is-inline-block special">
-              <span className={special.isGood ? 'has-text-success' : 'has-text-danger'}>
-                {special.value}
-              </span>
-              &nbsp;
-            {special.label}
+      <Card>
+        <h3>{title}</h3>
+        <h4 className="is-inline-block total">{total}</h4>
+        {special &&
+          <span className="is-inline-block special">
+            <span className={special.isGood ? 'has-text-success' : 'has-text-danger'}>
+              {special.value}
             </span>
-          }
+            &nbsp;
+            {special.label}
+          </span>}
+        {data &&
           <div className="mini-chart">
             <ReactEcharts
               style={{
-                height: "100%",
+                height: '100%',
                 width: '100%',
               }}
-              option={this.getChartOptions(chartData)}
-              theme={SUMMARY_CHART_THEME} />
-          </div>
-        </Card>
-      </Link>
+              option={this.getChartOptions(data)}
+              theme={SUMMARY_CHART_THEME}
+            />
+          </div>}
+      </Card>
     );
   }
 }

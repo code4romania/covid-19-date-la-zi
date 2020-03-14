@@ -6,11 +6,10 @@ export class Card extends React.PureComponent {
 
     return (
       <div className="card">
-        { title && 
+        {title &&
           <header className="card-header">
             <p className="card-header-title">{title}</p>
-          </header>
-        }
+          </header>}
         <div className="card-content">
           <div className="content">{children}</div>
         </div>

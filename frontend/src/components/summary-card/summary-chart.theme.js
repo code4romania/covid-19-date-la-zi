@@ -23,13 +23,13 @@ function axisCommon() {
   }
 }
 
-var summaryChartTheme = {
+let summaryChartTheme = {
   timeAxis: axisCommon(),
   logAxis: axisCommon(),
   valueAxis: axisCommon(),
   categoryAxis: axisCommon(),
   line: {
-    symbol: "none",
+    symbol: 'none',
     lineStyle: {
       color: '#9FB3C7',
       width: '2',
