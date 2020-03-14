@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { DemoComponent } from './components/demo-component';
 import { ChartsDemo } from './components/charts/charts-demo';
 import { Link } from 'react-router-dom';
+import { BottomNav } from './components/layout/nav/bottom-nav';
 
 function App() {
   return (
@@ -11,25 +12,17 @@ function App() {
       <div id="app">
         <TopNav />
         <Switch>
-          <Route path="/charts">
-            <ChartsDemo title="charts here" subtitle="A page with charts!" />
-          </Route>
-          <Route path="/not-charts">
+          <Route path="/about">
             <DemoComponent
-              title="No beautiful charts here"
-              subtitle="A page without charts!"
-            />
-          </Route>
-          <Route path="/register">
-            <DemoComponent
-              title="Register page"
-              subtitle="Just for demo purposes!"
+              title="About this site"
+              subtitle="Code 4 Romania FTW!"
             />
           </Route>
           <Route path="/">
-            <DemoComponent title="Home page" subtitle="Made with Bulma!" />
+            <ChartsDemo title="Charts" subtitle="main page with example charts" />
           </Route>
         </Switch>
+        <BottomNav />
       </div>
     </Router>
   );
