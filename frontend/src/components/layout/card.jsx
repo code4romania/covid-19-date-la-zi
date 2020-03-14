@@ -1,4 +1,5 @@
 import React from 'react';
+import './card.css';
 
 export class Card extends React.PureComponent {
   render() {
