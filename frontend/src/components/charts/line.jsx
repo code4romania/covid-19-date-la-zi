@@ -1,10 +1,10 @@
-import React from 'react'
-import ReactEcharts from 'echarts-for-react'
-import { Card } from '../layout/card'
+import React from 'react';
+import ReactEcharts from 'echarts-for-react';
+import { Card } from '../layout/card';
 
 export class LineChart extends React.PureComponent {
   render() {
-    const {chartData, title} = this.props
+    const { chartData, title } = this.props;
     const chartOptions = {
       xAxis: {
         type: 'category',
@@ -19,11 +19,11 @@ export class LineChart extends React.PureComponent {
           data: chartData.series
         }
       ]
-    }
+    };
     return (
       <Card title={title}>
         <ReactEcharts option={chartOptions} />
       </Card>
-    )
+    );
   }
 }

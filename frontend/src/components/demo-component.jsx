@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 export class DemoComponent extends React.PureComponent {
   render() {
-    const {title, subtitle} = this.props;
+    const { title, subtitle } = this.props;
 
     return (
       <section className="section">
@@ -11,6 +11,6 @@ export class DemoComponent extends React.PureComponent {
           <p className="subtitle">{subtitle}</p>
         </div>
       </section>
-    )
+    );
   }
 }

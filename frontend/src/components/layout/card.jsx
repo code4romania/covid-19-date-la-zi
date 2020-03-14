@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 export class Card extends React.PureComponent {
   render() {
-    const {title, children} = this.props;
+    const { title, children } = this.props;
 
     return (
       <div className="card">
@@ -13,6 +13,6 @@ export class Card extends React.PureComponent {
           <div className="content">{children}</div>
         </div>
       </div>
-    )
+    );
   }
 }
