@@ -2,7 +2,7 @@ import React from 'react';
 import { LineChart } from './line';
 import { Doughnut } from './doughnut';
 import { SummaryCard } from '../summary-card/summary-card';
-import { CasesPerDayCard } from '../cases-per-day-card/cases-per-day-card';
+import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
 
 export class ChartsDemo extends React.PureComponent {
   chartData = {
@@ -73,7 +73,7 @@ export class ChartsDemo extends React.PureComponent {
           <div className="columns is-mobile">
             <div className="column">
               <CasesPerDayCard
-                data={this.generateCasesPerDay(500)}
+                data={this.generateCasesPerDay(60)}
               />
             </div>
           </div>
