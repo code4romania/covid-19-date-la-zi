@@ -1,4 +1,4 @@
-﻿namespace Code4Ro.CoViz19.Parser.Models
+﻿namespace Code4Ro.CoViz19.Models
 {
     public class PatientInfo
     {
@@ -9,6 +9,6 @@
         public string InfectionContact { get; set; }
         public string HospitalizationLocation { get; set; }
         public string HealthState { get; set; }
-        public bool IsCured { get; internal set; }
+        public bool IsCured { get; set; }
     }
 }

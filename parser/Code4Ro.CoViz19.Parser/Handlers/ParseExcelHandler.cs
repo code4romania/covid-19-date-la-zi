@@ -1,5 +1,4 @@
 ﻿using Code4Ro.CoViz19.Parser.Commands;
-using Code4Ro.CoViz19.Parser.Models;
 using CSharpFunctionalExtensions;
 using ExcelDataReader;
 using MediatR;
@@ -10,6 +9,8 @@ using System.Threading;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text;
+using Code4Ro.CoViz19.Models;
+
 
 namespace Code4Ro.CoViz19.Parser.Handlers
 {
