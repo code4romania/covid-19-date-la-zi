@@ -73,7 +73,7 @@ export class ChartsDemo extends React.PureComponent {
           <div className="columns is-mobile">
             <div className="column">
               <CasesPerDayCard
-                data={this.generateCasesPerDay(50)}
+                data={this.generateCasesPerDay(500)}
               />
             </div>
           </div>
