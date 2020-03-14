@@ -1,4 +1,6 @@
-﻿namespace Code4Ro.CoViz19.Parser.Models
+﻿using Code4Ro.CoViz19.Models;
+
+namespace Code4Ro.CoViz19.Models
 {
     public class ParsedDataModel
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace Code4Ro.CoViz19.Parser.Models
+namespace Code4Ro.CoViz19.Models
 {
     public class CountyInfectionsInfo
     {

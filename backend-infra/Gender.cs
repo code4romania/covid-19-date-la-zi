@@ -3,7 +3,7 @@ using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
 
-namespace Code4Ro.CoViz19.Parser.Models
+namespace Code4Ro.CoViz19.Models
 {
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Gender
