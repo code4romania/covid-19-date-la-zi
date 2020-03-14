@@ -39,13 +39,13 @@ export class TopNav extends React.PureComponent {
             <div className="developer border-bottom level-right">
               <span>Un proiect dezvoltat de</span>
             &nbsp;&nbsp;
-              <a href="https://code4.ro" target="_blank">
+              <a href="https://code4.ro" target="_blank" rel="noopener noreferrer">
                 <img src="/images/logo-code4.svg" alt="Code 4 Romania Logo" className="logo-code4" />
               </a>
             &nbsp;&nbsp;&nbsp;
               <span>În parteneriat cu</span>
             &nbsp;&nbsp;
-              <a href="https://www.gov.ro/" target="_blank">
+              <a href="https://www.gov.ro/" target="_blank" rel="noopener noreferrer">
                 <img src="/images/logo-gov.svg" height="30" alt="Guvernul Romaniei Logo" className="logo-gov" />
               </a>
             </div>
