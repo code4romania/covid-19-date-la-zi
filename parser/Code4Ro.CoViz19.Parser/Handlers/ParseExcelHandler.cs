@@ -9,6 +9,7 @@ using System.Data;
 using System.Threading;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace Code4Ro.CoViz19.Parser.Handlers
 {
@@ -43,19 +44,120 @@ namespace Code4Ro.CoViz19.Parser.Handlers
 
 
             var liveData = ParseLiveData(result.Tables[0]);
-            ///  var patiens = ParsePatiens(result.Tables[1]);
+            var patiens = ParsePatiens(result.Tables[1]);
             //  var countiesData = ParseCountiesData(result.Tables[2]);
             var parsedData = new ParsedDataModel()
             {
-                LiveUpdateData = liveData.IsSuccess ? liveData.Value : null
+                LiveUpdateData = liveData.IsSuccess ? liveData.Value : null,
+                PatientsInfo = patiens.IsSuccess ? patiens.Value : null
             };
 
             return Result.Ok(parsedData);
         }
 
-        private object ParsePatiens(DataTable dataTable)
+        private Result<PatientInfo[]> ParsePatiens(DataTable patientsInfo)
         {
-            throw new NotImplementedException();
+            if (patientsInfo == null)
+            {
+                return Result.Failure<PatientInfo[]>("Upload Failed, Live data table is empty");
+            }
+
+            var colCount = patientsInfo.Columns.Count;
+
+            if (colCount < 7)
+            {
+                return Result.Failure<PatientInfo[]>("Upload Failed, live data col count");
+            }
+            var rowCount = patientsInfo.Rows.Count;
+            if (rowCount < 1)
+            {
+                return Result.Failure<PatientInfo[]>("Upload Failed, live data row count");
+            }
+
+            var parsedPatientsInfo = new List<PatientInfo>();
+
+            for (int index = 1; index < patientsInfo.Rows.Count; index++)
+            {
+                DataRow row = patientsInfo.Rows[index];
+                var parsedRow = ParsePatientInfo(row);
+                parsedPatientsInfo.Add(parsedRow);
+            }
+            return Result.Ok(parsedPatientsInfo.ToArray());
+        }
+
+        private PatientInfo ParsePatientInfo(DataRow row)
+        {
+            var patientNumber = ParseInt(row[0]) ?? 0;
+            var gender = ParseGender(row[1]);
+            var age = ParseAge(row[2]);
+            var domicile = ToSafeText(row[3]);
+            var infectionContact = ToSafeText(row[4]);
+            var hospitalizationLocation = ToSafeText(row[5]);
+            (bool isCured, string healthObservation) = ParseHealthSate(row[6]);
+
+            return new PatientInfo
+            {
+                PatientNumber = patientNumber,
+                Gender = gender,
+                Domicile = domicile,
+                InfectionContact = infectionContact,
+                Age = age,
+                HospitalizationLocation = hospitalizationLocation,
+                HealthState = healthObservation,
+                IsCured = isCured
+            };
+        }
+
+        private (bool isCured, string healthObservation) ParseHealthSate(object value)
+        {
+            string state = ToSafeText(value);
+
+            if (string.IsNullOrEmpty(state))
+            {
+                return (false, string.Empty);
+            }
+
+            if (state.Equals("vindecat", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return (true, state);
+            }
+
+            return (false, state);
+        }
+
+        private int  ParseAge(object value)
+        {
+            string ageInfo = ToSafeText(value);
+            int age = 0;
+            if (string.IsNullOrEmpty(ageInfo))
+            {
+                return age;
+            }
+            ageInfo
+                .Replace("de ani", string.Empty, StringComparison.InvariantCultureIgnoreCase)
+                .Replace("ani", string.Empty, StringComparison.InvariantCultureIgnoreCase);
+
+            if (ageInfo.Length == 2)
+            {
+                int.TryParse(ageInfo, out age);
+                return age;
+            }
+
+            string ageValue = ageInfo.Substring(0, 2).Trim();
+            int.TryParse(ageValue, out age);
+            return age;
+        }
+
+        private Gender ParseGender(object value)
+        {
+            string gender = ToSafeText(value).ToLower();
+
+            if(gender.StartsWith("f", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Gender.Woman;
+            }
+
+            return Gender.Man;
         }
 
         private object ParseCountiesData(DataTable dataTable)
@@ -127,7 +229,6 @@ namespace Code4Ro.CoViz19.Parser.Handlers
 
         }
 
-
         private int? ParseInt(object value)
         {
             if (!DBNull.Value.Equals(value))
@@ -156,7 +257,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
 
                 if (value is string)
                 {
-                    if(int.TryParse(ToSafeText(value), out returnValue) == false)
+                    if (int.TryParse(ToSafeText(value), out returnValue) == false)
                     {
                         return null;
                     }
@@ -182,8 +283,17 @@ namespace Code4Ro.CoViz19.Parser.Handlers
                 return string.Empty;
             }
 
-            return text;
+            return NormalizeText(text.Trim());
+        }
 
+        private static string NormalizeText(string input)
+        {
+            string normalized = input.Normalize(NormalizationForm.FormKD);
+            Encoding removal = Encoding.GetEncoding(Encoding.ASCII.CodePage,
+                                                    new EncoderReplacementFallback(""),
+                                                    new DecoderReplacementFallback(""));
+            byte[] bytes = removal.GetBytes(normalized);
+            return Encoding.ASCII.GetString(bytes);
         }
     }
 }

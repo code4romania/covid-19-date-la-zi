@@ -3,5 +3,6 @@
     public class ParsedDataModel
     {
         public LiveUpdateData[] LiveUpdateData {get;set;}
+        public PatientInfo[] PatientsInfo { get; set; }
     }
 }

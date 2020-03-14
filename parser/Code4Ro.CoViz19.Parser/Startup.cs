@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Code4Ro.CoViz19.Parser
 {
@@ -23,7 +25,7 @@ namespace Code4Ro.CoViz19.Parser
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson();
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
             // In production, the Angular files will be served from this directory
@@ -31,6 +33,8 @@ namespace Code4Ro.CoViz19.Parser
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +57,7 @@ namespace Code4Ro.CoViz19.Parser
             {
                 app.UseSpaStaticFiles();
             }
+
 
             app.UseRouting();
 
