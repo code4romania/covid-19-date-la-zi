@@ -18,7 +18,7 @@ export class ChartsDemo extends React.PureComponent {
   };
 
   summaryCardData = {
-    chartData: this.chartData,
+    data: this.chartData.series,
     special: {
       value: 0,
       label: 'people got an error page',
@@ -44,7 +44,7 @@ export class ChartsDemo extends React.PureComponent {
               <SummaryCard
                 to="/"
                 title="People who clicked this card and got home"
-                chartData={this.summaryCardData.chartData}
+                data={this.summaryCardData.data}
                 special={this.summaryCardData.special}
               />
             </div>
