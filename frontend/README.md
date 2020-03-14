@@ -32,7 +32,7 @@ You will also see any lint errors in the console.
 
 The project uses `eslint` to assure consistency across the codebase. It extends the `standard-jsx` with some custom rules.
 
-**IMPORTANT:** the project has in place a pre-commit hook that will run `yarn run lint:fix` before each commit. However there are errors that can't be automatically fixed(e.g. shadowed variables). In that case the commit will fail and you'll have to fix the errors manually before being able to commit.
+**IMPORTANT:** the project has in place a pre-commit hook that will run the tests and `yarn run lint:fix` before each commit. However there tests that might fail or linting errors that can't be automatically fixed(e.g. shadowed variables). In that case the commit will fail and you'll have to fix the errors manually before being able to commit.
 If you're in a hurry and really need to commit you can bypass the hook by using the `-n` flag when committing(e.g `git commit -am "message" -n`). However it is not recommended to do that.
 
 ### `yarn test`
