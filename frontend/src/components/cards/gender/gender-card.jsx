@@ -50,7 +50,7 @@ export class GenderCard extends React.PureComponent {
             {value: 335, name: Constants.womenText},
             {value: 1548, name: Constants.menText}
           ],
-          color: ['#F77EB9', '#7EBCFF']
+          color: [Constants.womenColor, Constants.menColor]
         }
       ]
     };
