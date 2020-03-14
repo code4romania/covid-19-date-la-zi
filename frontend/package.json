@@ -15,7 +15,9 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "eslint-config-standard-jsx": "^8.1.0"
+    "babel-eslint": "10.0.3",
+    "eslint-config-standard-jsx": "^8.1.0",
+    "husky": "^4.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,5 +41,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint:fix"
+    }
   }
 }
