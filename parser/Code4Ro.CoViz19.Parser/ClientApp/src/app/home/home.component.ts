@@ -35,7 +35,7 @@ export class HomeComponent {
     );
   }
   handleUploadError(error: any) {
-    alert(error);
+    alert(JSON.stringify(error));
   }
   handleUploadResponse(body: any) {
     this.parsedResponse = body;
