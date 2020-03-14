@@ -63,7 +63,7 @@ export class Dashboard extends React.PureComponent {
     return (
       <section className="section">
         <div className="container">
-          <div className="columns is-mobile">
+          <div className="columns">
             <div className="column">
               <SummaryCard
                 to="/"

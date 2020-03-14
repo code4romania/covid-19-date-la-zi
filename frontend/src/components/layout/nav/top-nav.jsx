@@ -34,7 +34,7 @@ export class TopNav extends React.PureComponent {
           </div>
         </nav>
         <div className="container">
-          <div className="level">
+          <div className="level is-mobile">
             <div className="level-left" />
             <div className="developer border-bottom level-right">
               <span>Un proiect dezvoltat de</span>
