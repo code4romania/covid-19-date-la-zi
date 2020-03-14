@@ -1,6 +1,7 @@
 import React from 'react';
 import { LineChart } from './line';
 import { Doughnut } from './doughnut';
+import { SummaryCard } from '../summary-card/summary-card';
 
 export class ChartsDemo extends React.PureComponent {
   chartData = {
@@ -16,6 +17,15 @@ export class ChartsDemo extends React.PureComponent {
     }))
   };
 
+  summaryCardData = {
+    chartData: this.chartData,
+    special: {
+      value: 0,
+      label: 'people got an error page',
+      isGood: true
+    }
+  }
+
   render() {
     return (
       <section className="section">
@@ -28,6 +38,14 @@ export class ChartsDemo extends React.PureComponent {
               <Doughnut
                 title="My doughnut chart"
                 chartData={this.doughnutChartData}
+              />
+            </div>
+            <div className="column">
+              <SummaryCard
+                to="/"
+                title="People who clicked this card and got home"
+                chartData={this.summaryCardData.chartData}
+                special={this.summaryCardData.special}
               />
             </div>
           </div>
