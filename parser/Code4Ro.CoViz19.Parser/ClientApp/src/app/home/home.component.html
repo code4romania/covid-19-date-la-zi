@@ -1,0 +1,8 @@
+<h1>Data parser</h1>
+
+<input type="file" #file (change)="onFilesAdded()" />
+
+<button [disabled]="uploadInProgress" (click)="startUpload()">Upload</button>
+<pre>
+  {{parsedResponse|json}}
+</pre>
