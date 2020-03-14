@@ -1,5 +1,7 @@
 import React from 'react';
-import { SummaryCard } from '../summary-card/summary-card';
+import { SummaryCard } from '../cards/summary/summary-card';
+import { GenderCard } from '../cards/gender/gender-card';
+import './dashboard.css';
 
 export class Dashboard extends React.PureComponent {
   chartData = {
@@ -62,7 +64,7 @@ export class Dashboard extends React.PureComponent {
   render() {
     return (
       <section className="section">
-        <div className="container">
+        <div className="container cards-row">
           <div className="columns">
             <div className="column">
               <SummaryCard
@@ -98,6 +100,20 @@ export class Dashboard extends React.PureComponent {
                 data={this.curedSummaryData.data}
                 total={this.curedSummaryData.total}
                 special={this.curedSummaryData.special}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="container cards-row second-row">
+          <div className="columns">
+            <div className="column is-one-quarter">
+              <GenderCard
+                to="/"
+                title="După gen"
+                data={this.confirmedSummaryData.data}
+                total={this.confirmedSummaryData.total}
+                special={this.confirmedSummaryData.special}
               />
             </div>
           </div>

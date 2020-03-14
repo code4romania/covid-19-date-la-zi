@@ -1,0 +1,11 @@
+.cards-row {
+    margin-bottom: 30px;
+}
+
+.cards-row.second-row {
+    height: 414px;
+}
+
+.cards-row .content {
+    height: 100%;
+}
