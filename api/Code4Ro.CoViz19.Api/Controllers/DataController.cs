@@ -6,6 +6,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.Filters;
 using Code4Ro.CoViz19.Models;
 using Code4Ro.CoViz19.Api.Swagger;
+using Code4Ro.CoViz19.Api.Models;
 
 namespace Code4Ro.CoViz19.Api.Controllers
 {
@@ -24,7 +25,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         [HttpGet]
         [SwaggerOperation(Summary = "Get latest data provided by Ministry of Health")]
         [SwaggerResponse(200, "Latest data", typeof(ParsedDataModel))]
-        [SwaggerResponse(500, "Something went wrong when getting data")]
+        [SwaggerResponse(500, "Something went wrong when getting data", typeof(ErrorModel))]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         [SwaggerResponseExample(200, typeof(LatestDataExample))]
         public async Task<IActionResult> GetLatestData()
