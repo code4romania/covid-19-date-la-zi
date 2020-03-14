@@ -1,8 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web&display=swap');
+
+:root {
+  --accent-color: #1C1080;
+  --main-color: #000;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Titillium Web', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
