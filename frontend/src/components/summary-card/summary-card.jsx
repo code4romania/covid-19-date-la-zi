@@ -28,11 +28,10 @@ export class SummaryCard extends React.PureComponent {
   }
 
   render() {
-    const { title, data, special } = this.props;
-    const total = this.getTotal(data);
+    const { title, data, special, total } = this.props;
     return (
       <Card>
-        <h3>{title}</h3>
+        <h3 className="is-uppercase summary-title">{title}</h3>
         <h4 className="is-inline-block total">{total}</h4>
         {special &&
           <span className="is-inline-block special">

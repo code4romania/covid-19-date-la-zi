@@ -31,13 +31,37 @@ export class ChartsDemo extends React.PureComponent {
       <section className="section">
         <div className="container">
           <div className="columns is-mobile">
-            <div className="column">
+            {/* <div className="column">
               <LineChart title="My line chart" chartData={this.chartData} />
             </div>
             <div className="column">
               <Doughnut
                 title="My doughnut chart"
                 chartData={this.doughnutChartData}
+              />
+            </div> */}
+            <div className="column">
+              <SummaryCard
+                to="/"
+                title="People who clicked this card and got home"
+                data={this.summaryCardData.data}
+                special={this.summaryCardData.special}
+              />
+            </div>
+            <div className="column">
+              <SummaryCard
+                to="/"
+                title="People who clicked this card and got home"
+                data={this.summaryCardData.data}
+                special={this.summaryCardData.special}
+              />
+            </div>
+            <div className="column">
+              <SummaryCard
+                to="/"
+                title="People who clicked this card and got home"
+                data={this.summaryCardData.data}
+                special={this.summaryCardData.special}
               />
             </div>
             <div className="column">
