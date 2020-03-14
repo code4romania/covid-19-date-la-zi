@@ -33,9 +33,8 @@ export class TopNav extends React.PureComponent {
             </div>
           </div>
         </nav>
-        <div className="container">
-          <div className="level is-mobile">
-            <div className="level-left" />
+        <div className="container is-clearfix">
+          <div className="is-pulled-right is-flex">
             <div className="developer border-bottom level-right">
               <span>Un proiect dezvoltat de</span>
             &nbsp;&nbsp;

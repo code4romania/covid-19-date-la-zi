@@ -9,7 +9,7 @@ export class Card extends React.PureComponent {
       <div className="card">
         {title &&
           <header className="card-header">
-            <p className="card-header-title">{title}</p>
+            <p className="card-header-title is-uppercase">{title}</p>
           </header>}
         <div className="card-content">
           <div className="content">{children}</div>

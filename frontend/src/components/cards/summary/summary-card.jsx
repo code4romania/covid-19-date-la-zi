@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactEcharts from 'echarts-for-react';
-import { Card } from '../layout/card';
+import { Card } from '../../layout/card';
 import './summary-card.css'
 import { SUMMARY_CHART_THEME } from './summary-chart.theme'
 
