@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
-import { Card } from '../layout/card';
+import { Card } from '../../layout/card';
 
 const months = ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Noi', 'Dec'];
 
@@ -56,7 +56,6 @@ export class CasesPerDayCard extends React.PureComponent {
         name: 'Raportati',
         stack: 'one',
         type: 'bar',
-        barMaxWidth: '10px'
       }, {
         data: data.map(d => d.confirmed),
         name: 'Confirmati',
