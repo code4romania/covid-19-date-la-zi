@@ -2,7 +2,8 @@
 {
     public class ParsedDataModel
     {
-        public LiveUpdateData[] LiveUpdateData {get;set;}
+        public LiveUpdateData[] LiveUpdateData { get; set; }
         public PatientInfo[] PatientsInfo { get; set; }
+        public CountyInfectionsInfo[] CountiesData { get; set; }
     }
 }

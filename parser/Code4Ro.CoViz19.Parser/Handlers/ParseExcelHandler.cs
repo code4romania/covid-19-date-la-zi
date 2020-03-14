@@ -41,15 +41,14 @@ namespace Code4Ro.CoViz19.Parser.Handlers
                 return Result.Failure<ParsedDataModel>("Upload Failed, could not read the file.");
             }
 
-
-
             var liveData = ParseLiveData(result.Tables[0]);
             var patiens = ParsePatiens(result.Tables[1]);
-            //  var countiesData = ParseCountiesData(result.Tables[2]);
+            var countiesData = ParseCountiesData(result.Tables[2]);
             var parsedData = new ParsedDataModel()
             {
                 LiveUpdateData = liveData.IsSuccess ? liveData.Value : null,
-                PatientsInfo = patiens.IsSuccess ? patiens.Value : null
+                PatientsInfo = patiens.IsSuccess ? patiens.Value : null,
+                CountiesData = countiesData.IsSuccess ? countiesData.Value : null
             };
 
             return Result.Ok(parsedData);
@@ -79,15 +78,15 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             for (int index = 1; index < patientsInfo.Rows.Count; index++)
             {
                 DataRow row = patientsInfo.Rows[index];
-                var parsedRow = ParsePatientInfo(row);
+                var parsedRow = ParsePatientInfo(row, index);
                 parsedPatientsInfo.Add(parsedRow);
             }
             return Result.Ok(parsedPatientsInfo.ToArray());
         }
 
-        private PatientInfo ParsePatientInfo(DataRow row)
+        private PatientInfo ParsePatientInfo(DataRow row, int rowIndex)
         {
-            var patientNumber = ParseInt(row[0]) ?? 0;
+            var patientNumber = ParseInt(row[0]) ?? rowIndex;
             var gender = ParseGender(row[1]);
             var age = ParseAge(row[2]);
             var domicile = ToSafeText(row[3]);
@@ -125,7 +124,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             return (false, state);
         }
 
-        private int  ParseAge(object value)
+        private int? ParseAge(object value)
         {
             string ageInfo = ToSafeText(value);
             int age = 0;
@@ -139,12 +138,18 @@ namespace Code4Ro.CoViz19.Parser.Handlers
 
             if (ageInfo.Length == 2)
             {
-                int.TryParse(ageInfo, out age);
-                return age;
+                if (int.TryParse(ageInfo, out age) == false)
+                {
+                    return null;
+                }
             }
 
             string ageValue = ageInfo.Substring(0, 2).Trim();
-            int.TryParse(ageValue, out age);
+            if (int.TryParse(ageValue, out age) == false)
+            {
+                return null;
+            }
+
             return age;
         }
 
@@ -152,7 +157,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
         {
             string gender = ToSafeText(value).ToLower();
 
-            if(gender.StartsWith("f", StringComparison.InvariantCultureIgnoreCase))
+            if (gender.StartsWith("f", StringComparison.InvariantCultureIgnoreCase))
             {
                 return Gender.Woman;
             }
@@ -160,9 +165,46 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             return Gender.Man;
         }
 
-        private object ParseCountiesData(DataTable dataTable)
+        private Result<CountyInfectionsInfo[]> ParseCountiesData(DataTable countiesData)
         {
-            throw new NotImplementedException();
+            if (countiesData == null)
+            {
+                return Result.Failure<CountyInfectionsInfo[]>("Upload Failed, counties data table is empty");
+            }
+
+            var colCount = countiesData.Columns.Count;
+
+            if (colCount < 2)
+            {
+                return Result.Failure<CountyInfectionsInfo[]>("Upload Failed, counties data col count");
+            }
+            var rowCount = countiesData.Rows.Count;
+            if (rowCount < 1)
+            {
+                return Result.Failure<CountyInfectionsInfo[]>("Upload Failed, counties data row count");
+            }
+
+            var parsedCountiesInfectionCases = new List<CountyInfectionsInfo>();
+
+            for (int index = 1; index < countiesData.Rows.Count; index++)
+            {
+                DataRow row = countiesData.Rows[index];
+
+                var parsedRow = new CountyInfectionsInfo()
+                {
+                    County = ToSafeText(row[0]),
+                    NumberOfInfections = ParseInt(row[1])
+                };
+
+                if (string.IsNullOrEmpty(parsedRow.County))
+                {
+                    continue;
+                }
+
+                parsedCountiesInfectionCases.Add(parsedRow);
+            }
+
+            return Result.Ok(parsedCountiesInfectionCases.ToArray());
         }
 
         private Result<LiveUpdateData[]> ParseLiveData(DataTable liveData)
@@ -196,7 +238,6 @@ namespace Code4Ro.CoViz19.Parser.Handlers
                 var parsedRow = ParseLiveUpsdateDataRow(row, gruppedRowDate);
                 parsedLiveData.Add(parsedRow);
             }
-
 
             var latestDataPerDay = parsedLiveData
                    .Select(x => new { key = x.Timestamp.ToShortDateString(), data = x })

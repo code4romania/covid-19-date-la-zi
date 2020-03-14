@@ -4,7 +4,7 @@
     {
         public int PatientNumber { get; set; }
         public Gender Gender { get; set; }
-        public int Age { get; set; }
+        public int? Age { get; set; }
         public string Domicile { get; set; }
         public string InfectionContact { get; set; }
         public string HospitalizationLocation { get; set; }
