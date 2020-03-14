@@ -77,7 +77,7 @@ export class CasesPerDayCard extends React.PureComponent {
         {data &&
           <ReactEcharts
             style={{
-              height: '400px',
+              height: '100%',
               width: '100%',
             }}
             option={this.getChartOptions(data)}

@@ -6,6 +6,6 @@
     height: 414px;
 }
 
-.cards-row .content {
+.cards-row .card, .cards-row .card-content, .cards-row .content {
     height: 100%;
 }

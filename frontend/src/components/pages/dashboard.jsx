@@ -1,6 +1,7 @@
 import React from 'react';
 import { SummaryCard } from '../cards/summary/summary-card';
 import { GenderCard } from '../cards/gender/gender-card';
+import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
 import './dashboard.css';
 
 export class Dashboard extends React.PureComponent {
@@ -61,6 +62,26 @@ export class Dashboard extends React.PureComponent {
     }
   }
 
+  rand(start, end){
+    return start + Math.floor(Math.random() * (end - start))
+  }
+
+  generateCasesPerDay(numberOfDays) {
+    const today = new Date();
+
+    var data = [];
+    for (let i = numberOfDays; i >= 0; i--) {
+      const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+      data.push({
+        date: date,
+        symptomatic: this.rand(2, 700),
+        confirmed: this.rand(5, 200),
+        cured: this.rand(5, 200),
+      })
+    }
+    return data;
+  }
+
   render() {
     return (
       <section className="section">
@@ -107,13 +128,16 @@ export class Dashboard extends React.PureComponent {
 
         <div className="container cards-row second-row">
           <div className="columns">
+            <div className="column is-three-quarters">
+              <CasesPerDayCard
+                data={this.generateCasesPerDay(60)}
+              />
+            </div>
             <div className="column is-one-quarter">
               <GenderCard
                 to="/"
                 title="După gen"
                 data={this.confirmedSummaryData.data}
-                total={this.confirmedSummaryData.total}
-                special={this.confirmedSummaryData.special}
               />
             </div>
           </div>

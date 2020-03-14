@@ -57,7 +57,7 @@ export class GenderCard extends React.PureComponent {
   }
 
   render() {
-    const { title, data, special, total } = this.props;
+    const { title, data } = this.props;
     return (
       <Card title={title}>
         {data &&
