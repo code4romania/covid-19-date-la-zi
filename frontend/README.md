@@ -1,4 +1,20 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# co-viz-19 Ffrontend
+
+This will contain the project and all files related to the frontend app that will consume the API
+
+## Dependencies
+
+### Bulma css
+
+The CSS framework used to build the interface is [Bulma](https://bulma.io)
+
+### echartsjs
+
+For building data visualizations we use the react wrapper for `echartsjs`: [echarts-for-react](https://github.com/hustcc/echarts-for-react).
+
+Some usage examples can be found [here](https://github.com/hustcc/echarts-for-react/tree/master/demo/src/charts)
+
+Official docs for [echartsjs](https://www.echartsjs.com/examples/en/index.html)
 
 ## Available Scripts
 
@@ -11,6 +27,13 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+
+### `yarn run lint` or `yarn run lint:fix`
+
+The project uses `eslint` to assure consistency across the codebase. It extends the `standard-jsx` with some custom rules.
+
+**IMPORTANT:** the project has in place a pre-commit hook that will run `yarn run lint:fix` before each commit. However there are errors that can't be automatically fixed(e.g. shadowed variables). In that case the commit will fail and you'll have to fix the errors manually before being able to commit.
+If you're in a hurry and really need to commit you can bypass the hook by using the `-n` flag when committing(e.g `git commit -am "message" -n`). However it is not recommended to do that.
 
 ### `yarn test`
 
@@ -36,33 +59,3 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
