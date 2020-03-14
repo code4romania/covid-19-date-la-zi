@@ -106,17 +106,17 @@ export class Dashboard extends React.PureComponent {
         </div>
 
         <div className="container cards-row second-row">
-            <div className="columns">
-                <div className="column is-one-quarter">
-                    <GenderCard 
-                    to="/"
-                        title="După gen"
-                        data={this.confirmedSummaryData.data}
-                        total={this.confirmedSummaryData.total}
-                        special={this.confirmedSummaryData.special}
-                    />
-                </div>
+          <div className="columns">
+            <div className="column is-one-quarter">
+              <GenderCard
+                to="/"
+                title="După gen"
+                data={this.confirmedSummaryData.data}
+                total={this.confirmedSummaryData.total}
+                special={this.confirmedSummaryData.special}
+              />
             </div>
+          </div>
         </div>
       </section>
     );
