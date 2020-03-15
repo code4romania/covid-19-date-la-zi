@@ -33,7 +33,7 @@ namespace Code4Ro.CoViz19.Api
             services.AddOptions();
             services.Configure<CacheOptions>(Configuration.GetSection("Cache"));
 
-            services.AddSingleton<IDataProviderService, DummyDAtaProviderService>();
+            services.AddSingleton<IDataProviderService, DummyDataProviderService>();
             services.AddSingleton<ICacheSercice, NoCacheService>();
 
             services.AddControllers();

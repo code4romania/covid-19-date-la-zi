@@ -1,9 +1,11 @@
 ﻿using Code4Ro.CoViz19.Models;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System;
+
 namespace Code4Ro.CoViz19.Api.Services
 {
-    public class DummyDAtaProviderService : IDataProviderService
+    public class DummyDataProviderService : IDataProviderService
     {
         private ParsedDataModel _fakeData;
 
@@ -16,6 +18,16 @@ namespace Code4Ro.CoViz19.Api.Services
             }
 
             return Task.FromResult(_fakeData);
+        }
+
+        public Task<(DateTime datePublished, ParsedDataModel parsedData)[]> GetHistoricalData()
+        {
+            if (_fakeData == null)
+            {
+                _fakeData = JsonConvert.DeserializeObject<ParsedDataModel>(jsonData);
+            }
+
+            return Task.FromResult(new[] { (DateTime.Today, _fakeData) });
         }
 
 
