@@ -32,14 +32,13 @@ namespace Code4Ro.CoViz19.Api.Handlers
         public async Task<QuickStatsModel> Handle(GetQuickstatsData request, CancellationToken cancellationToken)
         {
             var data = await _dataService.GetCurrentData();
-            var historicalData = await _dataService.GetHistoricalData();
 
             var latestStats = GetLatestStatsFromLivedata(data);
 
             return new QuickStatsModel
             {
-                Totals = ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(latestStats, data.PatientsInfo),
-                History = historicalData.Select(historicalData => ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(GetLatestStatsFromLivedata(historicalData.parsedData), historicalData.parsedData.PatientsInfo)).ToArray()
+                Totals = ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(latestStats),
+                History = data.LiveUpdateData.Select(x=> ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(x)).ToArray()
             };
         }
 

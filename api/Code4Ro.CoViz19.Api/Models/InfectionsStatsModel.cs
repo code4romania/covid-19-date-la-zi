@@ -5,6 +5,7 @@ namespace Code4Ro.CoViz19.Api.Models
     public class InfectionsStatsModel
     {
         [JsonProperty(PropertyName = "date")] public long Date { get; set; }
+        [JsonProperty(PropertyName = "date_string")] public string DateString { get; set; }
         [JsonProperty(PropertyName = "confirmed")] public int Confirmed { get; set; }
         [JsonProperty(PropertyName = "monitored")] public int Monitored { get; set; }
         [JsonProperty(PropertyName = "hospitalized")] public int Hospitalized { get; set; }
