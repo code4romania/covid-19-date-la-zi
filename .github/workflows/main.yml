@@ -22,9 +22,9 @@ jobs:
 
       - name: Build Docker image
         run: |
-
           docker build . \
-            --tag $IMAGE_PARSER:$GITHUB_SHA
+            --tag $IMAGE_PARSER:$GITHUB_SHA \
+            --file Dockerfile-parser
       - name: Upload Docker image
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
         run: |
@@ -59,9 +59,9 @@ jobs:
 
       - name: Build Docker image
         run: |
-
           docker build . \
-            --tag $IMAGE_API:$GITHUB_SHA
+            --tag $IMAGE_API:$GITHUB_SHA \
+            --file Dockerfile-api
       - name: Upload Docker image
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
         run: |
@@ -96,7 +96,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-
+          cd frontend
           docker build . \
             --tag $IMAGE_FRONTEND:$GITHUB_SHA
       - name: Upload Docker image
