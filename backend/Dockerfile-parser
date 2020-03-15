@@ -2,15 +2,17 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build
 WORKDIR /source
 
+RUN apk add --no-cache --update nodejs nodejs-npm
+
 # copy csproj and restore as distinct layers
-WORKDIR /source/api/Code4Ro.CoViz19.Api/
-COPY backend-infra/*.csproj /source/backend-infra/
-COPY api/Code4Ro.CoViz19.Api/*.csproj .
+WORKDIR /source/Code4Ro.CoViz19.Parser/
+COPY Code4Ro.CoViz19.Models/*.csproj /source/Code4Ro.CoViz19.Models/
+COPY Code4Ro.CoViz19.Parser/*.csproj .
 RUN dotnet restore
 
 # copy and publish app and libraries
-COPY api/Code4Ro.CoViz19.Api/ ./
-COPY backend-infra/ /source/backend-infra/
+COPY Code4Ro.CoViz19.Parser/ ./
+COPY Code4Ro.CoViz19.Models/ /source/Code4Ro.CoViz19.Models/
 RUN dotnet build -c Release -o /app/build
 RUN dotnet publish -c Release -o /app/publish
 
@@ -29,4 +31,4 @@ COPY --from=build /app/publish .
 #ENV LC_ALL en_US.UTF-8
 #ENV LANG en_US.UTF-8
 
-ENTRYPOINT ["dotnet", "Code4Ro.CoViz19.Api.dll"]
+ENTRYPOINT ["dotnet", "Code4Ro.CoViz19.Parser.dll"]

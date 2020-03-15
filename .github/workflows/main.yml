@@ -21,6 +21,7 @@ jobs:
 
       - name: Build Docker image
         run: |
+          cd backend
           docker build . \
             --tag $IMAGE_PARSER:$GITHUB_SHA \
             --file Dockerfile-parser
@@ -35,6 +36,7 @@ jobs:
 
       - name: Build Docker image
         run: |
+          cd backend
           docker build . \
             --tag $IMAGE_API:$GITHUB_SHA \
             --file Dockerfile-api
