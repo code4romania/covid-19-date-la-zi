@@ -1,0 +1,19 @@
+.page-header h1 {
+    background-image: url(/images/icon-circle.svg);
+    background-repeat: no-repeat;
+    background-size: 26px;
+    background-position-y: center;
+    color: var(--accent-color);
+    padding-left: 36px;
+    line-height: 50px;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.page-header .subtitle {
+    font-size: 16px;
+}
+
+.page-header {
+    padding-bottom: 5px;
+}

@@ -1,7 +1,9 @@
 import React from 'react';
+import { PageHeader } from '../layout/page.header';
 import { SummaryCard } from '../cards/summary/summary-card';
 import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
+import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
 import './dashboard.css';
 
 export class Dashboard extends React.PureComponent {
@@ -69,7 +71,7 @@ export class Dashboard extends React.PureComponent {
   generateCasesPerDay(numberOfDays) {
     const today = new Date();
 
-    var data = [];
+    let data = [];
     for (let i = numberOfDays; i >= 0; i--) {
       const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
       data.push({
@@ -85,6 +87,14 @@ export class Dashboard extends React.PureComponent {
   render() {
     return (
       <section className="section">
+        <div className="container cards-row">
+          <PageHeader
+            title="Date Oficiale"
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium. Lorem 
+            ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium.Lorem ipsum dolor sit amet, 
+            consectetur adipiscing elit. Elit, duis pretium."
+          />
+        </div>
         <div className="container cards-row">
           <div className="columns">
             <div className="column">
@@ -139,6 +149,20 @@ export class Dashboard extends React.PureComponent {
                 title="După gen"
                 data={this.confirmedSummaryData.data}
               />
+            </div>
+          </div>
+        </div>
+
+        <div className="container cards-row third-row">
+          <div className="columns">
+            <div className="column is-two-quarters">
+              <GenderAndAgeCard
+                title="După vârstă și gen"
+                data={this.generateCasesPerDay(60)}
+              />
+            </div>
+            <div className="column">
+              
             </div>
           </div>
         </div>
