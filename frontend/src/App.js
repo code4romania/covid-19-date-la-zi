@@ -2,9 +2,12 @@ import React from 'react';
 import { TopNav } from './components/layout/nav/top-nav';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { DemoComponent } from './components/demo-component';
-import { Dashboard } from './components/pages/dashboard';
 import { Link } from 'react-router-dom';
 import { BottomNav } from './components/layout/nav/bottom-nav';
+
+// pages
+import { Dashboard } from './components/pages/dashboard';
+import { AbooutPage, AboutPage } from './components/pages/about';
 
 function App() {
   return (
@@ -13,13 +16,10 @@ function App() {
         <TopNav />
         <Switch>
           <Route path="/about">
-            <DemoComponent
-              title="About this site"
-              subtitle="Code 4 Romania FTW!"
-            />
+            <AboutPage />
           </Route>
           <Route path="/">
-            <Dashboard title="Charts" subtitle="main page with example charts" />
+            <Dashboard />
           </Route>
         </Switch>
         <BottomNav />
