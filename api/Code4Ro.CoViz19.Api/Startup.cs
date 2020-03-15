@@ -1,20 +1,15 @@
+using Code4Ro.CoViz19.Api.Filters;
 using Code4Ro.CoViz19.Api.Middleware;
-using Code4Ro.CoViz19.Api.Models;
 using Code4Ro.CoViz19.Api.Options;
 using Code4Ro.CoViz19.Api.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
-using System.Net;
 using System.Reflection;
-using System.Text;
 
 namespace Code4Ro.CoViz19.Api
 {
@@ -32,10 +27,12 @@ namespace Code4Ro.CoViz19.Api
         {
             services.AddOptions();
             services.Configure<CacheOptions>(Configuration.GetSection("Cache"));
+            services.Configure<AuthorizationOptions>(Configuration.GetSection("Authorization"));
 
             services.AddSingleton<IDataProviderService, DummyDAtaProviderService>();
             services.AddSingleton<ICacheSercice, NoCacheService>();
-
+            services.AddSingleton<IApiKeyProvider, InMemoryGetApiKeyQuery>();
+            services.AddTransient<ApiKeyRequestFilterAttribute>();
             services.AddControllers();
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
@@ -49,6 +46,28 @@ namespace Code4Ro.CoViz19.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Code4Ro.CoViz19.Api", Version = "v1" });
+
+                c.AddSecurityDefinition(ApiKeyRequestFilterAttribute.HeaderName, new OpenApiSecurityScheme
+                {
+                    Description = "Api key needed to access the endpoints. api-key: My_API_Key",
+                    In = ParameterLocation.Header,
+                    Name = ApiKeyRequestFilterAttribute.HeaderName,
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Name = ApiKeyRequestFilterAttribute.HeaderName,
+                            Type = SecuritySchemeType.ApiKey,
+                            In = ParameterLocation.Header,
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = ApiKeyRequestFilterAttribute.HeaderName },
+                        },
+                        new string[] {}
+                    }
+                });
             });
         }
 
@@ -61,34 +80,7 @@ namespace Code4Ro.CoViz19.Api
             }
             app.UseHttpStatusCodeExceptionMiddleware();
 
-            //app.UseExceptionHandler(builder =>
-            //    builder.Run(async context =>
-            //    {
-            //        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            //        var ex = context.Features.Get<IExceptionHandlerFeature>();
-            //        if (ex != null)
-            //        {
-            //            StringBuilder message = new StringBuilder();
-            //            var messageModel = new ErrorModel
-            //            {
-            //                Message = ex.Error.Message,
-            //            };
-
-            //            if (env.IsDevelopment())
-            //            {
-            //                messageModel.Detail = ex.Error.StackTrace;
-            //            }
-            //            else
-            //            {
-            //                message.AppendLine("An error has occurred");
-            //            }
-
-            //            await context.Response.WriteAsync(JsonConvert.SerializeObject(messageModel));
-
-            //        }
-            //    }));
-
-
+            
             app.UseHttpsRedirection();
             app.UseSwagger();
 
