@@ -18,8 +18,8 @@ export class CasesPerDayCard extends React.PureComponent {
   }
 
   getSubtitle(data){
-    var firstDate = data[0].date;
-    var lastDate = data[data.length - 1].date;
+    let firstDate = data[0].date;
+    let lastDate = data[data.length - 1].date;
     return `de la ${this.formatDateLong(firstDate)} la ${this.formatDateLong(lastDate)}`
   }
 
@@ -33,20 +33,20 @@ export class CasesPerDayCard extends React.PureComponent {
         type: 'value'
       },
       tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-              axis: 'x'
-          }
+        trigger: 'axis',
+        axisPointer: {
+          axis: 'x'
+        }
       },
       title: {
-          left: 0,
-          text: 'Numar de cazuri',
-          subtext: this.getSubtitle(data),
+        left: 0,
+        text: 'Numar de cazuri',
+        subtext: this.getSubtitle(data),
       },
       legend: {
         data: ['Raportati', 'Confirmati', 'Vindecati'],
         right: 0
-      }, 
+      },
       grid: {
         left: 0,
         right: 0,
@@ -81,7 +81,7 @@ export class CasesPerDayCard extends React.PureComponent {
               width: '100%',
             }}
             option={this.getChartOptions(data)}
-            theme='light'
+            theme="light"
           />}
       </Card>
     );

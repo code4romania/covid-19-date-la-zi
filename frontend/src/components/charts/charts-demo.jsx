@@ -34,7 +34,7 @@ export class ChartsDemo extends React.PureComponent {
   generateCasesPerDay(numberOfDays) {
     const today = new Date();
 
-    var data = [];
+    let data = [];
     for (let i = numberOfDays; i >= 0; i--) {
       const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
       data.push({
