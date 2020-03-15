@@ -237,7 +237,11 @@ namespace Code4Ro.CoViz19.Parser.Handlers
                     gruppedRowDate = ToSafeText(row[0]);
                 }
                 var parsedRow = ParseLiveUpsdateDataRow(row, gruppedRowDate);
-                parsedLiveData.Add(parsedRow);
+                if (parsedRow != null)
+                {
+
+                    parsedLiveData.Add(parsedRow);
+                }
             }
 
             var latestDataPerDay = parsedLiveData
@@ -255,6 +259,19 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             var month = int.Parse(dayMonth[1]);
             var timestamp = new DateTime(2020, month, day, hour ?? 0, 0, 0);
 
+            bool hasAtLeastOneFieldsFilled = false;
+            for (int i = 2; i <= 10; i++)
+            {
+                if (!DBNull.Value.Equals(row[i]))
+                {
+                    hasAtLeastOneFieldsFilled = true;
+                }
+            }
+
+            if (!hasAtLeastOneFieldsFilled)
+            {
+                return null;
+            }
             return new LiveUpdateData()
             {
                 Timestamp = timestamp,

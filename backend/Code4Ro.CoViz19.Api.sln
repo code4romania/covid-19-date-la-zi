@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Code4Ro.CoViz19.Api", "Code
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Code4Ro.CoViz19.Api.Tests", "Code4Ro.CoViz19.Api.Tests\Code4Ro.CoViz19.Api.Tests.csproj", "{31795AC9-93A9-4090-96DE-DE30E16EB757}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Code4Ro.CoViz19.Models", "Code4RO.CoViz19.Models\Code4Ro.CoViz19.Models.csproj", "{16163FE8-98D8-4A50-B091-139442FE8BB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Code4Ro.CoViz19.Models", "Code4Ro.CoViz19.Models\Code4Ro.CoViz19.Models.csproj", "{16163FE8-98D8-4A50-B091-139442FE8BB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

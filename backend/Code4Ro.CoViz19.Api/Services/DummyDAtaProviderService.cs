@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 namespace Code4Ro.CoViz19.Api.Services
 {
-    public class DummyDAtaProviderService : IDataProviderService
+    public class DummyDataProviderService : IDataProviderService
     {
         private ParsedDataModel _fakeData;
 

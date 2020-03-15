@@ -30,7 +30,7 @@ namespace Code4Ro.CoViz19.Api
             services.Configure<CacheOptions>(Configuration.GetSection("Cache"));
             services.Configure<AuthorizationOptions>(Configuration.GetSection("Authorization"));
 
-            services.AddSingleton<IDataProviderService, DummyDAtaProviderService>();
+            services.AddSingleton<IDataProviderService, DummyDataProviderService>();
             services.AddSingleton<ICacheSercice, NoCacheService>();
             services.AddSingleton<IApiKeyValidator, InMemoryApiKeyValidator>();
             services.AddTransient<ApiKeyRequestFilterAttribute>();
