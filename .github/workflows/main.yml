@@ -3,13 +3,9 @@ on: [push, pull_request]
 name: CI
 
 env:
-  # IMAGE_PARSER: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-parser
-  # IMAGE_API: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-api
-  # IMAGE_FRONTEND: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-frontend
-
-  IMAGE_PARSER: code4ro/datelazi-parser
-  IMAGE_API: code4ro/datelazi-api
-  IMAGE_FRONTEND: code4ro/datelazi-frontend
+  IMAGE_PARSER: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-parser
+  IMAGE_API: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-api
+  IMAGE_FRONTEND: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-frontend
 
 jobs:
   build-parser:
