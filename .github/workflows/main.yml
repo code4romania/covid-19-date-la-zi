@@ -3,118 +3,122 @@ on: [push, pull_request]
 name: CI
 
 env:
-    IMAGE_PARSER: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-parser
-    IMAGE_API: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-api
-    IMAGE_FRONTEND: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-frontend
+  # IMAGE_PARSER: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-parser
+  # IMAGE_API: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-api
+  # IMAGE_FRONTEND: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-frontend
+
+  IMAGE_PARSER: code4ro/datelazi-parser
+  IMAGE_API: code4ro/datelazi-api
+  IMAGE_FRONTEND: code4ro/datelazi-frontend
 
 jobs:
-    build-parser:
-        name: Build Parser container
-        runs-on: ubuntu-latest
+  build-parser:
+    name: Build Parser container
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkoout
-              uses: actions/checkout@v1
+    steps:
+      - name: Checkoout
+        uses: actions/checkout@v1
 
-            - name: Build Docker image
-              run: |
+      - name: Build Docker image
+        run: |
 
-                  docker build . \
-                    --tag $IMAGE_PARSER:$GITHUB_SHA
-            - name: Upload Docker image
-              if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
-              run: |
-                  echo ${{ secrets.DOCKER_HUB_PASSWORD }} | \
-                  docker login \
-                    -u ${{ secrets.DOCKER_HUB_USERNAME }} \
-                    --password-stdin
-                  docker push $IMAGE_PARSER:$GITHUB_SHA
-            - name: Tag Staging
-              if: github.ref == 'refs/heads/develop'
-              run: |
-                  docker tag \
-                    $IMAGE_PARSER:$GITHUB_SHA \
-                    $IMAGE_PARSER:staging
-                  docker push $IMAGE_PARSER:staging
+          docker build . \
+            --tag $IMAGE_PARSER:$GITHUB_SHA
+      - name: Upload Docker image
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
+        run: |
+          echo ${{ secrets.DOCKER_HUB_PASSWORD }} | \
+          docker login \
+            -u ${{ secrets.DOCKER_HUB_USERNAME }} \
+            --password-stdin
+          docker push $IMAGE_PARSER:$GITHUB_SHA
+      - name: Tag Staging
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          docker tag \
+            $IMAGE_PARSER:$GITHUB_SHA \
+            $IMAGE_PARSER:staging
+          docker push $IMAGE_PARSER:staging
 
-            - name: Tag Latest
-              if: github.ref == 'refs/heads/master'
-              run: |
-                  docker tag \
-                    $IMAGE_PARSER:$GITHUB_SHA \
-                    $IMAGE_PARSER:latest
-                  docker push $IMAGE_PARSER:latest
+      - name: Tag Latest
+        if: github.ref == 'refs/heads/master'
+        run: |
+          docker tag \
+            $IMAGE_PARSER:$GITHUB_SHA \
+            $IMAGE_PARSER:latest
+          docker push $IMAGE_PARSER:latest
 
-    build-api:
-        name: Build API container
-        runs-on: ubuntu-latest
+  build-api:
+    name: Build API container
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkoout
-              uses: actions/checkout@v1
+    steps:
+      - name: Checkoout
+        uses: actions/checkout@v1
 
-            - name: Build Docker image
-              run: |
+      - name: Build Docker image
+        run: |
 
-                  docker build . \
-                    --tag $IMAGE_API:$GITHUB_SHA
-            - name: Upload Docker image
-              if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
-              run: |
-                  echo ${{ secrets.DOCKER_HUB_PASSWORD }} | \
-                  docker login \
-                    -u ${{ secrets.DOCKER_HUB_USERNAME }} \
-                    --password-stdin
-                  docker push $IMAGE_API:$GITHUB_SHA
-            - name: Tag Staging
-              if: github.ref == 'refs/heads/develop'
-              run: |
-                  docker tag \
-                    $IMAGE_API:$GITHUB_SHA \
-                    $IMAGE_API:staging
-                  docker push $IMAGE_API:staging
+          docker build . \
+            --tag $IMAGE_API:$GITHUB_SHA
+      - name: Upload Docker image
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
+        run: |
+          echo ${{ secrets.DOCKER_HUB_PASSWORD }} | \
+          docker login \
+            -u ${{ secrets.DOCKER_HUB_USERNAME }} \
+            --password-stdin
+          docker push $IMAGE_API:$GITHUB_SHA
+      - name: Tag Staging
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          docker tag \
+            $IMAGE_API:$GITHUB_SHA \
+            $IMAGE_API:staging
+          docker push $IMAGE_API:staging
 
-            - name: Tag Latest
-              if: github.ref == 'refs/heads/master'
-              run: |
-                  docker tag \
-                    $IMAGE_API:$GITHUB_SHA \
-                    $IMAGE_API:latest
-                  docker push $IMAGE_API:latest
+      - name: Tag Latest
+        if: github.ref == 'refs/heads/master'
+        run: |
+          docker tag \
+            $IMAGE_API:$GITHUB_SHA \
+            $IMAGE_API:latest
+          docker push $IMAGE_API:latest
 
-    build-frontend:
-        name: Build FrontEnd container
-        runs-on: ubuntu-latest
+  build-frontend:
+    name: Build FrontEnd container
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkoout
-              uses: actions/checkout@v1
+    steps:
+      - name: Checkoout
+        uses: actions/checkout@v1
 
-            - name: Build Docker image
-              run: |
+      - name: Build Docker image
+        run: |
 
-                  docker build . \
-                    --tag $IMAGE_FRONTEND:$GITHUB_SHA
-            - name: Upload Docker image
-              if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
-              run: |
-                  echo ${{ secrets.DOCKER_HUB_PASSWORD }} | \
-                  docker login \
-                    -u ${{ secrets.DOCKER_HUB_USERNAME }} \
-                    --password-stdin
-                  docker push $IMAGE_FRONTEND:$GITHUB_SHA
-            - name: Tag Staging
-              if: github.ref == 'refs/heads/develop'
-              run: |
-                  docker tag \
-                    $IMAGE_FRONTEND:$GITHUB_SHA \
-                    $IMAGE_FRONTEND:staging
-                  docker push $IMAGE_FRONTEND:staging
+          docker build . \
+            --tag $IMAGE_FRONTEND:$GITHUB_SHA
+      - name: Upload Docker image
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
+        run: |
+          echo ${{ secrets.DOCKER_HUB_PASSWORD }} | \
+          docker login \
+            -u ${{ secrets.DOCKER_HUB_USERNAME }} \
+            --password-stdin
+          docker push $IMAGE_FRONTEND:$GITHUB_SHA
+      - name: Tag Staging
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          docker tag \
+            $IMAGE_FRONTEND:$GITHUB_SHA \
+            $IMAGE_FRONTEND:staging
+          docker push $IMAGE_FRONTEND:staging
 
-            - name: Tag Latest
-              if: github.ref == 'refs/heads/master'
-              run: |
-                  docker tag \
-                    $IMAGE_FRONTEND:$GITHUB_SHA \
-                    $IMAGE_FRONTEND:latest
-                  docker push $IMAGE_FRONTEND:latest
+      - name: Tag Latest
+        if: github.ref == 'refs/heads/master'
+        run: |
+          docker tag \
+            $IMAGE_FRONTEND:$GITHUB_SHA \
+            $IMAGE_FRONTEND:latest
+          docker push $IMAGE_FRONTEND:latest
