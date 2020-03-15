@@ -9,9 +9,9 @@ namespace Code4Ro.CoViz19.Api.Filters
     public class ApiKeyRequestFilterAttribute : IAsyncActionFilter
     {
         public const string HeaderName = "api-key";
-        private readonly IApiKeyProvider _apiKeyProvider;
+        private readonly IApiKeyValidator _apiKeyProvider;
 
-        public ApiKeyRequestFilterAttribute(IApiKeyProvider apiKeyProvider)
+        public ApiKeyRequestFilterAttribute(IApiKeyValidator apiKeyProvider)
         {
             _apiKeyProvider = apiKeyProvider;
         }

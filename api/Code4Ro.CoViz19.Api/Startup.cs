@@ -31,7 +31,7 @@ namespace Code4Ro.CoViz19.Api
 
             services.AddSingleton<IDataProviderService, DummyDAtaProviderService>();
             services.AddSingleton<ICacheSercice, NoCacheService>();
-            services.AddSingleton<IApiKeyProvider, InMemoryGetApiKeyQuery>();
+            services.AddSingleton<IApiKeyValidator, InMemoryApiKeyValidator>();
             services.AddTransient<ApiKeyRequestFilterAttribute>();
             services.AddControllers();
             services.AddMediatR(Assembly.GetExecutingAssembly());

@@ -13,40 +13,34 @@ namespace Code4Ro.CoViz19.Api.Tests
     public class AuthenticationIntegrationTests : IClassFixture<WebApplicationFactory<Startup>>
     {
         private readonly CustomWebApplicationFactory<Startup> _factory;
-        private readonly Mock<IApiKeyProvider> mockProvider = new Mock<IApiKeyProvider>();
+        private readonly Mock<IApiKeyValidator> mockProvider = new Mock<IApiKeyValidator>();
+        private const string VALID_API_KEY = "random-valid-api-key";
+        private const string INVALID_API_KEY = "random-invalid-api-key";
         public AuthenticationIntegrationTests()
         {
-            mockProvider.Setup(x => x.IsValidApiKey(It.IsAny<string>())).Returns<string>(GetValidationResult);
 
+            mockProvider.Setup(x => x.IsValidApiKey(VALID_API_KEY)).Returns(true);
+            mockProvider.Setup(x => x.IsValidApiKey(INVALID_API_KEY)).Returns(false);
             _factory = new CustomWebApplicationFactory<Startup>();
 
             // setup the swaps
             _factory.Registrations = services =>
             {
-                services.SwapSingletone<IApiKeyProvider>(x => mockProvider.Object);
+                services.SwapSingletone(x => mockProvider.Object);
             };
         }
 
-        private bool GetValidationResult(string key)
-        {
-            if (key == "my-random-valid-key")
-            {
-                return true;
-            }
-            return false;
-        }
 
         [Theory]
         [InlineData("/api/v1/admin/update")]
         //add here routes what you want to be secured
-        public async Task Given_an_unothorized_call_should_return_a_403_response(string route)
+        public async Task Given_an_unauthorized_call_should_return_a_403_response(string route)
         {
             var httpClient = _factory.CreateClient();
             var request = new HttpRequestMessage(HttpMethod.Post, route);
             request.Content = new StringContent("{}", Encoding.UTF8, "application/json");
 
-            var apiKey = "random-invalid-api-key";
-            request.Headers.Add("api-key", apiKey);
+            request.Headers.Add("api-key", INVALID_API_KEY);
 
             var response = await httpClient.SendAsync(request);
             var responseContent = await response.Content.ReadAsStringAsync();
@@ -63,8 +57,7 @@ namespace Code4Ro.CoViz19.Api.Tests
             var request = new HttpRequestMessage(HttpMethod.Post, route);
             request.Content = new StringContent("{}", Encoding.UTF8, "application/json");
 
-            var apiKey = "my-random-valid-key";
-            request.Headers.Add("api-key", apiKey);
+            request.Headers.Add("api-key", VALID_API_KEY);
 
             var response = await httpClient.SendAsync(request);
             var responseContent = await response.Content.ReadAsStringAsync();

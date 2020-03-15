@@ -6,16 +6,11 @@ using System.Linq;
 
 namespace Code4Ro.CoViz19.Api.Services
 {
-    public interface IApiKeyProvider
-    {
-        bool IsValidApiKey(string potentialApiKey);
-    }
-
-    public class InMemoryGetApiKeyQuery : IApiKeyProvider
+    public class InMemoryApiKeyValidator : IApiKeyValidator
     {
         private readonly IDictionary<string, ApiKey> _apiKeys;
 
-        public InMemoryGetApiKeyQuery(IOptions<AuthorizationOptions> authorizationOptions)
+        public InMemoryApiKeyValidator(IOptions<AuthorizationOptions> authorizationOptions)
         {
             var existingApiKeys = authorizationOptions?.Value?.ApiKeys ?? throw new ArgumentNullException(nameof(authorizationOptions));
 
