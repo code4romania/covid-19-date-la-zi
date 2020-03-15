@@ -30,7 +30,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         [SwaggerResponseExample(200, typeof(LatestDataExample))]
         public async Task<IActionResult> GetLatestData()
         {
-            var data = await  _mediator.Send(new GetLatestData());
+            var data = await _mediator.Send(new GetLatestData());
             return new OkObjectResult(data);
         }
 
@@ -43,6 +43,30 @@ namespace Code4Ro.CoViz19.Api.Controllers
         public async Task<IActionResult> GetQuickStatsDataAsycn()
         {
             var data = await _mediator.Send(new GetQuickstatsData());
+            return new OkObjectResult(data);
+        }
+
+        [HttpGet]
+        [Route("dailystats")]
+        [SwaggerOperation(Summary = "Get dailystats data provided by Ministry of Health")]
+        [SwaggerResponse(200, "Dailystats data", typeof(DailyStatsModel))]
+        [SwaggerResponse(500, "Something went wrong when getting data", typeof(ErrorModel))]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> GetDailystats()
+        {
+            var data = await _mediator.Send(new GetDailyStats());
+            return new OkObjectResult(data);
+        }
+
+        [HttpGet]
+        [Route("genderstats")]
+        [SwaggerOperation(Summary = "Get statistics of patients gender ,data provided by Ministry of Health")]
+        [SwaggerResponse(200, "GetGenderStats data", typeof(GetGenderStats))]
+        [SwaggerResponse(500, "Something went wrong when getting data", typeof(ErrorModel))]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> GetGenderStats()
+        {
+            var data = await _mediator.Send(new GetGenderStats());
             return new OkObjectResult(data);
         }
     }

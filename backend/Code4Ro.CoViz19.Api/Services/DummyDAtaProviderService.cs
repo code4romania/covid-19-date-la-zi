@@ -21,7 +21,7 @@ namespace Code4Ro.CoViz19.Api.Services
 
         #region data
         private static string jsonData = @"
-        {
+          {
           ""liveUpdateData"": [
             {
               ""timestamp"": ""2020-02-26T16:00:00"",
@@ -217,14 +217,38 @@ namespace Code4Ro.CoViz19.Api.Services
             },
             {
               ""timestamp"": ""2020-03-13T16:00:00"",
-              ""numberDiagnosed"": null,
-              ""numberCured"": null,
-              ""numberQuarantined"": null,
-              ""numberMonitoredAtHome"": null,
+              ""numberDiagnosed"": 75,
+              ""numberCured"": 6,
+              ""numberQuarantined"": 2298,
+              ""numberMonitoredAtHome"": 13723,
               ""emergencyCalls"": null,
               ""hotLineCalls"": null,
-              ""numberCriminalCases"": null,
-              ""probesAnalyzed"": null,
+              ""numberCriminalCases"": 34,
+              ""probesAnalyzed"": 2545,
+              ""probesInAnalysis"": null
+            },
+            {
+              ""timestamp"": ""2020-03-14T16:00:00"",
+              ""numberDiagnosed"": 102,
+              ""numberCured"": 6,
+              ""numberQuarantined"": 2652,
+              ""numberMonitoredAtHome"": 14573,
+              ""emergencyCalls"": null,
+              ""hotLineCalls"": null,
+              ""numberCriminalCases"": 35,
+              ""probesAnalyzed"": 2929,
+              ""probesInAnalysis"": null
+            },
+            {
+              ""timestamp"": ""2020-03-15T17:00:00"",
+              ""numberDiagnosed"": 139,
+              ""numberCured"": 9,
+              ""numberQuarantined"": 2855,
+              ""numberMonitoredAtHome"": 14640,
+              ""emergencyCalls"": 1231,
+              ""hotLineCalls"": 5614,
+              ""numberCriminalCases"": 38,
+              ""probesAnalyzed"": 3205,
               ""probesInAnalysis"": null
             }
           ],
@@ -316,8 +340,8 @@ namespace Code4Ro.CoViz19.Api.Services
               ""domicile"": ""Hunedoara"",
               ""infectionContact"": ""a calatorit la Bergamo"",
               ""hospitalizationLocation"": ""Timisoara"",
-              ""healthState"": """",
-              ""isCured"": false
+              ""healthState"": ""vindecat"",
+              ""isCured"": true
             },
             {
               ""patientNumber"": 10,
@@ -326,8 +350,8 @@ namespace Code4Ro.CoViz19.Api.Services
               ""domicile"": ""Hunedoara"",
               ""infectionContact"": ""a calatorit cu pacientul 9"",
               ""hospitalizationLocation"": """",
-              ""healthState"": """",
-              ""isCured"": false
+              ""healthState"": ""vindecat"",
+              ""isCured"": true
             },
             {
               ""patientNumber"": 11,
@@ -403,7 +427,7 @@ namespace Code4Ro.CoViz19.Api.Services
               ""patientNumber"": 18,
               ""gender"": ""woman"",
               ""age"": 31,
-              ""domicile"": ""judetul Ilfov"",
+              ""domicile"": ""Ilfov"",
               ""infectionContact"": ""contact cu prietena barbatului de 49 de ani, primul caz din Bucuresti, caz12"",
               ""hospitalizationLocation"": """",
               ""healthState"": """",
@@ -496,8 +520,8 @@ namespace Code4Ro.CoViz19.Api.Services
               ""domicile"": ""Hunedoara"",
               ""infectionContact"": ""contact direct"",
               ""hospitalizationLocation"": """",
-              ""healthState"": """",
-              ""isCured"": false
+              ""healthState"": ""vindecat"",
+              ""isCured"": true
             },
             {
               ""patientNumber"": 28,
@@ -884,7 +908,7 @@ namespace Code4Ro.CoViz19.Api.Services
               ""gender"": ""man"",
               ""age"": 51,
               ""domicile"": ""Constanta"",
-              ""infectionContact"": ""Contact membru familie pacient nr 40"",
+              ""infectionContact"": ""Contact membru familie pacient nr 39"",
               ""hospitalizationLocation"": ""Spital JudeteanConstanta"",
               ""healthState"": """",
               ""isCured"": false
@@ -894,7 +918,7 @@ namespace Code4Ro.CoViz19.Api.Services
               ""gender"": ""man"",
               ""age"": 34,
               ""domicile"": ""Constanta"",
-              ""infectionContact"": ""Contact membru familie pacient nr 41"",
+              ""infectionContact"": ""Contact membru familie pacient nr 39"",
               ""hospitalizationLocation"": ""Spital JudeteanConstanta"",
               ""healthState"": """",
               ""isCured"": false
@@ -904,7 +928,7 @@ namespace Code4Ro.CoViz19.Api.Services
               ""gender"": ""woman"",
               ""age"": 56,
               ""domicile"": ""Constanta"",
-              ""infectionContact"": ""Contact membru familie pacient nr 42"",
+              ""infectionContact"": ""Contact membru familie pacient nr 39"",
               ""hospitalizationLocation"": ""Spital JudeteanConstanta"",
               ""healthState"": """",
               ""isCured"": false
@@ -958,36 +982,706 @@ namespace Code4Ro.CoViz19.Api.Services
               ""hospitalizationLocation"": """",
               ""healthState"": """",
               ""isCured"": false
+            },
+            {
+              ""patientNumber"": 74,
+              ""gender"": ""man"",
+              ""age"": 50,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": ""medic, manager spital"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 75,
+              ""gender"": ""man"",
+              ""age"": 62,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": ""pacient contactul cu medicul gastroenterolog - caz30"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 76,
+              ""gender"": ""man"",
+              ""age"": 44,
+              ""domicile"": ""Brasov"",
+              ""infectionContact"": ""venit din Boston pe 11.03, internat pe 12.03 cu simptome"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 77,
+              ""gender"": ""woman"",
+              ""age"": 16,
+              ""domicile"": ""Covasna"",
+              ""infectionContact"": ""contact cu persoana pozitiva"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 78,
+              ""gender"": ""woman"",
+              ""age"": 77,
+              ""domicile"": ""Covasna"",
+              ""infectionContact"": ""contact cu o familievenita din Italia"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 79,
+              ""gender"": ""woman"",
+              ""age"": 51,
+              ""domicile"": ""Brasov"",
+              ""infectionContact"": ""venita din Italia - carantinata"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 80,
+              ""gender"": ""man"",
+              ""age"": 26,
+              ""domicile"": ""Prahova"",
+              ""infectionContact"": ""venit din Italia 12.03, carantinat in aceeasi zi la Busteni, confirmat pe 13.03 de INBI Bals"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 81,
+              ""gender"": ""woman"",
+              ""age"": 26,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": ""in izolare din 09.03"",
+              ""hospitalizationLocation"": ""Victor Babes"",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 82,
+              ""gender"": ""man"",
+              ""age"": 20,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": ""Venit din Marea Britanie in data de 12.03. internat din 13.03"",
+              ""hospitalizationLocation"": ""Bals"",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 83,
+              ""gender"": ""man"",
+              ""age"": 32,
+              ""domicile"": ""Timisoara"",
+              ""infectionContact"": ""venit din Italia 12.03, carantinat"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 84,
+              ""gender"": ""woman"",
+              ""age"": 41,
+              ""domicile"": ""Timisoara"",
+              ""infectionContact"": ""venit din Italia 12.03, carantinat"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 85,
+              ""gender"": ""woman"",
+              ""age"": 33,
+              ""domicile"": ""Timisoara"",
+              ""infectionContact"": ""venit din Italia 11.03, carantinata la Lugoj"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 86,
+              ""gender"": ""man"",
+              ""age"": 36,
+              ""domicile"": ""Timisoara"",
+              ""infectionContact"": ""venit din Italia 11.03, carantinata la Lugoj"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 87,
+              ""gender"": ""woman"",
+              ""age"": 32,
+              ""domicile"": ""Caras-Severin"",
+              ""infectionContact"": ""venit din Italia 10.03, carantinata la Caransebes"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 88,
+              ""gender"": ""man"",
+              ""age"": 45,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": ""venit din Londra 09.03, s-a prezentat azi cu frisoane si febra"",
+              ""hospitalizationLocation"": ""Victor Basbes"",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 89,
+              ""gender"": ""woman"",
+              ""age"": 49,
+              ""domicile"": ""Bihor"",
+              ""infectionContact"": ""venita din Italia"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 90,
+              ""gender"": ""woman"",
+              ""age"": 64,
+              ""domicile"": ""Neamt"",
+              ""infectionContact"": ""venita din Italia"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 91,
+              ""gender"": ""man"",
+              ""age"": 1,
+              ""domicile"": ""Bacau"",
+              ""infectionContact"": ""contact matusa venita din Italia"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 92,
+              ""gender"": ""woman"",
+              ""age"": 41,
+              ""domicile"": ""Iasi"",
+              ""infectionContact"": ""venita din Dubai, lucreaza in Ministerul Sanatatii"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 93,
+              ""gender"": ""woman"",
+              ""age"": 41,
+              ""domicile"": ""Iasi"",
+              ""infectionContact"": ""venita din Franta"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 94,
+              ""gender"": ""woman"",
+              ""age"": 27,
+              ""domicile"": ""Caras-Severin"",
+              ""infectionContact"": ""venita din Italia"",
+              ""hospitalizationLocation"": ""carantina Caras-Severin"",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 95,
+              ""gender"": ""man"",
+              ""age"": 55,
+              ""domicile"": ""Caras-Severin"",
+              ""infectionContact"": ""venit din Italia"",
+              ""hospitalizationLocation"": ""carantina Caras-Severin"",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 96,
+              ""gender"": ""woman"",
+              ""age"": 47,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": ""contact caz 45, era in autoizolare"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 97,
+              ""gender"": ""man"",
+              ""age"": 39,
+              ""domicile"": ""Dolj"",
+              ""infectionContact"": ""venit din Italia"",
+              ""hospitalizationLocation"": ""Craiova"",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 98,
+              ""gender"": ""woman"",
+              ""age"": 53,
+              ""domicile"": ""Constanta"",
+              ""infectionContact"": ""a calatorit in Germania si Austria, test lucrat in reteaua privata"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 99,
+              ""gender"": ""man"",
+              ""age"": 54,
+              ""domicile"": ""Constanta"",
+              ""infectionContact"": ""sot caz 98, test lucrat in reteaua privata, intors de la Viena"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 100,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Hunedoara"",
+              ""infectionContact"": ""contact senator"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 101,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": """",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 101,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Hunedoara"",
+              ""infectionContact"": ""contact senator"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 102,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Hunedoara"",
+              ""infectionContact"": ""contact senator"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 103,
+              ""gender"": ""man"",
+              ""age"": 51,
+              ""domicile"": ""Brasov"",
+              ""infectionContact"": ""venit din Italia, aflat in carantina"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 104,
+              ""gender"": ""man"",
+              ""age"": 19,
+              ""domicile"": ""Hunedoara"",
+              ""infectionContact"": ""contact al cazului 59"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 105,
+              ""gender"": ""man"",
+              ""age"": 4,
+              ""domicile"": ""Hunedoara"",
+              ""infectionContact"": ""contact al cazului 59"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 106,
+              ""gender"": ""woman"",
+              ""age"": 43,
+              ""domicile"": ""Hunedoara"",
+              ""infectionContact"": ""contact al cazului 26"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 107,
+              ""gender"": ""woman"",
+              ""age"": 44,
+              ""domicile"": ""Hunedoara"",
+              ""infectionContact"": ""contact al cazului 26"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 108,
+              ""gender"": ""woman"",
+              ""age"": 41,
+              ""domicile"": ""Hunedoara"",
+              ""infectionContact"": ""contact al cazului 26"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 109,
+              ""gender"": ""man"",
+              ""age"": 55,
+              ""domicile"": ""Timisoara"",
+              ""infectionContact"": ""aflat in carantina"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 110,
+              ""gender"": ""man"",
+              ""age"": 31,
+              ""domicile"": ""Constanta"",
+              ""infectionContact"": ""contact caz 67 si 68  (senator)"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 111,
+              ""gender"": ""woman"",
+              ""age"": 53,
+              ""domicile"": ""Brasov"",
+              ""infectionContact"": ""contact caz 76 (venit din Boston)"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 112,
+              ""gender"": ""woman"",
+              ""age"": 33,
+              ""domicile"": ""Timisoara"",
+              ""infectionContact"": ""venita din Italia, in carantina in Timisoara"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 113,
+              ""gender"": ""man"",
+              ""age"": 36,
+              ""domicile"": ""Timisoara"",
+              ""infectionContact"": ""venit din Italia, aflat in carantina Timisoara"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 114,
+              ""gender"": ""woman"",
+              ""age"": 38,
+              ""domicile"": ""Hunedoara"",
+              ""infectionContact"": ""contact caz 26- asistenta medicala"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 115,
+              ""gender"": ""woman"",
+              ""age"": 45,
+              ""domicile"": ""Hunedoara"",
+              ""infectionContact"": ""contact caz 26- asistenta medicala"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 116,
+              ""gender"": ""man"",
+              ""age"": 60,
+              ""domicile"": ""Caras-Severin"",
+              ""infectionContact"": ""venit din Italia in 11.03, aflat in carantina la Resita"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 117,
+              ""gender"": ""woman"",
+              ""age"": 43,
+              ""domicile"": ""Vaslui"",
+              ""infectionContact"": ""venita din Italia, carantina Arad"",
+              ""hospitalizationLocation"": ""boli infectioase Timisoara"",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 118,
+              ""gender"": ""woman"",
+              ""age"": 33,
+              ""domicile"": ""Constanta"",
+              ""infectionContact"": ""contact caz 67 (senator)"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 119,
+              ""gender"": ""woman"",
+              ""age"": 25,
+              ""domicile"": ""Cluj Napoca"",
+              ""infectionContact"": ""venita din Berlin in 11.03"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 120,
+              ""gender"": ""man"",
+              ""age"": 46,
+              ""domicile"": ""Satu Mare"",
+              ""infectionContact"": ""venit din Italia, 11.03, in carantina la Satu Mare"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 121,
+              ""gender"": ""man"",
+              ""age"": 37,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": ""intors din Norvegia in 13.03"",
+              ""hospitalizationLocation"": ""V Babes"",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 122,
+              ""gender"": ""woman"",
+              ""age"": 58,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": ""asistent mediacl Gerota, contact caz 30"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 123,
+              ""gender"": ""man"",
+              ""age"": 24,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": ""inginer horticol, ADP S 4, contact caz 16"",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 124,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 125,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 126,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 127,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Bucuresti"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 128,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Arad"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 129,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Arad"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 130,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Arad"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 131,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Arad"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 132,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Brasov"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 133,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Brasov"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 134,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Brasov"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 135,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Braila"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 136,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Braila"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 137,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Constanta"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 138,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Teleorman"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
+            },
+            {
+              ""patientNumber"": 139,
+              ""gender"": ""man"",
+              ""age"": 0,
+              ""domicile"": ""Iasi"",
+              ""infectionContact"": """",
+              ""hospitalizationLocation"": """",
+              ""healthState"": """",
+              ""isCured"": false
             }
           ],
           ""countiesData"": [
             {
               ""county"": ""Bucuresti"",
-              ""numberOfInfections"": 25
+              ""numberOfInfections"": 39
             },
             {
-              ""county"": ""Hunedoara"",        
-              ""numberOfInfections"": 9
+              ""county"": ""Hunedoara"",
+              ""numberOfInfections"": 19
             },
             {
               ""county"": ""Arad"",
-              ""numberOfInfections"": 6
+              ""numberOfInfections"": 10
             },
             {
               ""county"": ""Timisoara"",
-              ""numberOfInfections"": 8
+              ""numberOfInfections"": 15
             },
             {
               ""county"": ""Constanta"",
-              ""numberOfInfections"": 5
+              ""numberOfInfections"": 10
             },
             {
               ""county"": ""Iasi"",
-              ""numberOfInfections"": 3
+              ""numberOfInfections"": 6
             },
             {
               ""county"": ""Covasna"",
-              ""numberOfInfections"": 2
+              ""numberOfInfections"": 4
             },
             {
               ""county"": ""Mures"",
@@ -995,7 +1689,7 @@ namespace Code4Ro.CoViz19.Api.Services
             },
             {
               ""county"": ""Cluj"",
-              ""numberOfInfections"": 2
+              ""numberOfInfections"": 3
             },
             {
               ""county"": ""Mehedinti"",
@@ -1027,7 +1721,7 @@ namespace Code4Ro.CoViz19.Api.Services
             },
             {
               ""county"": ""Caras Severin"",
-              ""numberOfInfections"": 1
+              ""numberOfInfections"": 4
             },
             {
               ""county"": ""Buzau"",
@@ -1035,12 +1729,49 @@ namespace Code4Ro.CoViz19.Api.Services
             },
             {
               ""county"": ""Neamt"",
+              ""numberOfInfections"": 2
+            },
+            {
+              ""county"": ""Brasov"",
+              ""numberOfInfections"": 7
+            },
+            {
+              ""county"": ""Prahova"",
+              ""numberOfInfections"": 1
+            },
+            {
+              ""county"": ""Bihor"",
+              ""numberOfInfections"": 1
+            },
+            {
+              ""county"": ""Bacau"",
+              ""numberOfInfections"": 1
+            },
+            {
+              ""county"": ""Dolj"",
+              ""numberOfInfections"": 1
+            },
+            {
+              ""county"": ""Vaslui"",
+              ""numberOfInfections"": 1
+            },
+            {
+              ""county"": ""Satu Mare"",
+              ""numberOfInfections"": 1
+            },
+            {
+              ""county"": ""Braila"",
+              ""numberOfInfections"": 2
+            },
+            {
+              ""county"": ""Teleorman"",
               ""numberOfInfections"": 1
             }
           ]
         }
 
-";
+        ";
+       
         #endregion
     }
 }
