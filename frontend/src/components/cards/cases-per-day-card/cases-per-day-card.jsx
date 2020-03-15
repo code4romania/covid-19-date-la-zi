@@ -1,36 +1,94 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
-
-const months = ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Noi', 'Dec'];
+import { Constants, ApiURL } from '../../../config/globals';
+import './cases-per-day-card.css';
 
 export class CasesPerDayCard extends React.PureComponent {
 
-  formatDateShort(date){
-    const day = date.getDate();
-    const month = months[date.getMonth()]
-    return `${day} ${month}`;
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      startDate: '',
+      endDate: '',
+      dates: [], // array of strings, formatted short dates
+      symptomaticCasesHistory: [], // array of ints
+      confirmedCasesHistory: [], // array of ints
+      curedCasesHistory: [], // array of ints
+    }
   }
 
-  formatDateLong(date){
-    const year = date.getFullYear();
-    return `${this.formatDateShort(date)} ${year}`;
+  componentDidMount() {
+    fetch(ApiURL.dailyStats)
+      .then(res => res.json())
+      .then((result) => {
+        if (result.error != null) {
+          this.setState({error: result.error, isLoaded: true})
+          // TODO: handle error
+        } else {
+          this.parseAPIResponse(result)
+        }
+      })
   }
 
-  getSubtitle(data){
-    let firstDate = data[0].date;
-    let lastDate = data[data.length - 1].date;
-    return `de la ${this.formatDateLong(firstDate)} la ${this.formatDateLong(lastDate)}`
+  parseAPIResponse(result) {
+    const history = result.history
+    const dates = history.map((entry) => { return entry.date })
+    const startDate = dates[0]
+    const endDate = dates[dates.length-1]
+    const startDateStr = this.formattedShortDateString(this.dateFromTimestamp(startDate))
+    const endDateStr = this.formattedShortDateString(this.dateFromTimestamp(endDate))
+
+    const symptomaticCasesHistory = history.map((entry) => { return Math.max(entry.monitored, 0) })
+    const confirmedCasesHistory = history.map((entry) => { return Math.max(entry.confirmed, 0) })
+    const curedCasesHistory = history.map((entry) => { return Math.max(entry.cured, 0) })
+    const dateStrings = history.map((entry) => { 
+      return this.formattedShortDateString(this.dateFromTimestamp(entry.date)) })
+
+    this.setState({
+      isLoaded: true,
+      startDate: startDateStr,
+      endDate: endDateStr,
+      dates: dateStrings,
+      symptomaticCasesHistory: symptomaticCasesHistory,
+      confirmedCasesHistory: confirmedCasesHistory,
+      curedCasesHistory: curedCasesHistory
+    })
   }
 
-  getChartOptions(data) {
+  dateFromTimestamp(timestamp) {
+    return new Date(timestamp * 1000)
+  }
+
+  formattedShortDateString(date) {
+    const months = ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return date.getDate() + ' ' + months[date.getMonth()];
+  }
+
+  getSubtitle(){
+    let firstDate = this.state.startDate;
+    let lastDate = this.state.endDate;
+    return `de la ${firstDate} la ${lastDate}`
+  }
+
+  getChartOptions() {
+    // const labels = ['Raportați', 'Confirmați', 'Vindecați'];
+    const labels = ['Raportați', 'Confirmați', 'Vindecați'];
     return {
       xAxis: {
         type: 'category',
-        data: data.map(d => this.formatDateShort(d.date))
+        data: this.state.dates,
+        axisLabel: {
+          color: 'gray'
+        }
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        axisLabel: {
+          color: 'gray'
+        }
       },
       tooltip: {
         trigger: 'axis',
@@ -38,35 +96,42 @@ export class CasesPerDayCard extends React.PureComponent {
           axis: 'x'
         }
       },
-      title: {
-        left: 0,
-        text: 'Numar de cazuri',
-        subtext: this.getSubtitle(data),
-      },
       legend: {
-        data: ['Raportati', 'Confirmati', 'Vindecati'],
-        right: 0
+        data: labels,
+        right: 0,
+        icon: 'circle',
+        top: '0%'
       },
       grid: {
-        left: 0,
+        left: '1%',
         right: 0,
+        bottom: 0,
+        top: '20%',
+        containLabel: true
       },
-      series: [{
-        data: data.map(d => d.symptomatic),
-        name: 'Raportati',
-        stack: 'one',
-        type: 'bar',
-      }, {
-        data: data.map(d => d.confirmed),
-        name: 'Confirmati',
-        stack: 'one',
-        type: 'bar'
-      }, {
-        data: data.map(d => d.cured),
-        name: 'Vindecati',
-        stack: 'one',
-        type: 'bar'
-      },]
+      series: [
+        // {
+        //   data: this.state.symptomaticCasesHistory,
+        //   name: labels[0],
+        //   stack: 'one',
+        //   type: 'bar',
+        //   color: Constants.symptomaticColor
+        // },
+        {
+          data: this.state.confirmedCasesHistory,
+          name: labels[1],
+          stack: 'one',
+          type: 'bar',
+          color: Constants.confirmedColor
+        },
+        {
+          data: this.state.curedCasesHistory,
+          name: labels[2],
+          stack: 'one',
+          type: 'bar',
+          color: Constants.curedColor
+        }
+      ]
     };
   }
 
@@ -74,15 +139,18 @@ export class CasesPerDayCard extends React.PureComponent {
     const { data } = this.props;
     return (
       <Card>
-        {data &&
-          <ReactEcharts
-            style={{
-              height: '100%',
-              width: '100%',
-            }}
-            option={this.getChartOptions(data)}
-            theme="light"
-          />}
+        <div className="title-container is-overlay">
+          <h3 className="summary-title is-uppercase">Număr de cazuri</h3>
+          <h4 className="summary-subtitle">De la {this.state.startDate} la {this.state.endDate}</h4>
+        </div>
+        <ReactEcharts
+          style={{
+            height: '100%',
+            width: '100%',
+          }}
+          option={this.getChartOptions()}
+          theme="light"
+        />
       </Card>
     );
   }
