@@ -8,11 +8,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using Code4Ro.CoViz19.Api.Mappers;
+using System.Collections.Generic;
+using System;
 
 namespace Code4Ro.CoViz19.Api.Handlers
 {
     public class DataQueryHandler : IRequestHandler<GetLatestData, ParsedDataModel>,
-        IRequestHandler<GetQuickstatsData, QuickStatsModel>
+        IRequestHandler<GetQuickstatsData, QuickStatsModel>,
+        IRequestHandler<GetDailyStats, DailyStatsModel>,
+        IRequestHandler<GetGenderStats, GenderStatsModel>
     {
         private readonly IDataProviderService _dataService;
         private readonly ICacheSercice _cacheService;
@@ -38,13 +42,92 @@ namespace Code4Ro.CoViz19.Api.Handlers
             return new QuickStatsModel
             {
                 Totals = ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(latestStats),
-                History = data?.LiveUpdateData.OrderBy(x=>x.Timestamp).Select(x=> ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(x)).ToArray()
+                History = data?.LiveUpdateData.OrderBy(x => x.Timestamp).Select(x => ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(x)).ToArray()
             };
         }
 
         private static LiveUpdateData GetLatestStatsFromLivedata(ParsedDataModel data)
         {
             return data.LiveUpdateData.OrderByDescending(x => x.Timestamp).FirstOrDefault();
+        }
+
+        public async Task<DailyStatsModel> Handle(GetDailyStats request, CancellationToken cancellationToken)
+        {
+            var data = await _dataService.GetCurrentData();
+
+            if (data?.LiveUpdateData == null)
+            {
+                return new DailyStatsModel() { History = new InfectionsStatsModel[0] };
+            }
+
+            if (data.LiveUpdateData.Length == 1)
+            {
+                return new DailyStatsModel() { History = new InfectionsStatsModel[] { ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(data.LiveUpdateData.First()) } };
+            }
+
+            List<InfectionsStatsModel> history = new List<InfectionsStatsModel>();
+            List<LiveUpdateData> oderedLiveData = data.LiveUpdateData.OrderBy(x => x.Timestamp).ToList();
+            LiveUpdateData previousDayData = null;
+
+            foreach (var dayData in oderedLiveData)
+            {
+                var dayStats = GetDayDataDiff(previousDayData, dayData);
+                history.Add(dayStats);
+                previousDayData = dayData;
+            }
+
+            return new DailyStatsModel()
+            {
+                History = history.ToArray()
+            };
+        }
+
+        private InfectionsStatsModel GetDayDataDiff(LiveUpdateData previousDayData, LiveUpdateData dayData)
+        {
+            return new InfectionsStatsModel
+            {
+                Confirmed = GetIntOrDefault(dayData?.NumberDiagnosed) - GetIntOrDefault(previousDayData?.NumberDiagnosed),
+                Hospitalized = GetIntOrDefault(0) - GetIntOrDefault(0), // TODO: update when we have data for hospitalized
+                Monitored = GetIntOrDefault(dayData?.NumberMonitoredAtHome) - GetIntOrDefault(previousDayData?.NumberMonitoredAtHome),
+                Date = new DateTimeOffset(dayData.Timestamp).ToUnixTimeSeconds(),
+                DateString = dayData.Timestamp.ToShortDateString(),
+                Cured = GetIntOrDefault(dayData?.NumberCured) - GetIntOrDefault(previousDayData?.NumberCured),
+                InQuarantine = GetIntOrDefault(dayData?.NumberQuarantined) - GetIntOrDefault(previousDayData?.NumberQuarantined),
+                InIcu = GetIntOrDefault(0) - GetIntOrDefault(0), // TODO: update when we have data for InIcu
+            };
+        }
+
+        private static int GetIntOrDefault(int? value)
+        {
+            return value ?? 0;
+        }
+
+        public async Task<GenderStatsModel> Handle(GetGenderStats request, CancellationToken cancellationToken)
+        {
+            var currentData = await _dataService.GetCurrentData();
+            long today = new DateTimeOffset(DateTime.Today).ToUnixTimeSeconds();
+            string todayString = DateTime.Today.ToShortDateString();
+
+            var response = new GenderStatsModel
+            {
+                Stats = new Stats()
+                {
+                    Men = 0,
+                    Women = 0,
+                    Date = today,
+                    DateString = todayString
+                }
+            };
+
+            if (currentData?.PatientsInfo == null)
+            {
+                return response;
+            }
+
+            response.Stats.Men = currentData.PatientsInfo.Count(x => x.Gender == Gender.Man);
+            response.Stats.Women = currentData.PatientsInfo.Count(x => x.Gender == Gender.Woman);
+
+            return response;
         }
     }
 }

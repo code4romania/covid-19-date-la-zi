@@ -1,7 +1,6 @@
 ﻿using Code4Ro.CoViz19.Api.Models;
 using Code4Ro.CoViz19.Models;
 using System;
-using System.Linq;
 
 namespace Code4Ro.CoViz19.Api.Mappers
 {
