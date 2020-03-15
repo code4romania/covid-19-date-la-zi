@@ -1,0 +1,44 @@
+[
+  {
+    "name": "front_end",
+    "image": "${IMAGE_FRONTEND}",
+    "cpu": 256,
+    "memory": 512,
+    "networkMode": "awsvpc",
+    "portMappings": [
+      {
+        "protocol": "tcp",
+        "containerPort": 80
+      }
+    ],
+    "essential": true
+  },
+  {
+    "name": "api",
+    "image": "${IMAGE_API}",
+    "cpu": 256,
+    "memory": 512,
+    "networkMode": "awsvpc",
+    "portMappings": [
+      {
+        "protocol": "tcp",
+        "containerPort": 8080
+      }
+    ],
+    "essential": true
+  },
+  {
+    "name": "parser",
+    "image": "${IMAGE_PARSER}",
+    "cpu": 256,
+    "memory": 512,
+    "networkMode": "awsvpc",
+    "portMappings": [
+      {
+        "protocol": "tcp",
+        "containerPort": 8081
+      }
+    ],
+    "essential": true
+  }
+]
