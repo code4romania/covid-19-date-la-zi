@@ -57,12 +57,12 @@ export class Dashboard extends React.PureComponent {
         <div className="container cards-row">
           <PageHeader
             title="Date Oficiale"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium. Lorem 
-            ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium.Lorem ipsum dolor sit amet, 
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium. Lorem
+            ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium.Lorem ipsum dolor sit amet,
             consectetur adipiscing elit. Elit, duis pretium."
           />
         </div>
-        
+
         <SummaryRow />
 
         <div className="container cards-row second-row">
@@ -90,9 +90,7 @@ export class Dashboard extends React.PureComponent {
                 data={this.generateCasesPerDay(60)}
               />
             </div>
-            <div className="column">
-              
-            </div>
+            <div className="column" />
           </div>
         </div>
       </section>
