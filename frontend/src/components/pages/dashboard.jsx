@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageHeader } from '../layout/page.header';
-import { SummaryCard } from '../cards/summary/summary-card';
+import { SummaryRow } from '../layout/rows/summary.row';
 import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
 import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
@@ -20,15 +20,6 @@ export class Dashboard extends React.PureComponent {
     }))
   };
 
-  summaryCardData = {
-    data: this.chartData.series,
-    special: {
-      value: 0,
-      label: 'people got an error page',
-      isGood: true
-    }
-  }
-
   confirmedSummaryData = {
     data: this.chartData.series,
     total: 99,
@@ -39,30 +30,6 @@ export class Dashboard extends React.PureComponent {
     }
   }
 
-  hospitalizedSummaryData = {
-    data: this.chartData.series,
-    total: 93,
-    special: {
-      value: '6',
-      label: 'vindecate',
-      isGood: true
-    }
-  }
-
-  icuSummaryData = {
-    data: this.chartData.series,
-    total: 1
-  }
-
-  curedSummaryData = {
-    data: this.chartData.series,
-    total: 6,
-    special: {
-      value: '6%',
-      label: 'din total',
-      isGood: false
-    }
-  }
 
   rand(start, end){
     return start + Math.floor(Math.random() * (end - start))
@@ -90,51 +57,13 @@ export class Dashboard extends React.PureComponent {
         <div className="container cards-row">
           <PageHeader
             title="Date Oficiale"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium. Lorem 
-            ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium.Lorem ipsum dolor sit amet, 
+            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium. Lorem
+            ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium.Lorem ipsum dolor sit amet,
             consectetur adipiscing elit. Elit, duis pretium."
           />
         </div>
-        <div className="container cards-row">
-          <div className="columns">
-            <div className="column">
-              <SummaryCard
-                to="/"
-                title="Cazuri confirmate"
-                data={this.confirmedSummaryData.data}
-                total={this.confirmedSummaryData.total}
-                special={this.confirmedSummaryData.special}
-              />
-            </div>
-            <div className="column">
-              <SummaryCard
-                to="/"
-                title="Cazuri spitalizate"
-                data={this.hospitalizedSummaryData.data}
-                total={this.hospitalizedSummaryData.total}
-                special={this.hospitalizedSummaryData.special}
-              />
-            </div>
-            <div className="column">
-              <SummaryCard
-                to="/"
-                title="Cazuri - terapie intensivă"
-                data={this.icuSummaryData.data}
-                total={this.icuSummaryData.total}
-                special={this.icuSummaryData.special}
-              />
-            </div>
-            <div className="column">
-              <SummaryCard
-                to="/"
-                title="Vindecați"
-                data={this.curedSummaryData.data}
-                total={this.curedSummaryData.total}
-                special={this.curedSummaryData.special}
-              />
-            </div>
-          </div>
-        </div>
+
+        <SummaryRow />
 
         <div className="container cards-row second-row">
           <div className="columns">
@@ -161,9 +90,7 @@ export class Dashboard extends React.PureComponent {
                 data={this.generateCasesPerDay(60)}
               />
             </div>
-            <div className="column">
-              
-            </div>
+            <div className="column" />
           </div>
         </div>
       </section>
