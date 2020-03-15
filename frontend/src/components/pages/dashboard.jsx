@@ -68,15 +68,12 @@ export class Dashboard extends React.PureComponent {
         <div className="container cards-row second-row">
           <div className="columns">
             <div className="column is-three-quarters">
-              <CasesPerDayCard
-                data={this.generateCasesPerDay(60)}
-              />
+              <CasesPerDayCard />
             </div>
             <div className="column is-one-quarter">
               <GenderCard
                 to="/"
                 title="După gen"
-                data={this.confirmedSummaryData.data}
               />
             </div>
           </div>
@@ -86,7 +83,7 @@ export class Dashboard extends React.PureComponent {
           <div className="columns">
             <div className="column is-two-quarters">
               <GenderAndAgeCard
-                title="După vârstă și gen"
+                title="După vârstă și gen (mock)"
                 data={this.generateCasesPerDay(60)}
               />
             </div>
