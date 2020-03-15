@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Code4Ro.CoViz19.Api", "Code
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Code4Ro.CoViz19.Models", "..\backend-infra\Code4Ro.CoViz19.Models.csproj", "{4276C206-BF1F-44CD-98EA-6D6319E570D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Code4Ro.CoViz19.Api.Tests", "Code4Ro.CoViz19.Api.Tests\Code4Ro.CoViz19.Api.Tests.csproj", "{31795AC9-93A9-4090-96DE-DE30E16EB757}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4276C206-BF1F-44CD-98EA-6D6319E570D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4276C206-BF1F-44CD-98EA-6D6319E570D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4276C206-BF1F-44CD-98EA-6D6319E570D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31795AC9-93A9-4090-96DE-DE30E16EB757}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31795AC9-93A9-4090-96DE-DE30E16EB757}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31795AC9-93A9-4090-96DE-DE30E16EB757}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31795AC9-93A9-4090-96DE-DE30E16EB757}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
