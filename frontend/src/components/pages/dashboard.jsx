@@ -2,6 +2,7 @@ import React from 'react';
 import { SummaryCard } from '../cards/summary/summary-card';
 import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
+import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
 import './dashboard.css';
 
 export class Dashboard extends React.PureComponent {
@@ -139,6 +140,20 @@ export class Dashboard extends React.PureComponent {
                 title="După gen"
                 data={this.confirmedSummaryData.data}
               />
+            </div>
+          </div>
+        </div>
+
+        <div className="container cards-row third-row">
+          <div className="columns">
+            <div className="column is-two-quarters">
+              <GenderAndAgeCard
+                title="După vârstă și gen"
+                data={this.generateCasesPerDay(60)}
+              />
+            </div>
+            <div className="column">
+              
             </div>
           </div>
         </div>
