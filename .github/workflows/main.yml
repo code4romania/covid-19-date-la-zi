@@ -1,0 +1,56 @@
+on:
+  pull_request:
+    branches:
+      - develop
+
+name: CI
+
+env:
+  IMAGE_PARSER: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-parser
+  IMAGE_API: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-api
+  IMAGE_FRONTEND: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-frontend
+
+jobs:
+  build-parser:
+    name: Build Parser container
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkoout
+        uses: actions/checkout@v1
+
+      - name: Build Docker image
+        run: |
+          cd backend
+          docker build . \
+            --tag $IMAGE_PARSER:$GITHUB_SHA \
+            --file Dockerfile-parser
+
+  build-api:
+    name: Build API container
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkoout
+        uses: actions/checkout@v1
+
+      - name: Build Docker image
+        run: |
+          cd backend
+          docker build . \
+            --tag $IMAGE_API:$GITHUB_SHA \
+            --file Dockerfile-api
+
+  build-frontend:
+    name: Build FrontEnd container
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkoout
+        uses: actions/checkout@v1
+
+      - name: Build Docker image
+        run: |
+          cd frontend
+          docker build . \
+            --tag $IMAGE_FRONTEND:$GITHUB_SHA
