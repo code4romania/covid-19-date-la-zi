@@ -38,7 +38,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
             return new QuickStatsModel
             {
                 Totals = ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(latestStats),
-                History = data.LiveUpdateData.Select(x=> ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(x)).ToArray()
+                History = data?.LiveUpdateData.OrderBy(x=>x.Timestamp).Select(x=> ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(x)).ToArray()
             };
         }
 
