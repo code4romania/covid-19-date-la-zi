@@ -1,0 +1,17 @@
+on:
+  pull_request:
+    branches:
+      - master
+
+name: Release
+
+jobs:
+  only-from:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: PR to master only from...
+        if: github.ref != 'refs/hears/develop'
+        run: |
+          echo "You cannot PR to master from $GITHUB_REF. Only from develop"
+          exit 1
