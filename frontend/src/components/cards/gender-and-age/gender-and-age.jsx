@@ -2,14 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
-
-// TODO: extract this into a global config
-let Constants = {
-  womenColor: '#F77EB9',
-  menColor: '#7EBCFF',
-  womenText: 'Femei',
-  menText: 'Bărbați'
-};
+import { Constants} from '../../../config/globals'
 
 export class GenderAndAgeCard extends React.PureComponent {
 

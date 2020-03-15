@@ -2,17 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
+import { Constants} from '../../../config/globals'
 import './gender-card.css'
 
-let Constants = {
-  womenColor: '#F77EB9',
-  menColor: '#7EBCFF',
-  womenText: 'Femei',
-  menText: 'Bărbați'
-};
-
 export class GenderCard extends React.PureComponent {
-
 
   getChartOptions(data) {
     return {
