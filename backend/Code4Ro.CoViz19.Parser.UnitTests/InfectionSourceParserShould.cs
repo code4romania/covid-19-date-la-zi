@@ -10,7 +10,6 @@ namespace Code4Ro.CoViz19.Parser.UnitTests
 {
     public class InfectionSourceParserShould
     {
-        private InfectionSourceParser _parser = new InfectionSourceParser();
 
         [Theory]
         [InlineData("", Unknown)]
@@ -25,7 +24,7 @@ namespace Code4Ro.CoViz19.Parser.UnitTests
         [MemberData(nameof(Data))]
         public void ReturnCorrectSourceTypeForGivenText(string text, InfectionSourceType expectedInfectionSourceType)
         {
-            _parser.Parse(text).ShouldBe(expectedInfectionSourceType);
+            InfectionSourceParser.Parse(text).ShouldBe(expectedInfectionSourceType);
         }
 
         //
