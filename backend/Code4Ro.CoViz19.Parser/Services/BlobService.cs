@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Code4Ro.CoViz19.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
@@ -15,12 +17,20 @@ namespace Code4Ro.CoViz19.Parser.Services {
         /// <summary>
         /// 
         /// </summary>
-        public StorageCredentials Credentials => new StorageCredentials(_storageOptions.Value.AccountName, _storageOptions.Value.AccountKey);
+        public StorageCredentials Credentials => new StorageCredentials(_storageOptions?.Value?.AccountName, _storageOptions?.Value?.AccountKey);
 
         /// <inheritdoc />
         public BlobService(IOptions<BlobStorageOptions> storageOptions) {
             _storageOptions = storageOptions;
-            _client = new CloudStorageAccount(Credentials, _storageOptions.Value.UseHttps).CreateCloudBlobClient();
+            if (storageOptions != null && storageOptions.Value?.AccountName != null &&
+                storageOptions.Value?.AccountKey != null && storageOptions.Value?.Container != null)
+            {
+                _client = new CloudStorageAccount(Credentials, _storageOptions.Value.UseHttps).CreateCloudBlobClient();
+                // Get a reference to the container.
+                var container = _client.GetContainerReference(_storageOptions?.Value.Container);
+                // Create the container if it doesn't already exist.
+                var result = container.CreateIfNotExistsAsync().Result;
+            }
         }
 
         /// <summary>
@@ -38,18 +48,22 @@ namespace Code4Ro.CoViz19.Parser.Services {
 
             await blockBlob.UploadFromStreamAsync(sourceStream, sourceStream.Length);
 
-
             await blockBlob.SetPropertiesAsync();
 
             return blockBlob.Uri.ToString();
         }
 
-        public async Task Initialize() {
-            // Get a reference to the container.
-            var container = _client.GetContainerReference(_storageOptions.Value.Container);
+        public string GetRawData()
+        {
+            throw new NotImplementedException();
+        }
 
-            // Create the container if it doesn't already exist.
-            await container.CreateIfNotExistsAsync();
+        public async Task SaveRawData(string fileContent)
+        {
+            var byteArray = Encoding.ASCII.GetBytes(fileContent);
+            await using var stream = new MemoryStream(byteArray);
+            await UploadFromStreamAsync(stream, "application/json", ".json");
         }
     }
+
 }

@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using Code4Ro.CoViz19.Parser.Services;
+using Code4Ro.CoViz19.Services;
 using Microsoft.AspNetCore.Http.Features;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -36,7 +38,15 @@ namespace Code4Ro.CoViz19.Parser
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-
+            switch (Configuration.GetValue<StorageTypes>("StorageType"))
+            {
+                case StorageTypes.FileSystem:
+                    services.AddSingleton<IFileService, LocalFileService>();
+                    break;
+                case StorageTypes.AzureBlob:
+                    services.AddSingleton<IFileService, BlobService>();
+                    break;
+            }
 
         }
 
@@ -60,7 +70,6 @@ namespace Code4Ro.CoViz19.Parser
             {
                 app.UseSpaStaticFiles();
             }
-
 
             app.UseRouting();
 
