@@ -1,4 +1,4 @@
-namespace Code4Ro.CoViz19.Models
+﻿namespace Code4Ro.CoViz19.Models
 {
     public enum InfectionSourceType
     {
