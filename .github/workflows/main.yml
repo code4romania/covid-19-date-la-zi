@@ -75,6 +75,8 @@ jobs:
 
       - name: "Terraform Format"
         uses: hashicorp/terraform-github-actions@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
         with:
           tf_actions_version: 0.12.23
           tf_actions_subcommand: "fmt"
@@ -82,6 +84,8 @@ jobs:
           tf_actions_comment: true
       - name: "Terraform Init"
         uses: hashicorp/terraform-github-actions@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
         with:
           tf_actions_version: 0.12.23
           tf_actions_subcommand: "init"
@@ -89,6 +93,8 @@ jobs:
           tf_actions_comment: true
       - name: "Terraform Validate"
         uses: hashicorp/terraform-github-actions@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
         with:
           tf_actions_version: 0.12.23
           tf_actions_subcommand: "validate"
@@ -96,6 +102,8 @@ jobs:
           tf_actions_comment: true
       - name: "Terraform Plan"
         uses: hashicorp/terraform-github-actions@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
         with:
           tf_actions_version: 0.12.23
           tf_actions_subcommand: "plan"
