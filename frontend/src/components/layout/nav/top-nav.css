@@ -20,10 +20,14 @@
 
 .logo-code4 {
   height: 30px;
+  margin: -5px 0 auto;
+  vertical-align: middle;
 }
 
 .logo-gov {
   height: 50px;
+  margin: -10px 0 auto;
+  vertical-align: middle;
 }
 
 .logo-coviz {
@@ -31,6 +35,11 @@
 }
 
 .navigation-container .developer {
-  height: 89px;
-  padding: 20px 0;
+  /* padding: 20px 0 0; */
+  line-height: 89px;
+  text-align: right;
+}
+
+.navigation-container .developer span {
+  line-height: 89px;
 }
