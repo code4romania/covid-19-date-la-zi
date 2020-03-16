@@ -7,11 +7,12 @@ namespace Code4Ro.CoViz19.Services
    public class LocalFileService :IFileService
    {
        private const string FileName = "latestData.json";
-       private readonly string _path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), FileName);
+       private  string _path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), FileName);
 
 
        public string GetRawData()
        {
+           _path = @"https://stdatelazi.blob.core.windows.net/date/latestData.json";
            return File.ReadAllText(_path);
        }
 
