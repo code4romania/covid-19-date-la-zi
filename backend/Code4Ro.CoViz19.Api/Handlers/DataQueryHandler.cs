@@ -142,6 +142,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
                 };
             }
             var histogram = currentData.PatientsInfo
+                .Where(x => x.Age.HasValue)
                  .Select(x => new { ageRange = ToAgeRange(x.Age ?? 0), gender = x.Gender })
                  .GroupBy(x => x.ageRange, y => y.gender, (key, genderlist) => new
                  {
