@@ -6,11 +6,11 @@ export class BottomNav extends React.PureComponent {
     return (
       <footer className="footer border-top">
         <div className="container team is-clearfix">
-              <div className="is-pulled-right">
-                <span>proiect incubat în programul</span>
-                <img className="logo-force" src="/images/logo-code4romania-force.svg" />
+          <div className="is-pulled-right">
+            <span>proiect incubat în programul</span>
+            <img className="logo-force" src="/images/logo-code4romania-force.svg" />
                 &nbsp;
-              </div>
+          </div>
         </div>
         <div className="bottom-navigation">
           <div className="container">

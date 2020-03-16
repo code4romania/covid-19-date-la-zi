@@ -17,13 +17,13 @@ export class TopNav extends React.PureComponent {
                 <img src="/images/logo-coviz.svg" className="logo-coviz" />
               </Link>
               <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
+                <span aria-hidden="true" />
+                <span aria-hidden="true" />
+                <span aria-hidden="true" />
               </a>
             </div>
             <div id="navMenu" className="navbar-menu">
-              <div className="navbar-start"></div>
+              <div className="navbar-start" />
               <div className="navbar-end">
                 <Link to="/" className="navbar-item">
                 Home
@@ -39,11 +39,11 @@ export class TopNav extends React.PureComponent {
           <div className="is-pulled-right">
             <div className="developer border-bottom level-right is-clearfix">
               <div>
-              <span className="is-inline-block">Un proiect dezvoltat de</span>
+                <span className="is-inline-block">Un proiect dezvoltat de</span>
               &nbsp;&nbsp;
-              <a href="https://code4.ro" target="_blank" rel="noopener noreferrer" className="is-inline-block">
-                <img src="/images/logo-code4.svg" alt="Code 4 Romania Logo" className="logo-code4" />
-              </a>
+                <a href="https://code4.ro" target="_blank" rel="noopener noreferrer" className="is-inline-block">
+                  <img src="/images/logo-code4.svg" alt="Code 4 Romania Logo" className="logo-code4" />
+                </a>
               &nbsp;
               </div>
               <div>

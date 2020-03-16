@@ -89,7 +89,7 @@ export class GenderCard extends React.PureComponent {
         <div className="pie-chart">
           <ReactEcharts
             id="gender-chart"
-            style={{height: "400px"}}
+            style={{height: '400px'}}
             option={this.getChartOptions()}
           />
         </div>
