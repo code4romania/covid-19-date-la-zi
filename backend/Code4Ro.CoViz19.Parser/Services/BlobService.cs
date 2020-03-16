@@ -22,8 +22,9 @@ namespace Code4Ro.CoViz19.Parser.Services {
         /// <inheritdoc />
         public BlobService(IOptions<BlobStorageOptions> storageOptions) {
             _storageOptions = storageOptions;
-            if (storageOptions != null && storageOptions.Value?.AccountName != null &&
-                storageOptions.Value?.AccountKey != null && storageOptions.Value?.Container != null)
+            if (storageOptions != null && !string.IsNullOrEmpty(storageOptions.Value?.AccountName) &&
+                !string.IsNullOrEmpty(storageOptions.Value?.AccountKey) && 
+                !string.IsNullOrEmpty(storageOptions.Value?.Container))
             {
                 _client = new CloudStorageAccount(Credentials, _storageOptions.Value.UseHttps).CreateCloudBlobClient();
                 // Get a reference to the container.
@@ -39,9 +40,13 @@ namespace Code4Ro.CoViz19.Parser.Services {
         public async Task<string> UploadFromStreamAsync(Stream sourceStream, string mimeType, string extension) {
             // Get a reference to the container.
             var container = _client.GetContainerReference(_storageOptions.Value.Container);
+            
+            var blockBlob = container.GetBlockBlobReference("latestData.json");
+            var archiveDataFile = container.GetBlockBlobReference($"{DateTime.Now.ToString("yyyyMMddHHmmss")}/latestData.json");
+            await archiveDataFile.StartCopyAsync(blockBlob);
 
             // Retrieve reference to a blob.
-            var blockBlob = container.GetBlockBlobReference(Guid.NewGuid().ToString("N") + extension);
+            //var blockBlob = container.GetBlockBlobReference(Guid.NewGuid().ToString("N") + extension);
 
             // Create or overwrite the previous created blob with contents from stream.
             blockBlob.Properties.ContentType = mimeType;

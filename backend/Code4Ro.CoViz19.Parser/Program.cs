@@ -21,6 +21,10 @@ namespace Code4Ro.CoViz19.Parser
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                })
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddEnvironmentVariables();
                 });
     }
 }
