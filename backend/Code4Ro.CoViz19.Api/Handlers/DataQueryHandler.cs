@@ -16,7 +16,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
     public class DataQueryHandler : IRequestHandler<GetLatestData, ParsedDataModel>,
         IRequestHandler<GetQuickstatsData, QuickStatsModel>,
         IRequestHandler<GetDailyStats, DailyStatsModel>,
-        IRequestHandler<GetGenderStats, GenderStatsModel>
+        IRequestHandler<GetGenderStats, GenderStatsModel>,
+        IRequestHandler<GetGenderAgeHistogram, GenderAgeHistogramModel>
     {
         private readonly IDataProviderService _dataService;
         private readonly ICacheSercice _cacheService;
@@ -128,6 +129,50 @@ namespace Code4Ro.CoViz19.Api.Handlers
             response.Stats.Women = currentData.PatientsInfo.Count(x => x.Gender == Gender.Woman);
 
             return response;
+        }
+
+        public async Task<GenderAgeHistogramModel> Handle(GetGenderAgeHistogram request, CancellationToken cancellationToken)
+        {
+            var currentData = await _dataService.GetCurrentData();
+            if (currentData?.PatientsInfo == null)
+            {
+                return new GenderAgeHistogramModel()
+                {
+                    Histogram = new Dictionary<HistogramRangeEnum, HistogramModel>()
+                };
+            }
+            var histogram = currentData.PatientsInfo
+                 .Select(x => new { ageRange = ToAgeRange(x.Age ?? 0), gender = x.Gender })
+                 .GroupBy(x => x.ageRange, y => y.gender, (key, genderlist) => new
+                 {
+                     key = key,
+                     model = new HistogramModel()
+                     {
+                         Men = genderlist.Count(x => x == Gender.Man),
+                         Women = genderlist.Count(x => x == Gender.Woman)
+                     }
+                 })
+                 .ToDictionary(x => x.key, y => y.model);
+
+            return new GenderAgeHistogramModel()
+            {
+                Histogram = histogram
+            };
+        }
+
+        private HistogramRangeEnum ToAgeRange(int age)
+        {
+            if (age <= 10) return HistogramRangeEnum.Age010;
+            if (age <= 20) return HistogramRangeEnum.Age1120;
+            if (age <= 30) return HistogramRangeEnum.Age2130;
+            if (age <= 40) return HistogramRangeEnum.Age3140;
+            if (age <= 50) return HistogramRangeEnum.Age4150;
+            if (age <= 60) return HistogramRangeEnum.Age5160;
+            if (age <= 70) return HistogramRangeEnum.Age6170;
+            if (age <= 80) return HistogramRangeEnum.Age7180;
+            if (age <= 90) return HistogramRangeEnum.Age8190;
+
+            return HistogramRangeEnum.Age91100;
         }
     }
 }
