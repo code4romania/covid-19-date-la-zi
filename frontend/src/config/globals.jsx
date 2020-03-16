@@ -16,5 +16,6 @@ export const Constants = {
 export const ApiURL = {
   summary: Constants.api + '/data/quickstats',
   dailyStats: Constants.api + '/data/dailystats',
+  genderAgeStats: Constants.api + '/data/gender-age-histogram',
   genderStats: Constants.api + '/data/genderstats'
 }
