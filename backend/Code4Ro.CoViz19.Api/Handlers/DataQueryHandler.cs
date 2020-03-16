@@ -23,7 +23,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
         private readonly IDataProviderService _dataService;
         private readonly ICacheSercice _cacheService;
         private readonly ILogger<DataQueryHandler> _logger;
-        
+
         public DataQueryHandler(IDataProviderService dataService, ICacheSercice cacheService, ILogger<DataQueryHandler> logger)
         {
             _dataService = dataService;
@@ -166,22 +166,24 @@ namespace Code4Ro.CoViz19.Api.Handlers
         {
             var currentData = await _dataService.GetCurrentData();
 
-            if (currentData.CountiesData == null || currentData.CountiesData.Length == 0)
-            {
-                return new CountyInfectionsModel();
-            }
-
-            var response = new CountyInfectionsModel
+            var response = new CountyInfectionsModel()
             {
                 Date = new DateTimeOffset(DateTime.Today).ToUnixTimeSeconds(),
                 DateString = DateTime.Today.ToShortDateString(),
-                Total = currentData.CountiesData.Sum(m => m.NumberOfInfections ?? 0),
-                Counties = currentData.CountiesData.Select(m => new CountyDataModel
-                {
-                    Name = m.County,
-                    Count = m.NumberOfInfections ?? 0
-                }).ToArray()
+                Counties = new CountyDataModel[0]
             };
+
+            if (currentData?.CountiesData == null || currentData?.CountiesData.Length == 0)
+            {
+                return response;
+            }
+
+            response.Total = currentData.CountiesData.Sum(m => m.NumberOfInfections ?? 0);
+            response.Counties = currentData.CountiesData.Select(m => new CountyDataModel
+            {
+                Name = m.County,
+                Count = m.NumberOfInfections ?? 0
+            }).ToArray();
 
             return response;
         }
