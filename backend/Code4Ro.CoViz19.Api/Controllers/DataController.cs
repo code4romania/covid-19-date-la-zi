@@ -81,5 +81,17 @@ namespace Code4Ro.CoViz19.Api.Controllers
             var data = await _mediator.Send(new GetGenderAgeHistogram());
             return new OkObjectResult(data);
         }
+
+        [HttpGet]
+        [Route("county-infections")]
+        [SwaggerOperation(Summary = "Get number of infections for each county data provided by Ministry of Health")]
+        [SwaggerResponse(200, "CountyInfections data", typeof(CountyInfectionsModel))]
+        [SwaggerResponse(500, "Something went wrong when getting data", typeof(ErrorModel))]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> GetCountyInfectionsAsync()
+        {
+            var data = await _mediator.Send(new GetCountyInfections());
+            return new OkObjectResult(data);
+        }
     }
 }

@@ -17,11 +17,14 @@ namespace Code4Ro.CoViz19.Api.Handlers
         IRequestHandler<GetQuickstatsData, QuickStatsModel>,
         IRequestHandler<GetDailyStats, DailyStatsModel>,
         IRequestHandler<GetGenderStats, GenderStatsModel>,
-        IRequestHandler<GetGenderAgeHistogram, GenderAgeHistogramModel>
+        IRequestHandler<GetGenderAgeHistogram, GenderAgeHistogramModel>,
+        IRequestHandler<GetCountyInfections, CountyInfectionsModel>
     {
         private readonly IDataProviderService _dataService;
         private readonly ICacheSercice _cacheService;
         private readonly ILogger<DataQueryHandler> _logger;
+
+        public string DateString { get; private set; }
 
         public DataQueryHandler(IDataProviderService dataService, ICacheSercice cacheService, ILogger<DataQueryHandler> logger)
         {
@@ -159,6 +162,30 @@ namespace Code4Ro.CoViz19.Api.Handlers
             {
                 Histogram = histogram
             };
+        }
+
+        public async Task<CountyInfectionsModel> Handle(GetCountyInfections request, CancellationToken cancellationToken)
+        {
+            var currentData = await _dataService.GetCurrentData();
+
+            if (currentData.CountiesData == null || currentData.CountiesData.Length == 0)
+            {
+                return new CountyInfectionsModel();
+            }
+
+            var response = new CountyInfectionsModel
+            {
+                Date = new DateTimeOffset(DateTime.Today).ToUnixTimeSeconds(),
+                DateString = DateTime.Today.ToShortDateString(),
+                Total = currentData.CountiesData.Sum(m => m.NumberOfInfections ?? 0),
+                Counties = currentData.CountiesData.Select(m => new CountyDataModel
+                {
+                    Name = m.County,
+                    Count = m.NumberOfInfections ?? 0
+                }).ToArray()
+            };
+
+            return response;
         }
 
         private HistogramRangeEnum ToAgeRange(int age)
