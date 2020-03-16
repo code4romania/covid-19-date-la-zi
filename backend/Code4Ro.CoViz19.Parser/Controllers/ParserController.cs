@@ -4,6 +4,7 @@ using Code4Ro.CoViz19.Parser.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Code4Ro.CoViz19.Parser.Controllers
 {
@@ -31,6 +32,7 @@ namespace Code4Ro.CoViz19.Parser.Controllers
 
             if (result.IsSuccess)
             {
+                await _mediatr.Send(new SaveParsedDataCommand(JsonConvert.SerializeObject(result.Value)));
                 return new OkObjectResult(result.Value);
             }
 

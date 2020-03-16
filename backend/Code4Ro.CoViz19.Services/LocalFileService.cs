@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Code4Ro.CoViz19.Services
 {
@@ -17,9 +18,10 @@ namespace Code4Ro.CoViz19.Services
            return File.ReadAllText(_path);
        }
 
-       public void SaveRawData()
+       public Task SaveRawData(string fileContent)
        {
            throw new NotImplementedException();
        }
+
    }
 }
