@@ -42,7 +42,7 @@ export class SummaryRow extends React.PureComponent {
     const history = result.history
     const totalCasesHistory = history.map((entry) => { return entry.confirmed })
     const hospitalizedCasesHistory = history.map((entry) => { return entry.hospitalized })
-    const icuCasesHistory = history.map((entry) => { return entry.inIcu })
+    const icuCasesHistory = history.map((entry) => { return entry.in_icu })
     const curedCasesHistory = history.map((entry) => { return entry.cured })
     this.setState({
       isLoaded: true,
@@ -50,7 +50,7 @@ export class SummaryRow extends React.PureComponent {
       totalCasesHistory: totalCasesHistory,
       hospitalizedCases: summary.hospitalized.toLocaleString(),
       hospitalizedCasesHistory: hospitalizedCasesHistory,
-      icuCases: summary.inIcu.toLocaleString(),
+      icuCases: summary.in_icu.toLocaleString(),
       icuCasesHistory: icuCasesHistory,
       curedCases: summary.cured.toLocaleString(),
       curedCasesHistory: curedCasesHistory,
