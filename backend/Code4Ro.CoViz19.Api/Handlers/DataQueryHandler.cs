@@ -23,9 +23,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
         private readonly IDataProviderService _dataService;
         private readonly ICacheSercice _cacheService;
         private readonly ILogger<DataQueryHandler> _logger;
-
-        public string DateString { get; private set; }
-
+        
         public DataQueryHandler(IDataProviderService dataService, ICacheSercice cacheService, ILogger<DataQueryHandler> logger)
         {
             _dataService = dataService;
