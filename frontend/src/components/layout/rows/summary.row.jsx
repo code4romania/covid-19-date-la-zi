@@ -42,7 +42,7 @@ export class SummaryRow extends React.PureComponent {
     const history = result.history
     const totalCasesHistory = history.map((entry) => { return entry.confirmed })
     const hospitalizedCasesHistory = history.map((entry) => { return entry.hospitalized })
-    const icuCasesHistory = history.map((entry) => { return entry.inIcu })
+    const icuCasesHistory = history.map((entry) => { return entry.in_icu })
     const curedCasesHistory = history.map((entry) => { return entry.cured })
     this.setState({
       isLoaded: true,
@@ -50,11 +50,12 @@ export class SummaryRow extends React.PureComponent {
       totalCasesHistory: totalCasesHistory,
       hospitalizedCases: summary.hospitalized.toLocaleString(),
       hospitalizedCasesHistory: hospitalizedCasesHistory,
-      icuCases: summary.inIcu.toLocaleString(),
+      icuCases: summary.in_icu.toLocaleString(),
       icuCasesHistory: icuCasesHistory,
       curedCases: summary.cured.toLocaleString(),
       curedCasesHistory: curedCasesHistory,
-      monitoredCases: summary.monitored.toLocaleString()
+      monitoredCases: summary.monitored.toLocaleString(),
+      quarantinedCases: summary.in_quarantine.toLocaleString(),
     })
   }
 
@@ -68,8 +69,8 @@ export class SummaryRow extends React.PureComponent {
 
   specialValueForHospitalized() {
     return {
-      value: this.state.curedCases,
-      label: 'vindecate',
+      value: this.state.quarantinedCases,
+      label: 'în carantină',
       isGood: true
     }
   };

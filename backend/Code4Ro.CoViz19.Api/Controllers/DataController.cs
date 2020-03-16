@@ -61,12 +61,36 @@ namespace Code4Ro.CoViz19.Api.Controllers
         [HttpGet]
         [Route("genderstats")]
         [SwaggerOperation(Summary = "Get statistics of patients gender ,data provided by Ministry of Health")]
-        [SwaggerResponse(200, "GetGenderStats data", typeof(GetGenderStats))]
+        [SwaggerResponse(200, "GetGenderStats data", typeof(GenderStatsModel))]
         [SwaggerResponse(500, "Something went wrong when getting data", typeof(ErrorModel))]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> GetGenderStats()
         {
             var data = await _mediator.Send(new GetGenderStats());
+            return new OkObjectResult(data);
+        }
+
+        [HttpGet]
+        [Route("gender-age-histogram")]
+        [SwaggerOperation(Summary = "Get histogram of age gender of patients data provided by Ministry of Health")]
+        [SwaggerResponse(200, "GetGenderStats data", typeof(GenderAgeHistogramModel))]
+        [SwaggerResponse(500, "Something went wrong when getting data", typeof(ErrorModel))]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> GetGenderAgeHistogram()
+        {
+            var data = await _mediator.Send(new GetGenderAgeHistogram());
+            return new OkObjectResult(data);
+        }
+
+        [HttpGet]
+        [Route("county-infections")]
+        [SwaggerOperation(Summary = "Get number of infections for each county data provided by Ministry of Health")]
+        [SwaggerResponse(200, "CountyInfections data", typeof(CountyInfectionsModel))]
+        [SwaggerResponse(500, "Something went wrong when getting data", typeof(ErrorModel))]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> GetCountyInfectionsAsync()
+        {
+            var data = await _mediator.Send(new GetCountyInfections());
             return new OkObjectResult(data);
         }
     }

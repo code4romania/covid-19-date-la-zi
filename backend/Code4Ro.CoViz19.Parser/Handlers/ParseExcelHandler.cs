@@ -81,6 +81,11 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             {
                 DataRow row = patientsInfo.Rows[index];
                 var parsedRow = ParsePatientInfo(row, index);
+                if (parsedRow == null)
+                {
+                    continue;
+                }
+
                 parsedPatientsInfo.Add(parsedRow);
             }
             return Result.Ok(parsedPatientsInfo.ToArray());
@@ -88,6 +93,20 @@ namespace Code4Ro.CoViz19.Parser.Handlers
 
         private PatientInfo ParsePatientInfo(DataRow row, int rowIndex)
         {
+            bool hasAtLeastOneFieldsFilled = false;
+            for (int i = 0; i <= 6; i++)
+            {
+                if (!DBNull.Value.Equals(row[i]))
+                {
+                    hasAtLeastOneFieldsFilled = true;
+                }
+            }
+
+            if (!hasAtLeastOneFieldsFilled)
+            {
+                return null;
+            }
+
             var patientNumber = ParseInt(row[0]) ?? rowIndex;
             var gender = ParseGender(row[1]);
             var age = ParseAge(row[2]);
@@ -130,7 +149,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
         private int? ParseAge(object value)
         {
             string ageInfo = ToSafeText(value);
-            int age = 0;
+            int? age = null;
             if (string.IsNullOrEmpty(ageInfo))
             {
                 return age;
@@ -141,19 +160,22 @@ namespace Code4Ro.CoViz19.Parser.Handlers
 
             if (ageInfo.Length == 2)
             {
-                if (int.TryParse(ageInfo, out age) == false)
+                if (int.TryParse(ageInfo, out _) == false)
                 {
-                    return null;
+                    return age;
                 }
+
+                return int.Parse(ageInfo);
             }
 
             string ageValue = ageInfo.Substring(0, 2).Trim();
-            if (int.TryParse(ageValue, out age) == false)
+            if (int.TryParse(ageValue, out _) == false)
             {
                 return null;
             }
 
-            return age;
+            return int.Parse(ageValue);
+
         }
 
         private Gender ParseGender(object value)
