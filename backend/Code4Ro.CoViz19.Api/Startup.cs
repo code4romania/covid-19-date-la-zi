@@ -2,6 +2,7 @@ using Code4Ro.CoViz19.Api.Filters;
 using Code4Ro.CoViz19.Api.Middleware;
 using Code4Ro.CoViz19.Api.Options;
 using Code4Ro.CoViz19.Api.Services;
+using Code4Ro.CoViz19.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +31,8 @@ namespace Code4Ro.CoViz19.Api
             services.Configure<CacheOptions>(Configuration.GetSection("Cache"));
             services.Configure<AuthorizationOptions>(Configuration.GetSection("Authorization"));
 
-            services.AddSingleton<IDataProviderService, DummyDataProviderService>();
+            services.AddSingleton<IDataProviderService, LocalDataProviderService>();
+            services.AddSingleton<IFileService, LocalFileService>();
             services.AddSingleton<ICacheSercice, NoCacheService>();
             services.AddSingleton<IApiKeyValidator, InMemoryApiKeyValidator>();
             services.AddTransient<ApiKeyRequestFilterAttribute>();
