@@ -54,7 +54,8 @@ export class SummaryRow extends React.PureComponent {
       icuCasesHistory: icuCasesHistory,
       curedCases: summary.cured.toLocaleString(),
       curedCasesHistory: curedCasesHistory,
-      monitoredCases: summary.monitored.toLocaleString()
+      monitoredCases: summary.monitored.toLocaleString(),
+      quarantinedCases: summary.in_quarantine.toLocaleString(),
     })
   }
 
@@ -68,8 +69,8 @@ export class SummaryRow extends React.PureComponent {
 
   specialValueForHospitalized() {
     return {
-      value: this.state.curedCases,
-      label: 'vindecate',
+      value: this.state.quarantinedCases,
+      label: 'în carantină',
       isGood: true
     }
   };
