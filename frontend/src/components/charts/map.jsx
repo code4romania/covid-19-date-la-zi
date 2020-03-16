@@ -1,7 +1,7 @@
-import React from "react";
-import ReactEcharts from "echarts-for-react";
-import { Card } from "../layout/card";
-import { casesByCounty } from "../../config/by-county-mock-data";
+import React from 'react';
+import ReactEcharts from 'echarts-for-react';
+import { Card } from '../layout/card';
+import { casesByCounty } from '../../config/by-county-mock-data';
 
 export default class Map extends React.Component {
   // constructor(props) {
@@ -38,53 +38,53 @@ export default class Map extends React.Component {
   getOption = () => {
     return {
       title: {
-        text: "Romanica",
-        subtext: "Cazuri confirmate pe judete",
-        left: "center"
+        text: 'Romanica',
+        subtext: 'Cazuri confirmate pe judete',
+        left: 'center'
       },
       tooltip: {
-        trigger: "item"
+        trigger: 'item'
       },
       legend: {
-        orient: "vertical",
-        left: "left",
-        data: ["jud", "jud2", "jud3"]
+        orient: 'vertical',
+        left: 'left',
+        data: ['jud', 'jud2', 'jud3']
       },
       visualMap: {
         min: 0,
         max: 1000,
-        left: "left",
-        top: "bottom",
-        text: ["oh1", "oh2"],
+        left: 'left',
+        top: 'bottom',
+        text: ['Ridicat', 'Scazut'],
         calculable: true,
         inRange: {
           color: ['lightskyblue', 'yellow', 'red']
-      }
+        }
       },
       toolbox: {
         show: true,
-        orient: "vertical",
-        left: "right",
-        top: "center",
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
         feature: {
           dataView: {
             readOnly: true,
-            title: "Vezi tabel",
-            lang: ["data view", "Inapoi la harta", "refresh"]
+            title: 'Vezi tabel',
+            lang: ['data view', 'Inapoi la harta', 'refresh']
           },
           saveAsImage: {
-            name: "Harta stats covid Code4romania",
-            title: "Salveaza ca imagine"
+            name: 'Harta stats covid Code4romania',
+            title: 'Salveaza ca imagine'
           }
         }
       },
       series: [
         {
-          name: "Cazuri confirmate",
-          type: "map",
-          mapType: "RO",
+          name: 'Cazuri confirmate',
+          type: 'map',
+          mapType: 'RO',
           itemStyle: {
-            areaColor: "#7EBCFF",
+            areaColor: '#7EBCFF',
           },
           label: {
             normal: {
@@ -106,7 +106,7 @@ export default class Map extends React.Component {
       <Card title="Cazuri confirmate pe judete">
         <ReactEcharts
           option={this.getOption()}
-          style={{ height: "500px", width: "100%" }}
+          style={{ height: '500px', width: '100%' }}
           className="react_for_echarts"
         />
       </Card>

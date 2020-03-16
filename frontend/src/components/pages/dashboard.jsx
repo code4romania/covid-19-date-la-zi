@@ -1,15 +1,15 @@
-import React from "react";
-import { PageHeader } from "../layout/page.header";
-import { SummaryRow } from "../layout/rows/summary.row";
-import { GenderCard } from "../cards/gender/gender-card";
-import { CasesPerDayCard } from "../cards/cases-per-day-card/cases-per-day-card";
-import { GenderAndAgeCard } from "../cards/gender-and-age/gender-and-age";
-import "./dashboard.css";
-import Map from "../charts/map";
+import React from 'react';
+import { PageHeader } from '../layout/page.header';
+import { SummaryRow } from '../layout/rows/summary.row';
+import { GenderCard } from '../cards/gender/gender-card';
+import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
+import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
+import './dashboard.css';
+import Map from '../charts/map';
 
 export class Dashboard extends React.PureComponent {
   chartData = {
-    xAxisData: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    xAxisData: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     series: [26, 37, 11, 56, 122, 233, 98]
   };
 
@@ -25,8 +25,8 @@ export class Dashboard extends React.PureComponent {
     data: this.chartData.series,
     total: 99,
     special: {
-      value: "13.765",
-      label: "monitorizate",
+      value: '13.765',
+      label: 'monitorizate',
       isGood: true
     }
   };

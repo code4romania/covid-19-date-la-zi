@@ -1,4 +1,4 @@
-import roGeoJson from "./roGeo";
+import roGeoJson from './roGeo';
 
 export const casesByCounty = roGeoJson.features.map(f => ({
   name: f.properties.name,
