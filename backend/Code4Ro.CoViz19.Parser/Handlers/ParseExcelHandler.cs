@@ -80,6 +80,11 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             {
                 DataRow row = patientsInfo.Rows[index];
                 var parsedRow = ParsePatientInfo(row, index);
+                if(parsedRow == null)
+                {
+                    continue;
+                }
+
                 parsedPatientsInfo.Add(parsedRow);
             }
             return Result.Ok(parsedPatientsInfo.ToArray());
@@ -87,6 +92,20 @@ namespace Code4Ro.CoViz19.Parser.Handlers
 
         private PatientInfo ParsePatientInfo(DataRow row, int rowIndex)
         {
+            bool hasAtLeastOneFieldsFilled = false;
+            for (int i = 0; i <= 6; i++)
+            {
+                if (!DBNull.Value.Equals(row[i]))
+                {
+                    hasAtLeastOneFieldsFilled = true;
+                }
+            }
+
+            if (!hasAtLeastOneFieldsFilled)
+            {
+                return null;
+            }
+
             var patientNumber = ParseInt(row[0]) ?? rowIndex;
             var gender = ParseGender(row[1]);
             var age = ParseAge(row[2]);
