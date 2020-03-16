@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text;
 using Code4Ro.CoViz19.Models;
+using Code4Ro.CoViz19.Parser.Parsers;
 
 
 namespace Code4Ro.CoViz19.Parser.Handlers
@@ -101,6 +102,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
                 Gender = gender,
                 Domicile = domicile,
                 InfectionContact = infectionContact,
+                InfectionSourceType = InfectionSourceParser.Parse(infectionContact),
                 Age = age,
                 HospitalizationLocation = hospitalizationLocation,
                 HealthState = healthObservation,
