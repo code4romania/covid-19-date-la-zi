@@ -67,9 +67,9 @@ jobs:
       - name: "Prep TF Vars"
         run: |
           cat << EOF > aws_deploy/github.tfvars
-          IMAGE_FRONTEND  = "$IMAGE_FRONTEND:$GITHUB_SHA"
-          IMAGE_API       = "$IMAGE_API:$GITHUB_SHA"
-          IMAGE_PARSER    = "$IMAGE_PARSER:$GITHUB_SHA"
+          IMAGE_FRONTEND = "$IMAGE_FRONTEND:$GITHUB_SHA"
+          IMAGE_API      = "$IMAGE_API:$GITHUB_SHA"
+          IMAGE_PARSER   = "$IMAGE_PARSER:$GITHUB_SHA"
           EOF
           cat aws_deploy/github.tfvars
 
