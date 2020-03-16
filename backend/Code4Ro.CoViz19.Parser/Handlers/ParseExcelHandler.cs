@@ -80,7 +80,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             {
                 DataRow row = patientsInfo.Rows[index];
                 var parsedRow = ParsePatientInfo(row, index);
-                if(parsedRow == null)
+                if (parsedRow == null)
                 {
                     continue;
                 }
@@ -147,7 +147,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
         private int? ParseAge(object value)
         {
             string ageInfo = ToSafeText(value);
-            int age = 0;
+            int? age = null;
             if (string.IsNullOrEmpty(ageInfo))
             {
                 return age;
@@ -158,19 +158,22 @@ namespace Code4Ro.CoViz19.Parser.Handlers
 
             if (ageInfo.Length == 2)
             {
-                if (int.TryParse(ageInfo, out age) == false)
+                if (int.TryParse(ageInfo, out _) == false)
                 {
-                    return null;
+                    return age;
                 }
+
+                return int.Parse(ageInfo);
             }
 
             string ageValue = ageInfo.Substring(0, 2).Trim();
-            if (int.TryParse(ageValue, out age) == false)
+            if (int.TryParse(ageValue, out _) == false)
             {
                 return null;
             }
 
-            return age;
+            return int.Parse(ageValue);
+
         }
 
         private Gender ParseGender(object value)
