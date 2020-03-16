@@ -33,21 +33,21 @@ export class GenderAndAgeCard extends React.PureComponent {
   parseAPIResponse(result) {
     const stats = result.histogram
     const categories = Object.entries(stats).map((k,v) => { return k[0] })
-    const sortedCategories = categories.sort((a,b) => { 
-      const firstStartAge = a.split("-",1)[0]
-      const secondStartAge = b.split("-",1)[0]
+    const sortedCategories = categories.sort((a,b) => {
+      const firstStartAge = a.split('-',1)[0]
+      const secondStartAge = b.split('-',1)[0]
       if (firstStartAge !== undefined
         && secondStartAge !== undefined) {
-          const n1 = parseInt(firstStartAge)
-          const n2 = parseInt(secondStartAge)
-          if (n1 < n2) { return -1 }
-          else if (n1 > n2) { return 1 }
-          else return 0
+        const n1 = parseInt(firstStartAge)
+        const n2 = parseInt(secondStartAge)
+        if (n1 < n2) { return -1 }
+        else if (n1 > n2) { return 1 }
+        else return 0
       }
       return false
     })
-    var menEntries = sortedCategories.map((k) => { return stats[k].men })
-    var womenEntries = sortedCategories.map((k) => { return -1 * stats[k].women })
+    let menEntries = sortedCategories.map((k) => { return stats[k].men })
+    let womenEntries = sortedCategories.map((k) => { return -1 * stats[k].women })
 
     this.setState({
       isLoaded: true,
@@ -116,12 +116,12 @@ export class GenderAndAgeCard extends React.PureComponent {
     const { title, data } = this.props;
     return (
       <Card title={title}>
-          <div className="bar-chart">
-            <ReactEcharts
-              id="gender-age-chart"
-              option={this.getChartOptions()}
-            />
-          </div>
+        <div className="bar-chart">
+          <ReactEcharts
+            id="gender-age-chart"
+            option={this.getChartOptions()}
+          />
+        </div>
       </Card>
     );
   }
