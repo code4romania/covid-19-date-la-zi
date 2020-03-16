@@ -1,5 +1,5 @@
-#Date la zi
-##Vizualization App to track the COVID-19 virus epidemic
+# Date la zi
+## Vizualization App to track the COVID-19 virus epidemic
 
 [![GitHub contributors](https://img.shields.io/github/contributors/code4romania/date-la-zi.svg?style=for-the-badge)](https://github.com/code4romania/date-la-zi/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/date-la-zi.svg?style=for-the-badge)](https://github.com/code4romania/date-la-zi/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
 
