@@ -44,8 +44,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             return new QuickStatsModel
             {
-                Totals = ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(latestStats),
-                History = data?.LiveUpdateData.OrderBy(x => x.Timestamp).Select(x => ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(x)).ToArray()
+                Totals = ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(latestStats, data),
+                History = data?.LiveUpdateData.OrderBy(x => x.Timestamp).Select(x => ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(x, data)).ToArray()
             };
         }
 
@@ -65,7 +65,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             if (data.LiveUpdateData.Length == 1)
             {
-                return new DailyStatsModel() { History = new InfectionsStatsModel[] { ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(data.LiveUpdateData.First()) } };
+                return new DailyStatsModel() { History = new InfectionsStatsModel[] { ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(data.LiveUpdateData.First(), data) } };
             }
 
             List<InfectionsStatsModel> history = new List<InfectionsStatsModel>();

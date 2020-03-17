@@ -1,13 +1,14 @@
 ﻿using Code4Ro.CoViz19.Api.Models;
 using Code4Ro.CoViz19.Models;
 using System;
+using System.Linq;
 
 namespace Code4Ro.CoViz19.Api.Mappers
 {
     public class ParsedDataToApiModelsMapper
     {
 
-        public static InfectionsStatsModel MapToInfectionsStatsModel(LiveUpdateData liveData)
+        public static InfectionsStatsModel MapToInfectionsStatsModel(LiveUpdateData liveData, ParsedDataModel parsedData)
         {
             if (liveData == null)
             {
@@ -18,10 +19,10 @@ namespace Code4Ro.CoViz19.Api.Mappers
             {
                 Confirmed = liveData.NumberDiagnosed ?? 0,
                 Cured = liveData.NumberCured ?? 0,
-                Hospitalized = 0,
+                Hospitalized = parsedData.PatientsInfo.Count(p => p.Condition == PatientCondition.Hospitalised),
                 InQuarantine = liveData.NumberQuarantined ?? 0,
                 Monitored = liveData.NumberMonitoredAtHome ?? 0,
-                InIcu = 0,
+                InIcu = parsedData.PatientsInfo.Count(p => p.Condition == PatientCondition.ICU),
                 Date = new DateTimeOffset(liveData.Timestamp).ToUnixTimeSeconds(),
                 DateString = liveData.Timestamp.ToShortDateString()
 
