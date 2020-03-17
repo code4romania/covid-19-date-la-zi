@@ -4,6 +4,7 @@ import { SummaryRow } from '../layout/rows/summary.row';
 import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
 import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
+import { InfectionSourceCard } from '../cards/infection-source/infection-source-card';
 import './dashboard.css';
 
 export class Dashboard extends React.PureComponent {
@@ -54,7 +55,7 @@ export class Dashboard extends React.PureComponent {
   render() {
     return (
       <section className="section">
-        <div className="container cards-row">
+        <div className="container cards-row content">
           <PageHeader
             title="Date Oficiale"
           />
@@ -73,7 +74,7 @@ export class Dashboard extends React.PureComponent {
             Acest proiect este realizat pro-bono de voluntarii Code for Romania, organizație
             neguvernamentală independentă, neafiliată politic și apolitică, în cadrul Code for
             Romania Task Force și în parteneriat cu Guvernul României prin Autoritatea pentru
-            Digitalizarea României.
+            Digitalizarea României și Ministerul Sănătății.
           </p>
         </div>
 
@@ -98,6 +99,12 @@ export class Dashboard extends React.PureComponent {
             <div className="column is-two-quarters">
               <GenderAndAgeCard
                 title="După vârstă și gen"
+              />
+            </div>
+            <div className="column is-one-quarter">
+              <InfectionSourceCard
+                title="Dupa sursa infectiei"
+                data={this.generateCasesPerDay(60)}
               />
             </div>
             <div className="column" />

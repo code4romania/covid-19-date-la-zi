@@ -1,10 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
 import { Constants, ApiURL } from '../../../config/globals'
-import './gender-card.css'
 
-export class GenderCard extends React.PureComponent {
+export class InfectionSourceCard extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -12,13 +12,13 @@ export class GenderCard extends React.PureComponent {
       error: null,
       isLoaded: false,
       date: '',
-      women: 0,
-      men: 0
+      external: 0,
+      internal: 0
     }
   }
 
   componentDidMount() {
-    fetch(ApiURL.genderStats)
+    fetch(ApiURL.infectionSourceStats)
       .then(res => res.json())
       .then((result) => {
         if (result.error != null) {
@@ -34,13 +34,13 @@ export class GenderCard extends React.PureComponent {
   }
 
   parseAPIResponse(result) {
-    const stats = result.stats
+    const stats = result.totals
 
     this.setState({
       isLoaded: true,
-      men: stats.men,
-      women: stats.women,
-      date: stats.dateString
+      date: stats.dateString,
+      external: stats.extern,
+      internal: stats.intern
     })
   }
 
@@ -62,8 +62,8 @@ export class GenderCard extends React.PureComponent {
       animation: false,
       series: [
         {
-          id: 'gender-chart',
-          name: 'Bolnavi',
+          id: 'infection-source-chart',
+          name: 'Sursa',
           type: 'pie',
           radius: ['55%', '90%'],
           avoidLabelOverlap: false,
@@ -75,8 +75,8 @@ export class GenderCard extends React.PureComponent {
             emphasis: { show: false }
           },
           data: [
-            {value: this.state.women, name: Constants.womenText},
-            {value: this.state.men, name: Constants.menText}
+            {value: this.state.internal, name: 'Transmise local'},
+            {value: this.state.external, name: 'Importate'}
           ],
           color: [Constants.womenColor, Constants.menColor]
         }
@@ -87,6 +87,7 @@ export class GenderCard extends React.PureComponent {
   render() {
     const { title } = this.props;
     if (this.state.error) {
+      // TODO: move this into a component
       return (
         <Card>
           <div className="is-error is-block">Nu am putut încărca datele</div>
@@ -97,8 +98,7 @@ export class GenderCard extends React.PureComponent {
         <Card title={title}>
           <div className="pie-chart">
             <ReactEcharts
-              id="gender-chart"
-              style={{height: '400px'}}
+              id="infection-source-chart"
               option={this.getChartOptions()}
             />
           </div>
