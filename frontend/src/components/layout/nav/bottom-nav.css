@@ -37,7 +37,9 @@
 
 .logo-force {
     height: 45px;
-}
+    margin: -5px 0 auto;
+    vertical-align: middle;
+  }
 
 .copyright {
     text-align: right;

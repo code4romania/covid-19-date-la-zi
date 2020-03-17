@@ -1,5 +1,6 @@
 import React from 'react';
 import { SummaryCard } from '../../cards/summary/summary-card';
+import { Card } from '../../layout/card';
 import { ApiURL } from '../../../config/globals';
 import { round } from 'prelude-ls';
 
@@ -35,6 +36,9 @@ export class SummaryRow extends React.PureComponent {
           this.parseAPIResponse(result)
         }
       })
+      .catch((error) => {
+        this.setState({error: error, isLoaded: true})
+      })
   }
 
   parseAPIResponse(result) {
@@ -42,7 +46,7 @@ export class SummaryRow extends React.PureComponent {
     const history = result.history
     const totalCasesHistory = history.map((entry) => { return entry.confirmed })
     const hospitalizedCasesHistory = history.map((entry) => { return entry.hospitalized })
-    const icuCasesHistory = history.map((entry) => { return entry.inIcu })
+    const icuCasesHistory = history.map((entry) => { return entry.in_icu })
     const curedCasesHistory = history.map((entry) => { return entry.cured })
     this.setState({
       isLoaded: true,
@@ -50,11 +54,12 @@ export class SummaryRow extends React.PureComponent {
       totalCasesHistory: totalCasesHistory,
       hospitalizedCases: summary.hospitalized.toLocaleString(),
       hospitalizedCasesHistory: hospitalizedCasesHistory,
-      icuCases: summary.inIcu.toLocaleString(),
+      icuCases: summary.in_icu.toLocaleString(),
       icuCasesHistory: icuCasesHistory,
       curedCases: summary.cured.toLocaleString(),
       curedCasesHistory: curedCasesHistory,
-      monitoredCases: summary.monitored.toLocaleString()
+      monitoredCases: summary.monitored.toLocaleString(),
+      quarantinedCases: summary.in_quarantine.toLocaleString(),
     })
   }
 
@@ -68,8 +73,8 @@ export class SummaryRow extends React.PureComponent {
 
   specialValueForHospitalized() {
     return {
-      value: this.state.curedCases,
-      label: 'vindecate',
+      value: this.state.quarantinedCases,
+      label: 'în carantină',
       isGood: true
     }
   };
@@ -87,7 +92,17 @@ export class SummaryRow extends React.PureComponent {
     const error = this.state.error
     if (error != null) {
       // TODO: handle this gracefully
-      return <div className="container cards-row">An error occured: {error}</div>
+      return (
+        <div className="container cards-row">
+          <div className="columns">
+            <div className="column">
+              <Card>
+                <div className="is-error is-block">Nu am putut încărca datele</div>
+              </Card>
+            </div>
+          </div>
+        </div>
+      )
     } else  {
       return (
         <div className="container cards-row">

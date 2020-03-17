@@ -31,6 +31,9 @@ export class CasesPerDayCard extends React.PureComponent {
           this.parseAPIResponse(result)
         }
       })
+      .catch((error) => {
+        this.setState({error: error, isLoaded: true})
+      })
   }
 
   parseAPIResponse(result) {
@@ -136,22 +139,26 @@ export class CasesPerDayCard extends React.PureComponent {
   }
 
   render() {
-    const { data } = this.props;
-    return (
-      <Card>
-        <div className="title-container is-overlay">
-          <h3 className="summary-title is-uppercase">Număr de cazuri</h3>
-          <h4 className="summary-subtitle">De la {this.state.startDate} la {this.state.endDate}</h4>
-        </div>
-        <ReactEcharts
-          style={{
-            height: '100%',
-            width: '100%',
-          }}
-          option={this.getChartOptions()}
-          theme="light"
-        />
-      </Card>
-    );
+    if (this.state.error) {
+      return <Card>
+          <div className="is-error is-block">Nu am putut încărca datele</div>
+        </Card>
+    } else {
+      return (
+        <Card>
+          <div className="title-container is-overlay">
+            <h3 className="summary-title is-uppercase">Număr de cazuri</h3>
+            <h4 className="summary-subtitle">De la {this.state.startDate} la {this.state.endDate}</h4>
+          </div>
+          <ReactEcharts
+            style={{
+              height: '400px',
+              width: '100%',
+            }}
+            option={this.getChartOptions()}
+            theme="light" />
+        </Card>
+      );
+    }
   }
 }

@@ -55,13 +55,27 @@ export class Dashboard extends React.PureComponent {
   render() {
     return (
       <section className="section">
-        <div className="container cards-row">
+        <div className="container cards-row content">
           <PageHeader
             title="Date Oficiale"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium. Lorem
-            ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium.Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Elit, duis pretium."
           />
+          <p>
+            Accesul la date din surse oficiale ce descriu evoluția cazurilor de COVID-19 în România
+            este esențial în adoptarea măsurilor de sănătate publică împotriva pandemiei. Astfel,
+            venim în sprijinul publicului și al mediului mass-media din România prin accesibilizarea
+            datelor punându-le într-o formă grafică ușor de parcurs, urmând modelul portalului de
+            informare din <a href="https://co.vid19.sg/">Singapore</a>.
+          </p>
+          <p>
+            Infografiile se actualizează periodic cu date anonimizate provenite de la Ministerul
+            Sănătății și le transformă în informație grafică, ușor de înțeles pentru publicul larg.
+          </p>
+          <p>
+            Acest proiect este realizat pro-bono de voluntarii Code for Romania, organizație
+            neguvernamentală independentă, neafiliată politic și apolitică, în cadrul Code for
+            Romania Task Force și în parteneriat cu Guvernul României prin Autoritatea pentru
+            Digitalizarea României și Ministerul Sănătății.
+          </p>
         </div>
 
         <SummaryRow />
@@ -84,11 +98,10 @@ export class Dashboard extends React.PureComponent {
           <div className="columns">
             <div className="column is-two-quarters">
               <GenderAndAgeCard
-                title="După vârstă și gen (mock)"
-                data={this.generateCasesPerDay(60)}
+                title="După vârstă și gen"
               />
             </div>
-            <div className="column is-two-quarters">
+            <div className="column is-one-quarter">
               <InfectionSourceCard
                 title="Dupa sursa infectiei"
                 data={this.generateCasesPerDay(60)}

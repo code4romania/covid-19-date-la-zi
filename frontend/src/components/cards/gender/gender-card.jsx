@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
 import { Constants, ApiURL } from '../../../config/globals'
@@ -28,6 +27,9 @@ export class GenderCard extends React.PureComponent {
         } else {
           this.parseAPIResponse(result)
         }
+      })
+      .catch((error) => {
+        this.setState({error: error, isLoaded: true})
       })
   }
 
@@ -83,16 +85,23 @@ export class GenderCard extends React.PureComponent {
   }
 
   render() {
-    const { title, data } = this.props;
-    return (
-      <Card title={title}>
-        <div className="pie-chart">
-          <ReactEcharts
-            id="gender-chart"
-            option={this.getChartOptions()}
-          />
-        </div>
-      </Card>
-    );
+    const { title } = this.props;
+    if (this.state.error) {
+      return <Card>
+          <div className="is-error is-block">Nu am putut încărca datele</div>
+        </Card>
+    } else {
+      return (
+        <Card title={title}>
+          <div className="pie-chart">
+            <ReactEcharts
+              id="gender-chart"
+              style={{height: '400px'}}
+              option={this.getChartOptions()}
+            />
+          </div>
+        </Card>
+      );
+    }
   }
 }

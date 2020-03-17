@@ -12,8 +12,8 @@ export class InfectionSourceCard extends React.PureComponent {
       error: null,
       isLoaded: false,
       date: '',
-      women: 0,
-      men: 0
+      external: 0,
+      internal: 0
     }
   }
 
@@ -28,16 +28,19 @@ export class InfectionSourceCard extends React.PureComponent {
           this.parseAPIResponse(result)
         }
       })
+      .catch((error) => {
+        this.setState({error: error, isLoaded: true})
+      })
   }
 
   parseAPIResponse(result) {
-    const stats = result.stats
+    const stats = result.totals
 
     this.setState({
       isLoaded: true,
-      men: stats.men,
-      women: stats.women,
-      date: stats.dateString
+      date: stats.dateString,
+      external: stats.extern,
+      internal: stats.intern
     })
   }
 
@@ -72,8 +75,8 @@ export class InfectionSourceCard extends React.PureComponent {
             emphasis: { show: false }
           },
           data: [
-            {value: this.state.local, name: 'transmise local'},
-            {value: this.state.imported, name: 'importate'}
+            {value: this.state.internal, name: 'Transmise local'},
+            {value: this.state.external, name: 'Importate'}
           ],
           color: [Constants.womenColor, Constants.menColor]
         }
@@ -82,16 +85,23 @@ export class InfectionSourceCard extends React.PureComponent {
   }
 
   render() {
-    const { title, data } = this.props;
-    return (
-      <Card title={title}>
-        <div className="pie-chart">
-          <ReactEcharts
-            id="infection-source-chart"
-            option={this.getChartOptions()}
-          />
-        </div>
-      </Card>
-    );
+    const { title } = this.props;
+    if (this.state.error) {
+      // TODO: move this into a component
+      return <Card>
+          <div className="is-error is-block">Nu am putut încărca datele</div>
+        </Card>
+    } else {
+      return (
+        <Card title={title}>
+          <div className="pie-chart">
+            <ReactEcharts
+              id="infection-source-chart"
+              option={this.getChartOptions()}
+            />
+          </div>
+        </Card>
+      );
+    }
   }
 }
