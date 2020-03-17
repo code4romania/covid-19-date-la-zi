@@ -21,7 +21,6 @@ namespace Code4Ro.CoViz19.Api.Services
 
         #region data
         private static string jsonData = @"
-            {
    {
   ""liveUpdateData"": [
     {
