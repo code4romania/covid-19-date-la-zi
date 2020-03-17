@@ -9,10 +9,8 @@ namespace Code4Ro.CoViz19.Services
        private const string FileName = "latestData.json";
        private  string _path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), FileName);
 
-
        public string GetRawData()
        {
-           _path = @"https://stdatelazi.blob.core.windows.net/date/latestData.json";
            return File.ReadAllText(_path);
        }
 
