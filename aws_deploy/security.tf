@@ -1,5 +1,5 @@
 resource "aws_security_group" "public" {
-  name        = "${var.prefix}-public"
+  name        = "${local.name}-public"
   description = "LoadBalancer access"
   vpc_id      = aws_vpc.main.id
 
@@ -18,12 +18,12 @@ resource "aws_security_group" "public" {
   }
 
   tags = {
-    Name = "${var.prefix}-lb"
+    Name = "${local.name}-lb"
   }
 }
 
 resource "aws_security_group" "intra" {
-  name        = "${var.prefix}-intra"
+  name        = "${local.name}-intra"
   description = "Intra-service access (lb - app - db)"
   vpc_id      = aws_vpc.main.id
 
@@ -42,6 +42,6 @@ resource "aws_security_group" "intra" {
   }
 
   tags = {
-    Name = "${var.prefix}-intra"
+    Name = "${local.name}-intra"
   }
 }
