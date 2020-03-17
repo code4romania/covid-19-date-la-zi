@@ -140,9 +140,11 @@ export class CasesPerDayCard extends React.PureComponent {
 
   render() {
     if (this.state.error) {
-      return <Card>
+      return (
+        <Card>
           <div className="is-error is-block">Nu am putut încărca datele</div>
         </Card>
+      )
     } else {
       return (
         <Card>
@@ -156,7 +158,8 @@ export class CasesPerDayCard extends React.PureComponent {
               width: '100%',
             }}
             option={this.getChartOptions()}
-            theme="light" />
+            theme="light"
+          />
         </Card>
       );
     }

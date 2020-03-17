@@ -87,9 +87,11 @@ export class GenderCard extends React.PureComponent {
   render() {
     const { title } = this.props;
     if (this.state.error) {
-      return <Card>
+      return (
+        <Card>
           <div className="is-error is-block">Nu am putut încărca datele</div>
         </Card>
+      )
     } else {
       return (
         <Card title={title}>
