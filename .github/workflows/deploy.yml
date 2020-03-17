@@ -10,6 +10,7 @@ env:
   IMAGE_PARSER: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-parser
   IMAGE_API: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-api
   IMAGE_FRONTEND: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-frontend
+  TF_WORKSPACE: "staging"
 
 jobs:
   build-parser:
