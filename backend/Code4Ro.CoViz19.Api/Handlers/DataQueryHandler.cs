@@ -182,7 +182,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
             response.Total = currentData.CountiesData.Sum(m => m.NumberOfInfections ?? 0);
             response.Counties = currentData.CountiesData.Select(m => new CountyDataModel
             {
-                Name = m.County,
+                Name = CountiesNameMapper.MapToRomanianName(m.County),
                 Count = m.NumberOfInfections ?? 0
             }).ToArray();
 
