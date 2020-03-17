@@ -15,7 +15,7 @@ export class BottomNav extends React.PureComponent {
             &nbsp;
           </div>
         </div>
-        <div className="bottom-navigation">
+        <section className="bottom-navigation">
           <div className="container">
             <div className="columns">
               <div className="column is-one-quarter">
@@ -56,7 +56,7 @@ export class BottomNav extends React.PureComponent {
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </footer>
     );
   }
