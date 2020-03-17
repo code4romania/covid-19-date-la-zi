@@ -21,7 +21,7 @@ namespace Code4Ro.CoViz19.Api.Services
 
         #region data
         private static string jsonData = @"
-            {
+   {
   ""liveUpdateData"": [
     {
       ""timestamp"": ""2020-02-26T16:00:00"",
@@ -252,13 +252,25 @@ namespace Code4Ro.CoViz19.Api.Services
       ""probesInAnalysis"": null
     },
     {
-      ""timestamp"": ""2020-03-16T10:00:00"",
-      ""numberDiagnosed"": 158,
+      ""timestamp"": ""2020-03-16T16:00:00"",
+      ""numberDiagnosed"": 168,
       ""numberCured"": 9,
-      ""numberQuarantined"": 3008,
-      ""numberMonitoredAtHome"": 15546,
-      ""emergencyCalls"": 1153,
-      ""hotLineCalls"": 5517,
+      ""numberQuarantined"": 3078,
+      ""numberMonitoredAtHome"": 14845,
+      ""emergencyCalls"": null,
+      ""hotLineCalls"": null,
+      ""numberCriminalCases"": 38,
+      ""probesAnalyzed"": 3708,
+      ""probesInAnalysis"": null
+    },
+    {
+      ""timestamp"": ""2020-03-17T10:00:00"",
+      ""numberDiagnosed"": 184,
+      ""numberCured"": 16,
+      ""numberQuarantined"": 3282,
+      ""numberMonitoredAtHome"": 16610,
+      ""emergencyCalls"": 1349,
+      ""hotLineCalls"": 6187,
       ""numberCriminalCases"": 38,
       ""probesAnalyzed"": null,
       ""probesInAnalysis"": null
@@ -1357,7 +1369,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 100,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Hunedoara"",
       ""infectionContact"": ""contact senator"",
       ""infectionSourceType"": ""intern"",
@@ -1368,18 +1380,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 101,
       ""gender"": ""man"",
-      ""age"": 0,
-      ""domicile"": """",
-      ""infectionContact"": """",
-      ""infectionSourceType"": ""unknown"",
-      ""hospitalizationLocation"": """",
-      ""healthState"": """",
-      ""isCured"": false
-    },
-    {
-      ""patientNumber"": 101,
-      ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Hunedoara"",
       ""infectionContact"": ""contact senator"",
       ""infectionSourceType"": ""intern"",
@@ -1390,7 +1391,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 102,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Hunedoara"",
       ""infectionContact"": ""contact senator"",
       ""infectionSourceType"": ""intern"",
@@ -1632,7 +1633,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 124,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Bucuresti"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1643,7 +1644,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 125,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Bucuresti"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1654,7 +1655,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 126,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Bucuresti"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1665,7 +1666,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 127,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Bucuresti"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1676,7 +1677,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 128,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Arad"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1687,7 +1688,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 129,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Arad"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1698,7 +1699,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 130,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Arad"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1709,7 +1710,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 131,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Arad"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1720,7 +1721,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 132,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Brasov"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1731,7 +1732,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 133,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Brasov"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1742,7 +1743,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 134,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Brasov"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1753,7 +1754,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 135,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Braila"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1764,7 +1765,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 136,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Braila"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1775,7 +1776,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 137,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Constanta"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1786,7 +1787,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 138,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Teleorman"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1797,7 +1798,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 139,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Iasi"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1808,7 +1809,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 140,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Arad"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1819,7 +1820,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 141,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Arad"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1830,7 +1831,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 142,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Arad"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1841,7 +1842,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 143,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Arad"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1852,7 +1853,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 144,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Ilfov"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1863,7 +1864,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 145,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Ilfov"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1874,7 +1875,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 146,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Ilfov"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1885,7 +1886,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 147,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Valcea"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1896,7 +1897,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 148,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Valcea"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1907,7 +1908,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 149,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Timisoara"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1918,7 +1919,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 150,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Timisoara"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1929,7 +1930,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 151,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Bucuresti"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1940,7 +1941,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 152,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Cluj Napoca"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1951,7 +1952,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 153,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Salaj"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1962,7 +1963,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 154,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Buzau"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1973,7 +1974,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 155,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Ialomita"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1984,7 +1985,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 156,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Hunedoara"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -1995,7 +1996,7 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 157,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Galati"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
@@ -2006,8 +2007,294 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""patientNumber"": 158,
       ""gender"": ""man"",
-      ""age"": 0,
+      ""age"": null,
       ""domicile"": ""Suceava"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 159,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 160,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 161,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 162,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 163,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Ilfov"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 164,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Ilfov"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 165,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Constanta"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 166,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Teleorman"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 167,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Neamt"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 168,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Mures"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 169,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 170,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 171,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 172,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 173,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 174,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 175,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 176,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Suceava"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 177,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Suceava"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 178,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Neamt"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 179,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Neamt"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 180,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Ialomita"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 181,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Mures"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 182,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Botosani"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 183,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Bistrita Nasaud"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false
+    },
+    {
+      ""patientNumber"": 184,
+      ""gender"": ""man"",
+      ""age"": null,
+      ""domicile"": ""Vrancea"",
       ""infectionContact"": """",
       ""infectionSourceType"": ""unknown"",
       ""hospitalizationLocation"": """",
@@ -2018,7 +2305,7 @@ namespace Code4Ro.CoViz19.Api.Services
   ""countiesData"": [
     {
       ""county"": ""Bucuresti"",
-      ""numberOfInfections"": 40
+      ""numberOfInfections"": 45
     },
     {
       ""county"": ""Hunedoara"",
@@ -2034,11 +2321,11 @@ namespace Code4Ro.CoViz19.Api.Services
     },
     {
       ""county"": ""Constanta"",
-      ""numberOfInfections"": 10
+      ""numberOfInfections"": 11
     },
     {
       ""county"": ""Iasi"",
-      ""numberOfInfections"": 6
+      ""numberOfInfections"": 13
     },
     {
       ""county"": ""Covasna"",
@@ -2046,7 +2333,7 @@ namespace Code4Ro.CoViz19.Api.Services
     },
     {
       ""county"": ""Mures"",
-      ""numberOfInfections"": 2
+      ""numberOfInfections"": 3
     },
     {
       ""county"": ""Cluj"",
@@ -2058,7 +2345,7 @@ namespace Code4Ro.CoViz19.Api.Services
     },
     {
       ""county"": ""Suceava"",
-      ""numberOfInfections"": 2
+      ""numberOfInfections"": 4
     },
     {
       ""county"": ""Gorj"",
@@ -2070,7 +2357,7 @@ namespace Code4Ro.CoViz19.Api.Services
     },
     {
       ""county"": ""Ilfov"",
-      ""numberOfInfections"": 4
+      ""numberOfInfections"": 6
     },
     {
       ""county"": ""Galati"",
@@ -2090,7 +2377,7 @@ namespace Code4Ro.CoViz19.Api.Services
     },
     {
       ""county"": ""Neamt"",
-      ""numberOfInfections"": 2
+      ""numberOfInfections"": 5
     },
     {
       ""county"": ""Brasov"",
@@ -2126,7 +2413,7 @@ namespace Code4Ro.CoViz19.Api.Services
     },
     {
       ""county"": ""Teleorman"",
-      ""numberOfInfections"": 1
+      ""numberOfInfections"": 2
     },
     {
       ""county"": ""Valcea"",
@@ -2138,10 +2425,23 @@ namespace Code4Ro.CoViz19.Api.Services
     },
     {
       ""county"": ""Ialomita"",
+      ""numberOfInfections"": 2
+    },
+    {
+      ""county"": ""Botosani"",
+      ""numberOfInfections"": 1
+    },
+    {
+      ""county"": ""Bistrita Nasaud"",
+      ""numberOfInfections"": 1
+    },
+    {
+      ""county"": ""Vrancea"",
       ""numberOfInfections"": 1
     }
   ]
 }
+
        ";
        
         #endregion
