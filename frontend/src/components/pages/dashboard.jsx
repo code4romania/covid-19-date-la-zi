@@ -57,10 +57,24 @@ export class Dashboard extends React.PureComponent {
         <div className="container cards-row">
           <PageHeader
             title="Date Oficiale"
-            subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium. Lorem
-            ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium.Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Elit, duis pretium."
           />
+          <p>
+            Accesul la date din surse oficiale ce descriu evoluția cazurilor de COVID-19 în România
+            este esențial în adoptarea măsurilor de sănătate publică împotriva pandemiei. Astfel,
+            venim în sprijinul publicului și al mediului mass-media din România prin accesibilizarea
+            datelor punându-le într-o formă grafică ușor de parcurs, urmând modelul portalului de
+            informare din <a href="https://co.vid19.sg/">Singapore</a>.
+          </p>
+          <p>
+            Infografiile se actualizează periodic cu date anonimizate provenite de la Ministerul
+            Sănătății și le transformă în informație grafică, ușor de înțeles pentru publicul larg.
+          </p>
+          <p>
+            Acest proiect este realizat pro-bono de voluntarii Code for Romania, organizație
+            neguvernamentală independentă, neafiliată politic și apolitică, în cadrul Code for
+            Romania Task Force și în parteneriat cu Guvernul României prin Autoritatea pentru
+            Digitalizarea României.
+          </p>
         </div>
 
         <SummaryRow />

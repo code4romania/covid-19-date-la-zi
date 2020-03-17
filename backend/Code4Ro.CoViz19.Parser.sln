@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Code4Ro.CoViz19.Models", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Code4Ro.CoViz19.Services", "Code4Ro.CoViz19.Services\Code4Ro.CoViz19.Services.csproj", "{CBB69752-A865-4D62-A49A-432E8DB9C94D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Code4Ro.CoViz19.Parser.UnitTests", "Code4Ro.CoViz19.Parser.UnitTests\Code4Ro.CoViz19.Parser.UnitTests.csproj", "{A38FE096-F232-48D0-8387-0319E4BB314F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CBB69752-A865-4D62-A49A-432E8DB9C94D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBB69752-A865-4D62-A49A-432E8DB9C94D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBB69752-A865-4D62-A49A-432E8DB9C94D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A38FE096-F232-48D0-8387-0319E4BB314F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A38FE096-F232-48D0-8387-0319E4BB314F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A38FE096-F232-48D0-8387-0319E4BB314F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A38FE096-F232-48D0-8387-0319E4BB314F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -25,12 +25,15 @@ export class TopNav extends React.PureComponent {
             <div id="navMenu" className="navbar-menu">
               <div className="navbar-start" />
               <div className="navbar-end">
-                <Link to="/" className="navbar-item">
-                Home
-                </Link>
                 <Link to="/about" className="navbar-item">
                 Despre Proiect
                 </Link>
+                <a href="https://code4.ro/ro/apps" className="navbar-item">
+                Ecosistemul Covid-19
+                </a>
+                <a href="https://code4.ro/ro/doneaza" className="navbar-item">
+                Sprijină proiectul
+                </a>
               </div>
             </div>
           </div>
@@ -51,7 +54,7 @@ export class TopNav extends React.PureComponent {
                 <span>În parteneriat cu</span>
                 &nbsp;&nbsp;
                 <a href="https://www.gov.ro/" target="_blank" rel="noopener noreferrer" className="is-inline-block">
-                  <img src="/images/logo-gov.svg" height="30" alt="Guvernul Romaniei Logo" className="logo-gov" />
+                  <img src="/images/logo-gov.png" alt="Guvernul Romaniei Logo" className="logo-gov" />
                 </a>
                 &nbsp;
               </div>
