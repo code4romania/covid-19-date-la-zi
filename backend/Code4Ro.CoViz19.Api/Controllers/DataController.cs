@@ -40,7 +40,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         [SwaggerResponse(200, "Quickstats data", typeof(QuickStatsModel))]
         [SwaggerResponse(500, "Something went wrong when getting data", typeof(ErrorModel))]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> GetQuickStatsDataAsycn()
+        public async Task<IActionResult> GetQuickStatsDataAsync()
         {
             var data = await _mediator.Send(new GetQuickstatsData());
             return new OkObjectResult(data);
