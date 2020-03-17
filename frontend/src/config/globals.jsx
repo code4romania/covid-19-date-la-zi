@@ -11,7 +11,7 @@ export const Constants = {
 
   countyLowestColor: '#7EBCFF',
   countyHighestColor: 'red',
-  
+
 
   womenText: 'Femei',
   menText: 'Bărbați'
