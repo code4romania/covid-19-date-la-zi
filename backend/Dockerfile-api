@@ -5,12 +5,14 @@ WORKDIR /source
 # copy csproj and restore as distinct layers
 WORKDIR /source/Code4Ro.CoViz19.Api/
 COPY Code4Ro.CoViz19.Models/*.csproj /source/Code4Ro.CoViz19.Models/
+COPY Code4Ro.CoViz19.Services/*.csproj /source/Code4Ro.CoViz19.Services/
 COPY Code4Ro.CoViz19.Api/*.csproj .
 RUN dotnet restore
 
 # copy and publish app and libraries
 COPY Code4Ro.CoViz19.Api/ ./
 COPY Code4Ro.CoViz19.Models/ /source/Code4Ro.CoViz19.Models/
+COPY Code4Ro.CoViz19.Services/ /source/Code4Ro.CoViz19.Services/
 RUN dotnet build -c Release -o /app/build
 RUN dotnet publish -c Release -o /app/publish
 
