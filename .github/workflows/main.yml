@@ -10,6 +10,8 @@ env:
   IMAGE_API: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-api
   IMAGE_FRONTEND: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-frontend
   TF_WORKSPACE: "staging"
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   build-parser:
