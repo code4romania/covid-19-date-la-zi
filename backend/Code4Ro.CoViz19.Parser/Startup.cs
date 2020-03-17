@@ -7,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using Amazon.S3;
+using Code4Ro.CoViz19.Parser.Models;
 using Code4Ro.CoViz19.Parser.Services;
 using Code4Ro.CoViz19.Services;
 using Microsoft.AspNetCore.Http.Features;
@@ -39,6 +41,7 @@ namespace Code4Ro.CoViz19.Parser
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddAWSService<IAmazonS3>();
             switch (Configuration.GetValue<StorageTypes>("StorageType"))
             {
                 case StorageTypes.FileSystem:
@@ -47,8 +50,12 @@ namespace Code4Ro.CoViz19.Parser
                 case StorageTypes.AzureBlob:
                     services.AddSingleton<IFileService, BlobService>();
                     break;
+                case StorageTypes.Aws:
+                    services.AddSingleton<IFileService, S3FileService>();
+                    break;
             }
 
+            services.Configure<S3StorageOptions>(Configuration.GetSection("AWS"));
             services.Configure<BlobStorageOptions>(Configuration.GetSection(nameof(BlobStorageOptions)));
         }
 
