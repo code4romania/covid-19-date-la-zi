@@ -2,6 +2,7 @@ using Code4Ro.CoViz19.Api.Filters;
 using Code4Ro.CoViz19.Api.Middleware;
 using Code4Ro.CoViz19.Api.Options;
 using Code4Ro.CoViz19.Api.Services;
+using Code4Ro.CoViz19.Services;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
+using Code4Ro.CoViz19.Services.Options;
 
 namespace Code4Ro.CoViz19.Api
 {
@@ -29,8 +31,11 @@ namespace Code4Ro.CoViz19.Api
             services.AddOptions();
             services.Configure<CacheOptions>(Configuration.GetSection("Cache"));
             services.Configure<AuthorizationOptions>(Configuration.GetSection("Authorization"));
+            services.Configure<HttpFileServiceOptions>(Configuration.GetSection("HttpFileServiceOptions"));
 
-            services.AddSingleton<IDataProviderService, DummyDataProviderService>();
+            services.AddSingleton<IDataProviderService, LocalDataProviderService>();
+            // used to get the JSON parsed excel file. It can be either LocalFileService (from ./latestData.json) or HttpFileService (from https://stdatelazi.blob.core.windows.net/date/latestData.json)
+            services.AddSingleton<IFileService, HttpFileService>();
             services.AddSingleton<ICacheSercice, NoCacheService>();
             services.AddSingleton<IApiKeyValidator, InMemoryApiKeyValidator>();
             services.AddTransient<ApiKeyRequestFilterAttribute>();

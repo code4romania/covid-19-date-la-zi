@@ -7,7 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using Amazon.S3;
+using Code4Ro.CoViz19.Services;
+using Code4Ro.CoViz19.Services.Options;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -36,8 +40,22 @@ namespace Code4Ro.CoViz19.Parser
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddAWSService<IAmazonS3>();
+            switch (Configuration.GetValue<StorageTypes>("StorageType"))
+            {
+                case StorageTypes.FileSystem:
+                    services.AddSingleton<IFileService, LocalFileService>();
+                    break;
+                case StorageTypes.AzureBlob:
+                    services.AddSingleton<IFileService, BlobService>();
+                    break;
+                case StorageTypes.Aws:
+                    services.AddSingleton<IFileService, S3FileService>();
+                    break;
+            }
 
-
+            services.Configure<S3StorageOptions>(Configuration.GetSection("AWS"));
+            services.Configure<BlobStorageOptions>(Configuration.GetSection(nameof(BlobStorageOptions)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,7 +79,6 @@ namespace Code4Ro.CoViz19.Parser
                 app.UseSpaStaticFiles();
             }
 
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -71,15 +88,13 @@ namespace Code4Ro.CoViz19.Parser
                     pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSpa(spa =>
-            {
+            app.UseSpa(spa => {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
                 spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
+                if (env.IsDevelopment()) {
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });

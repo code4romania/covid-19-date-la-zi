@@ -17,7 +17,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Code4Ro.CoViz19.Models\Code4Ro.CoViz19.Models.csproj" />
+    <ProjectReference Include="..\Code4Ro.CoViz19.Services\Code4Ro.CoViz19.Services.csproj" />
   </ItemGroup>
 
-
+  <ItemGroup>
+    <Content Update="latestData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+   
 </Project>
