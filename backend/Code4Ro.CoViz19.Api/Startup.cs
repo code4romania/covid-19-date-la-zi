@@ -30,6 +30,7 @@ namespace Code4Ro.CoViz19.Api
             services.AddOptions();
             services.Configure<CacheOptions>(Configuration.GetSection("Cache"));
             services.Configure<AuthorizationOptions>(Configuration.GetSection("Authorization"));
+            services.Configure<HttpFileServiceOptions>(Configuration.GetSection("HttpFileServiceOptions"));
 
             services.AddSingleton<IDataProviderService, LocalDataProviderService>();
             // used to get the JSON parsed excel file. It can be either LocalFileService (from ./latestData.json) or HttpFileService (from https://stdatelazi.blob.core.windows.net/date/latestData.json)
