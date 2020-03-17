@@ -1,13 +1,13 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Amazon.Extensions.NETCore.Setup;
 using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
+using Amazon.S3.Transfer;
 using Code4Ro.CoViz19.Parser.Models;
 using Code4Ro.CoViz19.Services;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 
@@ -30,7 +30,7 @@ namespace Code4Ro.CoViz19.Parser.Services {
         {
             var request = new GetObjectRequest {
                 BucketName = _s3Configuration.BucketName,
-                Key = "latestData.json"
+                Key = _s3Configuration.LatestDataFileName
             };
             string responseBody;
             using (var response = _client.GetObjectAsync(request).Result)
@@ -42,9 +42,18 @@ namespace Code4Ro.CoViz19.Parser.Services {
             return responseBody;
         }
 
-        public Task SaveRawData(string fileContent)
+        public async Task SaveRawData(string fileContent)
         {
-            throw new NotImplementedException();
+            var byteArray = Encoding.ASCII.GetBytes(fileContent);
+            await using var stream = new MemoryStream(byteArray);
+
+            var request = new TransferUtilityUploadRequest();
+            using var utility = new TransferUtility(_client);
+            request.BucketName = _s3Configuration.BucketName;
+            request.Key = _s3Configuration.LatestDataFileName;
+            request.InputStream = stream;
+
+            await utility.UploadAsync(request);
         }
     }
 }

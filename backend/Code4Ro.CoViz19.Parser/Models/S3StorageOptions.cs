@@ -5,5 +5,6 @@
         public string Secret { get; set; }
         public string Region { get; set; }
         public string BucketName { get; set; }
+        public string LatestDataFileName { get; set; }
     }
 }

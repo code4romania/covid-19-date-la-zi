@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Code4Ro.CoViz19.Parser.Models;
 using Code4Ro.CoViz19.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
