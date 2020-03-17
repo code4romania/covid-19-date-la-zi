@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Amazon;
 using Amazon.Extensions.NETCore.Setup;
 using Amazon.Runtime;
 using Amazon.S3;
@@ -21,6 +22,7 @@ namespace Code4Ro.CoViz19.Parser.Services {
             _s3Configuration = awsConfiguration.Value;
             var awsOptions = new AWSOptions
             {
+                Region = RegionEndpoint.GetBySystemName(_s3Configuration.Region),
                 Credentials = new BasicAWSCredentials(_s3Configuration.ApiKey, _s3Configuration.Secret)
             };
             
