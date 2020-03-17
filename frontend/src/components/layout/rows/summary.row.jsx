@@ -1,5 +1,6 @@
 import React from 'react';
 import { SummaryCard } from '../../cards/summary/summary-card';
+import { Card } from '../../layout/card';
 import { ApiURL } from '../../../config/globals';
 import { round } from 'prelude-ls';
 
@@ -34,6 +35,9 @@ export class SummaryRow extends React.PureComponent {
         } else {
           this.parseAPIResponse(result)
         }
+      })
+      .catch((error) => {
+        this.setState({error: error, isLoaded: true})
       })
   }
 
@@ -88,7 +92,17 @@ export class SummaryRow extends React.PureComponent {
     const error = this.state.error
     if (error != null) {
       // TODO: handle this gracefully
-      return <div className="container cards-row">An error occured: {error}</div>
+      return (
+        <div className="container cards-row">
+          <div className="columns">
+            <div className="column">
+              <Card>
+                <div className="is-error is-block">Nu am putut încărca datele</div>
+              </Card>
+            </div>
+          </div>
+        </div>
+      )
     } else  {
       return (
         <div className="container cards-row">
