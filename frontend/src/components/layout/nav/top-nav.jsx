@@ -25,12 +25,15 @@ export class TopNav extends React.PureComponent {
             <div id="navMenu" className="navbar-menu">
               <div className="navbar-start" />
               <div className="navbar-end">
-                <Link to="/" className="navbar-item">
-                Home
-                </Link>
                 <Link to="/about" className="navbar-item">
                 Despre Proiect
                 </Link>
+                <a href="https://code4.ro/ro/apps" className="navbar-item">
+                Ecosistemul Covid-19
+                </a>
+                <a href="https://code4.ro/ro/doneaza" className="navbar-item">
+                Sprijină proiectul
+                </a>
               </div>
             </div>
           </div>
