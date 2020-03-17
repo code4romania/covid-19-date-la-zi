@@ -28,6 +28,9 @@ export class GenderAndAgeCard extends React.PureComponent {
           this.parseAPIResponse(result)
         }
       })
+      .catch((error) => {
+        this.setState({error: error, isLoaded: true})
+      })
   }
 
   parseAPIResponse(result) {
@@ -113,16 +116,24 @@ export class GenderAndAgeCard extends React.PureComponent {
   }
 
   render() {
-    const { title, data } = this.props;
-    return (
-      <Card title={title}>
-        <div className="bar-chart">
-          <ReactEcharts
-            id="gender-age-chart"
-            option={this.getChartOptions()}
-          />
-        </div>
-      </Card>
-    );
+    const { title } = this.props;
+    if (this.state.error) {
+      return (
+        <Card>
+          <div className="is-error is-block">Nu am putut încărca datele</div>
+        </Card>
+      )
+    } else {
+      return (
+        <Card title={title}>
+          <div className="bar-chart">
+            <ReactEcharts
+              id="gender-age-chart"
+              option={this.getChartOptions()}
+            />
+          </div>
+        </Card>
+      );
+    }
   }
 }

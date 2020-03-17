@@ -7,6 +7,7 @@
         public int? Age { get; set; }
         public string Domicile { get; set; }
         public string InfectionContact { get; set; }
+        public InfectionSourceType InfectionSourceType { get; set; }
         public string HospitalizationLocation { get; set; }
         public string HealthState { get; set; }
         public bool IsCured { get; set; }

@@ -6,7 +6,7 @@ export class Card extends React.PureComponent {
     const { title, children } = this.props;
 
     return (
-      <div className="card">
+      <div className="card is-shadowless">
         {title &&
           <header className="card-header">
             <p className="card-header-title is-uppercase">{title}</p>

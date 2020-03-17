@@ -18,7 +18,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
         IRequestHandler<GetDailyStats, DailyStatsModel>,
         IRequestHandler<GetGenderStats, GenderStatsModel>,
         IRequestHandler<GetGenderAgeHistogram, GenderAgeHistogramModel>,
-        IRequestHandler<GetCountyInfections, CountyInfectionsModel>
+        IRequestHandler<GetCountyInfections, CountyInfectionsModel>,
+        IRequestHandler<GetInfectionsSource, InfectionsSourceStatisticsModel>
     {
         private readonly IDataProviderService _dataService;
         private readonly ICacheSercice _cacheService;
@@ -188,6 +189,31 @@ namespace Code4Ro.CoViz19.Api.Handlers
             return response;
         }
 
+        public async Task<InfectionsSourceStatisticsModel> Handle(GetInfectionsSource request, CancellationToken cancellationToken)
+        {
+            var data = await _dataService.GetCurrentData();
+            var response = new InfectionsSourceStatisticsModel()
+            {
+                Totals = new InfectionsSourceTotals()
+                {
+                    Date = new DateTimeOffset(DateTime.Today).ToUnixTimeSeconds(),
+                    DateString = DateTime.Today.ToShortDateString(),
+                    Extern = 0,
+                    Intern = 0
+                }
+            };
+
+            if (data?.PatientsInfo == null || data?.PatientsInfo.Length == 0)
+            {
+                return response;
+            }
+
+            response.Totals.Extern = data.PatientsInfo.Count(x => x.InfectionSourceType == InfectionSourceType.Extern);
+            response.Totals.Intern = data.PatientsInfo.Count(x => x.InfectionSourceType == InfectionSourceType.Intern);
+
+            return response;
+        }
+
         private HistogramRangeEnum ToAgeRange(int age)
         {
             if (age <= 10) return HistogramRangeEnum.Age010;
@@ -202,5 +228,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             return HistogramRangeEnum.Age91100;
         }
+
+
     }
 }

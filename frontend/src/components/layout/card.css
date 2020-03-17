@@ -19,3 +19,9 @@
     height: 40px;
     line-height: 40px;
 }
+
+.is-error {
+    color: red;
+    text-align: center;
+    margin: auto 0;
+}

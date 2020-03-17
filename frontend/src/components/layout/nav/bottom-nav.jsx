@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './bottom-nav.css';
 
 export class BottomNav extends React.PureComponent {
@@ -8,20 +9,35 @@ export class BottomNav extends React.PureComponent {
         <div className="container team is-clearfix">
           <div className="is-pulled-right">
             <span>proiect incubat în programul</span>
-            <img className="logo-force" src="/images/logo-code4romania-force.svg" />
-                &nbsp;
+            <a href="https://code4.ro/ro/apps">
+              <img className="logo-force" src="/images/logo-code4romania-force.svg" />
+            </a>
+            &nbsp;
           </div>
         </div>
         <div className="bottom-navigation">
           <div className="container">
             <div className="columns">
               <div className="column is-one-quarter">
-                <h4>Linkuri utile</h4>
+                <h4>Link-uri utile</h4>
                 <ul>
-                  <li><a href="#">Link 1</a></li>
-                  <li><a href="#">Link 2</a></li>
-                  <li><a href="#">Link 3</a></li>
-                  <li><a href="#">Link 4</a></li>
+                  <li><Link to="/about">Despre Proiect</Link></li>
+                  <li><a href="https://code4.ro/ro/apps">Ecosistemul Covid-19</a></li>
+                  <li><a href="https://code4.ro/ro/doneaza">Sprijină proiectul</a></li>
+                  <li>
+                    <a href="https://addons.mozilla.org/en-US/firefox/addon/covid-19-%C8%99tiri-oficiale/">
+                      Instalează add-on-ul Firefox
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://chrome.google.com/webstore/detail/pdcpkplohipjhdfdchpmgekifmcdbnha">
+                    Instalează add-on-ul Chrome
+                    </a>
+                  </li>
+                  <li><a href="https://stirioficiale.ro">CoVid-19: Stiri Oficiale</a></li>
+                  <li><a href="https://cemafac.ro/">CoVid-19: Ce Mă Fac</a></li>
+                  <li><a href="https://diasporahub.ro/">CoVid-19: Diaspora Hub</a></li>
+                  <li><a href="https://stamacasa.ro/">CoVid-19: Stăm Acasă</a></li>
                 </ul>
               </div>
               <div className="column levels copyright vbottom">
