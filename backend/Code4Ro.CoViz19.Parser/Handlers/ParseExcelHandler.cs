@@ -125,7 +125,8 @@ namespace Code4Ro.CoViz19.Parser.Handlers
                 Age = age,
                 HospitalizationLocation = hospitalizationLocation,
                 HealthState = healthObservation,
-                IsCured = isCured
+                IsCured = isCured,
+                Condition = ConditionParser.Parse(isCured, hospitalizationLocation)
             };
         }
 
