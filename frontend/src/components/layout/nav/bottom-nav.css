@@ -15,7 +15,7 @@
 .bottom-navigation {
     background-color: var(--accent-color);
     color: white;
-    padding: 60px 0 70px 0;
+    padding: 60px 5px 70px 5px;
 }
 
 .bottom-navigation a {
