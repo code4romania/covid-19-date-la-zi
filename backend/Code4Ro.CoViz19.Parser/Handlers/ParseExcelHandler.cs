@@ -108,7 +108,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             }
 
             var patientNumber = ParseInt(row[0]) ?? rowIndex;
-            var gender = ParseGender(row[1]);
+            var gender = GenderParser.Parse(ToSafeText(row[1]));
             var age = ParseAge(row[2]);
             var domicile = ToSafeText(row[3]);
             var infectionContact = ToSafeText(row[4]);
@@ -177,18 +177,6 @@ namespace Code4Ro.CoViz19.Parser.Handlers
 
             return int.Parse(ageValue);
 
-        }
-
-        private Gender ParseGender(object value)
-        {
-            string gender = ToSafeText(value).ToLower();
-
-            if (gender.StartsWith("f", StringComparison.InvariantCultureIgnoreCase))
-            {
-                return Gender.Woman;
-            }
-
-            return Gender.Man;
         }
 
         private Result<CountyInfectionsInfo[]> ParseCountiesData(DataTable countiesData)

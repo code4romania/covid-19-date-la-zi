@@ -8,6 +8,8 @@ namespace Code4Ro.CoViz19.Models
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Gender
     {
+        [EnumMember(Value = "unknown")]
+        Unknown,
         [EnumMember(Value = "man")]
         Man,
         [EnumMember(Value = "woman")]
