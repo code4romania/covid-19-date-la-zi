@@ -51,7 +51,7 @@ export class TopNav extends React.PureComponent {
                 <span>În parteneriat cu</span>
                 &nbsp;&nbsp;
                 <a href="https://www.gov.ro/" target="_blank" rel="noopener noreferrer" className="is-inline-block">
-                  <img src="/images/logo-gov.svg" height="30" alt="Guvernul Romaniei Logo" className="logo-gov" />
+                  <img src="/images/logo-gov.png" alt="Guvernul Romaniei Logo" className="logo-gov" />
                 </a>
                 &nbsp;
               </div>
