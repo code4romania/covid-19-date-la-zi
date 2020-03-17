@@ -5,6 +5,8 @@ import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
 import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
 import { InfectionSourceCard } from '../cards/infection-source/infection-source-card';
+import { CountiesCard } from '../cards/counties/counties-card';
+
 import './dashboard.css';
 import Map from '../charts/map';
 
@@ -97,6 +99,9 @@ export class Dashboard extends React.PureComponent {
 
         <div className="container cards-row third-row">
           <div className="columns">
+            <div className="column is-one-quarter">
+              <CountiesCard />
+            </div>
             <div className="column is-two-quarters">
               <GenderAndAgeCard
                 title="După vârstă și gen"
@@ -108,15 +113,6 @@ export class Dashboard extends React.PureComponent {
                 data={this.generateCasesPerDay(60)}
               />
             </div>
-            <div className="column" />
-          </div>
-        </div>
-        <div className="container cards-row fourth-row">
-          <div className="columns">
-            <div className="column is-three-quarters">
-              <Map />
-            </div>
-            <div className="column" />
           </div>
         </div>
       </section>
