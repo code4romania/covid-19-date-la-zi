@@ -9,6 +9,10 @@ export const Constants = {
   confirmedColor: '#69B2F8',
   curedColor: '#65E0E0',
 
+  countyLowestColor: '#7EBCFF',
+  countyHighestColor: 'red',
+  
+
   womenText: 'Femei',
   menText: 'Bărbați'
 };

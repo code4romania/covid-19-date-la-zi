@@ -72,7 +72,7 @@ export class CountiesCard extends React.PureComponent {
         text: ['Ridicat', 'Scazut'],
         calculable: true,
         inRange: {
-          color: ['lightskyblue', 'red']
+          color: [Constants.countyLowestColor, Constants.countyHighestColor]
         }
       },
       series: [
@@ -81,7 +81,7 @@ export class CountiesCard extends React.PureComponent {
           type: 'map',
           mapType: 'RO',
           itemStyle: {
-            areaColor: '#7EBCFF',
+            areaColor: Constants.curedColor,
           },
           label: {
             normal: {

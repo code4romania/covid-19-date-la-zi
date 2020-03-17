@@ -8,7 +8,6 @@ import { InfectionSourceCard } from '../cards/infection-source/infection-source-
 import { CountiesCard } from '../cards/counties/counties-card';
 
 import './dashboard.css';
-import Map from '../charts/map';
 
 export class Dashboard extends React.PureComponent {
   chartData = {
