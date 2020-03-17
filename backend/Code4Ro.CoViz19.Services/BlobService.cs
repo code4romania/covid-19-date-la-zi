@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Code4Ro.CoViz19.Parser.Models;
-using Code4Ro.CoViz19.Services;
+using Code4Ro.CoViz19.Services.Options;
 using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace Code4Ro.CoViz19.Parser.Services {
+namespace Code4Ro.CoViz19.Services {
     public class BlobService : IFileService {
         private CloudBlobClient _client;
         private IOptions<BlobStorageOptions> _storageOptions;

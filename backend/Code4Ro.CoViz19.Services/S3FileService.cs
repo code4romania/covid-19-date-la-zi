@@ -7,12 +7,10 @@ using Amazon.Runtime;
 using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
-using Code4Ro.CoViz19.Parser.Models;
-using Code4Ro.CoViz19.Services;
+using Code4Ro.CoViz19.Services.Options;
 using Microsoft.Extensions.Options;
 
-
-namespace Code4Ro.CoViz19.Parser.Services {
+namespace Code4Ro.CoViz19.Services {
     public class S3FileService : IFileService
     {
         private readonly S3StorageOptions _s3Configuration;

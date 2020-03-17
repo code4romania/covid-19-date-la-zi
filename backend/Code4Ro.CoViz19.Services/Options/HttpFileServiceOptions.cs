@@ -1,4 +1,4 @@
-﻿namespace Code4Ro.CoViz19.Services
+﻿namespace Code4Ro.CoViz19.Services.Options
 {
     public class HttpFileServiceOptions
     {

@@ -14,9 +14,11 @@ namespace Code4Ro.CoViz19.Services
            return File.ReadAllText(_path);
        }
 
+#pragma warning disable 1998
        public async Task SaveRawData(string fileContent)
+#pragma warning restore 1998
        {
-           File.WriteAllText(_path, fileContent);
+          File.WriteAllText(_path, fileContent);
         }
 
    }

@@ -1,4 +1,4 @@
-﻿namespace Code4Ro.CoViz19.Parser.Models
+﻿namespace Code4Ro.CoViz19.Services.Options
 {
     /// <summary>
     /// Manages the details about the blob storage being used
