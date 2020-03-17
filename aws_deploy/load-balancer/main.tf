@@ -1,21 +1,17 @@
 resource "aws_alb" "main" {
-  name               = var.name
+  name               = "${var.prefix}-${var.name}"
   load_balancer_type = "application"
   subnets            = var.subnets
 
   security_groups = var.security_groups
 
   tags = {
-    Name = var.name
+    Name = "${var.prefix}_${var.name}"
   }
 }
 
-output "dns" {
-  value = aws_alb.main.dns_name
-}
-
 resource "aws_alb_target_group" "main" {
-  name     = var.name
+  name     = "${var.prefix}-${var.name}"
   vpc_id   = var.vpc_id
   port     = 80
   protocol = "HTTP"
@@ -23,12 +19,8 @@ resource "aws_alb_target_group" "main" {
   target_type = "ip"
 
   tags = {
-    Name = var.name
+    Name = "${var.prefix}_${var.name}"
   }
-}
-
-output "target_group_arn" {
-  value = aws_alb_target_group.main.id
 }
 
 resource "aws_alb_listener" "main" {
@@ -40,9 +32,4 @@ resource "aws_alb_listener" "main" {
     type             = "forward"
     target_group_arn = aws_alb_target_group.main.id
   }
-}
-
-output "aws_alb_listener" {
-  value      = {}
-  depends_on = [aws_alb_listener.main]
 }

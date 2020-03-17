@@ -2,6 +2,7 @@ module "load-balancer" {
   source = "../load-balancer"
 
   name            = var.name
+  prefix          = var.prefix
   subnets         = var.lb-subnets
   security_groups = var.lb-security_groups
   vpc_id          = var.vpc_id
@@ -32,7 +33,7 @@ resource "aws_ecs_service" "main" {
 }
 
 resource "aws_ecs_task_definition" "main" {
-  family                   = var.name
+  family                   = "${var.prefix}_${var.name}"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
 

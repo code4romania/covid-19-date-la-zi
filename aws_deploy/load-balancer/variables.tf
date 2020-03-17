@@ -2,6 +2,10 @@ variable "name" {
   type = string
 }
 
+variable "prefix" {
+  type = string
+}
+
 variable "subnets" {
   type = list
 }

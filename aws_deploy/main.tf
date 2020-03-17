@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 locals {
-  name = "${var.prefix}_${terraform.workspace}"
+  name = "${var.prefix}-${terraform.workspace}"
 }
 
 terraform {

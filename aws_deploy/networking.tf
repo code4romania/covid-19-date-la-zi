@@ -10,10 +10,6 @@ resource "aws_vpc" "main" {
   }
 }
 
-output "VPC_CIDR" {
-  value = aws_vpc.main.cidr_block
-}
-
 #################################################
 # Subnets
 #################################################
@@ -29,10 +25,6 @@ resource "aws_subnet" "public" {
   }
 }
 
-output "Subnet_Public_CIDR" {
-  value = aws_subnet.public.*.cidr_block
-}
-
 resource "aws_subnet" "private" {
   count             = var.az_count
   vpc_id            = aws_vpc.main.id
@@ -42,10 +34,6 @@ resource "aws_subnet" "private" {
   tags = {
     Name = "${local.name}-private"
   }
-}
-
-output "Subnet_Private_App_CIDR" {
-  value = aws_subnet.private.*.cidr_block
 }
 
 #################################################
@@ -67,10 +55,6 @@ resource "aws_eip" "private" {
   tags = {
     Name = "${local.name}-private"
   }
-}
-
-output "NAT_Egress_Elastic_IP" {
-  value = aws_eip.private.*.public_ip
 }
 
 resource "aws_nat_gateway" "private" {
