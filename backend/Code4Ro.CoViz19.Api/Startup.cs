@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
+using Code4Ro.CoViz19.Services.Options;
 
 namespace Code4Ro.CoViz19.Api
 {
