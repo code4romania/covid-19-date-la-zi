@@ -5,6 +5,8 @@ import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
 import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
 import { InfectionSourceCard } from '../cards/infection-source/infection-source-card';
+import { CountiesCard } from '../cards/counties/counties-card';
+
 import './dashboard.css';
 
 export class Dashboard extends React.PureComponent {
@@ -29,11 +31,10 @@ export class Dashboard extends React.PureComponent {
       label: 'monitorizate',
       isGood: true
     }
-  }
+  };
 
-
-  rand(start, end){
-    return start + Math.floor(Math.random() * (end - start))
+  rand(start, end) {
+    return start + Math.floor(Math.random() * (end - start));
   }
 
   generateCasesPerDay(numberOfDays) {
@@ -41,13 +42,17 @@ export class Dashboard extends React.PureComponent {
 
     let data = [];
     for (let i = numberOfDays; i >= 0; i--) {
-      const date = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+      const date = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate() - i
+      );
       data.push({
         date: date,
         symptomatic: this.rand(2, 700),
         confirmed: this.rand(5, 200),
-        cured: this.rand(5, 200),
-      })
+        cured: this.rand(5, 200)
+      });
     }
     return data;
   }
@@ -86,16 +91,16 @@ export class Dashboard extends React.PureComponent {
               <CasesPerDayCard />
             </div>
             <div className="column is-one-quarter">
-              <GenderCard
-                to="/"
-                title="După gen"
-              />
+              <GenderCard to="/" title="După gen" />
             </div>
           </div>
         </div>
 
         <div className="container cards-row third-row">
           <div className="columns">
+            <div className="column is-one-quarter">
+              <CountiesCard />
+            </div>
             <div className="column is-two-quarters">
               <GenderAndAgeCard
                 title="După vârstă și gen"
@@ -107,7 +112,6 @@ export class Dashboard extends React.PureComponent {
                 data={this.generateCasesPerDay(60)}
               />
             </div>
-            <div className="column" />
           </div>
         </div>
       </section>

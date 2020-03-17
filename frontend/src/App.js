@@ -1,13 +1,11 @@
 import React from 'react';
 import { TopNav } from './components/layout/nav/top-nav';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { DemoComponent } from './components/demo-component';
-import { Link } from 'react-router-dom';
 import { BottomNav } from './components/layout/nav/bottom-nav';
 
 // pages
 import { Dashboard } from './components/pages/dashboard';
-import { AbooutPage, AboutPage } from './components/pages/about';
+import { AboutPage } from './components/pages/about';
 
 function App() {
   return (

@@ -7,6 +7,11 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import echarts from 'echarts';
+import roGeoJson from './config/roGeo';
+
+echarts.registerMap('RO', roGeoJson);
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
