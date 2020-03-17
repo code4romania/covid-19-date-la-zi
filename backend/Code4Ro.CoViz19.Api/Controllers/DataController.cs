@@ -93,5 +93,17 @@ namespace Code4Ro.CoViz19.Api.Controllers
             var data = await _mediator.Send(new GetCountyInfections());
             return new OkObjectResult(data);
         }
+
+        [HttpGet]
+        [Route("infections-source")]
+        [SwaggerOperation(Summary = "Get infections source data provided by Ministry of Health")]
+        [SwaggerResponse(200, "InfectionsSource data", typeof(InfectionsSourceStatisticsModel))]
+        [SwaggerResponse(500, "Something went wrong when getting data", typeof(ErrorModel))]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> GetInfectionsSource()
+        {
+            var data = await _mediator.Send(new GetInfectionsSource());
+            return new OkObjectResult(data);
+        }
     }
 }
