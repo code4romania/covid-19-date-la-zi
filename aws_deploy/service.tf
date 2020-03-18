@@ -10,11 +10,6 @@ resource "aws_ecs_cluster" "app" {
 # Execution Role
 #################################################
 
-resource "aws_iam_role_policy_attachment" "ecr_and_logs" {
-  role       = aws_iam_role.ecs_execution.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
-}
-
 resource "aws_iam_role" "ecs_execution" {
   name = "${local.name}-ecs_execution"
 
@@ -34,6 +29,50 @@ resource "aws_iam_role" "ecs_execution" {
   ]
 }
 DOCUMENT
+}
+
+resource "aws_iam_role_policy_attachment" "ecr_and_logs" {
+  role       = aws_iam_role.ecs_execution.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "use_ssm_parameter" {
+  role       = aws_iam_role.ecs_execution.name
+  policy_arn = aws_iam_policy.use_ssm_parameter.arn
+}
+
+resource "aws_iam_policy" "use_ssm_parameter" {
+  name   = "${local.name}_use-ssm-parameter"
+  policy = data.aws_iam_policy_document.use_ssm_parameter.json
+}
+
+data "aws_iam_policy_document" "use_ssm_parameter" {
+  statement {
+    actions = [
+      "ssm:DescribeParameters"
+    ]
+    resources = ["*"]
+    effect    = "Allow"
+  }
+  statement {
+    actions = [
+      "ssm:GetParameter*"
+    ]
+    resources = [
+      aws_ssm_parameter.parser_access_key_id.arn,
+      aws_ssm_parameter.parser_secret_access_key.arn
+    ]
+    effect = "Allow"
+  }
+  statement {
+    actions = [
+      "kms:Decrypt"
+    ]
+    resources = [
+      aws_kms_key.ssm_key.arn
+    ]
+    effect = "Allow"
+  }
 }
 
 #################################################
@@ -120,14 +159,6 @@ module "parser" {
   environment_variables = <<ENV
   [
     {
-      "name" : "AWS__APIKEY",
-      "value" : "${aws_iam_access_key.parser.id}"
-    },
-    {
-      "name" : "AWS__SECRET",
-      "value" : "${aws_iam_access_key.parser.secret}"
-    },
-    {
       "name" : "AWS__BUCKETNAME",
       "value" : "${aws_s3_bucket.storage.bucket}"
     },
@@ -137,4 +168,10 @@ module "parser" {
     }
   ]
 ENV
+  secrets               = <<SECRETS
+  [
+    { "name": "AWS__APIKEY", "valueFrom": "${aws_ssm_parameter.parser_access_key_id.arn}" },
+    { "name": "AWS__SECRET", "valueFrom": "${aws_ssm_parameter.parser_secret_access_key.arn}" }
+  ]
+SECRETS
 }
