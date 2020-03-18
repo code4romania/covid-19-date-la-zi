@@ -1,6 +1,7 @@
 export const Constants = {
-  // TODO: dev vs prod
-  api: 'https://code4rocoviz19api-demo.azurewebsites.net/api/v1',
+  api: process.env.REACT_APP_API_URL || 'https://code4rocoviz19api-demo.azurewebsites.net/api/v1',
+  isDev: process.env.NODE_ENV === 'development',
+  isProd: process.env.NODE_ENV === 'production',
 
   womenColor: '#F77EB9',
   menColor: '#7EBCFF',
@@ -11,7 +12,6 @@ export const Constants = {
 
   countyLowestColor: '#7EBCFF',
   countyHighestColor: 'red',
-
 
   womenText: 'Femei',
   menText: 'Bărbați'
