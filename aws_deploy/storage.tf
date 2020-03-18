@@ -49,6 +49,7 @@ EOF
 
 resource "aws_s3_bucket" "storage" {
   bucket = local.name
+  acl    = "public-read"
 
   tags = {
     Name = local.name
