@@ -153,6 +153,7 @@ module "parser" {
   ]
 
   container_port        = 8080
+  task_role_arn         = aws_iam_role.ecs_instance.arn
   execution_role_arn    = aws_iam_role.ecs_execution.arn
   image                 = var.IMAGE_PARSER
   prefix                = local.name
