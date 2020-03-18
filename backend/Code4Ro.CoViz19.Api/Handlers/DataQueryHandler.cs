@@ -23,13 +23,11 @@ namespace Code4Ro.CoViz19.Api.Handlers
     {
         private readonly IDataProviderService _dataService;
         private readonly ICacheSercice _cacheService;
-        private readonly ILogger<DataQueryHandler> _logger;
 
-        public DataQueryHandler(IDataProviderService dataService, ICacheSercice cacheService, ILogger<DataQueryHandler> logger)
+        public DataQueryHandler(IDataProviderService dataService, ICacheSercice cacheService)
         {
             _dataService = dataService;
             _cacheService = cacheService;
-            _logger = logger;
         }
         public async Task<ParsedDataModel> Handle(GetLatestData request, CancellationToken cancellationToken)
         {
