@@ -2,6 +2,10 @@ provider "aws" {
   region = "eu-central-1"
 }
 
+locals {
+  name = "${var.prefix}-${terraform.workspace}"
+}
+
 terraform {
   required_version = ">=0.12.13"
   backend "s3" {
