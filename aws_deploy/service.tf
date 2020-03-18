@@ -55,10 +55,18 @@ module "front-end" {
     aws_security_group.public.id
   ]
 
-  container_port     = 80
-  execution_role_arn = aws_iam_role.ecs_execution.arn
-  image              = var.IMAGE_FRONTEND
-  prefix             = local.name
+  container_port        = 80
+  execution_role_arn    = aws_iam_role.ecs_execution.arn
+  image                 = var.IMAGE_FRONTEND
+  prefix                = local.name
+  environment_variables = <<ENV
+  [
+    {
+      "name" : "REACT_APP_API_URL",
+      "value" : "http://${module.api.dns}/api/v1"
+    }
+  ]
+ENV
 }
 
 module "api" {
@@ -76,10 +84,18 @@ module "api" {
     aws_security_group.public.id
   ]
 
-  container_port     = 80
-  execution_role_arn = aws_iam_role.ecs_execution.arn
-  image              = var.IMAGE_API
-  prefix             = local.name
+  container_port        = 80
+  execution_role_arn    = aws_iam_role.ecs_execution.arn
+  image                 = var.IMAGE_API
+  prefix                = local.name
+  environment_variables = <<ENV
+  [
+    {
+      "name" : "HTTPFILESERVICEOPTIONS__JSONFILEURL",
+      "value" : "https://${aws_s3_bucket.storage.bucket_regional_domain_name}/latestData.json"
+    }
+  ]
+ENV
 }
 
 module "parser" {
@@ -97,8 +113,28 @@ module "parser" {
     aws_security_group.public.id
   ]
 
-  container_port     = 8080
-  execution_role_arn = aws_iam_role.ecs_execution.arn
-  image              = var.IMAGE_PARSER
-  prefix             = local.name
+  container_port        = 8080
+  execution_role_arn    = aws_iam_role.ecs_execution.arn
+  image                 = var.IMAGE_PARSER
+  prefix                = local.name
+  environment_variables = <<ENV
+  [
+    {
+      "name" : "AWS__APIKEY",
+      "value" : "${aws_iam_access_key.parser.id}"
+    },
+    {
+      "name" : "AWS__SECRET",
+      "value" : "${aws_iam_access_key.parser.secret}"
+    },
+    {
+      "name" : "AWS__BUCKETNAME",
+      "value" : "${aws_s3_bucket.storage.bucket}"
+    },
+    {
+      "name" : "AWS__REGION",
+      "value" : "${aws_s3_bucket.storage.region}"
+    }
+  ]
+ENV
 }

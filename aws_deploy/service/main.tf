@@ -63,7 +63,9 @@ resource "aws_ecs_task_definition" "main" {
         "awslogs-region": "eu-central-1",
         "awslogs-stream-prefix": "ecs"
       }
-    }
+    },
+    "environment": ${var.environment_variables},
+    "secrets": ${var.secrets}
   }
 ]
 DEFINITION

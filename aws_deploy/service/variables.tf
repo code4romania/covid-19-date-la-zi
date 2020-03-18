@@ -41,3 +41,13 @@ variable "image" {
 variable "prefix" {
   type = string
 }
+
+variable "environment_variables" {
+  type    = string
+  default = "[]"
+}
+
+variable "secrets" {
+  type    = string
+  default = "[]"
+}
