@@ -31,7 +31,12 @@ resource "aws_iam_user_policy" "parser_rw" {
             "Resource": [
                 "arn:aws:s3:::${aws_s3_bucket.storage.bucket}/*",
                 "arn:aws:s3:::${aws_s3_bucket.storage.bucket}"
-            ]
+            ],
+            "Condition": {
+                "ForAnyValue:IpAddress": {
+                    "aws:SourceIp": ["${join("\",\"", aws_subnet.private.*.cidr_block)}"]
+                }
+            }
         }
     ]
 }
