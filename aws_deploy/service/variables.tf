@@ -30,6 +30,11 @@ variable "container_port" {
   type = number
 }
 
+variable "task_role_arn" {
+  type    = string
+  default = ""
+}
+
 variable "execution_role_arn" {
   type = string
 }

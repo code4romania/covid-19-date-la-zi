@@ -11,7 +11,7 @@ module "load-balancer" {
 resource "aws_ecs_service" "main" {
   name            = var.name
   cluster         = var.cluster
-  task_definition = aws_ecs_task_definition.main.id
+  task_definition = "${aws_ecs_task_definition.main.id}:${aws_ecs_task_definition.main.revision}"
   desired_count   = 1
   launch_type     = "FARGATE"
 
@@ -39,6 +39,7 @@ resource "aws_ecs_task_definition" "main" {
 
   cpu                   = 256
   memory                = 512
+  task_role_arn         = var.task_role_arn
   execution_role_arn    = var.execution_role_arn
   container_definitions = <<DEFINITION
 [

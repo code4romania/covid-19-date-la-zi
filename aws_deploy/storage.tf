@@ -17,31 +17,55 @@ resource "aws_iam_user_policy" "parser_rw" {
   name = "${local.name}-parser-s3-write"
   user = aws_iam_user.parser.name
 
-  policy = <<EOF
+  policy = data.aws_iam_policy_document.s3access.json
+}
+
+resource "aws_iam_role" "ecs_instance" {
+  name = "${local.name}_ecs-instance"
+
+  assume_role_policy = <<POLICY
 {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "VisualEditor0",
             "Effect": "Allow",
-            "Action": [
-                "s3:PutObject",
-                "s3:ListBucket"
-            ],
-            "Resource": [
-                "arn:aws:s3:::${aws_s3_bucket.storage.bucket}/*",
-                "arn:aws:s3:::${aws_s3_bucket.storage.bucket}"
-            ],
-            "Condition": {
-                "ForAnyValue:IpAddress": {
-                    "aws:SourceIp": ["${join("\",\"", aws_subnet.private.*.cidr_block)}"]
-                }
+            "Action": ["sts:AssumeRole"],
+            "Principal": {
+              "Service": [
+                "ecs-tasks.amazonaws.com"
+              ]
             }
         }
     ]
 }
-EOF
+POLICY
 }
+
+resource "aws_iam_role_policy_attachment" "ecs_s3access" {
+  role       = aws_iam_role.ecs_instance.name
+  policy_arn = aws_iam_policy.s3access.arn
+}
+
+
+resource "aws_iam_policy" "s3access" {
+  name   = "${local.name}_s3access"
+  policy = data.aws_iam_policy_document.s3access.json
+}
+
+data "aws_iam_policy_document" "s3access" {
+  statement {
+    actions = [
+      "s3:*"
+    ]
+    resources = [
+      aws_s3_bucket.storage.arn,
+      "${aws_s3_bucket.storage.arn}/*"
+    ]
+    effect = "Allow"
+  }
+}
+
+data "aws_canonical_user_id" "current_user" {}
 
 #################################################
 # Storage
@@ -49,7 +73,31 @@ EOF
 
 resource "aws_s3_bucket" "storage" {
   bucket = local.name
-  acl    = "public-read"
+
+  policy = <<POLICY
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": [
+              "arn:aws:s3:::${local.name}",
+              "arn:aws:s3:::${local.name}/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:ListBucket",
+            "Resource": [
+              "arn:aws:s3:::${local.name}"
+            ]
+        }
+    ]
+}
+  POLICY
 
   tags = {
     Name = local.name
