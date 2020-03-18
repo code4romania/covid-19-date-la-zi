@@ -10,7 +10,8 @@ export class BottomNav extends React.PureComponent {
           <div className="is-pulled-right">
             <span>proiect incubat în programul</span>
             <a href="https://code4.ro/ro/apps">
-              <img className="logo-force" src="/images/logo-code4romania-force.svg" />
+              <img className="logo-force" src="/images/logo-code4romania-force.svg" 
+              alt="Code4Romania Task Force Logo" />
             </a>
             &nbsp;
           </div>
@@ -46,7 +47,8 @@ export class BottomNav extends React.PureComponent {
                   <div>
                     <p>
                       <a href="https://code4.ro/ro/">
-                        <img src="/images/logo-code4-gray.svg" className="logo-code4-gray" />
+                        <img src="/images/logo-code4-gray.svg" className="logo-code4-gray" 
+                        alt="Code4Romania Logo" />
                       </a>
                     </p>
                     <p>© 2020 Code for Romania.</p>

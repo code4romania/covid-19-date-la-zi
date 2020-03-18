@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
 import { Constants, ApiURL } from '../../../config/globals'

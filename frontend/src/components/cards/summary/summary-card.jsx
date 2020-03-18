@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
 import './summary-card.css'
@@ -21,10 +20,6 @@ export class SummaryCard extends React.PureComponent {
         type: 'line',
       }]
     };
-  }
-
-  getTotal(data) {
-    return data && data.reduce((a, b) => a + b, 0);
   }
 
   render() {
