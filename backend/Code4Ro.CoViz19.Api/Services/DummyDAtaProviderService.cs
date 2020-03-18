@@ -21,8 +21,7 @@ namespace Code4Ro.CoViz19.Api.Services
 
         #region data
         private static string jsonData = @"
-  
-  {
+    {
   ""liveUpdateData"": [
     {
       ""timestamp"": ""2020-02-26T16:00:00"",
@@ -253,7 +252,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""probesInAnalysis"": null
     },
     {
-      ""timestamp"": ""2020-03-16T16:00:00"",
+      ""timestamp"": ""2020-03-16T18:00:00"",
       ""numberDiagnosed"": 168,
       ""numberCured"": 9,
       ""numberQuarantined"": 3078,
@@ -265,14 +264,26 @@ namespace Code4Ro.CoViz19.Api.Services
       ""probesInAnalysis"": null
     },
     {
-      ""timestamp"": ""2020-03-17T10:00:00"",
-      ""numberDiagnosed"": 184,
-      ""numberCured"": 16,
-      ""numberQuarantined"": 3282,
-      ""numberMonitoredAtHome"": 16610,
-      ""emergencyCalls"": 1349,
-      ""hotLineCalls"": 6187,
-      ""numberCriminalCases"": 38,
+      ""timestamp"": ""2020-03-17T18:00:00"",
+      ""numberDiagnosed"": 217,
+      ""numberCured"": 19,
+      ""numberQuarantined"": 3373,
+      ""numberMonitoredAtHome"": 18965,
+      ""emergencyCalls"": null,
+      ""hotLineCalls"": null,
+      ""numberCriminalCases"": 42,
+      ""probesAnalyzed"": 4150,
+      ""probesInAnalysis"": null
+    },
+    {
+      ""timestamp"": ""2020-03-18T10:00:00"",
+      ""numberDiagnosed"": 246,
+      ""numberCured"": 19,
+      ""numberQuarantined"": 3441,
+      ""numberMonitoredAtHome"": 23679,
+      ""emergencyCalls"": 1395,
+      ""hotLineCalls"": 7885,
+      ""numberCriminalCases"": 43,
       ""probesAnalyzed"": null,
       ""probesInAnalysis"": null
     }
@@ -288,7 +299,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Bals"",
       ""healthState"": ""vindecat"",
       ""isCured"": true,
-      ""condition"": 4
+      ""condition"": ""cured""
     },
     {
       ""patientNumber"": 2,
@@ -300,7 +311,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Cluj"",
       ""healthState"": ""afectiuni cronice"",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 3,
@@ -312,7 +323,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Timisoara"",
       ""healthState"": ""vindecat"",
       ""isCured"": true,
-      ""condition"": 4
+      ""condition"": ""cured""
     },
     {
       ""patientNumber"": 4,
@@ -324,7 +335,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Timisoara"",
       ""healthState"": ""vindecat"",
       ""isCured"": true,
-      ""condition"": 4
+      ""condition"": ""cured""
     },
     {
       ""patientNumber"": 5,
@@ -336,7 +347,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Timisoara"",
       ""healthState"": ""vindecat"",
       ""isCured"": true,
-      ""condition"": 4
+      ""condition"": ""cured""
     },
     {
       ""patientNumber"": 6,
@@ -348,7 +359,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Iasi"",
       ""healthState"": ""boala cronica"",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 7,
@@ -360,7 +371,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Timisoara"",
       ""healthState"": ""vindecat"",
       ""isCured"": true,
-      ""condition"": 4
+      ""condition"": ""cured""
     },
     {
       ""patientNumber"": 8,
@@ -372,7 +383,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Craiova"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 9,
@@ -384,7 +395,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Timisoara"",
       ""healthState"": ""vindecat"",
       ""isCured"": true,
-      ""condition"": 4
+      ""condition"": ""cured""
     },
     {
       ""patientNumber"": 10,
@@ -396,7 +407,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": ""vindecat"",
       ""isCured"": true,
-      ""condition"": 4
+      ""condition"": ""cured""
     },
     {
       ""patientNumber"": 11,
@@ -408,7 +419,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Timisoara"",
       ""healthState"": ""vindecat"",
       ""isCured"": true,
-      ""condition"": 4
+      ""condition"": ""cured""
     },
     {
       ""patientNumber"": 12,
@@ -420,7 +431,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Bucuresti - primul caz"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 13,
@@ -432,7 +443,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Bucuresti"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 14,
@@ -444,7 +455,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 15,
@@ -456,7 +467,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Cluj"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 16,
@@ -468,7 +479,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 17,
@@ -480,7 +491,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 18,
@@ -492,7 +503,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 19,
@@ -504,7 +515,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 20,
@@ -516,7 +527,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 21,
@@ -528,7 +539,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 22,
@@ -540,7 +551,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 23,
@@ -552,7 +563,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 24,
@@ -564,7 +575,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 25,
@@ -576,7 +587,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 26,
@@ -588,7 +599,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""internat Spital Resita"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 27,
@@ -600,7 +611,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": ""vindecat"",
       ""isCured"": true,
-      ""condition"": 4
+      ""condition"": ""cured""
     },
     {
       ""patientNumber"": 28,
@@ -612,7 +623,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 29,
@@ -624,7 +635,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 30,
@@ -636,7 +647,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 31,
@@ -648,7 +659,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 32,
@@ -660,7 +671,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""politist de frontiera"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 33,
@@ -672,7 +683,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 34,
@@ -684,7 +695,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 35,
@@ -696,7 +707,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 36,
@@ -708,7 +719,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""stare grava ATI"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 2
+      ""condition"": ""icu""
     },
     {
       ""patientNumber"": 37,
@@ -720,7 +731,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Victor Babes"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 38,
@@ -732,7 +743,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 39,
@@ -744,7 +755,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 40,
@@ -756,7 +767,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 41,
@@ -768,7 +779,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 42,
@@ -780,7 +791,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 43,
@@ -792,7 +803,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 44,
@@ -804,7 +815,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 45,
@@ -816,7 +827,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 46,
@@ -828,7 +839,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 47,
@@ -840,7 +851,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 48,
@@ -852,7 +863,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 49,
@@ -864,7 +875,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 50,
@@ -876,7 +887,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 51,
@@ -888,7 +899,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 52,
@@ -900,7 +911,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Internat Cluj-Napoca"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 53,
@@ -912,7 +923,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 54,
@@ -924,7 +935,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 55,
@@ -936,7 +947,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 56,
@@ -948,7 +959,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 57,
@@ -960,7 +971,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 58,
@@ -972,7 +983,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 59,
@@ -984,7 +995,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 60,
@@ -996,7 +1007,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 61,
@@ -1008,7 +1019,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 62,
@@ -1020,7 +1031,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 63,
@@ -1032,7 +1043,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 64,
@@ -1044,7 +1055,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 65,
@@ -1056,7 +1067,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Spital JudeteanConstanta"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 66,
@@ -1068,7 +1079,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Spital JudeteanConstanta"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 67,
@@ -1080,7 +1091,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Spital JudeteanConstanta"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 68,
@@ -1092,7 +1103,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Spital JudeteanConstanta"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 69,
@@ -1104,7 +1115,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 70,
@@ -1116,7 +1127,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 71,
@@ -1128,7 +1139,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 72,
@@ -1140,7 +1151,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 73,
@@ -1152,7 +1163,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 74,
@@ -1164,7 +1175,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 75,
@@ -1176,7 +1187,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 76,
@@ -1188,7 +1199,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 77,
@@ -1200,7 +1211,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 78,
@@ -1212,7 +1223,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 79,
@@ -1224,7 +1235,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 80,
@@ -1236,7 +1247,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 81,
@@ -1248,7 +1259,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Victor Babes"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 82,
@@ -1260,7 +1271,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Bals"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 83,
@@ -1272,7 +1283,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 84,
@@ -1284,7 +1295,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 85,
@@ -1296,7 +1307,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 86,
@@ -1308,7 +1319,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 87,
@@ -1320,7 +1331,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 88,
@@ -1332,7 +1343,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Victor Basbes"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 89,
@@ -1344,7 +1355,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 90,
@@ -1356,7 +1367,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 91,
@@ -1368,7 +1379,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 92,
@@ -1380,7 +1391,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 93,
@@ -1392,7 +1403,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 94,
@@ -1404,7 +1415,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""carantina Caras-Severin"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 1
+      ""condition"": ""quarantined""
     },
     {
       ""patientNumber"": 95,
@@ -1416,7 +1427,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""carantina Caras-Severin"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 1
+      ""condition"": ""quarantined""
     },
     {
       ""patientNumber"": 96,
@@ -1428,7 +1439,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 97,
@@ -1440,7 +1451,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""Craiova"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 98,
@@ -1452,7 +1463,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 99,
@@ -1464,7 +1475,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 100,
@@ -1476,7 +1487,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 101,
@@ -1488,7 +1499,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 102,
@@ -1500,7 +1511,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 103,
@@ -1512,7 +1523,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 104,
@@ -1524,7 +1535,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 105,
@@ -1536,7 +1547,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 106,
@@ -1548,7 +1559,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 107,
@@ -1560,7 +1571,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 108,
@@ -1572,7 +1583,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 109,
@@ -1584,7 +1595,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 110,
@@ -1596,7 +1607,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 111,
@@ -1608,7 +1619,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 112,
@@ -1620,7 +1631,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 113,
@@ -1632,7 +1643,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 114,
@@ -1644,7 +1655,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 115,
@@ -1656,7 +1667,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 116,
@@ -1668,7 +1679,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 117,
@@ -1680,7 +1691,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""boli infectioase Timisoara"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 118,
@@ -1692,7 +1703,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 119,
@@ -1704,7 +1715,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 120,
@@ -1716,7 +1727,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 121,
@@ -1728,7 +1739,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": ""V Babes"",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 3
+      ""condition"": ""hospitalised""
     },
     {
       ""patientNumber"": 122,
@@ -1740,7 +1751,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 123,
@@ -1752,7 +1763,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 124,
@@ -1764,7 +1775,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 125,
@@ -1776,7 +1787,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 126,
@@ -1788,7 +1799,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 127,
@@ -1800,7 +1811,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 128,
@@ -1812,7 +1823,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 129,
@@ -1824,7 +1835,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 130,
@@ -1836,7 +1847,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 131,
@@ -1848,7 +1859,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 132,
@@ -1860,7 +1871,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 133,
@@ -1872,7 +1883,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 134,
@@ -1884,7 +1895,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 135,
@@ -1896,7 +1907,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 136,
@@ -1908,7 +1919,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 137,
@@ -1920,7 +1931,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 138,
@@ -1932,7 +1943,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 139,
@@ -1944,7 +1955,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 140,
@@ -1956,7 +1967,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 141,
@@ -1968,7 +1979,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 142,
@@ -1980,7 +1991,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 143,
@@ -1992,7 +2003,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 144,
@@ -2004,7 +2015,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 145,
@@ -2016,7 +2027,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 146,
@@ -2028,7 +2039,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 147,
@@ -2040,7 +2051,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 148,
@@ -2052,7 +2063,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 149,
@@ -2064,7 +2075,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 150,
@@ -2076,7 +2087,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 151,
@@ -2088,7 +2099,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 152,
@@ -2100,7 +2111,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 153,
@@ -2112,7 +2123,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 154,
@@ -2124,7 +2135,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 155,
@@ -2136,7 +2147,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 156,
@@ -2148,7 +2159,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 157,
@@ -2160,7 +2171,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 158,
@@ -2172,7 +2183,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 159,
@@ -2184,7 +2195,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 160,
@@ -2196,7 +2207,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 161,
@@ -2208,7 +2219,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 162,
@@ -2220,7 +2231,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 163,
@@ -2232,7 +2243,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 164,
@@ -2244,7 +2255,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 165,
@@ -2256,7 +2267,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 166,
@@ -2268,7 +2279,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 167,
@@ -2280,7 +2291,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 168,
@@ -2292,7 +2303,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 169,
@@ -2304,7 +2315,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 170,
@@ -2316,7 +2327,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 171,
@@ -2328,7 +2339,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 172,
@@ -2340,7 +2351,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 173,
@@ -2352,7 +2363,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 174,
@@ -2364,7 +2375,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 175,
@@ -2376,7 +2387,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 176,
@@ -2388,7 +2399,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 177,
@@ -2400,7 +2411,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 178,
@@ -2412,7 +2423,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 179,
@@ -2424,7 +2435,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 180,
@@ -2436,7 +2447,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 181,
@@ -2448,7 +2459,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 182,
@@ -2460,7 +2471,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 183,
@@ -2472,7 +2483,7 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
     },
     {
       ""patientNumber"": 184,
@@ -2484,17 +2495,761 @@ namespace Code4Ro.CoViz19.Api.Services
       ""hospitalizationLocation"": """",
       ""healthState"": """",
       ""isCured"": false,
-      ""condition"": 0
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 185,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 186,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 187,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 188,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 189,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 190,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 191,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 192,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 193,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 194,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 195,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 196,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 197,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 198,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 199,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 200,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 201,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 202,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 203,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 204,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 205,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 206,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 207,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 208,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 209,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 210,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 211,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Brasov"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 212,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Brasov"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 213,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Brasov"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 214,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Brasov"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 215,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Brasov"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 216,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Prahova"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 217,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Constanta"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 218,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 219,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 220,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 221,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 222,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 223,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 224,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 225,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 226,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 227,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 228,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 229,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bucuresti"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 230,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 231,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 232,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 233,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 234,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 235,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 236,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Iasi"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 237,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Ilfov"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 238,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Ilfov"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 239,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Ilfov"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 240,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Hunedoara"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 241,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Hunedoara"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 242,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Alba"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 243,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Bihor"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 244,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Maramures"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 245,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Olt"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
+    },
+    {
+      ""patientNumber"": 246,
+      ""gender"": ""unknown"",
+      ""age"": null,
+      ""domicile"": ""Suceava"",
+      ""infectionContact"": """",
+      ""infectionSourceType"": ""unknown"",
+      ""hospitalizationLocation"": """",
+      ""healthState"": """",
+      ""isCured"": false,
+      ""condition"": ""unknown""
     }
   ],
   ""countiesData"": [
     {
       ""county"": ""Bucuresti"",
-      ""numberOfInfections"": 45
+      ""numberOfInfections"": 83
     },
     {
       ""county"": ""Hunedoara"",
-      ""numberOfInfections"": 20
+      ""numberOfInfections"": 22
     },
     {
       ""county"": ""Arad"",
@@ -2506,11 +3261,11 @@ namespace Code4Ro.CoViz19.Api.Services
     },
     {
       ""county"": ""Constanta"",
-      ""numberOfInfections"": 11
+      ""numberOfInfections"": 12
     },
     {
       ""county"": ""Iasi"",
-      ""numberOfInfections"": 13
+      ""numberOfInfections"": 20
     },
     {
       ""county"": ""Covasna"",
@@ -2530,7 +3285,7 @@ namespace Code4Ro.CoViz19.Api.Services
     },
     {
       ""county"": ""Suceava"",
-      ""numberOfInfections"": 4
+      ""numberOfInfections"": 5
     },
     {
       ""county"": ""Gorj"",
@@ -2538,11 +3293,11 @@ namespace Code4Ro.CoViz19.Api.Services
     },
     {
       ""county"": ""Olt"",
-      ""numberOfInfections"": 1
+      ""numberOfInfections"": 2
     },
     {
       ""county"": ""Ilfov"",
-      ""numberOfInfections"": 6
+      ""numberOfInfections"": 9
     },
     {
       ""county"": ""Galati"",
@@ -2550,7 +3305,7 @@ namespace Code4Ro.CoViz19.Api.Services
     },
     {
       ""county"": ""Maramures"",
-      ""numberOfInfections"": 1
+      ""numberOfInfections"": 2
     },
     {
       ""county"": ""Caras Severin"",
@@ -2566,15 +3321,15 @@ namespace Code4Ro.CoViz19.Api.Services
     },
     {
       ""county"": ""Brasov"",
-      ""numberOfInfections"": 7
+      ""numberOfInfections"": 12
     },
     {
       ""county"": ""Prahova"",
-      ""numberOfInfections"": 1
+      ""numberOfInfections"": 2
     },
     {
       ""county"": ""Bihor"",
-      ""numberOfInfections"": 1
+      ""numberOfInfections"": 2
     },
     {
       ""county"": ""Bacau"",
@@ -2623,9 +3378,14 @@ namespace Code4Ro.CoViz19.Api.Services
     {
       ""county"": ""Vrancea"",
       ""numberOfInfections"": 1
+    },
+    {
+      ""county"": ""Alba"",
+      ""numberOfInfections"": 1
     }
   ]
 }
+
 
        ";
        
