@@ -1,7 +1,14 @@
+// Anything that was defined in /public/env-config.js (this file is created via docker for deployment reasons so we can
+// specify the API_URL, for example)
+var windowEnvironment = window._env_
+if (windowEnvironment === undefined) {
+  windowEnvironment = {}
+}
+
 export const Constants = {
-  api: process.env.REACT_APP_API_URL || 'https://code4rocoviz19api-demo.azurewebsites.net/api/v1',
-  isDev: process.env.NODE_ENV === 'development',
-  isProd: process.env.NODE_ENV === 'production',
+  api: windowEnvironment.API_URL || (process.env.REACT_APP_API_URL || 'https://code4rocoviz19api-demo.azurewebsites.net/api/v1'),
+  isDev: windowEnvironment.ENV === 'development' || process.env.NODE_ENV === 'development',
+  isProd: windowEnvironment.ENV === 'production' || process.env.NODE_ENV === 'production',
 
   womenColor: '#F77EB9',
   menColor: '#7EBCFF',
