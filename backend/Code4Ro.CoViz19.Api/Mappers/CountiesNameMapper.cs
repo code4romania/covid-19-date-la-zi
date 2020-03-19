@@ -10,7 +10,7 @@ namespace Code4Ro.CoViz19.Api.Mappers
     {
         private static readonly Dictionary<string, string> Counties = new Dictionary<string, string>
         {
-            { "Argeș", ""},
+            { "Argeș", "Argeș"},
             {"Bacău","Bacău"},
             {"Bistrița-Năsăud","Bistrița-Năsăud"},
             {"Bistrița Năsăud","Bistrița-Năsăud"},
