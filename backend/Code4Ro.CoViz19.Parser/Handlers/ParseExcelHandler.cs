@@ -5,12 +5,14 @@ using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Threading;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text;
 using Code4Ro.CoViz19.Models;
 using Code4Ro.CoViz19.Parser.Parsers;
+using Microsoft.Extensions.Logging;
 
 
 namespace Code4Ro.CoViz19.Parser.Handlers
@@ -203,8 +205,8 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             for (int index = 1; index < countiesData.Rows.Count; index++)
             {
                 DataRow row = countiesData.Rows[index];
-
-                var parsedRow = new CountyInfectionsInfo()
+                
+                var parsedRow = new CountyInfectionsInfo
                 {
                     County = ToSafeText(row[0]),
                     NumberOfInfections = ParseInt(row[1])
@@ -355,17 +357,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
                 return string.Empty;
             }
 
-            return NormalizeText(text.Trim());
-        }
-
-        private static string NormalizeText(string input)
-        {
-            string normalized = input.Normalize(NormalizationForm.FormKD);
-            Encoding removal = Encoding.GetEncoding(Encoding.ASCII.CodePage,
-                                                    new EncoderReplacementFallback(""),
-                                                    new DecoderReplacementFallback(""));
-            byte[] bytes = removal.GetBytes(normalized);
-            return Encoding.ASCII.GetString(bytes);
+            return TextNormalizer.Normalize(text.Trim());
         }
     }
 }
