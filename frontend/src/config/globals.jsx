@@ -6,7 +6,7 @@ if (windowEnvironment === undefined) {
 }
 
 export const Constants = {
-  api: windowEnvironment.API_URL ||
+  api: windowEnvironment.REACT_APP_API_URL ||
     (process.env.REACT_APP_API_URL || 'https://code4rocoviz19api-demo.azurewebsites.net/api/v1'),
   isDev: windowEnvironment.ENV === 'development' || process.env.NODE_ENV === 'development',
   isProd: windowEnvironment.ENV === 'production' || process.env.NODE_ENV === 'production',
