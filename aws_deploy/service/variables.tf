@@ -26,6 +26,10 @@ variable "lb-security_groups" {
   type = list
 }
 
+variable "certificate_arn" {
+  type = string
+}
+
 variable "container_port" {
   type = number
 }
