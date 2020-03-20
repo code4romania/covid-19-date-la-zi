@@ -118,7 +118,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
                     Men = 0,
                     Women = 0,
                     Date = today,
-                    DateString = todayString
+                    DateString = todayString,
+                    Total = 0
                 }
             };
 
@@ -129,6 +130,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             response.Stats.Men = currentData.PatientsInfo.Count(x => x.Gender == Gender.Man);
             response.Stats.Women = currentData.PatientsInfo.Count(x => x.Gender == Gender.Woman);
+            response.Stats.Total = currentData.PatientsInfo.Count();
 
             return response;
         }
@@ -140,7 +142,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
             {
                 return new GenderAgeHistogramModel()
                 {
-                    Histogram = new Dictionary<HistogramRangeEnum, HistogramModel>()
+                    Histogram = new Dictionary<HistogramRangeEnum, HistogramModel>(),
+                    Total = 0
                 };
             }
             var histogram = currentData.PatientsInfo
@@ -159,7 +162,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             return new GenderAgeHistogramModel()
             {
-                Histogram = histogram
+                Histogram = histogram,
+                Total = currentData.PatientsInfo.Count()
             };
         }
 
@@ -210,6 +214,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             response.Totals.Extern = data.PatientsInfo.Count(x => x.InfectionSourceType == InfectionSourceType.Extern);
             response.Totals.Intern = data.PatientsInfo.Count(x => x.InfectionSourceType == InfectionSourceType.Intern);
+            response.Totals.Total = data.PatientsInfo.Count();
 
             return response;
         }
