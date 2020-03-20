@@ -43,6 +43,36 @@ namespace Code4Ro.CoViz19.Parser.UnitTests
         [InlineData("fata ", Woman)]
         [InlineData(" fata", Woman)]
         [InlineData(" fata ", Woman)]
+        
+        [InlineData("F", Woman)]
+        [InlineData("F ", Woman)]
+        [InlineData(" F", Woman)]
+        [InlineData(" F ", Woman)]
+
+        [InlineData("f", Woman)]
+        [InlineData("f ", Woman)]
+        [InlineData(" f", Woman)]
+        [InlineData(" f ", Woman)]
+
+        [InlineData("b", Man)]
+        [InlineData("b ", Man)]
+        [InlineData(" b", Man)]
+        [InlineData(" b ", Man)]
+
+        [InlineData("B", Man)]
+        [InlineData("B ", Man)]
+        [InlineData(" B", Man)]
+        [InlineData(" B ", Man)]
+
+        [InlineData("m", Man)]
+        [InlineData("m ", Man)]
+        [InlineData(" m", Man)]
+        [InlineData(" m ", Man)]
+
+        [InlineData("M", Man)]
+        [InlineData("M ", Man)]
+        [InlineData(" M", Man)]
+        [InlineData(" M ", Man)]
 
         [InlineData("", Unknown)]
         [InlineData("did you just assumed my gender?", Unknown)]

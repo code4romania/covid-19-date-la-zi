@@ -14,3 +14,14 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+
+.container {
+  display: flex;    
+  height: 100vh;  
+}
+
+.container .col {
+  flex: 1;
+  height: 100%;
+}

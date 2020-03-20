@@ -1,7 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,9 +10,10 @@ using Amazon.S3;
 using Code4Ro.CoViz19.Services;
 using Code4Ro.CoViz19.Services.Options;
 using Microsoft.AspNetCore.Http.Features;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Code4Ro.CoViz19.Parser
 {
@@ -55,8 +55,23 @@ namespace Code4Ro.CoViz19.Parser
                     break;
             }
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Code4Ro.CoViz19.Parser", Version = "v1" });
+                c.EnableAnnotations();
+            });
             services.Configure<S3StorageOptions>(Configuration.GetSection("AWS"));
             services.Configure<BlobStorageOptions>(Configuration.GetSection(nameof(BlobStorageOptions)));
+
+            services
+                .AddControllers()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,6 +102,13 @@ namespace Code4Ro.CoViz19.Parser
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+            });
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Code4Ro.CoViz19.Parser V1");
+                c.DisplayRequestDuration();
             });
 
             app.UseSpa(spa => {
