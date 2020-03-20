@@ -49,12 +49,12 @@ export class InfectionSourceCard extends React.PureComponent {
   }
 
   getChartOptions() {
-    var data = [
+    let data = [
       {value: this.state.internal, name: 'Transmise local'},
       {value: this.state.external, name: 'Importate'}
     ];
 
-    var colors = [Constants.womenColor, Constants.menColor];
+    let colors = [Constants.womenColor, Constants.menColor];
 
     if (Constants.specifyUnknownData) {
       data.push({value: this.state.unknown, name: 'Necunoscute'});
@@ -99,13 +99,13 @@ export class InfectionSourceCard extends React.PureComponent {
 
   render() {
     const { title } = this.props;
-    
-    var knownPercentage = ""
+
+    let knownPercentage = ''
     if (Constants.specifyUnknownData) {
       knownPercentage = this.state.knownPercentage !== undefined
-        ? " (" + this.state.knownPercentage + "% cunoscuți)" : "";
+        ? ' (' + this.state.knownPercentage + '% cunoscuți)' : '';
     }
-    
+
     if (this.state.error) {
       // TODO: move this into a component
       return (

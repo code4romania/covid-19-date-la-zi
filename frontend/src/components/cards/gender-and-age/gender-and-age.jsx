@@ -131,12 +131,12 @@ export class GenderAndAgeCard extends React.PureComponent {
   render() {
     const { title } = this.props;
 
-    var knownPercentage = ""
+    let knownPercentage = ''
     if (Constants.specifyUnknownData) {
       knownPercentage = this.state.knownPercentage !== undefined
-        ? " (" + this.state.knownPercentage + "% cunoscuți)" : "";
+        ? ' (' + this.state.knownPercentage + '% cunoscuți)' : '';
     }
-    
+
     if (this.state.error) {
       return (
         <Card>

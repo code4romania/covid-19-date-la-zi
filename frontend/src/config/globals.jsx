@@ -10,9 +10,9 @@ export const Constants = {
     (process.env.REACT_APP_API_URL || 'https://code4rocoviz19api-demo.azurewebsites.net/api/v1'),
   isDev: windowEnvironment.ENV === 'development' || process.env.NODE_ENV === 'development',
   isProd: windowEnvironment.ENV === 'production' || process.env.NODE_ENV === 'production',
-  
+
   specifyUnknownData: (windowEnvironment.SPECIFY_UNKNOWN_DATA ||
-    (process.env.REACT_APP_SPECIFY_UNKNOWN_DATA || 'true')) === "true",
+    (process.env.REACT_APP_SPECIFY_UNKNOWN_DATA || 'true')) === 'true',
 
   womenColor: '#F77EB9',
   menColor: '#7EBCFF',

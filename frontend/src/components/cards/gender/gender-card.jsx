@@ -50,13 +50,13 @@ export class GenderCard extends React.PureComponent {
   }
 
   getChartOptions() {
-    var data = [
+    let data = [
       {value: this.state.women, name: Constants.womenText},
       {value: this.state.men, name: Constants.menText}
     ]
 
-    var colors = [
-      Constants.womenColor, 
+    let colors = [
+      Constants.womenColor,
       Constants.menColor
     ]
 
@@ -104,12 +104,12 @@ export class GenderCard extends React.PureComponent {
   render() {
     const { title } = this.props;
 
-    var knownPercentage = ""
+    let knownPercentage = ''
     if (Constants.specifyUnknownData) {
       knownPercentage = this.state.knownPercentage !== undefined
-        ? " (" + this.state.knownPercentage + "% cunoscuți)" : "";
+        ? ' (' + this.state.knownPercentage + '% cunoscuți)' : '';
     }
-    
+
     if (this.state.error) {
       return (
         <Card>
