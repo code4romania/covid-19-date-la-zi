@@ -33,7 +33,11 @@ export class GenderAndAgeCard extends React.PureComponent {
   }
 
   parseAPIResponse(result) {
-    const stats = result.histogram
+    const stats = result.histogram;
+    const total = result.total || 0;
+    const allValues = Object.entries(stats).map((k,index) => { return k[1].men + k[1].women })
+    const totalKnown = allValues.reduce((a,b) => a + b, 0)
+    const knownPercentage = total > 0 ? 100-Math.round((totalKnown/total)*100) : 100;
     const categories = Object.entries(stats).map((k,v) => { return k[0] })
     const sortedCategories = categories.sort((a,b) => {
       const firstStartAge = a.split('-',1)[0]
@@ -53,11 +57,12 @@ export class GenderAndAgeCard extends React.PureComponent {
 
     this.setState({
       isLoaded: true,
+      total: total,
+      knownPercentage: knownPercentage,
       categories: sortedCategories,
       menEntries: menEntries,
       womenEntries: womenEntries
     })
-    console.log(this.state);
   }
 
 
@@ -66,8 +71,8 @@ export class GenderAndAgeCard extends React.PureComponent {
       tooltip: {
         trigger: 'axis',
         formatter: function(entries) {
-          var lines = entries.map((entry) => entry.seriesName + ": " + Math.abs(entry.value));
-          return lines.join("<br/>")
+          let lines = entries.map((entry) => entry.seriesName + ': ' + Math.abs(entry.value));
+          return lines.join('<br/>')
         }
       },
       legend: {
@@ -87,7 +92,7 @@ export class GenderAndAgeCard extends React.PureComponent {
           type: 'value',
           axisLabel: {
             formatter: function (value,index) {
-              return ""+Math.abs(value)
+              return ''+Math.abs(value)
             }
           }
         }
@@ -125,6 +130,13 @@ export class GenderAndAgeCard extends React.PureComponent {
 
   render() {
     const { title } = this.props;
+
+    var knownPercentage = ""
+    if (Constants.specifyUnknownData) {
+      knownPercentage = this.state.knownPercentage !== undefined
+        ? " (" + this.state.knownPercentage + "% cunoscuți)" : "";
+    }
+    
     if (this.state.error) {
       return (
         <Card>
@@ -133,7 +145,7 @@ export class GenderAndAgeCard extends React.PureComponent {
       )
     } else {
       return (
-        <Card title={title}>
+        <Card title={title + knownPercentage}>
           <div className="bar-chart">
             <ReactEcharts
               id="gender-age-chart"

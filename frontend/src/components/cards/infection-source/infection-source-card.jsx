@@ -34,16 +34,33 @@ export class InfectionSourceCard extends React.PureComponent {
 
   parseAPIResponse(result) {
     const stats = result.totals
+    const total = stats.total || 0;
+    const unknown = total - stats.extern - stats.intern
+    const knownPercentage = total > 0 ? 100-Math.round(100*unknown / total) : 100;
 
     this.setState({
       isLoaded: true,
       date: stats.dateString,
       external: stats.extern,
-      internal: stats.intern
+      internal: stats.intern,
+      unknown: unknown,
+      knownPercentage: knownPercentage
     })
   }
 
   getChartOptions() {
+    var data = [
+      {value: this.state.internal, name: 'Transmise local'},
+      {value: this.state.external, name: 'Importate'}
+    ];
+
+    var colors = [Constants.womenColor, Constants.menColor];
+
+    if (Constants.specifyUnknownData) {
+      data.push({value: this.state.unknown, name: 'Necunoscute'});
+      colors.push(Constants.unknownColor);
+    }
+
     return {
       tooltip: {
         trigger: 'item',
@@ -73,11 +90,8 @@ export class InfectionSourceCard extends React.PureComponent {
             },
             emphasis: { show: false }
           },
-          data: [
-            {value: this.state.internal, name: 'Transmise local'},
-            {value: this.state.external, name: 'Importate'}
-          ],
-          color: [Constants.womenColor, Constants.menColor]
+          data: data,
+          color: colors
         }
       ]
     };
@@ -85,6 +99,13 @@ export class InfectionSourceCard extends React.PureComponent {
 
   render() {
     const { title } = this.props;
+    
+    var knownPercentage = ""
+    if (Constants.specifyUnknownData) {
+      knownPercentage = this.state.knownPercentage !== undefined
+        ? " (" + this.state.knownPercentage + "% cunoscuți)" : "";
+    }
+    
     if (this.state.error) {
       // TODO: move this into a component
       return (
@@ -94,7 +115,7 @@ export class InfectionSourceCard extends React.PureComponent {
       )
     } else {
       return (
-        <Card title={title}>
+        <Card title={title + knownPercentage}>
           <div className="pie-chart">
             <ReactEcharts
               id="infection-source-chart"
