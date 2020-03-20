@@ -6,7 +6,9 @@ namespace Code4Ro.CoViz19.Api.Models
 {
     public class GenderAgeHistogramModel
     {
-        public Dictionary<HistogramRangeEnum, HistogramModel> Histogram { get; set; }
+        [JsonProperty(PropertyName = "histogram")] public Dictionary<HistogramRangeEnum, HistogramModel> Histogram { get; set; }
+        [JsonProperty(PropertyName = "total")] public int Total { get; set; }
+
     }
 
     public class HistogramModel

@@ -12,7 +12,7 @@ export class AboutPage extends React.PureComponent {
 
           />
         </div>
-        <div className="container">
+        <div className="container content">
           <p>
           COVID-19, o boală cauzată de o nouă tulpină de coronavirus identificată pentru prima dată în
           decembrie 2019 in Wuhan, China, este una dintre cele mai grave crize de sănătate publică din

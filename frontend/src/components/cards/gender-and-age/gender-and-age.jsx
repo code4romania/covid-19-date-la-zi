@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
 import { Constants, ApiURL } from '../../../config/globals'
@@ -65,7 +64,11 @@ export class GenderAndAgeCard extends React.PureComponent {
   getChartOptions() {
     return {
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        formatter: function(entries) {
+          var lines = entries.map((entry) => entry.seriesName + ": " + Math.abs(entry.value));
+          return lines.join("<br/>")
+        }
       },
       legend: {
         data: [Constants.womenText, Constants.menText],
@@ -81,7 +84,12 @@ export class GenderAndAgeCard extends React.PureComponent {
       },
       xAxis: [
         {
-          type: 'value'
+          type: 'value',
+          axisLabel: {
+            formatter: function (value,index) {
+              return ""+Math.abs(value)
+            }
+          }
         }
       ],
       yAxis: [

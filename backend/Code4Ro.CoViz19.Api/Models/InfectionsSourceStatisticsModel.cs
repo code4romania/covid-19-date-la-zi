@@ -16,6 +16,8 @@ namespace Code4Ro.CoViz19.Api.Models
         public string DateString { get; set; }
         public int Extern { get; set; }
         public int Intern { get; set; }
+        public int Total { get; set; }
+
     }
 
 }

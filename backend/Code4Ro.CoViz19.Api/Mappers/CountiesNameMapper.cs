@@ -10,32 +10,53 @@ namespace Code4Ro.CoViz19.Api.Mappers
     {
         private static readonly Dictionary<string, string> Counties = new Dictionary<string, string>
         {
-            { "Argeș", ""},
-            {"Bacău","Bacău"},
-            {"Bistrița-Năsăud","Bistrița-Năsăud"},
-            {"Bistrița Năsăud","Bistrița-Năsăud"},
-            {"Botoșani","Botoșani"},
-            {"Brașov","Brașov"},
-            {"Brăila","Brăila"},
-            {"București","București"},
-            {"Buzău","Buzău"},
-            {"Caraș-Severin","Caraș-Severin"},
-            {"Caraș Severin","Caraș-Severin"},
-            {"Călărași","Călărași"},
-            {"Constanța","Constanța"},
-            {"Dâmbovița","Dâmbovița"},
-            {"Galați","Galați"},
-            {"Ialomița","Ialomița"},
-            {"Iași","Iași"},
-            {"Maramureș","Maramureș"},
-            {"Mehedinți","Mehedinți"},
-            {"Mureș","Mureș"},
-            {"Neamț","Neamț"},
-            {"Sălaj","Sălaj"},
-            {"Timișoara","Timiș"},
-            {"Timiș","Timiș"},
-            {"Vâlcea","Vâlcea"}
+                { "Alba", "Alba"  },
+                { "Arad","Arad"  },
+                { "Argeș","Argeș" },
+                { "Bacău","Bacău" },
+                { "Bihor","Bihor" },
+                { "Botoșani","Botoșani" },
+                { "Brașov","Brașov" },
+                { "Brăila", "Brăila" },
+                { "București","București" },
+                { "Buzău","Buzău"},
+                { "Călărași","Călărași" },
+                { "Cluj","Cluj" },
+                { "Constanța","Constanța" },
+                { "Covasna","Covasna" },
+                { "Dâmbovița","Dâmbovița" },
+                { "Dolj","Dolj" },
+                { "Galați","Galați" },
+                { "Giurgiu","Giurgiu" },
+                { "Gorj","Gorj" },
+                { "Harghita","Harghita" },
+                { "Hunedoara","Hunedoara" },
+                { "Ialomița","Ialomița" },
+                { "Iași","Iași" },
+                { "Ilfov","Ilfov" },
+                { "Maramureș","Maramureș" },
+                { "Mehedinți","Mehedinți" },
+                { "Mureș","Mureș" },
+                { "Neamț","Neamț" },
+                { "Olt","Olt" },
+                { "Prahova","Prahova" },
+                { "Satu Mare","Satu Mare"  },
+                { "Sălaj","Sălaj" },
+                { "Sibiu","Sibiu" },
+                { "Suceava","Suceava" },
+                { "Teleorman","Teleorman" },
+                { "Tulcea","Tulcea" },
+                { "Vaslui","Vaslui" },
+                { "Vâlcea","Vâlcea" },
+                { "Vrancea","Vrancea" },
+                { "Caraș-Severin","Caraș-Severin" },
+                { "Caraș Severin","Caraș-Severin" },
+                { "Bistrița-Năsăud","Bistrița-Năsăud" },
+                { "Bistrița Năsăud","Bistrița-Năsăud" },
+                { "Timișoara","Timiș"},
+                { "Timiș","Timiș"},
         };
+
         public static string MapToRomanianName(string countyName)
         {
             countyName = countyName?.Trim();
@@ -44,7 +65,7 @@ namespace Code4Ro.CoViz19.Api.Mappers
                 return countyName;
             }
 
-            string mappedName = Counties.FirstOrDefault(x => Normalize(x.Key).Equals(countyName, StringComparison.InvariantCultureIgnoreCase)).Value;
+            string mappedName = Counties.FirstOrDefault(x => Normalize(x.Key).Equals(Normalize(countyName), StringComparison.InvariantCultureIgnoreCase)).Value;
             return mappedName ?? countyName;
         }
 

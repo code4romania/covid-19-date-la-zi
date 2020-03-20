@@ -8,6 +8,7 @@ RUN apk add --no-cache --update nodejs nodejs-npm
 WORKDIR /source/Code4Ro.CoViz19.Parser/
 COPY Code4Ro.CoViz19.Models/*.csproj /source/Code4Ro.CoViz19.Models/
 COPY Code4Ro.CoViz19.Services/*.csproj /source/Code4Ro.CoViz19.Services/
+COPY Code4Ro.CoViz19.Parser.UnitTests/*.csproj /source/Code4Ro.CoViz19.Parser.UnitTests/
 COPY Code4Ro.CoViz19.Parser/*.csproj .
 RUN dotnet restore
 
@@ -15,6 +16,13 @@ RUN dotnet restore
 COPY Code4Ro.CoViz19.Parser/ ./
 COPY Code4Ro.CoViz19.Models/ /source/Code4Ro.CoViz19.Models/
 COPY Code4Ro.CoViz19.Services/ /source/Code4Ro.CoViz19.Services/
+COPY Code4Ro.CoViz19.Parser.UnitTests/ /source/Code4Ro.CoViz19.Parser.UnitTests/
+
+#test parser
+WORKDIR /source/Code4Ro.CoViz19.Parser.UnitTests/
+RUN dotnet test
+
+WORKDIR /source/Code4Ro.CoViz19.Parser/
 RUN dotnet build -c Release -o /app/build
 RUN dotnet publish -c Release -o /app/publish
 

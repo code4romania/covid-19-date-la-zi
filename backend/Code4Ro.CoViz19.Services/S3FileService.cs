@@ -44,7 +44,7 @@ namespace Code4Ro.CoViz19.Services {
 
         public async Task SaveRawData(string fileContent)
         {
-            var byteArray = Encoding.ASCII.GetBytes(fileContent);
+            var byteArray = Encoding.UTF8.GetBytes(fileContent);
             await using var stream = new MemoryStream(byteArray);
 
             var request = new TransferUtilityUploadRequest();

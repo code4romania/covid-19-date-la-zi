@@ -30,6 +30,11 @@ variable "container_port" {
   type = number
 }
 
+variable "task_role_arn" {
+  type    = string
+  default = ""
+}
+
 variable "execution_role_arn" {
   type = string
 }
@@ -40,4 +45,14 @@ variable "image" {
 
 variable "prefix" {
   type = string
+}
+
+variable "environment_variables" {
+  type    = string
+  default = "[]"
+}
+
+variable "secrets" {
+  type    = string
+  default = "[]"
 }

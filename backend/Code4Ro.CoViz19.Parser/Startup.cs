@@ -32,6 +32,7 @@ namespace Code4Ro.CoViz19.Parser
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddControllersWithViews().AddNewtonsoftJson();
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
             services.Configure<FormOptions>(options => {
                 options.MultipartBodyLengthLimit = long.MaxValue;
             });
