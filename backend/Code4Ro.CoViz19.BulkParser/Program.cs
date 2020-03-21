@@ -43,16 +43,16 @@ namespace Code4Ro.CoViz19.BulkParser
 
             var serviceProvider = new ServiceCollection()
                                         .AddMediatR(new[] { typeof(Program).GetType().Assembly })
-.AddScoped<IRequestHandler<GetLatestData, ParsedDataModel>, DataQueryHandler>()
-.AddScoped<IRequestHandler<GetDailyStats, DailyStatsModel>, DataQueryHandler>()
-.AddScoped<IRequestHandler<GetGenderStats, GenderStatsModel>, DataQueryHandler>()
-.AddScoped<IRequestHandler<GetGenderAgeHistogram, GenderAgeHistogramModel>, DataQueryHandler>()
-.AddScoped<IRequestHandler<GetCountyInfections, CountyInfectionsModel>, DataQueryHandler>()
-.AddScoped<IRequestHandler<GetInfectionsSource, InfectionsSourceStatisticsModel>, DataQueryHandler>()
-.AddScoped<IRequestHandler<GetQuickstatsData, QuickStatsModel>, DataQueryHandler>()
-.AddScoped<IRequestHandler<ParseExcelCommand, Result<ParsedDataModel>>, ParseExcelHandler>()
-.AddScoped<IDataProviderService, TempDataProviderService>()
-.AddScoped<ICacheSercice, NoCacheService>()
+                                        .AddScoped<IRequestHandler<GetLatestData, ParsedDataModel>, DataQueryHandler>()
+                                        .AddScoped<IRequestHandler<GetDailyStats, DailyStatsModel>, DataQueryHandler>()
+                                        .AddScoped<IRequestHandler<GetGenderStats, GenderStatsModel>, DataQueryHandler>()
+                                        .AddScoped<IRequestHandler<GetGenderAgeHistogram, GenderAgeHistogramModel>, DataQueryHandler>()
+                                        .AddScoped<IRequestHandler<GetCountyInfections, CountyInfectionsModel>, DataQueryHandler>()
+                                        .AddScoped<IRequestHandler<GetInfectionsSource, InfectionsSourceStatisticsModel>, DataQueryHandler>()
+                                        .AddScoped<IRequestHandler<GetQuickstatsData, QuickStatsModel>, DataQueryHandler>()
+                                        .AddScoped<IRequestHandler<ParseExcelCommand, Result<ParsedDataModel>>, ParseExcelHandler>()
+                                        .AddScoped<IDataProviderService, TempDataProviderService>()
+                                        .AddScoped<ICacheSercice, NoCacheService>()
 
 .BuildServiceProvider();
 
