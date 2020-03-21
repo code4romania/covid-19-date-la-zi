@@ -72,7 +72,8 @@ data "aws_canonical_user_id" "current_user" {}
 #################################################
 
 resource "aws_s3_bucket" "storage" {
-  bucket = local.name
+  bucket        = local.name
+  force_destroy = true
 
   policy = <<POLICY
 {

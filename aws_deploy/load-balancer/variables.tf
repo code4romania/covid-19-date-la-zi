@@ -17,3 +17,7 @@ variable "security_groups" {
 variable "vpc_id" {
   type = string
 }
+
+variable "certificate_arn" {
+  type = string
+}

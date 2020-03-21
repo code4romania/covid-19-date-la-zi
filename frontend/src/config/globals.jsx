@@ -11,8 +11,12 @@ export const Constants = {
   isDev: windowEnvironment.ENV === 'development' || process.env.NODE_ENV === 'development',
   isProd: windowEnvironment.ENV === 'production' || process.env.NODE_ENV === 'production',
 
+  specifyUnknownData: (windowEnvironment.SPECIFY_UNKNOWN_DATA ||
+    (process.env.REACT_APP_SPECIFY_UNKNOWN_DATA || 'true')) === 'true',
+
   womenColor: '#F77EB9',
   menColor: '#7EBCFF',
+  unknownColor: '#9FB3C7',
 
   symptomaticColor: '#F8AF69',
   confirmedColor: '#69B2F8',
@@ -22,7 +26,8 @@ export const Constants = {
   countyHighestColor: 'red',
 
   womenText: 'Femei',
-  menText: 'Bărbați'
+  menText: 'Bărbați',
+  unknownGenderText: 'Necunoscuți'
 };
 
 export const ApiURL = {

@@ -47,7 +47,8 @@
     "karma-coverage-istanbul-reporter": "^2.1.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.5.2",
-    "typescript": "3.5.3"
+    "typescript": "3.5.3",
+    "@babel/compat-data": "~7.8.0"
   },
   "optionalDependencies": {
     "node-sass": "^4.12.0",
