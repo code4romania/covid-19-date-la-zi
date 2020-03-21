@@ -43,6 +43,8 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             var patiens = ParsePatiens(result.Tables[0]);
             var parsedData = new ParsedDataModel()
             {
+                DatePublished = DateTime.Now,
+                DatePublishedString = DateTime.Now.ToString(),
                 PatientsInfo = patiens.IsSuccess ? patiens.Value : null,
             };
 

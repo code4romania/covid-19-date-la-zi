@@ -40,10 +40,13 @@ namespace Code4Ro.CoViz19.Api.Handlers
         {
             var data = await _dataService.GetCurrentData();
 
+       
             var latestStats = GetLatestStatsFromLivedata(data);
 
             return new QuickStatsModel
             {
+                DatePublished = data?.DatePublished,
+                DatePublishedString = data?.DatePublishedString,
                 Totals = ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(latestStats, data),
                 History = data?.LiveUpdateData.OrderBy(x => x.Timestamp).Select(x => ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(x, data)).ToArray()
             };
@@ -65,7 +68,10 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             if (data.LiveUpdateData.Length == 1)
             {
-                return new DailyStatsModel() { History = new InfectionsStatsModel[] { ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(data.LiveUpdateData.First(), data) } };
+                return new DailyStatsModel() {
+                    DatePublished = data?.DatePublished,
+                    DatePublishedString = data?.DatePublishedString,
+                    History = new InfectionsStatsModel[] { ParsedDataToApiModelsMapper.MapToInfectionsStatsModel(data.LiveUpdateData.First(), data) } };
             }
 
             List<InfectionsStatsModel> history = new List<InfectionsStatsModel>();
@@ -81,6 +87,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             return new DailyStatsModel()
             {
+                DatePublished = data?.DatePublished,
+                DatePublishedString = data?.DatePublishedString,
                 History = history.ToArray()
             };
         }
@@ -113,6 +121,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             var response = new GenderStatsModel
             {
+                DatePublished = currentData?.DatePublished,
+                DatePublishedString = currentData?.DatePublishedString,
                 Stats = new Stats()
                 {
                     Men = 0,
@@ -162,6 +172,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             return new GenderAgeHistogramModel()
             {
+                DatePublished = currentData?.DatePublished,
+                DatePublishedString = currentData?.DatePublishedString,
                 Histogram = histogram,
                 Total = currentData.PatientsInfo.Count()
             };
@@ -173,6 +185,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             var response = new CountyInfectionsModel()
             {
+                DatePublished = currentData?.DatePublished,
+                DatePublishedString = currentData?.DatePublishedString,
                 Date = new DateTimeOffset(DateTime.Today).ToUnixTimeSeconds(),
                 DateString = DateTime.Today.ToShortDateString(),
                 Counties = new CountyDataModel[0]
@@ -198,6 +212,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
             var data = await _dataService.GetCurrentData();
             var response = new InfectionsSourceStatisticsModel()
             {
+                DatePublished = data?.DatePublished,
+                DatePublishedString = data?.DatePublishedString,
                 Totals = new InfectionsSourceTotals()
                 {
                     Date = new DateTimeOffset(DateTime.Today).ToUnixTimeSeconds(),
