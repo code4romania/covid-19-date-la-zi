@@ -38,5 +38,25 @@ namespace Code4Ro.CoViz19.Parser.Controllers
 
             return BadRequest(result.Error);
         }
+
+        [HttpPost]
+        [Route("/v2/upload")]
+        public async Task<ActionResult<ParsedDataModel>> ParseExcelNewFormat(IFormFile file)
+        {
+            if (file == null)
+            {
+                return BadRequest("Upload Failed, no file(s) selected.");
+            }
+
+            var result = await _mediatr.Send(new ParseV2ExcelCommand(file));
+
+            if (result.IsSuccess)
+            {
+                await _mediatr.Send(new SaveParsedDataCommand(JsonConvert.SerializeObject(result.Value)));
+                return new OkObjectResult(result.Value);
+            }
+
+            return BadRequest(result.Error);
+        }
     }
 }

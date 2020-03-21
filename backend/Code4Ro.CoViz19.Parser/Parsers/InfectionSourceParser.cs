@@ -8,6 +8,7 @@ namespace Code4Ro.CoViz19.Parser.Parsers
 
         private static (string keyword, InfectionSourceType type)[] keywords =
         {
+            ("fara contact", Unknown),
             ("contact", Intern),
             ("calatorit", Extern),
             ("pacient", Intern),
@@ -15,7 +16,9 @@ namespace Code4Ro.CoViz19.Parser.Parsers
             ("caz", Intern),
             ("sosit", Extern),
             ("venit", Extern),
+            ("intrat", Extern),
             ("intors", Extern),
+            ("intoarsa", Extern),
             ("lucreaza", Extern) // this is fishy... I expect it to break
         };
         public static InfectionSourceType Parse(string text)

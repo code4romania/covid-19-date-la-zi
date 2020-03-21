@@ -24,6 +24,12 @@ namespace Code4Ro.CoViz19.Parser.Parsers
                 return Gender.Man;
             }
 
+
+            if (gender.StartsWith("m", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return Gender.Man;
+            }
+
             return Gender.Unknown;
         }
     }
