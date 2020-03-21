@@ -52,6 +52,7 @@ namespace Code4Ro.CoViz19.Parser.Controllers
 
             if (result.IsSuccess)
             {
+                await _mediatr.Send(new SaveParsedDataCommand(JsonConvert.SerializeObject(result.Value)));
                 return new OkObjectResult(result.Value);
             }
 
