@@ -7,6 +7,11 @@ namespace Code4Ro.CoViz19.Parser.Parsers
     {
         public static string Normalize(string text)
         {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
             var normalizedString = text.Normalize(NormalizationForm.FormD);
             var stringBuilder = new StringBuilder();
 
@@ -19,7 +24,24 @@ namespace Code4Ro.CoViz19.Parser.Parsers
                 }
             }
 
-            return stringBuilder.ToString().Normalize(NormalizationForm.FormC).ToLower();
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC).ToLower().Trim();
+        }
+
+        public static string ToSafeText(object value)
+        {
+            if (value == null)
+            {
+                return string.Empty;
+            }
+
+            var text = value.ToString();
+
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                return string.Empty;
+            }
+
+            return TextNormalizer.Normalize(text.Trim());
         }
     }
 }

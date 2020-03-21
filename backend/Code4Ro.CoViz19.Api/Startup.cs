@@ -13,6 +13,9 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 using Code4Ro.CoViz19.Services.Options;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Code4Ro.CoViz19.Api
 {
@@ -78,7 +81,14 @@ namespace Code4Ro.CoViz19.Api
             });
 
             services.AddSwaggerExamplesFromAssemblies();
-            services.AddMvc().AddNewtonsoftJson();
+            services.AddMvc()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,7 +108,6 @@ namespace Code4Ro.CoViz19.Api
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Code4Ro.CoViz19.Api V1");
                 c.DisplayRequestDuration();
-                c.RoutePrefix = string.Empty;
             });
             app.UseCors("Permissive");
             app.UseRouting();

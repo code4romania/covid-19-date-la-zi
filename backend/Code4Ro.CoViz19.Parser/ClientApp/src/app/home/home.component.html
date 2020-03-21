@@ -1,11 +1,8 @@
-<h1>Data parser</h1>
-<div>
-  <input name="file-drop" class="drop-zone" type="file" #file (change)="onFilesAdded()" />
+<div class="container">
+  <div class="col">
+    <app-parser-result></app-parser-result>
+  </div>
+  <div class="col">
+    <app-parser-result [isV2Upload]="true"> </app-parser-result>
+  </div>
 </div>
-<div>
-  <button [disabled]="uploadInProgress" (click)="startUpload()">Upload</button>
-  <button (click)="copyResponseToClipboard()">Copy to clipboard</button>
-</div>
-<textarea #jsonOutput style="width: 100%; height: 500px;">
-  {{parsedResponse|json}}
-</textarea>

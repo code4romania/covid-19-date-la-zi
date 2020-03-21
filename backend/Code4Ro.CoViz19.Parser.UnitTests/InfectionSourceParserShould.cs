@@ -145,7 +145,30 @@ namespace Code4Ro.CoViz19.Parser.UnitTests
                 ("întors din Norvegia în 13.03", Extern),
                 ("asistent mediacl Gerota, contact caz 30", Intern),
                 ("inginer horticol, ADP S 4, contact caz 16", Intern),
-                ("", Unknown)
+                ("", Unknown),
+
+                ("venit din Italia (Ravena) in 18.03.2020, carantinat in Arges",Extern),
+                ("intors din Anglia in 17.03.2020",Extern),
+                ("intoarsa din Belgia in 14.03.2020",Extern),
+                ("cetatean german, intrat in RO in 07.03.2020",Extern),
+                ("contact apropiat caz 304 (Cerniu Traian) (prietena)",Intern),
+                ("contact apropiat caz 305 (Ungureanu Diana) (mama)",Intern),
+                ("contact apropiat caz 188 (Serban Gabriela) (sotul)",Intern),
+                ("contact apropiat caz 250 (Marginean Mirela) (sotul)",Intern),
+                ("carantina MM",Unknown),
+                ("carantina BH",Unknown),
+                ("carantina BH",Unknown),
+                ("carantina BH",Unknown),
+                ("intoarsa din Dubai in 15.03.2020",Extern),
+                ("intoarsa din Dubai in 15.03.2020",Extern),
+                ("contact apropiat caz 128 (Pricop Stefan Constantin) (mama), intoarsa din Austria in 12.03.2020",Intern),
+                ("fara contact apropiat caz confirmat, fara istoric calatorie",Unknown),
+                ("fara contact apropiat caz confirmat, fara istoric calatorie",Unknown),
+                ("intoarsa din Anglia in 15.03.2020",Extern),
+                ("intoarsa din SUA in 10.03.2020",Extern),
+                ("intors din Spania (San Sebastian) in 12.03.2020",Extern),
+                ("intors din Franta in 14.03.2020",Extern),
+                ("intoarsa din Anglia in 11.03.2020",Extern),
             }.Select(t => new object[]{t.sourceText, t.sourceType});
         }
     }
