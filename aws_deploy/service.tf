@@ -93,6 +93,7 @@ module "front-end" {
     aws_security_group.intra.id,
     aws_security_group.public.id
   ]
+  certificate_arn = aws_acm_certificate.cert.arn
 
   container_port        = 80
   execution_role_arn    = aws_iam_role.ecs_execution.arn
@@ -102,7 +103,7 @@ module "front-end" {
   [
     {
       "name" : "REACT_APP_API_URL",
-      "value" : "http://${module.api.dns}/api/v1"
+      "value" : "https://${module.api_dns.fqdn}/api/v1"
     }
   ]
 ENV
@@ -122,6 +123,7 @@ module "api" {
     aws_security_group.intra.id,
     aws_security_group.public.id
   ]
+  certificate_arn = aws_acm_certificate.cert.arn
 
   container_port        = 80
   execution_role_arn    = aws_iam_role.ecs_execution.arn
@@ -151,6 +153,7 @@ module "parser" {
     aws_security_group.intra.id,
     aws_security_group.public.id
   ]
+  certificate_arn = aws_acm_certificate.cert.arn
 
   container_port        = 8080
   task_role_arn         = aws_iam_role.ecs_instance.arn
