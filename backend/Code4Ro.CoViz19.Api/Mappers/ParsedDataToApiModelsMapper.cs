@@ -22,6 +22,7 @@ namespace Code4Ro.CoViz19.Api.Mappers
                 Hospitalized = parsedData.PatientsInfo.Count(p => p.Condition == PatientCondition.Hospitalised),
                 InQuarantine = liveData.NumberQuarantined ?? 0,
                 Monitored = liveData.NumberMonitoredAtHome ?? 0,
+                Deaths = parsedData.PatientsInfo.Count(p=>p.Condition == PatientCondition.Deceased),
                 InIcu = parsedData.PatientsInfo.Count(p => p.Condition == PatientCondition.ICU),
                 Date = new DateTimeOffset(liveData.Timestamp).ToUnixTimeSeconds(),
                 DateString = liveData.Timestamp.ToShortDateString()
