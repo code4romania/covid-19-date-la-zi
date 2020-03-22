@@ -88,7 +88,6 @@ namespace Code4Ro.CoViz19.Parser
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
