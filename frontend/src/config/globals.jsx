@@ -12,7 +12,7 @@ export const Constants = {
   isProd: windowEnvironment.ENV === 'production' || process.env.NODE_ENV === 'production',
 
   specifyUnknownData: (windowEnvironment.SPECIFY_UNKNOWN_DATA ||
-    (process.env.REACT_APP_SPECIFY_UNKNOWN_DATA || 'true')) === 'true',
+    (process.env.REACT_APP_SPECIFY_UNKNOWN_DATA || 'false')) === 'true',
 
   womenColor: '#F77EB9',
   menColor: '#7EBCFF',
