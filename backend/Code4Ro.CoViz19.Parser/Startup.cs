@@ -29,6 +29,7 @@ namespace Code4Ro.CoViz19.Parser
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks();
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddControllersWithViews().AddNewtonsoftJson();
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
@@ -95,6 +96,7 @@ namespace Code4Ro.CoViz19.Parser
             }
 
             app.UseRouting();
+            app.UseHealthChecks("/health");
 
             app.UseEndpoints(endpoints =>
             {
