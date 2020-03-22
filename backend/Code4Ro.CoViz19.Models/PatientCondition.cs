@@ -9,13 +9,20 @@ namespace Code4Ro.CoViz19.Models
     {
         [EnumMember(Value = "unknown")]
         Unknown = 0,
+
         [EnumMember(Value = "quarantined")]
         Quarantined,
+
         [EnumMember(Value = "icu")]
         ICU,
+
         [EnumMember(Value = "hospitalised")]
         Hospitalised,
+
         [EnumMember(Value = "cured")]
-        Cured
+        Cured,
+
+        [EnumMember(Value = "deceased")]
+        Deceased
     }
 }
