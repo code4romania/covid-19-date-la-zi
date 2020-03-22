@@ -101,7 +101,6 @@ namespace Code4Ro.CoViz19.Api
             app.UseHttpStatusCodeExceptionMiddleware();
 
             
-            app.UseHttpsRedirection();
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
