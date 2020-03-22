@@ -44,22 +44,32 @@ export class SummaryRow extends React.PureComponent {
   parseAPIResponse(result) {
     const summary = result.totals
     const history = result.history
-    const totalCasesHistory = history.map((entry) => { return entry.confirmed })
-    const hospitalizedCasesHistory = history.map((entry) => { return entry.hospitalized })
-    const icuCasesHistory = history.map((entry) => { return entry.in_icu })
-    const curedCasesHistory = history.map((entry) => { return entry.cured })
+    const deathCasesHistory = history.map((entry) => { return entry.deaths || 0 })
+    const totalCasesHistory = history.map((entry) => { return entry.confirmed || 0 })
+    const hospitalizedCasesHistory = history.map((entry) => { return entry.hospitalized || 0 })
+    const icuCasesHistory = history.map((entry) => { return entry.in_icu || 0 })
+    const curedCasesHistory = history.map((entry) => { return entry.cured || 0 })
+    const confirmed = summary.confirmed || 0
+    const hospitalized = summary.hospitalized || 0
+    const in_icu = summary.in_icu || 0
+    const cured = summary.cured || 0
+    const monitored = summary.monitored || 0
+    const in_quarantine = summary.in_quarantine || 0
+    const deaths = summary.deaths || 0
     this.setState({
       isLoaded: true,
-      totalCases: summary.confirmed.toLocaleString(),
+      totalCases: confirmed.toLocaleString(),
       totalCasesHistory: totalCasesHistory,
-      hospitalizedCases: summary.hospitalized.toLocaleString(),
+      hospitalizedCases: hospitalized.toLocaleString(),
       hospitalizedCasesHistory: hospitalizedCasesHistory,
-      icuCases: summary.in_icu.toLocaleString(),
+      icuCases: in_icu.toLocaleString(),
       icuCasesHistory: icuCasesHistory,
-      curedCases: summary.cured.toLocaleString(),
+      curedCases: cured.toLocaleString(),
       curedCasesHistory: curedCasesHistory,
-      monitoredCases: summary.monitored.toLocaleString(),
-      quarantinedCases: summary.in_quarantine.toLocaleString(),
+      monitoredCases: monitored.toLocaleString(),
+      quarantinedCases: in_quarantine.toLocaleString(),
+      deathCases: deaths.toLocaleString(),
+      deathCasesHistory: deathCasesHistory,
     })
   }
 
@@ -85,6 +95,15 @@ export class SummaryRow extends React.PureComponent {
       value: curedPercentage + '%',
       label: 'din total',
       isGood: curedPercentage >= 50
+    }
+  };
+
+  specialValueForDeaths() {
+    const deathPercentage = this.state.totalCases > 0 ? round(100*(this.state.deathCases / this.state.totalCases)) : 0
+    return {
+      value: deathPercentage + '%',
+      label: 'din total',
+      isGood: false
     }
   };
 
@@ -133,6 +152,8 @@ export class SummaryRow extends React.PureComponent {
                 data={this.state.icuCasesHistory}
               />
             </div>
+          </div>
+          <div className="columns">
             <div className="column">
               <SummaryCard
                 to="/"
@@ -140,6 +161,15 @@ export class SummaryRow extends React.PureComponent {
                 total={this.state.curedCases}
                 special={this.specialValueForCured()}
                 data={this.state.curedCasesHistory}
+              />
+            </div>
+            <div className="column">
+              <SummaryCard
+                to="/"
+                title="Decedați"
+                total={this.state.deathCases}
+                special={this.specialValueForDeaths()}
+                data={this.state.deathCasesHistory}
               />
             </div>
           </div>
