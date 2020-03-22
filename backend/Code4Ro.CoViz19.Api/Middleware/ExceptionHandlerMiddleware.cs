@@ -53,10 +53,7 @@ namespace Code4Ro.CoViz19.Api.Middleware
             {
                 Message = message,
             };
-
-#if DEBUG
             messageModel.Detail = ex.Message + Environment.NewLine + ex.StackTrace;
-#endif
             await context.Response.WriteAsync(JsonConvert.SerializeObject(messageModel));
         }
     }

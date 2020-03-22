@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -6,6 +7,8 @@ namespace Code4Ro.CoViz19.Api.Models
 {
     public class GenderAgeHistogramModel
     {
+        public DateTime? DatePublished { get; set; }
+        public string DatePublishedString { get; set; }
         [JsonProperty(PropertyName = "histogram")] public Dictionary<HistogramRangeEnum, HistogramModel> Histogram { get; set; }
         [JsonProperty(PropertyName = "total")] public int Total { get; set; }
 

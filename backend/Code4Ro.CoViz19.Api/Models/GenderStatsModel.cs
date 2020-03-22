@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace Code4Ro.CoViz19.Api.Models
 {
     public class GenderStatsModel
     {
+        public DateTime? DatePublished { get; set; }
+        public string DatePublishedString { get; set; }
         public Stats Stats { get; set; }
     }
 
