@@ -29,6 +29,9 @@ RUN dotnet publish -c Release -o /app/publish
 # final stage/image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
 
+HEALTHCHECK --interval=60s --timeout=3s --retries=3 \
+    CMD wget -q http://localhost || exit 1
+
 EXPOSE 8080
 
 WORKDIR /app
