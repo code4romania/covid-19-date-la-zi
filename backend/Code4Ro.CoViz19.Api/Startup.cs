@@ -32,6 +32,7 @@ namespace Code4Ro.CoViz19.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
+            services.AddHealthChecks();
             services.Configure<CacheOptions>(Configuration.GetSection("Cache"));
             services.Configure<AuthorizationOptions>(Configuration.GetSection("Authorization"));
             services.Configure<HttpFileServiceOptions>(Configuration.GetSection("HttpFileServiceOptions"));
@@ -112,6 +113,7 @@ namespace Code4Ro.CoViz19.Api
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseHealthChecks("/health");
 
             app.UseEndpoints(endpoints =>
             {
