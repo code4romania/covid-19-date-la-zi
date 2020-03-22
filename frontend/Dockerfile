@@ -12,6 +12,9 @@ RUN yarn build
 FROM nginx:1.17.9-alpine
 COPY --from=build /app/build /usr/share/nginx/html
 
+HEALTHCHECK --interval=60s --timeout=3s --retries=3 \
+    CMD wget -q http://localhost || exit 1
+
 EXPOSE 80
 
 WORKDIR /usr/share/nginx/html
