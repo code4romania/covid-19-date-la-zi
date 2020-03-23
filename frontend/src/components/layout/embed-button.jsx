@@ -1,5 +1,5 @@
-import * as React from "react";
-import "./embed-button.css";
+import * as React from 'react';
+import './embed-button.css';
 
 export class EmbedButton extends React.PureComponent {
 
@@ -25,7 +25,7 @@ export class EmbedButton extends React.PureComponent {
     return (
       <div className="fab-action">
         <div className="tooltip">
-          <img src="/images/favicon/embed.png" alt="embed" className="fab-icon" onClick={() => this.copyEmbedCode()}/>
+          <img src="/images/favicon/embed.png" alt="embed" className="fab-icon" onClick={() => this.copyEmbedCode()} />
 
           <div className={`tooltip-text ${visibilityClass}`}>
             <p>Textul a fost copiat în memoria clipboard.</p>

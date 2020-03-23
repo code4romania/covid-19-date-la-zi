@@ -7,15 +7,15 @@ import * as serviceWorker from './serviceWorker';
 
 import echarts from 'echarts';
 import roGeoJson from './config/roGeo';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
-import {Embeddable} from "./Embed";
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {Embeddable} from './Embed';
 
 echarts.registerMap('RO', roGeoJson);
 
 ReactDOM.render((
   <BrowserRouter>
     <Switch>
-      <Route path="/embed" >
+      <Route path="/embed">
         <Embeddable />
       </Route>
       <Route path="*">
@@ -23,7 +23,7 @@ ReactDOM.render((
       </Route>
     </Switch>
   </BrowserRouter>
-  ), document.getElementById('root'));
+), document.getElementById('root'));
 
 
 // If you want your app to work offline and load faster, you can change

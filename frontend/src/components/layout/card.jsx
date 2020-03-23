@@ -1,6 +1,6 @@
 import React from 'react';
 import './card.css';
-import {EmbedButton} from "./embed-button";
+import {EmbedButton} from './embed-button';
 
 export class Card extends React.PureComponent {
   render() {
@@ -14,7 +14,7 @@ export class Card extends React.PureComponent {
           </header>}
         <div className="card-content">
           <div className="content">{children}</div>
-          {embedPath && <EmbedButton path={embedPath}/>}
+          {embedPath && <EmbedButton path={embedPath} />}
         </div>
       </div>
     );
