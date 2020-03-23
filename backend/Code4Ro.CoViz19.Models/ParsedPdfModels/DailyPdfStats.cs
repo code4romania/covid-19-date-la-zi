@@ -16,5 +16,10 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
         public int NumberOfMen { get; set; }
         public int NumberOfChildren { get; set; }
         public Dictionary<AgeRange, int> DistributionByAge { get; set; }
+
+        public DailyPdfStats()
+        {
+            DistributionByAge = new Dictionary<AgeRange, int>();
+        }
     }
 }
