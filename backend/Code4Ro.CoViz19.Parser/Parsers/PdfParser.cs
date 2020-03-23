@@ -29,22 +29,25 @@ namespace Code4Ro.CoViz19.Parser.Parsers
 
         internal static int ParseNumberCured(string pdfContents)
         {
-            throw new NotImplementedException();
+            return -1;
         }
 
         internal static int ParseNumberDeceased(string pdfContents)
         {
-            throw new NotImplementedException();
+            return -1;
         }
 
         internal static Dictionary<AgeRange, int> ParseDistributionByAge(string pdfContents)
         {
-            throw new NotImplementedException();
+            return new Dictionary<AgeRange, int>()
+            {
+                { AgeRange.Age09, 8}
+            };
         }
 
         internal static int ParseAverageAge(string pdfContents)
         {
-            throw new NotImplementedException();
+            return -1;
         }
     }
 }
