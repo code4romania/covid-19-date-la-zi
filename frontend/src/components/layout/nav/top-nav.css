@@ -1,45 +1,53 @@
-
 .border-bottom {
-  border-bottom: 1px solid #E5E5E5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .navbar {
-  height: 73px;
+    height: 73px;
 }
 
 .navbar-item {
-  font-size: 14px;
-  font-weight: normal;
-  padding: auto 12px;
+    font-size: 14px;
+    font-weight: normal;
+    padding: auto 12px;
 }
 
 .navbar-brand a {
-  color: var(--accent-color);
-  font-weight: bold;
+    color: var(--accent-color);
+    font-weight: bold;
 }
 
 .logo-code4 {
-  height: 30px;
-  margin: -5px 0 auto;
-  vertical-align: middle;
+    height: 30px;
+    margin: -5px 0 auto;
+    vertical-align: middle;
 }
 
 .logo-gov {
-  height: 80px;
-  margin: -5px 0 auto;
-  vertical-align: middle;
+    height: 80px;
+    margin: -5px 0 auto;
+    vertical-align: middle;
+}
+.logo-ms {
+    height: 50px;
+    margin: -5px 0 auto;
+    vertical-align: middle;
+}
+
+.link-ms {
+    margin-right: 30px;
 }
 
 .logo-coviz {
-  height: 64px;
+    height: 64px;
 }
 
 .navigation-container .developer {
-  /* padding: 20px 0 0; */
-  line-height: 89px;
-  text-align: right;
+    /* padding: 20px 0 0; */
+    line-height: 89px;
+    text-align: right;
 }
 
 .navigation-container .developer span {
-  line-height: 89px;
+    line-height: 89px;
 }
