@@ -81,7 +81,6 @@ namespace Code4Ro.CoViz19.Parser.UnitTests
 
             var assembly = typeof(PdfParserShould).GetTypeInfo().Assembly;
             var resourceKey = $"Code4Ro.CoViz19.Parser.UnitTests.PdfTexts.{resource}";
-            var aa  = assembly.GetManifestResourceNames();
             using (var stream = assembly.GetManifestResourceStream(resourceKey))
             {
                 using (var sr = new StreamReader(stream))
