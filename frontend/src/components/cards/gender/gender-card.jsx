@@ -14,7 +14,8 @@ export class GenderCard extends React.PureComponent {
       date: '',
       women: 0,
       men: 0,
-      unknown: 0
+      unknown: 0,
+      children: 0
     }
   }
 
@@ -36,6 +37,7 @@ export class GenderCard extends React.PureComponent {
   parseAPIResponse(result) {
     const stats = result.stats
     const total = stats.total || 0;
+    const children = stats.children || 0;
     const unknown = total - stats.men - stats.women
     const knownPercentage = total > 0 ? 100-Math.round(100*unknown / total) : 100;
 
@@ -43,6 +45,7 @@ export class GenderCard extends React.PureComponent {
       isLoaded: true,
       men: stats.men,
       women: stats.women,
+      children,
       date: stats.dateString,
       unknown: unknown > 0 ? unknown : 0,
       knownPercentage: knownPercentage
@@ -52,12 +55,14 @@ export class GenderCard extends React.PureComponent {
   getChartOptions() {
     let data = [
       {value: this.state.women, name: Constants.womenText},
-      {value: this.state.men, name: Constants.menText}
+      {value: this.state.men, name: Constants.menText},
+      {value: this.state.children, name: Constants.childrenText}
     ]
 
     let colors = [
       Constants.womenColor,
-      Constants.menColor
+      Constants.menColor,
+      Constants.childrenColor
     ]
 
     if (Constants.specifyUnknownData) {

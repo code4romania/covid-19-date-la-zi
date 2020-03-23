@@ -16,6 +16,7 @@ export const Constants = {
 
   womenColor: '#F77EB9',
   menColor: '#7EBCFF',
+  childrenColor:'#bbbbbb',
   unknownColor: '#9FB3C7',
 
   symptomaticColor: '#F8AF69',
@@ -27,6 +28,7 @@ export const Constants = {
 
   womenText: 'Femei',
   menText: 'Bărbați',
+  childrenText: 'Copii < 18 ani',
   unknownGenderText: 'Necunoscuți'
 };
 
