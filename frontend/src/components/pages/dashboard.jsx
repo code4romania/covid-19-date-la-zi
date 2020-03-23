@@ -8,7 +8,7 @@ import { InfectionSourceCard } from '../cards/infection-source/infection-source-
 // import { CountiesCard } from '../cards/counties/counties-card';
 
 import './dashboard.css';
-import {SocialsShare} from "@code4ro/taskforce-fe-components";
+import {SocialsShare} from '@code4ro/taskforce-fe-components';
 // import { Constants } from '../../config/globals';
 
 export class Dashboard extends React.PureComponent {
