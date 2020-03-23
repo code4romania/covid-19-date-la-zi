@@ -2,8 +2,6 @@
 using Shouldly;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using Xunit;
 
 namespace Code4Ro.CoViz19.Parser.UnitTests
@@ -54,7 +52,20 @@ namespace Code4Ro.CoViz19.Parser.UnitTests
             PdfParser.ParseNumberDeceased(pdfText).ShouldBe(expectedMap);
         }
 
-
+        [Theory]
+        [InlineData("TextInPdf_Coronavirus 17.03.pdf.txt", "39-40")]
+        [InlineData("TextInPdf_Coronavirus 18.03.pdf.txt", "41")]
+        [InlineData("TextInPdf_Coronavirus 19.03.pdf.txt", "41")]
+        [InlineData("TextInPdf_Coronavirus 20.03.pdf.txt", "41")]
+        [InlineData("TextInPdf_Coronavirus 21.03.pdf.txt", "41")]
+        [InlineData("TextInPdf_Coronavirus 22.03.pdf.txt", "41")]
+        [InlineData("TextInPdf_Coronavirus 23.03.pdf.txt", "42")]
+        public void Parse_average_age_correctly(string file, string expectedMap)
+        {
+            var pdfText = LoadResource(file);
+            PdfParser.ParseAverageAge(pdfText).ShouldBe(expectedMap);
+        }
+        
         private  string LoadResource(string resource)
         {           
             return File.ReadAllText($"PdfTexts\\{resource}");

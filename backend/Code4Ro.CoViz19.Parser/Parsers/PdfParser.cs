@@ -13,7 +13,7 @@ namespace Code4Ro.CoViz19.Parser.Parsers
 
             var result = ExtractNumberByPattern(pattern, pdfContents);
 
-            return result ?? -1;
+            return result != null ? int.Parse(result) : -1;
         }        
 
         public static int ParseNumberCured(string pdfContents)
@@ -22,7 +22,7 @@ namespace Code4Ro.CoViz19.Parser.Parsers
 
             var result = ExtractNumberByPattern(pattern, pdfContents);
 
-            return result ?? -1;
+            return result != null ? int.Parse(result) : -1;
         }
 
         public static int ParseNumberDeceased(string pdfContents)
@@ -31,7 +31,7 @@ namespace Code4Ro.CoViz19.Parser.Parsers
 
             var result = ExtractNumberByPattern(pattern, pdfContents);
 
-            return result ?? -1;
+            return result != null ? int.Parse(result) : -1;
         }
 
         public static Dictionary<AgeRange, int> ParseDistributionByAge(string pdfContents)
@@ -42,22 +42,22 @@ namespace Code4Ro.CoViz19.Parser.Parsers
             };
         }
 
-        public static int ParseAverageAge(string pdfContents)
+        public static string ParseAverageAge(string pdfContents)
         {
-            const string pattern = @"medie (\d+) ani";
+            const string pattern = @"medie (\w+\s*\-\s*\w+|\w+) ani";
 
             var result = ExtractNumberByPattern(pattern, pdfContents);
 
-            return result ?? -1;
+            return result;
         }
 
-        private static int? ExtractNumberByPattern(string pattern, string text)
+        private static string ExtractNumberByPattern(string pattern, string text)
         {
             var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
             var match = regex.Matches(text);
             if (match.Count > 0)
             {
-                return int.Parse(match[0].Groups[1].Value);
+                return match[0].Groups[1].Value;
             }
             return null;
         }
