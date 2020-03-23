@@ -7,7 +7,7 @@ namespace Code4Ro.CoViz19.Parser.Parsers
 {
     public class PdfParser
     {
-        internal static int ParseNumberInfected(string pdfContents)
+        public static int ParseNumberInfected(string pdfContents)
         {
             const string pattern = @"(\d+) cazuri diagnosticate covid";
 
@@ -16,7 +16,7 @@ namespace Code4Ro.CoViz19.Parser.Parsers
             return result ?? -1;
         }        
 
-        internal static int ParseNumberCured(string pdfContents)
+        public static int ParseNumberCured(string pdfContents)
         {
             const string pattern = @"(\d+) cazuri vindecate";
 
@@ -25,7 +25,7 @@ namespace Code4Ro.CoViz19.Parser.Parsers
             return result ?? -1;
         }
 
-        internal static int ParseNumberDeceased(string pdfContents)
+        public static int ParseNumberDeceased(string pdfContents)
         {
             const string pattern = @"(\d+) decese";
 
@@ -34,7 +34,7 @@ namespace Code4Ro.CoViz19.Parser.Parsers
             return result ?? -1;
         }
 
-        internal static Dictionary<AgeRange, int> ParseDistributionByAge(string pdfContents)
+        public static Dictionary<AgeRange, int> ParseDistributionByAge(string pdfContents)
         {
             return new Dictionary<AgeRange, int>()
             {
@@ -42,7 +42,7 @@ namespace Code4Ro.CoViz19.Parser.Parsers
             };
         }
 
-        internal static int ParseAverageAge(string pdfContents)
+        public static int ParseAverageAge(string pdfContents)
         {
             const string pattern = @"medie (\d+) ani";
 
