@@ -8,7 +8,7 @@ export class BottomNav extends React.PureComponent {
       <footer className="footer border-top">
         <div className="container team is-clearfix">
           <div className="is-pulled-right">
-            <span>proiect incubat în programul</span>
+            <span>proiect dezvoltat în programul</span>
             <a href="https://code4.ro/ro/apps">
               <img
                 className="logo-force" src="/images/logo-code4romania-force.svg"
