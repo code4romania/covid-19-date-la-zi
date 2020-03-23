@@ -211,7 +211,7 @@ namespace Code4Ro.CoViz19.Parser.UnitTests
 
         private string LoadResource(string resource)
         {
-            return File.ReadAllText($"PdfTexts\\{resource}");
+            return File.ReadAllText($"PdfTexts{Path.DirectorySeparatorChar}{resource}");
         }
     }
 }
