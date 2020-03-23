@@ -90,6 +90,23 @@ namespace Code4Ro.CoViz19.Parser.UnitTests
 
         }
 
+        [Theory]
+        [InlineData("TextInPdf_Coronavirus 17.03.pdf", 17, 3)]
+        [InlineData("TextInPdf_Coronavirus 18.03.pdf", 18, 3)]
+        [InlineData("TextInPdf_Coronavirus 19.03.pdf", 19, 3)]
+        [InlineData("TextInPdf_Coronavirus 20.03.pdf", 20, 3)]
+        [InlineData("TextInPdf_Coronavirus 21.03.pdf", 21, 3)]
+        [InlineData("TextInPdf_Coronavirus 22.03.pdf", 22, 3)]
+        [InlineData("TextInPdf_Coronavirus 23.03.pdf", 23, 3)]
+        [InlineData("Coronavirus 21.03 (1).pdf", 21, 3)]
+        [InlineData("Coronavirus 1.03 (1).pdf", 1, 3)]
+        [InlineData("Coronavirus 02.03 (1).pdf", 2, 3)]
+        [InlineData("Coronavirus 02.12 (1).pdf", 2, 12)]
+        public void Parse_date_from_file_name_correctly(string fileName, int expectedDay, int expectedMonth)
+        {
+            PdfParser.TryParsePublishedDate(fileName).ShouldBe(new DateTime(DateTime.Now.Year, expectedMonth, expectedDay));
+        }
+
         private Dictionary<AgeRange, int> GetExpectedAgeDistributionForFile(string file)
         {
             if (file == "TextInPdf_Coronavirus 17.03.pdf.txt")
