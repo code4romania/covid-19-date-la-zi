@@ -1,11 +1,16 @@
 import React from 'react';
+import Loader from "../loader";
 import './card.css';
 
 export class Card extends React.PureComponent {
   render() {
-    const { title, children } = this.props;
+    const { title, children, loading, error } = this.props;
 
-    return (
+    if (error) {
+      return <div className="is-error is-block">Nu am putut încărca datele</div>
+    }
+
+    return loading ? (
       <div className="card is-shadowless">
         {title &&
           <header className="card-header">
@@ -15,6 +20,6 @@ export class Card extends React.PureComponent {
           <div className="content">{children}</div>
         </div>
       </div>
-    );
+    ): <Loader />;
   }
 }
