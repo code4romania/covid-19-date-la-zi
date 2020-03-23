@@ -25,9 +25,17 @@ export class BottomNav extends React.PureComponent {
                 <h4>Link-uri utile</h4>
                 <ul>
                   <li><Link to="/about">Despre Proiect</Link></li>
-                  <li><a href="https://stirioficiale.ro/informatii">Știri Oficiale</a></li>
-                  <li><a href="https://www.gov.ro/">Guvernul României</a></li>
-                  <li><a href="http://www.ms.ro/">Ministerul Sănătății</a></li>
+                  <li>
+                    <a href="https://stirioficiale.ro/informatii" target="_blank" rel="noopener noreferrer">
+                      Știri Oficiale
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.gov.ro/" target="_blank" rel="noopener noreferrer">Guvernul României</a>
+                  </li>
+                  <li>
+                    <a href="http://www.ms.ro/" target="_blank" rel="noopener noreferrer">Ministerul Sănătății</a>
+                  </li>
                 </ul>
               </div>
               <div className="column levels copyright vbottom">
@@ -35,7 +43,7 @@ export class BottomNav extends React.PureComponent {
                 <div className="level-right">
                   <div>
                     <p>
-                      <a href="http://www.code4.ro/">
+                      <a href="https://code4.ro/ro/" target="_blank" rel="noopener noreferrer">
                         <img
                           src="/images/logo-code4-gray.svg" className="logo-code4-gray"
                           alt="Code4Romania Logo"
