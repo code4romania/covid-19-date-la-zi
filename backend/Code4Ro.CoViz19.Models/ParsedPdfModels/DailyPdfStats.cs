@@ -6,6 +6,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
     {
         public long ParsedOn { get; set; }
         public string ParsedOnString { get; set; }
+        public string FileName { get; set; }
 
         public int AgerageAge { get; set; }
         public int NumberInfected { get; set; }

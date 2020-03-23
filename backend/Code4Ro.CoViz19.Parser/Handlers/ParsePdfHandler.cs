@@ -19,7 +19,10 @@ namespace Code4Ro.CoViz19.Parser.Handlers
 
             try
             {
-                var result = new DailyPdfStats();
+                var result = new DailyPdfStats
+                {
+                    FileName = request.File.FileName
+                };
 
                 var buffer = new StringBuilder();
                 using (var stream = request.File.OpenReadStream())
@@ -46,7 +49,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             }
             catch (Exception e)
             {
-                return Result.Failure<DailyPdfStats>(e.Message);
+                return Result.Failure<DailyPdfStats>($"{request.File.FileName} -- {e.Message}");
             }
         }
     }
