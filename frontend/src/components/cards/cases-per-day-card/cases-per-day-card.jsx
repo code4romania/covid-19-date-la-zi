@@ -4,6 +4,7 @@ import { Card } from '../../layout/card';
 import { Constants, ApiURL } from '../../../config/globals';
 import './cases-per-day-card.css';
 
+export const EMBED_PATH_CASES_PER_DAY = 'cazuri-pe-zi';
 export class CasesPerDayCard extends React.PureComponent {
 
   constructor(props) {
@@ -147,7 +148,7 @@ export class CasesPerDayCard extends React.PureComponent {
       )
     } else {
       return (
-        <Card>
+        <Card embedPath={EMBED_PATH_CASES_PER_DAY}>
           <div className="title-container is-overlay">
             <h3 className="summary-title is-uppercase">Număr de cazuri</h3>
             <h4 className="summary-subtitle">De la {this.state.startDate} la {this.state.endDate}</h4>

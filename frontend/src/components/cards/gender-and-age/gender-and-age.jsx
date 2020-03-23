@@ -3,6 +3,7 @@ import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
 import { Constants, ApiURL } from '../../../config/globals'
 
+export const EMBED_PATH_GENDER_AND_AGE = 'gen-si-varsta';
 export class GenderAndAgeCard extends React.PureComponent {
 
   constructor(props) {
@@ -145,7 +146,7 @@ export class GenderAndAgeCard extends React.PureComponent {
       )
     } else {
       return (
-        <Card title={title + knownPercentage}>
+        <Card title={title + knownPercentage} embedPath={EMBED_PATH_GENDER_AND_AGE}>
           <div className="bar-chart">
             <ReactEcharts
               id="gender-age-chart"

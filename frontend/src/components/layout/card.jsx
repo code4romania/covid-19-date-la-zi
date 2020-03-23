@@ -1,9 +1,10 @@
 import React from 'react';
 import './card.css';
+import {EmbedButton} from "./embed-button";
 
 export class Card extends React.PureComponent {
   render() {
-    const { title, children } = this.props;
+    const { title, children, embedPath } = this.props;
 
     return (
       <div className="card is-shadowless">
@@ -13,6 +14,7 @@ export class Card extends React.PureComponent {
           </header>}
         <div className="card-content">
           <div className="content">{children}</div>
+          {embedPath && <EmbedButton path={embedPath}/>}
         </div>
       </div>
     );

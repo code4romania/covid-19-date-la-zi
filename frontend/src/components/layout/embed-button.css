@@ -1,0 +1,52 @@
+.fab-action {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 4px;
+    background-color: #f7f7f7;
+}
+
+.fab-icon {
+    width: 16px;
+    height: 16px;
+    margin: 4px 8px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    width: inherit;
+    height: inherit;
+}
+
+.tooltip-text {
+    width: 30em;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    right: -15em;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.invisible {
+    visibility: hidden;
+}

@@ -3,6 +3,7 @@ import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
 import { Constants, ApiURL } from '../../../config/globals'
 
+export const EMBED_PATH_INFECTION_SOURCE = 'sursa-infectiei';
 export class InfectionSourceCard extends React.PureComponent {
 
   constructor(props) {
@@ -115,7 +116,7 @@ export class InfectionSourceCard extends React.PureComponent {
       )
     } else {
       return (
-        <Card title={title + knownPercentage}>
+        <Card title={title + knownPercentage} embedPath={EMBED_PATH_INFECTION_SOURCE}>
           <div className="pie-chart">
             <ReactEcharts
               id="infection-source-chart"
