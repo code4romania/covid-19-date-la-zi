@@ -14,27 +14,24 @@ namespace Code4Ro.CoViz19.Parser.Parsers
             var result = ExtractNumberByPattern(pattern, pdfContents);
 
             return result ?? -1;
-        }
-
-        private static int? ExtractNumberByPattern(string pattern, string text)
-        {
-            var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
-            var match = regex.Matches(text);
-            if (match.Count > 0)
-            {
-                return int.Parse(match[0].Groups[1].Value);
-            }
-            return null;
-        }
+        }        
 
         internal static int ParseNumberCured(string pdfContents)
         {
-            return -1;
+            const string pattern = @"(\d+) cazuri vindecate";
+
+            var result = ExtractNumberByPattern(pattern, pdfContents);
+
+            return result ?? -1;
         }
 
         internal static int ParseNumberDeceased(string pdfContents)
         {
-            return -1;
+            const string pattern = @"(\d+) decese";
+
+            var result = ExtractNumberByPattern(pattern, pdfContents);
+
+            return result ?? -1;
         }
 
         internal static Dictionary<AgeRange, int> ParseDistributionByAge(string pdfContents)
@@ -47,7 +44,22 @@ namespace Code4Ro.CoViz19.Parser.Parsers
 
         internal static int ParseAverageAge(string pdfContents)
         {
-            return -1;
+            const string pattern = @"medie (\d+) ani";
+
+            var result = ExtractNumberByPattern(pattern, pdfContents);
+
+            return result ?? -1;
+        }
+
+        private static int? ExtractNumberByPattern(string pattern, string text)
+        {
+            var regex = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            var match = regex.Matches(text);
+            if (match.Count > 0)
+            {
+                return int.Parse(match[0].Groups[1].Value);
+            }
+            return null;
         }
     }
 }
