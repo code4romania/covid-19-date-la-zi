@@ -25,22 +25,9 @@ export class BottomNav extends React.PureComponent {
                 <h4>Link-uri utile</h4>
                 <ul>
                   <li><Link to="/about">Despre Proiect</Link></li>
-                  <li><a href="https://code4.ro/ro/apps">Ecosistemul Covid-19</a></li>
-                  <li><a href="https://code4.ro/ro/doneaza">Sprijină proiectul</a></li>
-                  <li>
-                    <a href="https://addons.mozilla.org/en-US/firefox/addon/covid-19-%C8%99tiri-oficiale/">
-                      Instalează add-on-ul Firefox
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://chrome.google.com/webstore/detail/pdcpkplohipjhdfdchpmgekifmcdbnha">
-                    Instalează add-on-ul Chrome
-                    </a>
-                  </li>
-                  <li><a href="https://stirioficiale.ro">CoVid-19: Stiri Oficiale</a></li>
-                  <li><a href="https://cemafac.ro/">CoVid-19: Ce Mă Fac</a></li>
-                  <li><a href="https://diasporahub.ro/">CoVid-19: Diaspora Hub</a></li>
-                  <li><a href="https://stamacasa.ro/">CoVid-19: Stăm Acasă</a></li>
+                  <li><a href="https://stirioficiale.ro/informatii">Știri Oficiale</a></li>
+                  <li><a href="https://www.gov.ro/">Guvernul României</a></li>
+                  <li><a href="http://www.ms.ro/">Ministerul Sănătății</a></li>
                 </ul>
               </div>
               <div className="column levels copyright vbottom">
@@ -48,7 +35,7 @@ export class BottomNav extends React.PureComponent {
                 <div className="level-right">
                   <div>
                     <p>
-                      <a href="https://code4.ro/ro/">
+                      <a href="http://www.code4.ro/">
                         <img
                           src="/images/logo-code4-gray.svg" className="logo-code4-gray"
                           alt="Code4Romania Logo"
