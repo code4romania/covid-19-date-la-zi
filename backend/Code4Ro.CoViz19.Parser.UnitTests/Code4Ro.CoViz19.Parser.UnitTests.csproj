@@ -18,13 +18,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 17.03.pdf.txt" />
-    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 18.03.pdf.txt" />
-    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 19.03.pdf.txt" />
-    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 20.03.pdf.txt" />
-    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 21.03.pdf.txt" />
-    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 22.03.pdf.txt" />
-    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 23.03.pdf.txt" />
+    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 17.03.pdf.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 18.03.pdf.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 19.03.pdf.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 20.03.pdf.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 21.03.pdf.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 22.03.pdf.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PdfTexts\TextInPdf_Coronavirus 23.03.pdf.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
