@@ -17,7 +17,7 @@ namespace Code4Ro.CoViz19.Api.Services
 
 
         public async Task<ParsedDataModel> GetCurrentData() =>
-            _localData ??= JsonConvert.DeserializeObject<ParsedDataModel>(_fileService.GetRawData());
+            _localData = JsonConvert.DeserializeObject<ParsedDataModel>(_fileService.GetRawData());
     }
 
 }

@@ -58,5 +58,30 @@ namespace Code4Ro.CoViz19.Parser.Controllers
 
             return BadRequest(result.Error);
         }
+
+        [HttpPost]
+        [Route("/v3/upload")]
+        public async Task<ActionResult<ParsedDataModel>> ParsePdfFormat(IFormFile file)
+        {
+            if (file == null)
+            {
+                return BadRequest("Upload Failed, no file(s) selected.");
+            }
+
+            if (!file.FileName.Contains(".pdf"))
+            {
+                return BadRequest("File is not a PDF.");
+            }
+
+            var result = await _mediatr.Send(new ParsePdfCommand(file));
+
+            if (result.IsSuccess)
+            {
+                await _mediatr.Send(new SaveParsedDataCommand(JsonConvert.SerializeObject(result.Value)));
+                return new OkObjectResult(result.Value);
+            }
+
+            return BadRequest(result.Error);
+        }
     }
 }
