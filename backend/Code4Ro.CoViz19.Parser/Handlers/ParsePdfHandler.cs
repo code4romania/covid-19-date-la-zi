@@ -41,7 +41,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
                 result.AgerageAge = PdfParser.ParseAverageAge(pdfContents);
 
                 result.DistributionByAge = PdfParser.ParseDistributionByAge(pdfContents);
-                result.ParsedOnString = DateTime.Today.ToString();
+                result.ParsedOnString = DateTime.Today.ToString("yyyy-MM-dd");
                 result.ParsedOn = new DateTimeOffset(DateTime.Today).ToUnixTimeSeconds();
 
                 return Result.Ok(result);

@@ -20,7 +20,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
         Age6069,
         [EnumMember(Value = "70-79")]
         Age7079,
-        [EnumMember(Value = ">=80")]
+        [EnumMember(Value = ">80")]
         AgeOver80,
     }
 }
