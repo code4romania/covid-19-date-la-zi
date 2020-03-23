@@ -27,7 +27,13 @@ export const Constants = {
 
   womenText: 'Femei',
   menText: 'Bărbați',
-  unknownGenderText: 'Necunoscuți'
+  unknownGenderText: 'Necunoscuți',
+
+  magenta: "#F1B8FF",
+  orange: "#FDC862",
+  green: "#A4E064",
+  grey: "#B2BECE",
+  lightblue: "#A5D7FC"
 };
 
 export const ApiURL = {
