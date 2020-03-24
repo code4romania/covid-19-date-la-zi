@@ -96,7 +96,7 @@ export class CasesPerDayCard extends React.PureComponent {
   }
 
   getChartOptions() {
-    // const labels = ["Raportați", "Confirmați", "Vindecați"];
+    // const labels = ['Raportați', 'Confirmați', 'Vindecați'];
     const labels = ["Raportați", "Confirmați", "Vindecați", "Decedaţi"];
     return {
       xAxis: {

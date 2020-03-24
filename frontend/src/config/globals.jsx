@@ -29,7 +29,7 @@ export const Constants = {
 
   womenText: 'Femei',
   menText: 'Bărbați',
-  unknownGenderText: 'Necunoscuți',
+  unknownGenderText: 'Necunoscuți'
 };
 
 export const ApiURL = {
