@@ -3,7 +3,11 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build
 WORKDIR /source
 
 RUN apk add --no-cache --update nodejs nodejs-npm
-
+RUN apk add --no-cache --repository https://alpine.global.ssl.fastly.net/alpine/edge/testing/ \
+        libgdiplus-dev \
+        fontconfig \
+        ttf-dejavu
+        
 # copy csproj and restore as distinct layers
 WORKDIR /source/Code4Ro.CoViz19.Parser/
 COPY Code4Ro.CoViz19.Models/*.csproj /source/Code4Ro.CoViz19.Models/
@@ -43,7 +47,6 @@ COPY --from=build /app/publish .
 #ENV LC_ALL en_US.UTF-8
 #ENV LANG en_US.UTF-8
 
-RUN apk add libgdiplus-dev fontconfig ttf-dejavu --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
 ENV ASPNETCORE_URLS=http://*:8080
 
 ENTRYPOINT ["dotnet", "Code4Ro.CoViz19.Parser.dll"]
