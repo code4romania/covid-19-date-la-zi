@@ -1,16 +1,9 @@
-
 .border-bottom {
-  border-bottom: 1px solid #E5E5E5;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .navbar {
   height: 73px;
-}
-
-.navbar-item {
-  font-size: 14px;
-  font-weight: normal;
-  padding: auto 12px;
 }
 
 .navbar-brand a {
@@ -28,6 +21,15 @@
   height: 80px;
   margin: -5px 0 auto;
   vertical-align: middle;
+}
+.logo-ms {
+  height: 50px;
+  margin: -5px 0 auto;
+  vertical-align: middle;
+}
+
+.link-ms {
+  margin-right: 30px;
 }
 
 .logo-coviz {

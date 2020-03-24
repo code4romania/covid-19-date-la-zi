@@ -1,55 +1,67 @@
-import React from 'react';
-import ReactEcharts from 'echarts-for-react';
-import { Card } from '../../layout/card';
-import { Constants, ApiURL } from '../../../config/globals';
-import './cases-per-day-card.css';
+import React from "react";
+import ReactEcharts from "echarts-for-react";
+import { Card } from "../../layout/card";
+import { Constants, ApiURL } from "../../../config/globals";
+import "./cases-per-day-card.css";
 
 export const EMBED_PATH_CASES_PER_DAY = 'cazuri-pe-zi';
 export class CasesPerDayCard extends React.PureComponent {
-
   constructor(props) {
     super(props);
     this.state = {
       error: null,
       isLoaded: false,
-      startDate: '',
-      endDate: '',
+      startDate: "",
+      endDate: "",
       dates: [], // array of strings, formatted short dates
       symptomaticCasesHistory: [], // array of ints
       confirmedCasesHistory: [], // array of ints
-      curedCasesHistory: [], // array of ints
-    }
+      curedCasesHistory: [] // array of ints
+    };
   }
 
   componentDidMount() {
     fetch(ApiURL.dailyStats)
       .then(res => res.json())
-      .then((result) => {
+      .then(result => {
         if (result.error != null) {
-          this.setState({error: result.error, isLoaded: true})
+          this.setState({ error: result.error, isLoaded: true });
           // TODO: handle error
         } else {
-          this.parseAPIResponse(result)
+          this.parseAPIResponse(result);
         }
       })
-      .catch((error) => {
-        this.setState({error: error, isLoaded: true})
-      })
+      .catch(error => {
+        this.setState({ error: error, isLoaded: true });
+      });
   }
 
   parseAPIResponse(result) {
-    const history = result.history
-    const dates = history.map((entry) => { return entry.date })
-    const startDate = dates[0]
-    const endDate = dates[dates.length-1]
-    const startDateStr = this.formattedShortDateString(this.dateFromTimestamp(startDate))
-    const endDateStr = this.formattedShortDateString(this.dateFromTimestamp(endDate))
+    const history = result.history;
+    const dates = history.map(entry => {
+      return entry.date;
+    });
+    const startDate = dates[0];
+    const endDate = dates[dates.length - 1];
+    const startDateStr = this.formattedShortDateString(
+      this.dateFromTimestamp(startDate)
+    );
+    const endDateStr = this.formattedShortDateString(
+      this.dateFromTimestamp(endDate)
+    );
 
-    const symptomaticCasesHistory = history.map((entry) => { return Math.max(entry.monitored, 0) })
-    const confirmedCasesHistory = history.map((entry) => { return Math.max(entry.confirmed, 0) })
-    const curedCasesHistory = history.map((entry) => { return Math.max(entry.cured, 0) })
-    const dateStrings = history.map((entry) => {
-      return this.formattedShortDateString(this.dateFromTimestamp(entry.date)) })
+    const symptomaticCasesHistory = history.map(entry => {
+      return Math.max(entry.monitored, 0);
+    });
+    const confirmedCasesHistory = history.map(entry => {
+      return Math.max(entry.confirmed, 0);
+    });
+    const curedCasesHistory = history.map(entry => {
+      return Math.max(entry.cured, 0);
+    });
+    const dateStrings = history.map(entry => {
+      return this.formattedShortDateString(this.dateFromTimestamp(entry.date));
+    });
 
     this.setState({
       isLoaded: true,
@@ -59,45 +71,58 @@ export class CasesPerDayCard extends React.PureComponent {
       symptomaticCasesHistory: symptomaticCasesHistory,
       confirmedCasesHistory: confirmedCasesHistory,
       curedCasesHistory: curedCasesHistory
-    })
+    });
   }
 
   dateFromTimestamp(timestamp) {
-    return new Date(timestamp * 1000)
+    return new Date(timestamp * 1000);
   }
 
   formattedShortDateString(date) {
-    const months = ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return date.getDate() + ' ' + months[date.getMonth()];
+    const months = [
+      "Ian",
+      "Feb",
+      "Mar",
+      "Apr",
+      "Mai",
+      "Iun",
+      "Iul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ];
+    return date.getDate() + " " + months[date.getMonth()];
   }
 
-  getSubtitle(){
+  getSubtitle() {
     let firstDate = this.state.startDate;
     let lastDate = this.state.endDate;
-    return `de la ${firstDate} la ${lastDate}`
+    return `de la ${firstDate} la ${lastDate}`;
   }
 
   getChartOptions() {
     // const labels = ['Raportați', 'Confirmați', 'Vindecați'];
-    const labels = ['Raportați', 'Confirmați', 'Vindecați'];
+    const labels = ["Raportați", "Confirmați", "Vindecați"];
     return {
       xAxis: {
-        type: 'category',
+        type: "category",
         data: this.state.dates,
         axisLabel: {
-          color: 'gray'
+          color: "gray"
         }
       },
       yAxis: {
-        type: 'value',
+        type: "value",
         axisLabel: {
-          color: 'gray'
+          color: "gray"
         }
       },
       tooltip: {
-        trigger: 'axis',
+        trigger: "axis",
         axisPointer: {
-          axis: 'x'
+          axis: "x"
         }
       },
       legend: {
@@ -116,15 +141,15 @@ export class CasesPerDayCard extends React.PureComponent {
         {
           data: this.state.confirmedCasesHistory,
           name: labels[1],
-          stack: 'one',
-          type: 'bar',
+          stack: "one",
+          type: "bar",
           color: Constants.confirmedColor
         },
         {
           data: this.state.curedCasesHistory,
           name: labels[2],
-          stack: 'one',
-          type: 'bar',
+          stack: "one",
+          type: "bar",
           color: Constants.curedColor
         }
       ]
@@ -132,29 +157,25 @@ export class CasesPerDayCard extends React.PureComponent {
   }
 
   render() {
-    if (this.state.error) {
-      return (
-        <Card>
-          <div className="is-error is-block">Nu am putut încărca datele</div>
-        </Card>
-      )
-    } else {
-      return (
-        <Card embedPath={EMBED_PATH_CASES_PER_DAY}>
-          <div className="title-container is-overlay">
-            <h3 className="summary-title is-uppercase">Număr de cazuri</h3>
-            <h4 className="summary-subtitle">De la {this.state.startDate} la {this.state.endDate}</h4>
-          </div>
-          <ReactEcharts
-            style={{
-              height: '400px',
-              width: '100%',
-            }}
-            option={this.getChartOptions()}
-            theme="light"
-          />
-        </Card>
-      );
-    }
+    const { isLoaded, error } = this.state;
+
+    return (
+      <Card isLoaded={isLoaded} error={error} embedPath={EMBED_PATH_CASES_PER_DAY}>
+        <div className="title-container is-overlay">
+          <h3 className="summary-title is-uppercase">Număr de cazuri</h3>
+          <h4 className="summary-subtitle">
+            De la {this.state.startDate} la {this.state.endDate}
+          </h4>
+        </div>
+        <ReactEcharts
+          style={{
+            height: "400px",
+            width: "100%"
+          }}
+          option={this.getChartOptions()}
+          theme="light"
+        />
+      </Card>
+    );
   }
 }

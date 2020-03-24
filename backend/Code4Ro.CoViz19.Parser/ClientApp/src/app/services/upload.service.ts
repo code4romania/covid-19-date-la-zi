@@ -2,30 +2,43 @@ import { Injectable } from '@angular/core';
 import {
   HttpClient,
   HttpRequest,
-  HttpEventType,
-  HttpResponse,
-  HttpEvent
+  HttpEvent,
+  HttpHeaders
 } from '@angular/common/http';
-import {  Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
 export class UploadService {
-  constructor(private http: HttpClient) { }
+  publishJson(parsedData: string): Promise<any> {
 
-  public upload(file: File, v2Upload?: boolean): Observable<HttpEvent<any>> {
+    const url = 'v3/upload-json';
+
+    return this.http.post(url, parsedData, { headers: new HttpHeaders().set('Content-Type', 'application/json') }).toPromise();
+  }
+
+
+  transformToJson(file: File): Promise<any> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    let url = '/upload';
+    const url = 'v3/pdf-to-json';
 
-    if (v2Upload) {
-      url = "v2/upload";
-    }
+
+    return this.http.post(url, formData).toPromise();
+  }
+
+  constructor(private http: HttpClient) { }
+
+  public upload(file: File): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    const url = 'v3/upload';
+
 
     const uploadReq: HttpRequest<FormData> = new HttpRequest('POST', url, formData, {
-        reportProgress: true
+      reportProgress: true
     });
 
     return this.http.request<any>(uploadReq);
-}
+  }
 }

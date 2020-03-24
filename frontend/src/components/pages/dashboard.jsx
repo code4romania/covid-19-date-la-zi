@@ -8,7 +8,8 @@ import { InfectionSourceCard } from '../cards/infection-source/infection-source-
 // import { CountiesCard } from '../cards/counties/counties-card';
 
 import './dashboard.css';
-import {SocialsShare} from '@code4ro/taskforce-fe-components';
+import {Hero, Instruments, InstrumentsItem, SocialsShare} from '@code4ro/taskforce-fe-components';
+import '@code4ro/taskforce-fe-components/dist/index.css';
 // import { Constants } from '../../config/globals';
 
 export class Dashboard extends React.PureComponent {
@@ -68,6 +69,49 @@ export class Dashboard extends React.PureComponent {
               />
             </div>
           </div>
+        </div>
+
+        <div className="container">
+          <div className="border-bottom">
+            <Hero title="Instrumente utile" useFallbackIcon />
+          </div>
+
+          <Instruments layout="grid">
+            <section>
+              <InstrumentsItem
+                color="green"
+                title="Instalează-ţi extensia de Firefox"
+                ctaLink="https://addons.mozilla.org/en-US/firefox/addon/covid-19-%C8%99tiri-oficiale/"
+                ctaText="Instalează add-on"
+              />
+              <InstrumentsItem
+                color="green"
+                title="Instalează-ti extensia de Chrome"
+                ctaLink={'https://chrome.google.com/webstore/detail/' +
+                'covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha'}
+                ctaText="Instalează add-on"
+              />
+            </section>
+            <section>
+              <InstrumentsItem
+                color="green"
+                title="Ştiri oficiale la zi"
+                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium."
+                ctaText="Cele mai noi informaţii oficiale"
+                ctaLink="https://stirioficiale.ro/informatii"
+              />
+            </section>
+            <section>
+              <InstrumentsItem
+                color="yellow"
+                title="Recomandări oficiale"
+                content="15 recomandări privind conduita socială responsabilă în prevenirea răspândirii coronavirus."
+                ctaText="Citeşte aici"
+                ctaLink={'https://stirioficiale.ro/' +
+                '15-recomandari-privind-conduita-sociala-responsabila-in-prevenirea-raspandirii-coronavirus'}
+              />
+            </section>
+          </Instruments>
         </div>
       </section>
     );

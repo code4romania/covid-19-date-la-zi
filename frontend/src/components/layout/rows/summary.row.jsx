@@ -1,6 +1,5 @@
 import React from 'react';
 import { SummaryCard } from '../../cards/summary/summary-card';
-import { Card } from '../../layout/card';
 import { ApiURL } from '../../../config/globals';
 import { round } from 'prelude-ls';
 
@@ -100,72 +99,62 @@ export class SummaryRow extends React.PureComponent {
   };
 
   render() {
-    const error = this.state.error
-    if (error != null) {
-      // TODO: handle this gracefully
-      return (
-        <div className="container cards-row">
-          <div className="columns">
-            <div className="column">
-              <Card>
-                <div className="is-error is-block">Nu am putut încărca datele</div>
-              </Card>
-            </div>
-          </div>
+    const { error, isLoaded } = this.state;
+    const keyToCard = new Map([
+      [PROP_SHOW_CONFIRMED_CASES, (
+        <div className="column" key={PROP_SHOW_CONFIRMED_CASES}>
+          <SummaryCard
+            isLoaded={isLoaded}
+            error={error}
+            to="/"
+            title="Cazuri confirmate"
+            total={this.state.totalCases}
+            special={this.specialValueForTotal()}
+            data={this.state.totalCasesHistory}
+            embedPath={PROP_SHOW_CONFIRMED_CASES}
+          />
         </div>
-      )
-    } else {
-      const keyToCard = new Map([
-        [PROP_SHOW_CONFIRMED_CASES, (
-          <div className="column" key={PROP_SHOW_CONFIRMED_CASES}>
-            <SummaryCard
-              to="/"
-              title="Cazuri confirmate"
-              total={this.state.totalCases}
-              special={this.specialValueForTotal()}
-              data={this.state.totalCasesHistory}
-              embedPath={PROP_SHOW_CONFIRMED_CASES}
-            />
-          </div>
-        )],
-        [PROP_SHOW_CURED_CASES, (
-          <div className="column" key={PROP_SHOW_CURED_CASES}>
-            <SummaryCard
-              to="/"
-              title="Vindecați"
-              total={this.state.curedCases}
-              special={this.specialValueForCured()}
-              data={this.state.curedCasesHistory}
-              embedPath={PROP_SHOW_CURED_CASES}
-            />
-          </div>
-        )],
-        [PROP_SHOW_DEATH_CASES, (
-          <div className="column" key={PROP_SHOW_DEATH_CASES}>
-            <SummaryCard
-              to="/"
-              title="Decedați"
-              total={this.state.deathCases}
-              special={this.specialValueForDeaths()}
-              data={this.state.deathCasesHistory}
-              embedPath={PROP_SHOW_DEATH_CASES}
-            />
-          </div>
-        )]
-      ]);
-
-      const {visibleCards} = this.props;
-      const cardComponents = visibleCards === undefined || visibleCards.length === 0 ?
-        [...keyToCard.values()] :
-        visibleCards.map(k => keyToCard.get(k));
-
-      return (
-        <div className="container cards-row">
-          <div className="columns">
-            {cardComponents}
-          </div>
+      )],
+      [PROP_SHOW_CURED_CASES, (
+        <div className="column" key={PROP_SHOW_CURED_CASES}>
+          <SummaryCard
+            isLoaded={isLoaded}
+            error={error}
+            to="/"
+            title="Vindecați"
+            total={this.state.curedCases}
+            special={this.specialValueForCured()}
+            data={this.state.curedCasesHistory}
+            embedPath={PROP_SHOW_CURED_CASES}
+          />
         </div>
-      );
-    }
+      )],
+      [PROP_SHOW_DEATH_CASES, (
+        <div className="column" key={PROP_SHOW_DEATH_CASES}>
+          <SummaryCard
+            isLoaded={isLoaded}
+            error={error}
+            to="/"
+            title="Decedați"
+            total={this.state.deathCases}
+            special={this.specialValueForDeaths()}
+            data={this.state.deathCasesHistory}
+            embedPath={PROP_SHOW_DEATH_CASES}
+          />
+        </div>
+      )]
+    ]);
+
+    const {visibleCards} = this.props;
+    const cardComponents = visibleCards === undefined || visibleCards.length === 0 ?
+      [...keyToCard.values()] :
+      visibleCards.map(k => keyToCard.get(k));
+
+    return (
+      <div className="container cards-row">
+        <div className="columns">
+          {cardComponents}
+        </div>
+      </div>);
   }
 }

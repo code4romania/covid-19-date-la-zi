@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from "../loader";
 import './card.css';
 import {EmbedButton} from './embed-button';
 import ReactDOM from 'react-dom';
@@ -24,9 +25,13 @@ export class Card extends React.PureComponent {
   }
 
   render() {
-    const { title, children, embedPath } = this.props;
+    const { title, children, isLoaded, error, embedPath } = this.props;
 
-    return (
+    if (error) {
+      return <div className="is-error is-block">Nu am putut încărca datele</div>
+    }
+
+    return isLoaded ? (
       <div className="card is-shadowless">
         {title &&
           <header className="card-header">
@@ -37,6 +42,6 @@ export class Card extends React.PureComponent {
           {embedPath && <EmbedButton path={embedPath} viewPort={this.state.viewport} />}
         </div>
       </div>
-    );
+    ): <Loader />;
   }
 }

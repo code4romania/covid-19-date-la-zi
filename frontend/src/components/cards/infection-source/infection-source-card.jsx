@@ -1,43 +1,43 @@
-import React from 'react';
-import ReactEcharts from 'echarts-for-react';
-import { Card } from '../../layout/card';
-import { Constants, ApiURL } from '../../../config/globals'
+import React from "react";
+import ReactEcharts from "echarts-for-react";
+import { Card } from "../../layout/card";
+import { Constants, ApiURL } from "../../../config/globals";
 
 export const EMBED_PATH_INFECTION_SOURCE = 'sursa-infectiei';
 export class InfectionSourceCard extends React.PureComponent {
-
   constructor(props) {
     super(props);
     this.state = {
       error: null,
       isLoaded: false,
-      date: '',
+      date: "",
       external: 0,
       internal: 0
-    }
+    };
   }
 
   componentDidMount() {
     fetch(ApiURL.infectionSourceStats)
       .then(res => res.json())
-      .then((result) => {
+      .then(result => {
         if (result.error != null) {
-          this.setState({error: result.error, isLoaded: true})
+          this.setState({ error: result.error, isLoaded: true });
           // TODO: handle error
         } else {
-          this.parseAPIResponse(result)
+          this.parseAPIResponse(result);
         }
       })
-      .catch((error) => {
-        this.setState({error: error, isLoaded: true})
-      })
+      .catch(error => {
+        this.setState({ error: error, isLoaded: true });
+      });
   }
 
   parseAPIResponse(result) {
-    const stats = result.totals
+    const stats = result.totals;
     const total = stats.total || 0;
-    const unknown = total - stats.extern - stats.intern
-    const knownPercentage = total > 0 ? 100-Math.round(100*unknown / total) : 100;
+    const unknown = total - stats.extern - stats.intern;
+    const knownPercentage =
+      total > 0 ? 100 - Math.round((100 * unknown) / total) : 100;
 
     this.setState({
       isLoaded: true,
@@ -46,43 +46,43 @@ export class InfectionSourceCard extends React.PureComponent {
       internal: stats.intern,
       unknown: unknown,
       knownPercentage: knownPercentage
-    })
+    });
   }
 
   getChartOptions() {
     let data = [
-      {value: this.state.internal, name: 'Transmise local'},
-      {value: this.state.external, name: 'Importate'}
+      { value: this.state.internal, name: "Transmise local" },
+      { value: this.state.external, name: "Importate" }
     ];
 
     let colors = [Constants.womenColor, Constants.menColor];
 
     if (Constants.specifyUnknownData) {
-      data.push({value: this.state.unknown, name: 'Necunoscute'});
+      data.push({ value: this.state.unknown, name: "Necunoscute" });
       colors.push(Constants.unknownColor);
     }
 
     return {
       tooltip: {
-        trigger: 'item',
-        formatter: '{b}: {c} ({d}%)'
+        trigger: "item",
+        formatter: "{b}: {c} ({d}%)"
       },
       legend: {
-        orient: 'horizontal',
-        icon: 'circle',
+        orient: "horizontal",
+        icon: "circle",
         bottom: 0,
         tooltip: {
           show: false,
-          trigger: 'item'
-        },
+          trigger: "item"
+        }
       },
       animation: false,
       series: [
         {
-          id: 'infection-source-chart',
-          name: 'Sursa',
-          type: 'pie',
-          radius: ['55%', '90%'],
+          id: "infection-source-chart",
+          name: "Sursa",
+          type: "pie",
+          radius: ["55%", "90%"],
           avoidLabelOverlap: false,
           bottom: 40,
           label: {
@@ -100,31 +100,25 @@ export class InfectionSourceCard extends React.PureComponent {
 
   render() {
     const { title } = this.props;
+    const { isLoaded, error } = this.state;
 
-    let knownPercentage = ''
+    let knownPercentage = "";
     if (Constants.specifyUnknownData) {
-      knownPercentage = this.state.knownPercentage !== undefined
-        ? ' (' + this.state.knownPercentage + '% cunoscuți)' : '';
+      knownPercentage =
+        this.state.knownPercentage !== undefined
+          ? " (" + this.state.knownPercentage + "% cunoscuți)"
+          : "";
     }
 
-    if (this.state.error) {
-      // TODO: move this into a component
-      return (
-        <Card>
-          <div className="is-error is-block">Nu am putut încărca datele</div>
-        </Card>
-      )
-    } else {
-      return (
-        <Card title={title + knownPercentage} embedPath={EMBED_PATH_INFECTION_SOURCE}>
-          <div className="pie-chart">
-            <ReactEcharts
-              id="infection-source-chart"
-              option={this.getChartOptions()}
-            />
-          </div>
-        </Card>
-      );
-    }
+    return (
+      <Card error={error} isLoaded={isLoaded} title={title + knownPercentage} embedPath={EMBED_PATH_INFECTION_SOURCE}>
+        <div className="pie-chart">
+          <ReactEcharts
+            id="infection-source-chart"
+            option={this.getChartOptions()}
+          />
+        </div>
+      </Card>
+    );
   }
 }
