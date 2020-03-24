@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { PageHeader } from '../layout/page.header';
+import { withTranslation } from 'react-i18next';
 import './about.css';
 
-export class AboutPage extends React.PureComponent {
+class AboutPageClass extends React.PureComponent {
   render() {
     return (
       <section className="section">
@@ -58,3 +59,5 @@ export class AboutPage extends React.PureComponent {
     );
   }
 }
+
+export const AboutPage = withTranslation()(AboutPageClass);
