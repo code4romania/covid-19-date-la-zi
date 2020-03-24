@@ -1,8 +1,8 @@
-import React from "react";
-import ReactEcharts from "echarts-for-react";
-import { Card } from "../../layout/card";
-import { Constants, ApiURL } from "../../../config/globals";
-import "./counties-card.css";
+import React from 'react';
+import ReactEcharts from 'echarts-for-react';
+import { Card } from '../../layout/card';
+import { Constants, ApiURL } from '../../../config/globals';
+import './counties-card.css';
 
 export class CountiesCard extends React.PureComponent {
   constructor(props) {
@@ -10,7 +10,7 @@ export class CountiesCard extends React.PureComponent {
     this.state = {
       error: null,
       isLoaded: false,
-      date: "",
+      date: '',
       total: 0,
       counties: [], // array of maps {name, value}
       max: 0,
@@ -66,15 +66,15 @@ export class CountiesCard extends React.PureComponent {
   getChartOptions() {
     return {
       tooltip: {
-        trigger: "item"
+        trigger: 'item'
       },
       visualMap: {
         show: false,
         min: 0,
         max: this.state.max,
-        left: "left",
-        top: "bottom",
-        text: ["Ridicat", "Scazut"],
+        left: 'left',
+        top: 'bottom',
+        text: ['Ridicat', 'Scazut'],
         calculable: true,
         inRange: {
           color: [Constants.countyLowestColor, Constants.countyHighestColor]
@@ -82,9 +82,9 @@ export class CountiesCard extends React.PureComponent {
       },
       series: [
         {
-          name: "Cazuri",
-          type: "map",
-          mapType: "RO",
+          name: 'Cazuri',
+          type: 'map',
+          mapType: 'RO',
           itemStyle: {
             areaColor: Constants.curedColor
           },
@@ -118,7 +118,7 @@ export class CountiesCard extends React.PureComponent {
       >
         <ReactEcharts
           option={this.getChartOptions()}
-          style={{ height: "160px", width: "100%", top: "-5%" }}
+          style={{ height: '160px', width: '100%', top: '-5%' }}
           className="react_for_echarts"
         />
         <table className="county-list">{topLines}</table>
