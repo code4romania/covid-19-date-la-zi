@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Code4Ro.CoViz19.Parser.Commands
 {
-    public class SavePdfParsedDataCommand : IRequest<Result<bool>>
+    public class SavePdfParsedDataCommand : IRequest<Result<HistoricalPdfStats>>
     {
         public DailyPdfStats NewStats;
 

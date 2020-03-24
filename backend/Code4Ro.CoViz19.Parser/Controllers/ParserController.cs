@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Code4Ro.CoViz19.Models;
 using Code4Ro.CoViz19.Parser.Commands;
 using MediatR;
@@ -12,6 +13,7 @@ namespace Code4Ro.CoViz19.Parser.Controllers
     [ApiController]
     public class ParserController : ControllerBase
     {
+        private const string PdfExtension = ".pdf";
         private readonly IMediator _mediatr;
 
         public ParserController(IMediator mediatr)
@@ -68,7 +70,7 @@ namespace Code4Ro.CoViz19.Parser.Controllers
                 return BadRequest("Upload Failed, no file(s) selected.");
             }
 
-            if (!file.FileName.Contains(".pdf"))
+            if (!file.FileName.Contains(PdfExtension, StringComparison.InvariantCultureIgnoreCase))
             {
                 return BadRequest("File is not a PDF.");
             }
@@ -77,8 +79,16 @@ namespace Code4Ro.CoViz19.Parser.Controllers
 
             if (result.IsSuccess)
             {
-                await _mediatr.Send(new SavePdfParsedDataCommand(result.Value));
-                return new OkObjectResult(result.Value);
+                var saveResult = await _mediatr.Send(new SavePdfParsedDataCommand(result.Value));
+
+                if (saveResult.IsSuccess)
+                {
+                    return new OkObjectResult(saveResult);
+                }
+                else
+                {
+                    return Problem("Error saving historical data to storage");
+                }
             }
 
             return BadRequest(result.Error);

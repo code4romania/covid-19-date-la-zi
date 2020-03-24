@@ -9,31 +9,37 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Transfer;
 using Code4Ro.CoViz19.Services.Options;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace Code4Ro.CoViz19.Services {
+namespace Code4Ro.CoViz19.Services
+{
     public class S3FileService : IFileService
     {
         private readonly S3StorageOptions _s3Configuration;
         private readonly IAmazonS3 _client;
-        public S3FileService(IOptions<S3StorageOptions> awsConfiguration)
+        private readonly ILogger<S3FileService> _logger;
+
+        public S3FileService(ILogger<S3FileService> logger, IOptions<S3StorageOptions> awsConfiguration)
         {
+            _logger = logger;
             _s3Configuration = awsConfiguration.Value;
             var awsOptions = new AWSOptions
             {
                 Region = RegionEndpoint.GetBySystemName(_s3Configuration.Region),
                 Credentials = new BasicAWSCredentials(_s3Configuration.ApiKey, _s3Configuration.Secret)
             };
-            
+
             _client = awsOptions.CreateServiceClient<IAmazonS3>();
         }
         public string GetRawData()
         {
-            var request = new GetObjectRequest {
+            var request = new GetObjectRequest
+            {
                 BucketName = _s3Configuration.BucketName,
                 Key = _s3Configuration.LatestDataFileName
             };
-            string responseBody;
+            string responseBody = null;
 
             try
             {
@@ -44,9 +50,10 @@ namespace Code4Ro.CoViz19.Services {
                     responseBody = reader.ReadToEnd();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                _logger.LogError($"Exception retrieving file from {_s3Configuration.BucketName}: {ex.Message}");
+                return responseBody;
             }
 
             return responseBody;
