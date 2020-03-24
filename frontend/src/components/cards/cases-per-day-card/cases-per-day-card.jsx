@@ -17,6 +17,7 @@ export class CasesPerDayCard extends React.PureComponent {
       symptomaticCasesHistory: [], // array of ints
       confirmedCasesHistory: [], // array of ints
       curedCasesHistory: [], // array of ints
+      deathCasesHistory: [],
     }
   }
 
@@ -37,18 +38,20 @@ export class CasesPerDayCard extends React.PureComponent {
   }
 
   parseAPIResponse(result) {
-    const history = result.history
-    const dates = history.map((entry) => { return entry.date })
-    const startDate = dates[0]
-    const endDate = dates[dates.length-1]
-    const startDateStr = this.formattedShortDateString(this.dateFromTimestamp(startDate))
-    const endDateStr = this.formattedShortDateString(this.dateFromTimestamp(endDate))
+    const history = result.history;
+    const dates = history.map((entry) => { return entry.date });
+    const startDate = dates[0];
+    const endDate = dates[dates.length-1];
+    const startDateStr = this.formattedShortDateString(this.dateFromTimestamp(startDate));
+    const endDateStr = this.formattedShortDateString(this.dateFromTimestamp(endDate));
 
-    const symptomaticCasesHistory = history.map((entry) => { return Math.max(entry.monitored, 0) })
-    const confirmedCasesHistory = history.map((entry) => { return Math.max(entry.confirmed, 0) })
-    const curedCasesHistory = history.map((entry) => { return Math.max(entry.cured, 0) })
+    console.log(history);
+    const symptomaticCasesHistory = history.map((entry) => { return Math.max(entry.monitored, 0) });
+    const confirmedCasesHistory = history.map((entry) => { return Math.max(entry.confirmed, 0) });
+    const curedCasesHistory = history.map((entry) => { return Math.max(entry.cured, 0) });
+    const deathCasesHistory = history.map((entry) => {return Math.max(entry.deaths, 0)});
     const dateStrings = history.map((entry) => {
-      return this.formattedShortDateString(this.dateFromTimestamp(entry.date)) })
+      return this.formattedShortDateString(this.dateFromTimestamp(entry.date)) });
 
     this.setState({
       isLoaded: true,
@@ -57,7 +60,8 @@ export class CasesPerDayCard extends React.PureComponent {
       dates: dateStrings,
       symptomaticCasesHistory: symptomaticCasesHistory,
       confirmedCasesHistory: confirmedCasesHistory,
-      curedCasesHistory: curedCasesHistory
+      curedCasesHistory: curedCasesHistory,
+      deathCasesHistory: deathCasesHistory,
     })
   }
 
@@ -78,7 +82,7 @@ export class CasesPerDayCard extends React.PureComponent {
 
   getChartOptions() {
     // const labels = ['Raportați', 'Confirmați', 'Vindecați'];
-    const labels = ['Raportați', 'Confirmați', 'Vindecați'];
+    const labels = ['Raportați', 'Confirmați', 'Vindecați', 'Decedaţi'];
     return {
       xAxis: {
         type: 'category',
@@ -133,6 +137,13 @@ export class CasesPerDayCard extends React.PureComponent {
           stack: 'one',
           type: 'bar',
           color: Constants.curedColor
+        },
+        {
+          data: this.state.deathCasesHistory,
+          name: labels[3],
+          stack: 'one',
+          type: 'bar',
+          color: Constants.deathColor
         }
       ]
     };
