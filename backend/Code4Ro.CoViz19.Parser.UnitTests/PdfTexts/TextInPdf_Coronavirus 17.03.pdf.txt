@@ -1,0 +1,42 @@
+Evaluation Warning : The document was created with Spire.PDF for .NET.
+
+                                                              INFORMAŢII DESPRE CORONAVIRUSUL COVID-19, SITUAŢIA DIN ROMÂNIA                                                                        
+          217 CAZURI DIAGNOSTICATE COVID-19                                                                                                     
+          19 CAZURI VINDECATE 
+          0 DECESE 
+           
+                                   3%5%                                                             Situaţie pacienţi COVID-19
+             0-18 ani
+                           23%
+                                                              200
+             19-50 ani                                         180
+                                                              160
+                                                              140
+             51-70 ani                                         120
+                                                              100
+                                                               80
+                                           69%                60
+             ≥ 70 ani
+                                                               40
+                                                               20
+                                                                0
+             Vârstă medie 39-40 ani. 
+                                     5%                               26.feb27.feb28.feb29.feb01.mar02.mar03.mar04.mar05.mar06.mar07.mar08.mar09.mar10.mar11.mar12.mar13.mar14.mar15.mar16.mar17.mar
+              Masculin
+                                                                                         Diagnosticaţi, cumulat      Vindecaţi, cumulat     Decese, cumulat
+                                               46%
+              Feminin
+                             49%
+              Copii < 18
+                                                       
+           Grupe de vârstă         Confirmaţi cu COVID-19 
+           0-9                   4 (2%) 
+           10-19                 8(4%) 
+           20-29                 30(14%) 
+           30-39                 53(24%) 
+           40-49                 60(28%) 
+           50-59                 44(20%) 
+           60-69                 11(5%) 
+           70-79                 7(3%) 
+           >80                   0(0%) 
+           TOTAL                 217 (100%) 
