@@ -12,9 +12,9 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
         public int NumberInfected { get; set; }
         public int NumberCured { get; set; }
         public int NumberDeceased { get; set; }
-        public int NumberOfWomen { get; set; }
-        public int NumberOfMen { get; set; }
-        public int NumberOfChildren { get; set; }
+        public decimal PercentageOfWomen { get; set; }
+        public decimal PercentageOfMen { get; set; }
+        public decimal percentageOfChildren { get; set; }
         public Dictionary<AgeRange, int> DistributionByAge { get; set; }
 
         public DailyPdfStats()
