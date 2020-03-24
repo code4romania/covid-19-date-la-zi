@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Code4Ro.CoViz19.Api.Models.V2
 {
-    public class GenderAgeHistogramV2Model
+    public class AgeHistogramV2Model
     {
         public long DatePublished { get; set; }
         public string DatePublishedString { get; set; }

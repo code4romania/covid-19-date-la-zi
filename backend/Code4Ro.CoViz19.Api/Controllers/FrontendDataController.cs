@@ -62,14 +62,14 @@ namespace Code4Ro.CoViz19.Api.Controllers
         }
 
         [HttpGet]
-        [Route("gender-age-histogram")]
+        [Route("age-histogram")]
         [SwaggerOperation(Summary = "Get histogram of age gender of patients data provided by Ministry of Health")]
-        [SwaggerResponse(200, "GetGenderStats data", typeof(GenderAgeHistogramV2Model))]
+        [SwaggerResponse(200, "GetGenderStats data", typeof(AgeHistogramV2Model))]
         [SwaggerResponse(500, "Something went wrong when getting data", typeof(ErrorModel))]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public async Task<IActionResult> GetGenderAgeHistogram()
+        public async Task<IActionResult> GetAgeHistogram()
         {
-            var data = await _mediator.Send(new GetGenderAgeHistogramV2());
+            var data = await _mediator.Send(new GetAgeHistogramV2());
             return new OkObjectResult(data);
         }
 
