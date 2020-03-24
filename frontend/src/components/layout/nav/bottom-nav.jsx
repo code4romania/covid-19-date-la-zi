@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { withTranslation } from 'react-i18next';
 import './bottom-nav.css';
 
-export class BottomNav extends React.PureComponent {
+class BottomNavClass extends React.PureComponent {
   render() {
+    const {t} = this.props;
     return (
       <footer className="footer border-top">
         <div className="container team is-clearfix">
           <div className="is-pulled-right">
-            <span>proiect dezvoltat în programul</span>
+            <span>{t('footer_developed_by')}</span>
             <a href="https://code4.ro/ro/apps">
               <img
                 className="logo-force" src="/images/logo-code4romania-force.svg"
@@ -22,19 +24,19 @@ export class BottomNav extends React.PureComponent {
           <div className="container">
             <div className="columns">
               <div className="column is-one-quarter">
-                <h4>Link-uri utile</h4>
+                <h4>{t('useful_links')}</h4>
                 <ul>
-                  <li><Link to="/about">Despre Proiect</Link></li>
+                  <li><Link to="/about">{t('about_project')}</Link></li>
                   <li>
                     <a href="https://stirioficiale.ro/informatii" target="_blank" rel="noopener noreferrer">
-                      Știri Oficiale
+                      {t('official_news')}
                     </a>
                   </li>
                   <li>
-                    <a href="https://www.gov.ro/" target="_blank" rel="noopener noreferrer">Guvernul României</a>
+                    <a href="https://www.gov.ro/" target="_blank" rel="noopener noreferrer">{t('gov')}</a>
                   </li>
                   <li>
-                    <a href="http://www.ms.ro/" target="_blank" rel="noopener noreferrer">Ministerul Sănătății</a>
+                    <a href="http://www.ms.ro/" target="_blank" rel="noopener noreferrer">{t('min_health')}</a>
                   </li>
                 </ul>
               </div>
@@ -50,8 +52,8 @@ export class BottomNav extends React.PureComponent {
                         />
                       </a>
                     </p>
-                    <p>© 2020 Code for Romania.</p>
-                    <p>Organizație neguvernamentală independentă, neafiliată politic și apolitică.</p>
+                    <p>{t('copyright')}</p>
+                    <p>{t('ngo')}</p>
                   </div>
                 </div>
               </div>
@@ -62,3 +64,5 @@ export class BottomNav extends React.PureComponent {
     );
   }
 }
+
+export const BottomNav = withTranslation()(BottomNavClass);

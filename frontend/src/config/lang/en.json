@@ -18,7 +18,18 @@
         "support_call_to_action": "Support this project",
         "romanian": "Romanian",
         "english": "English",
-        "partnership_with": "This project is the result of a partnership with",
-        "developed_by": " and was developed by"
+        "partnership_with": "This project is built in partnership with",
+        "developed_by": " and is developed by",
+
+        "footer_developed_by": "a project developed instde the following program",
+        "useful_links": "Useful links",
+        
+        "official_news": "The Official News",
+
+        "gov": "The Romanian Government",
+        "min_health": "The Ministry of Health",
+        
+        "copyright": "© 2020 Code for Romania.",
+        "ngo": "An independent, non-partisan, non-political, non-govermental organization.",
     }
 }
