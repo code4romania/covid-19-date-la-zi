@@ -55,15 +55,18 @@ export class GenderCard extends React.PureComponent {
   getChartOptions() {
     let data = [
       {value: this.state.women, name: Constants.womenText},
-      {value: this.state.men, name: Constants.menText},
-      {value: this.state.children, name: Constants.childrenText}
+      {value: this.state.men, name: Constants.menText}
     ]
 
     let colors = [
       Constants.womenColor,
-      Constants.menColor,
-      Constants.childrenColor
+      Constants.menColor
     ]
+
+    if(this.state.children > 0){
+      data.push({value: this.state.children, name: Constants.childrenText});
+      colors.push(Constants.childrenColor);
+    }
 
     if (Constants.specifyUnknownData) {
       data.push({value: this.state.unknown, name: Constants.unknownGenderText})
