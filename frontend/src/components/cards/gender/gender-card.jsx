@@ -35,7 +35,7 @@ export class GenderCard extends React.PureComponent {
   }
 
   parseAPIResponse(result) {
-    const stats = result.stats
+    const stats = result
     const total = stats.total || 0;
     const children = stats.children || 0;
     const unknown = total - stats.men - stats.women
