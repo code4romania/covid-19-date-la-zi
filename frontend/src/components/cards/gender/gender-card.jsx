@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
-import { Constants, ApiURL } from '../../../config/globals'
-import './gender-card.css'
+import { Constants, ApiURL } from '../../../config/globals';
+import './gender-card.css';
 
 export class GenderCard extends React.PureComponent {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -15,29 +14,30 @@ export class GenderCard extends React.PureComponent {
       women: 0,
       men: 0,
       unknown: 0
-    }
+    };
   }
 
   componentDidMount() {
     fetch(ApiURL.genderStats)
       .then(res => res.json())
-      .then((result) => {
+      .then(result => {
         if (result.error != null) {
-          this.setState({error: result.error, isLoaded: true})
+          this.setState({ error: result.error, isLoaded: true });
         } else {
-          this.parseAPIResponse(result)
+          this.parseAPIResponse(result);
         }
       })
-      .catch((error) => {
-        this.setState({error: error, isLoaded: true})
-      })
+      .catch(error => {
+        this.setState({ error: error, isLoaded: true });
+      });
   }
 
   parseAPIResponse(result) {
-    const stats = result.stats
+    const stats = result.stats;
     const total = stats.total || 0;
-    const unknown = total - stats.men - stats.women
-    const knownPercentage = total > 0 ? 100-Math.round(100*unknown / total) : 100;
+    const unknown = total - stats.men - stats.women;
+    const knownPercentage =
+      total > 0 ? 100 - Math.round((100 * unknown) / total) : 100;
 
     this.setState({
       isLoaded: true,
@@ -46,23 +46,23 @@ export class GenderCard extends React.PureComponent {
       date: stats.dateString,
       unknown: unknown > 0 ? unknown : 0,
       knownPercentage: knownPercentage
-    })
+    });
   }
 
   getChartOptions() {
     let data = [
-      {value: this.state.women, name: Constants.womenText},
-      {value: this.state.men, name: Constants.menText}
-    ]
+      { value: this.state.women, name: Constants.womenText },
+      { value: this.state.men, name: Constants.menText }
+    ];
 
-    let colors = [
-      Constants.womenColor,
-      Constants.menColor
-    ]
+    let colors = [Constants.womenColor, Constants.menColor];
 
     if (Constants.specifyUnknownData) {
-      data.push({value: this.state.unknown, name: Constants.unknownGenderText})
-      colors.push(Constants.unknownColor)
+      data.push({
+        value: this.state.unknown,
+        name: Constants.unknownGenderText
+      });
+      colors.push(Constants.unknownColor);
     }
 
     return {
@@ -77,7 +77,7 @@ export class GenderCard extends React.PureComponent {
         tooltip: {
           show: false,
           trigger: 'item'
-        },
+        }
       },
       animation: false,
       series: [
@@ -103,31 +103,26 @@ export class GenderCard extends React.PureComponent {
 
   render() {
     const { title } = this.props;
+    const { isLoaded, error } = this.state;
 
-    let knownPercentage = ''
+    let knownPercentage = '';
     if (Constants.specifyUnknownData) {
-      knownPercentage = this.state.knownPercentage !== undefined
-        ? ' (' + this.state.knownPercentage + '% cunoscuți)' : '';
+      knownPercentage =
+        this.state.knownPercentage !== undefined
+          ? ' (' + this.state.knownPercentage + '% cunoscuți)'
+          : '';
     }
 
-    if (this.state.error) {
-      return (
-        <Card>
-          <div className="is-error is-block">Nu am putut încărca datele</div>
-        </Card>
-      )
-    } else {
-      return (
-        <Card title={title + knownPercentage}>
-          <div className="pie-chart">
-            <ReactEcharts
-              id="gender-chart"
-              style={{height: '400px'}}
-              option={this.getChartOptions()}
-            />
-          </div>
-        </Card>
-      );
-    }
+    return (
+      <Card isLoaded={isLoaded} error={error} title={title + knownPercentage}>
+        <div className="pie-chart">
+          <ReactEcharts
+            id="gender-chart"
+            style={{ height: '400px' }}
+            option={this.getChartOptions()}
+          />
+        </div>
+      </Card>
+    );
   }
 }

@@ -5,7 +5,6 @@ import { Constants, ApiURL } from '../../../config/globals';
 import './counties-card.css';
 
 export class CountiesCard extends React.PureComponent {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -16,38 +15,44 @@ export class CountiesCard extends React.PureComponent {
       counties: [], // array of maps {name, value}
       max: 0,
       topCounties: []
-    }
+    };
   }
 
   componentDidMount() {
     fetch(ApiURL.countyStats)
       .then(res => res.json())
-      .then((result) => {
+      .then(result => {
         if (result.error != null) {
-          this.setState({error: result.error, isLoaded: true})
+          this.setState({ error: result.error, isLoaded: true });
           // TODO: handle error
         } else {
-          this.parseAPIResponse(result)
+          this.parseAPIResponse(result);
         }
       })
-      .catch((error) => {
-        console.log(error)
-        this.setState({error: error, isLoaded: true})
-      })
+      .catch(error => {
+        console.log(error);
+        this.setState({ error: error, isLoaded: true });
+      });
   }
 
   parseAPIResponse(result) {
-    const counties = result.counties.sort((a,b) => {
+    const counties = result.counties.sort((a, b) => {
       // reversed by count
-      if (a.count > b.count) { return -1 }
-      else if (a.count < b.count) { return 1 }
-      else { return 0 }
-    })
-    const date = result.dateString
+      if (a.count > b.count) {
+        return -1;
+      } else if (a.count < b.count) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+    const date = result.dateString;
 
-    const sorted = counties.map((entry) => { return {name: entry.name, value: entry.count} })
-    const max = sorted[0].value
-    const topCounties = sorted.slice(0, 5)
+    const sorted = counties.map(entry => {
+      return { name: entry.name, value: entry.count };
+    });
+    const max = sorted[0].value;
+    const topCounties = sorted.slice(0, 5);
 
     this.setState({
       isLoaded: true,
@@ -55,7 +60,7 @@ export class CountiesCard extends React.PureComponent {
       counties: sorted,
       max: max,
       topCounties: topCounties
-    })
+    });
   }
 
   getChartOptions() {
@@ -81,49 +86,43 @@ export class CountiesCard extends React.PureComponent {
           type: 'map',
           mapType: 'RO',
           itemStyle: {
-            areaColor: Constants.curedColor,
+            areaColor: Constants.curedColor
           },
           label: {
             normal: {
               show: false
-            },
+            }
           },
-          data: this.state.counties,
+          data: this.state.counties
         }
       ]
     };
-  };
+  }
   render() {
-    if (this.state.error) {
-      // TODO: move this into a component
-      return (
-        <Card>
-          <div className="is-error is-block">Nu am putut încărca datele</div>
-        </Card>
-      )
-    } else {
+    const { isLoaded, error } = this.state;
 
-      const topLines = this.state.topCounties.map((county) => {
-        return (
-          <tr key={county.name}>
-            <td>{county.name}</td>
-            <td className="has-text-right">{county.value}</td>
-          </tr>
-        );
-      })
-
+    const topLines = this.state.topCounties.map(county => {
       return (
-        <Card title="Cazuri confirmate pe judete">
-          <ReactEcharts
-            option={this.getChartOptions()}
-            style={{ height: '160px', width: '100%', top: '-5%' }}
-            className="react_for_echarts"
-          />
-          <table className="county-list">
-            {topLines}
-          </table>
-        </Card>
+        <tr key={county.name}>
+          <td>{county.name}</td>
+          <td className="has-text-right">{county.value}</td>
+        </tr>
       );
-    }
+    });
+
+    return (
+      <Card
+        error={error}
+        isLoaded={isLoaded}
+        title="Cazuri confirmate pe judete"
+      >
+        <ReactEcharts
+          option={this.getChartOptions()}
+          style={{ height: '160px', width: '100%', top: '-5%' }}
+          className="react_for_echarts"
+        />
+        <table className="county-list">{topLines}</table>
+      </Card>
+    );
   }
 }
