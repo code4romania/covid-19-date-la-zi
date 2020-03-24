@@ -74,5 +74,18 @@ namespace Code4Ro.CoViz19.Parser.Parsers
         {
             return !string.IsNullOrEmpty(input) ? int.Parse(input) : -1;
         }
+
+        public static DateTime TryParsePublishedDate(string fileFileName)
+        {
+            var regex = new Regex(@"(\d+).(\d+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            var match = regex.Matches(fileFileName);
+            if (match.Count > 0 && match[0].Groups.Count >= 3)
+            {
+                var groups = match[0].Groups;
+                return new DateTime(DateTime.Now.Year, int.Parse(groups[2].Value), int.Parse(groups[1].Value));
+            }
+
+            return DateTime.Today;
+        }
     }
 }
