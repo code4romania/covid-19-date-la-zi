@@ -155,12 +155,10 @@ export class SummaryRow extends React.PureComponent {
       ]);
 
       const {visibleCards} = this.props;
-      console.log(visibleCards);
       const cardComponents = visibleCards === undefined || visibleCards.length === 0 ?
         [...keyToCard.values()] :
         visibleCards.map(k => keyToCard.get(k));
 
-      console.log(cardComponents);
       return (
         <div className="container cards-row">
           <div className="columns">

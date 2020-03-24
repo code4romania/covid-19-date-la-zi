@@ -6,8 +6,11 @@ export class EmbedButton extends React.PureComponent {
   state = {showTooltip: false};
 
   copyEmbedCode() {
-    const {path} = this.props;
-    const result = `<iframe src="${window.location.origin.toString()}/embed/${path}" />`;
+    const {path, viewPort} = this.props;
+    const result = `<iframe
+            src="${window.location.origin.toString()}/embed/${path}"
+            width="${viewPort.width}"
+            height="${viewPort.height}" />`;
 
     navigator.clipboard.writeText(result).then(() => {
       console.log('show');
