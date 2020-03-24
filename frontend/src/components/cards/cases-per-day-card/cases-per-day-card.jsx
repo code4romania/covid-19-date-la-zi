@@ -167,7 +167,7 @@ export class CasesPerDayCard extends React.PureComponent {
     const { isLoaded, error } = this.state;
 
     return (
-      <Card loading={isLoaded} error={error}>
+      <Card isLoaded={isLoaded} error={error}>
         <div className="title-container is-overlay">
           <h3 className="summary-title is-uppercase">Număr de cazuri</h3>
           <h4 className="summary-subtitle">

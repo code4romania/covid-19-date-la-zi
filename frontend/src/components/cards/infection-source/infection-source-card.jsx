@@ -110,7 +110,7 @@ export class InfectionSourceCard extends React.PureComponent {
     }
 
     return (
-      <Card error={error} loading={isLoaded} title={title + knownPercentage}>
+      <Card error={error} isLoaded={isLoaded} title={title + knownPercentage}>
         <div className="pie-chart">
           <ReactEcharts
             id="infection-source-chart"

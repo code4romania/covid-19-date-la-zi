@@ -113,7 +113,7 @@ export class CountiesCard extends React.PureComponent {
     return (
       <Card
         error={error}
-        loading={isLoaded}
+        isLoaded={isLoaded}
         title="Cazuri confirmate pe judete"
       >
         <ReactEcharts

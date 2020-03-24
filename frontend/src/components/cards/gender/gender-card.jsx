@@ -114,7 +114,7 @@ export class GenderCard extends React.PureComponent {
     }
 
     return (
-      <Card loading={isLoaded} error={error} title={title + knownPercentage}>
+      <Card isLoaded={isLoaded} error={error} title={title + knownPercentage}>
         <div className="pie-chart">
           <ReactEcharts
             id="gender-chart"

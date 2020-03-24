@@ -4,13 +4,13 @@ import './card.css';
 
 export class Card extends React.PureComponent {
   render() {
-    const { title, children, loading, error } = this.props;
+    const { title, children, isLoaded, error } = this.props;
 
     if (error) {
       return <div className="is-error is-block">Nu am putut încărca datele</div>
     }
 
-    return loading ? (
+    return isLoaded ? (
       <div className="card is-shadowless">
         {title &&
           <header className="card-header">

@@ -25,7 +25,7 @@ export class SummaryCard extends React.PureComponent {
   render() {
     const { title, data, special, total } = this.props;
     return (
-      <Card loading={!!data} error={!data} >
+      <Card isLoaded={!!data} error={!data} >
         <h3 className="is-uppercase summary-title">{title}</h3>
         <h4 className="is-inline-block total">{total}</h4>
         {special &&

@@ -151,7 +151,7 @@ export class GenderAndAgeCard extends React.PureComponent {
     }
 
     return (
-      <Card error={error} loading={isLoaded} title={title + knownPercentage}>
+      <Card error={error} isLoaded={isLoaded} title={title + knownPercentage}>
         <div className="bar-chart">
           <ReactEcharts id="gender-age-chart" option={this.getChartOptions()} />
         </div>
