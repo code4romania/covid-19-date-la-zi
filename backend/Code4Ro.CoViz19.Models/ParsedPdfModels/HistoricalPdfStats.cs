@@ -31,7 +31,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
             CurrentDayStats.DistributionByAge = currentDayData.DistributionByAge;
 
             HistoricalData = new Dictionary<string, DailyPdfStats>();
-            if (previousDayData != null)
+            if (previousDayData?.CurrentDayStats != null)
             {
                 HistoricalData.Add(previousDayData.CurrentDayStats.ParsedOnString, new DailyPdfStats
                 {
