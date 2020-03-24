@@ -7,7 +7,7 @@ if (windowEnvironment === undefined) {
 
 export const Constants = {
   api: windowEnvironment.REACT_APP_API_URL ||
-    (process.env.REACT_APP_API_URL || 'https://code4rocoviz19api-demo.azurewebsites.net/swagger/index.html'),
+    (process.env.REACT_APP_API_URL || 'https://staging-api.datelazi.ro/api/v2'),
   isDev: windowEnvironment.ENV === 'development' || process.env.NODE_ENV === 'development',
   isProd: windowEnvironment.ENV === 'production' || process.env.NODE_ENV === 'production',
 
