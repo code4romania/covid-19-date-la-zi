@@ -4,6 +4,10 @@ import { Card } from '../../layout/card';
 import { ApiURL } from '../../../config/globals';
 import { round } from 'prelude-ls';
 
+export const PROP_SHOW_CONFIRMED_CASES = 'confirmed_cases';
+export const PROP_SHOW_CURED_CASES = 'cured_cases';
+export const PROP_SHOW_DEATH_CASES = 'dead_cases';
+
 // This displays the top row containing the summary stats but grouped into several cards.
 // Their management is the same though, using a single API call
 export class SummaryRow extends React.PureComponent {
@@ -110,37 +114,57 @@ export class SummaryRow extends React.PureComponent {
           </div>
         </div>
       )
-    } else  {
+    } else {
+      const keyToCard = new Map([
+        [PROP_SHOW_CONFIRMED_CASES, (
+          <div className="column" key={PROP_SHOW_CONFIRMED_CASES}>
+            <SummaryCard
+              to="/"
+              title="Cazuri confirmate"
+              total={this.state.totalCases}
+              special={this.specialValueForTotal()}
+              data={this.state.totalCasesHistory}
+              embedPath={PROP_SHOW_CONFIRMED_CASES}
+            />
+          </div>
+        )],
+        [PROP_SHOW_CURED_CASES, (
+          <div className="column" key={PROP_SHOW_CURED_CASES}>
+            <SummaryCard
+              to="/"
+              title="Vindecați"
+              total={this.state.curedCases}
+              special={this.specialValueForCured()}
+              data={this.state.curedCasesHistory}
+              embedPath={PROP_SHOW_CURED_CASES}
+            />
+          </div>
+        )],
+        [PROP_SHOW_DEATH_CASES, (
+          <div className="column" key={PROP_SHOW_DEATH_CASES}>
+            <SummaryCard
+              to="/"
+              title="Decedați"
+              total={this.state.deathCases}
+              special={this.specialValueForDeaths()}
+              data={this.state.deathCasesHistory}
+              embedPath={PROP_SHOW_DEATH_CASES}
+            />
+          </div>
+        )]
+      ]);
+
+      const {visibleCards} = this.props;
+      console.log(visibleCards);
+      const cardComponents = visibleCards === undefined || visibleCards.length === 0 ?
+        [...keyToCard.values()] :
+        visibleCards.map(k => keyToCard.get(k));
+
+      console.log(cardComponents);
       return (
         <div className="container cards-row">
           <div className="columns">
-            <div className="column">
-              <SummaryCard
-                to="/"
-                title="Cazuri confirmate"
-                total={this.state.totalCases}
-                special={this.specialValueForTotal()}
-                data={this.state.totalCasesHistory}
-              />
-            </div>
-            <div className="column">
-              <SummaryCard
-                to="/"
-                title="Vindecați"
-                total={this.state.curedCases}
-                special={this.specialValueForCured()}
-                data={this.state.curedCasesHistory}
-              />
-            </div>
-            <div className="column">
-              <SummaryCard
-                to="/"
-                title="Decedați"
-                total={this.state.deathCases}
-                special={this.specialValueForDeaths()}
-                data={this.state.deathCasesHistory}
-              />
-            </div>
+            {cardComponents}
           </div>
         </div>
       );

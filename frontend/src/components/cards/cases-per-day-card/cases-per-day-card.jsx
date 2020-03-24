@@ -102,16 +102,8 @@ export class CasesPerDayCard extends React.PureComponent {
       },
       legend: {
         data: labels,
-        right: 0,
         icon: 'circle',
-        top: '0%'
-      },
-      grid: {
-        left: '1%',
-        right: 0,
-        bottom: 0,
-        top: '20%',
-        containLabel: true
+        bottom: 0
       },
       series: [
         // {
