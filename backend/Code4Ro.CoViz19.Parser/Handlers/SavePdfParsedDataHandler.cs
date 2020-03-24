@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Code4Ro.CoViz19.Parser.Handlers
 {
-    public class SavePdfParsedDataHandler : IRequestHandler<SavePdfParsedDataCommand, Result<bool>>
+    public class SavePdfParsedDataHandler : IRequestHandler<SavePdfParsedDataCommand, Result<HistoricalPdfStats>>
     {
         private readonly IFileService _fileService;
 
@@ -18,7 +18,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             _fileService = fileService;
         }
 
-        public async Task<Result<bool>> Handle(SavePdfParsedDataCommand request, CancellationToken cancellationToken)
+        public async Task<Result<HistoricalPdfStats>> Handle(SavePdfParsedDataCommand request, CancellationToken cancellationToken)
         {
             var previousJson = _fileService.GetRawData();
             var previousDayData = string.IsNullOrEmpty(previousJson) ? null
@@ -28,7 +28,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
             var updatedJson = JsonConvert.SerializeObject(updatedHistoricalData);
 
             await _fileService.SaveRawData(updatedJson);
-            return Result.Success(true);
+            return Result.Success(updatedHistoricalData);
         }
     }
 }

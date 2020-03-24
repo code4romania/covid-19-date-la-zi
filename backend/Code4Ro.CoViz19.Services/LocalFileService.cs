@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Code4Ro.CoViz19.Services
 {
@@ -10,15 +11,23 @@ namespace Code4Ro.CoViz19.Services
        private const string FileName = "latestData.json";
        private  string _path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), FileName);
 
+       private readonly ILogger<LocalFileService> _logger;
+
+       public LocalFileService(ILogger<LocalFileService> logger)
+       {
+           _logger = logger;
+       }
+
        public string GetRawData()
        {
            try
            {
                return File.ReadAllText(_path);
            }
-           catch (Exception)
+           catch (Exception ex)
            {
-               return null;
+               _logger.LogError($"Exception retrieving file from {_path}: {ex.Message}");
+                return null;
            }
        }
 
