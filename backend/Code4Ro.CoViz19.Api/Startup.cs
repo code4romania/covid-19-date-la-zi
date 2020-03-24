@@ -38,8 +38,21 @@ namespace Code4Ro.CoViz19.Api
             services.Configure<HttpFileServiceOptions>(Configuration.GetSection("HttpFileServiceOptions"));
 
             services.AddSingleton<IDataProviderService, LocalDataProviderService>();
+
             // used to get the JSON parsed excel file. It can be either LocalFileService (from ./latestData.json) or HttpFileService (from https://stdatelazi.blob.core.windows.net/date/latestData.json)
-            services.AddSingleton<IFileService, HttpFileService>();
+            switch (Configuration.GetValue<StorageTypes>("StorageType"))
+            {
+                case StorageTypes.FileSystem:
+                    services.AddSingleton<IFileService, LocalFileService>();
+                    break;
+                default:
+                    services.AddSingleton<IFileService, HttpFileService>();
+                    break;
+
+            }
+
+
+
             services.AddSingleton<ICacheSercice, NoCacheService>();
             services.AddSingleton<IApiKeyValidator, InMemoryApiKeyValidator>();
             services.AddTransient<ApiKeyRequestFilterAttribute>();
@@ -101,7 +114,7 @@ namespace Code4Ro.CoViz19.Api
             }
             app.UseHttpStatusCodeExceptionMiddleware();
 
-            
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>

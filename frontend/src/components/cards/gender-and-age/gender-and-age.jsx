@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactEcharts from 'echarts-for-react';
-import { Card } from '../../layout/card';
-import { Constants, ApiURL } from '../../../config/globals'
+import React from "react";
+import ReactEcharts from "echarts-for-react";
+import { Card } from "../../layout/card";
+import { Constants, ApiURL } from "../../../config/globals";
 
 const sortCategories = categories => {
   return categories.sort((a,b) => {
@@ -20,7 +20,6 @@ const sortCategories = categories => {
 }
 
 export class GenderAndAgeCard extends React.PureComponent {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -34,17 +33,17 @@ export class GenderAndAgeCard extends React.PureComponent {
   componentDidMount() {
     fetch(ApiURL.genderAgeStats)
       .then(res => res.json())
-      .then((result) => {
+      .then(result => {
         if (result.error != null) {
-          this.setState({error: result.error, isLoaded: true})
+          this.setState({ error: result.error, isLoaded: true });
           // TODO: handle error
         } else {
-          this.parseAPIResponse(result)
+          this.parseAPIResponse(result);
         }
       })
-      .catch((error) => {
-        this.setState({error: error, isLoaded: true})
-      })
+      .catch(error => {
+        this.setState({ error: error, isLoaded: true });
+      });
   }
 
   parseAPIResponse(result) {
@@ -134,6 +133,7 @@ export class GenderAndAgeCard extends React.PureComponent {
 
   render() {
     const { title } = this.props;
+    const { isLoaded, error } = this.state;
 
     if (this.state.error) {
       return (

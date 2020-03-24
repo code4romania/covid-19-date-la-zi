@@ -904,10 +904,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@code4ro/taskforce-fe-components@0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@code4ro/taskforce-fe-components/-/taskforce-fe-components-0.1.2.tgz#5e05f7dd5b80df27e507064ce7d38683aaba1333"
-  integrity sha512-nlDaX3D8O3/823yWO36YuZbI1Yayj5aYAuwBtS/y+pZ+H23UE2wsawaz/90R2HnHm6/fFbRzUY4c5GuzRasRaw==
+"@code4ro/taskforce-fe-components@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@code4ro/taskforce-fe-components/-/taskforce-fe-components-1.0.0.tgz#a0b0dc137c440d37f8dfd987ca0d0be4d9c28506"
+  integrity sha512-R9Z2Qz35o3sYXko0lbcCchTMV1kCLS0UObhFqs6od9mvmmgg5LgStkqpg1iD8qLwRlPWmXm/gMdiQQHRxqjMbg==
   dependencies:
     bulma "^0.8.0"
     react-share "^4.1.0"
