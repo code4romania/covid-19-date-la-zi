@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactEcharts from 'echarts-for-react';
-import { Card } from '../../layout/card';
-import { Constants, ApiURL } from '../../../config/globals';
+import React from "react";
+import ReactEcharts from "echarts-for-react";
+import { Card } from "../../layout/card";
+import { Constants, ApiURL } from "../../../config/globals";
 
 export class GenderAndAgeCard extends React.PureComponent {
   constructor(props) {
@@ -44,8 +44,8 @@ export class GenderAndAgeCard extends React.PureComponent {
       return k[0];
     });
     const sortedCategories = categories.sort((a, b) => {
-      const firstStartAge = a.split('-', 1)[0];
-      const secondStartAge = b.split('-', 1)[0];
+      const firstStartAge = a.split("-", 1)[0];
+      const secondStartAge = b.split("-", 1)[0];
       if (firstStartAge !== undefined && secondStartAge !== undefined) {
         const n1 = parseInt(firstStartAge);
         const n2 = parseInt(secondStartAge);
@@ -77,41 +77,41 @@ export class GenderAndAgeCard extends React.PureComponent {
   getChartOptions() {
     return {
       tooltip: {
-        trigger: 'axis',
+        trigger: "axis",
         formatter: function(entries) {
           let lines = entries.map(
-            entry => entry.seriesName + ': ' + Math.abs(entry.value)
+            entry => entry.seriesName + ": " + Math.abs(entry.value)
           );
-          return lines.join('<br/>');
+          return lines.join("<br/>");
         }
       },
       legend: {
         data: [Constants.womenText, Constants.menText],
         bottom: 0,
-        icon: 'circle'
+        icon: "circle"
       },
       grid: {
-        left: '30px',
-        right: '4%',
-        bottom: '16%',
-        top: '0%',
+        left: "30px",
+        right: "4%",
+        bottom: "16%",
+        top: "0%",
         containLabel: true
       },
       xAxis: [
         {
-          type: 'value',
+          type: "value",
           axisLabel: {
             formatter: function(value, index) {
-              return '' + Math.abs(value);
+              return "" + Math.abs(value);
             }
           }
         }
       ],
       yAxis: [
         {
-          type: 'category',
-          name: 'Vârsta',
-          nameLocation: 'center',
+          type: "category",
+          name: "Vârsta",
+          nameLocation: "center",
           nameGap: 50,
           axisTick: {
             show: false
@@ -122,15 +122,15 @@ export class GenderAndAgeCard extends React.PureComponent {
       series: [
         {
           name: Constants.menText,
-          type: 'bar',
-          stack: 'infections',
+          type: "bar",
+          stack: "infections",
           color: Constants.menColor,
           data: this.state.menEntries
         },
         {
           name: Constants.womenText,
-          type: 'bar',
-          stack: 'infections',
+          type: "bar",
+          stack: "infections",
           color: Constants.womenColor,
           data: this.state.womenEntries
         }
@@ -142,12 +142,12 @@ export class GenderAndAgeCard extends React.PureComponent {
     const { title } = this.props;
     const { isLoaded, error } = this.state;
 
-    let knownPercentage = '';
+    let knownPercentage = "";
     if (Constants.specifyUnknownData) {
       knownPercentage =
         this.state.knownPercentage !== undefined
-          ? ' (' + this.state.knownPercentage + '% cunoscuți)'
-          : '';
+          ? " (" + this.state.knownPercentage + "% cunoscuți)"
+          : "";
     }
 
     return (

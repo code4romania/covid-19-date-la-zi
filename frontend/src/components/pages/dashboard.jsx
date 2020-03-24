@@ -4,9 +4,11 @@ import { SummaryRow } from '../layout/rows/summary.row';
 import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
 import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
+import { InfectionSourceCard } from '../cards/infection-source/infection-source-card';
+// import { CountiesCard } from '../cards/counties/counties-card';
 
 import './dashboard.css';
-import {MedianAgeCard} from '../cards/median-age/median-age-card';
+import { MedianAgeCard } from '../cards/median-age/median-age-card';
 // import { Constants } from '../../config/globals';
 
 export class Dashboard extends React.PureComponent {
@@ -22,15 +24,15 @@ export class Dashboard extends React.PureComponent {
             Accesul la date din surse oficiale ce descriu evoluția cazurilor de COVID-19 în România
             este esențial în adoptarea măsurilor de sănătate publică împotriva pandemiei. Astfel,
             venim în sprijinul publicului și al mass-media din România prin accesibilizarea datelor
-            punându-le într-o formă grafică ușor de parcurs, urmând modelul portalului de informare
+            punându-le într-o formă grafică ușor de parcurs, urmând modelul portalului de informare 
             din <a href="https://co.vid19.sg/">Singapore</a>.
           </p>
           <p>
             Infografiile se actualizează periodic și sunt centralizate în graficele de mai jos.
           </p>
           <p>
-            Acest proiect este realizat pro-bono în parteneriat cu Guvernul României prin
-            Autoritatea pentru Digitalizarea României pe baza datelor furnizate de Ministerul
+            Acest proiect este realizat pro-bono în parteneriat cu Guvernul României prin 
+            Autoritatea pentru Digitalizarea României pe baza datelor furnizate de Ministerul 
             Sănătății, de către Code for Romania.
           </p>
         </div>

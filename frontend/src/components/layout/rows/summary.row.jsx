@@ -1,5 +1,6 @@
 import React from 'react';
 import { SummaryCard } from '../../cards/summary/summary-card';
+import { Card } from '../../layout/card';
 import { ApiURL } from '../../../config/globals';
 import { round } from 'prelude-ls';
 

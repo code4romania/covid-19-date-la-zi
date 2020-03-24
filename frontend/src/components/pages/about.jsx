@@ -33,11 +33,11 @@ export class AboutPage extends React.PureComponent {
             <Link to="/">Datelazi.ro</Link> este un  proiect realizat pro-bono de
           voluntarii <a href="https://code4.ro">Code for Romania</a>, organizație
           neguvernamentală independentă, neafiliată politic și apolitică, în cadrul
-            <b>
+          <b>
               Code for Romania Task Force
               și în parteneriat cu Guvernul României prin Autoritatea pentru Digitalizarea României pe baza datelor
               furnizate de Ministerul Sănătății
-            </b>.
+          </b>.
           </p>
           <div>
             <img src="/images/banda.png" alt="Code for Romania, ADR, MS" className="logo-partnership" />
@@ -46,11 +46,9 @@ export class AboutPage extends React.PureComponent {
             <hr />
             <p><b>Programul Code for Romania Task Force este susținut de:</b></p>
             <div>
-              <img
-                src="/images/supporters.png"
-                alt="ING Romanian American Foundation Fundația Vodafone România"
-                className="logo-partnership"
-              />
+              <img src="/images/supporters.png"
+              alt="ING Romanian American Foundation Fundația Vodafone România"
+              className="logo-partnership" />
             </div>
           </div>
         </div>
