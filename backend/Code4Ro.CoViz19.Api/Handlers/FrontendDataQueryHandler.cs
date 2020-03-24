@@ -15,7 +15,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 {
     public class FrontendDataQueryHandler : IRequestHandler<GetDailyStatsV2, DailyStatsV2Model>,
         IRequestHandler<GetLatestDataV2, HistoricalPdfStats>,
-        IRequestHandler<GetGenderAgeHistogramV2, GenderAgeHistogramV2Model>,
+        IRequestHandler<GetAgeHistogramV2, AgeHistogramV2Model>,
         IRequestHandler<GetGenderStatsV2, GenderStatsV2Model>
 
     {
@@ -65,10 +65,10 @@ namespace Code4Ro.CoViz19.Api.Handlers
             return await _dataService.GetCurrentPdfData();
         }
 
-        public async Task<GenderAgeHistogramV2Model> Handle(GetGenderAgeHistogramV2 request, CancellationToken cancellationToken)
+        public async Task<AgeHistogramV2Model> Handle(GetAgeHistogramV2 request, CancellationToken cancellationToken)
         {
             var currentPdfData = await _dataService.GetCurrentPdfData();
-            var response = new GenderAgeHistogramV2Model()
+            var response = new AgeHistogramV2Model()
             {
                 Histogram = new Dictionary<AgeRange, int>()
             };
