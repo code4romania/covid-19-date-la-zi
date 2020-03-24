@@ -13,14 +13,11 @@ import {  Observable } from 'rxjs';
 export class UploadService {
   constructor(private http: HttpClient) { }
 
-  public upload(file: File, v2Upload?: boolean): Observable<HttpEvent<any>> {
+  public upload(file: File): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    let url = '/upload';
+    let url = 'v3/upload';
 
-    if (v2Upload) {
-      url = "v2/upload";
-    }
 
     const uploadReq: HttpRequest<FormData> = new HttpRequest('POST', url, formData, {
         reportProgress: true
