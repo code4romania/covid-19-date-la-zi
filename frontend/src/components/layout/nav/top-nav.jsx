@@ -101,7 +101,7 @@ export class TopNav extends React.PureComponent {
                   />
                 </a>
                 <a
-                  href="https://www.ms.ro/"
+                  href="http://www.ms.ro/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="is-inline-block link-ms"
