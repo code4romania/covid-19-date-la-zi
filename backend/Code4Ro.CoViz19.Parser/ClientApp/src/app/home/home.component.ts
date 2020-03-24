@@ -1,6 +1,4 @@
-import { Component, ViewChild } from "@angular/core";
-import { UploadService } from "../services/upload.service";
-import { HttpEventType, HttpResponse } from "@angular/common/http";
+import { Component } from "@angular/core";
 
 @Component({
   selector: "app-home",
