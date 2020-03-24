@@ -25,13 +25,13 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
             CurrentDayStats.NumberInfected = currentDayData.NumberInfected;
             CurrentDayStats.NumberCured = currentDayData.NumberCured;
             CurrentDayStats.NumberDeceased = currentDayData.NumberDeceased;
-            CurrentDayStats.NumberOfWomen = currentDayData.NumberOfWomen;
-            CurrentDayStats.NumberOfMen = currentDayData.NumberOfMen;
-            CurrentDayStats.NumberOfChildren = currentDayData.NumberOfChildren;
+            CurrentDayStats.PercentageOfWomen = currentDayData.PercentageOfWomen;
+            CurrentDayStats.PercentageOfMen = currentDayData.PercentageOfMen;
+            CurrentDayStats.percentageOfChildren = currentDayData.percentageOfChildren;
             CurrentDayStats.DistributionByAge = currentDayData.DistributionByAge;
 
             HistoricalData = new Dictionary<string, DailyPdfStats>();
-            if (previousDayData != null)
+            if (previousDayData?.CurrentDayStats != null)
             {
                 HistoricalData.Add(previousDayData.CurrentDayStats.ParsedOnString, new DailyPdfStats
                 {
@@ -43,9 +43,9 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
                     NumberCured = previousDayData.CurrentDayStats.NumberCured,
                     NumberDeceased = previousDayData.CurrentDayStats.NumberDeceased,
                     DistributionByAge = previousDayData.CurrentDayStats.DistributionByAge,
-                    NumberOfWomen = previousDayData.CurrentDayStats.NumberOfWomen,
-                    NumberOfMen = previousDayData.CurrentDayStats.NumberOfMen,
-                    NumberOfChildren = previousDayData.CurrentDayStats.NumberOfChildren
+                    PercentageOfWomen = previousDayData.CurrentDayStats.PercentageOfWomen,
+                    PercentageOfMen = previousDayData.CurrentDayStats.PercentageOfMen,
+                    percentageOfChildren = previousDayData.CurrentDayStats.percentageOfChildren
                 });
 
                 if (previousDayData.HistoricalData != null)
