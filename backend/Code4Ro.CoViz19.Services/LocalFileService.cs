@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -11,7 +12,14 @@ namespace Code4Ro.CoViz19.Services
 
        public string GetRawData()
        {
-           return File.ReadAllText(_path);
+           try
+           {
+               return File.ReadAllText(_path);
+           }
+           catch (Exception)
+           {
+               return null;
+           }
        }
 
 #pragma warning disable 1998

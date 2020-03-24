@@ -8,7 +8,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
         public string ParsedOnString { get; set; }
         public string FileName { get; set; }
 
-        public string AgerageAge { get; set; }
+        public string AverageAge { get; set; }
         public int NumberInfected { get; set; }
         public int NumberCured { get; set; }
         public int NumberDeceased { get; set; }

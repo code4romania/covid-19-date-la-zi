@@ -38,7 +38,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
                 result.NumberInfected = PdfParser.ParseNumberInfected(pdfContents);
                 result.NumberDeceased = PdfParser.ParseNumberDeceased(pdfContents);
                 result.NumberCured = PdfParser.ParseNumberCured(pdfContents);
-                result.AgerageAge = PdfParser.ParseAverageAge(pdfContents);
+                result.AverageAge = PdfParser.ParseAverageAge(pdfContents);
 
                 result.DistributionByAge = PdfParser.ParseDistributionByAge(pdfContents);
                 result.ParsedOnString = DateTime.Today.ToString("yyyy-MM-dd");

@@ -21,7 +21,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
             CurrentDayStats.ParsedOnString = currentDayData.ParsedOnString;
             CurrentDayStats.FileName = currentDayData.FileName;
 
-            CurrentDayStats.AgerageAge = currentDayData.AgerageAge;
+            CurrentDayStats.AverageAge = currentDayData.AverageAge;
             CurrentDayStats.NumberInfected = currentDayData.NumberInfected;
             CurrentDayStats.NumberCured = currentDayData.NumberCured;
             CurrentDayStats.NumberDeceased = currentDayData.NumberDeceased;
@@ -38,7 +38,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
                     ParsedOn = previousDayData.CurrentDayStats.ParsedOn,
                     ParsedOnString = previousDayData.CurrentDayStats.ParsedOnString,
                     FileName = previousDayData.CurrentDayStats.FileName,
-                    AgerageAge = previousDayData.CurrentDayStats.AgerageAge,
+                    AverageAge = previousDayData.CurrentDayStats.AverageAge,
                     NumberInfected = previousDayData.CurrentDayStats.NumberInfected,
                     NumberCured = previousDayData.CurrentDayStats.NumberCured,
                     NumberDeceased = previousDayData.CurrentDayStats.NumberDeceased,

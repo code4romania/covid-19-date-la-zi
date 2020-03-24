@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Amazon;
@@ -33,10 +34,19 @@ namespace Code4Ro.CoViz19.Services {
                 Key = _s3Configuration.LatestDataFileName
             };
             string responseBody;
-            using (var response = _client.GetObjectAsync(request).Result)
-            using (var responseStream = response.ResponseStream)
-            using (var reader = new StreamReader(responseStream)) {
-                responseBody = reader.ReadToEnd();
+
+            try
+            {
+                using (var response = _client.GetObjectAsync(request).Result)
+                using (var responseStream = response.ResponseStream)
+                using (var reader = new StreamReader(responseStream))
+                {
+                    responseBody = reader.ReadToEnd();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
             }
 
             return responseBody;
