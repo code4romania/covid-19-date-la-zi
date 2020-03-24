@@ -1,0 +1,16 @@
+{
+    "translation": {
+        "error": {
+            "default": "Nu am putut încărca datele"
+        },
+
+        "case_count": "Număr de cazuri",
+        "date_range": "De la {{from}} la {{to}}",
+
+        "confirmed": "Confirmați",
+        "cured": "Vindecați",
+        "deaths": "Decese",
+
+        "months": ["Ian", "Feb", "Mar", "Apr", "Mai", "Iun", "Iul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    }
+}

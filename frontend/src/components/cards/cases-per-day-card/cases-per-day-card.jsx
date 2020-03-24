@@ -2,9 +2,10 @@ import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
 import { Constants, ApiURL } from '../../../config/globals';
+import { withTranslation } from 'react-i18next';
 import './cases-per-day-card.css';
 
-export class CasesPerDayCard extends React.PureComponent {
+class CasesPerDayCardClass extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -66,19 +67,17 @@ export class CasesPerDayCard extends React.PureComponent {
   }
 
   formattedShortDateString(date) {
-    const months = ['Ian', 'Feb', 'Mar', 'Apr', 'Mai', 'Iun', 'Iul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const {t} = this.props;
+    const months = t('months', { returnObjects: true });
     return date.getDate() + ' ' + months[date.getMonth()];
   }
 
-  getSubtitle(){
-    let firstDate = this.state.startDate;
-    let lastDate = this.state.endDate;
-    return `de la ${firstDate} la ${lastDate}`
-  }
-
   getChartOptions() {
-    // const labels = ['Raportați', 'Confirmați', 'Vindecați'];
-    const labels = ['Raportați', 'Confirmați', 'Vindecați'];
+    const {t} = this.props;
+    const labels = [
+      t('confirmed'), 
+      t('cured')
+    ];
     return {
       xAxis: {
         type: 'category',
@@ -113,23 +112,16 @@ export class CasesPerDayCard extends React.PureComponent {
         containLabel: true
       },
       series: [
-        // {
-        //   data: this.state.symptomaticCasesHistory,
-        //   name: labels[0],
-        //   stack: 'one',
-        //   type: 'bar',
-        //   color: Constants.symptomaticColor
-        // },
         {
           data: this.state.confirmedCasesHistory,
-          name: labels[1],
+          name: labels[0],
           stack: 'one',
           type: 'bar',
           color: Constants.confirmedColor
         },
         {
           data: this.state.curedCasesHistory,
-          name: labels[2],
+          name: labels[1],
           stack: 'one',
           type: 'bar',
           color: Constants.curedColor
@@ -139,18 +131,19 @@ export class CasesPerDayCard extends React.PureComponent {
   }
 
   render() {
+    const {t} = this.props;
     if (this.state.error) {
       return (
         <Card>
-          <div className="is-error is-block">Nu am putut încărca datele</div>
+          <div className="is-error is-block">{t('error.default')}</div>
         </Card>
       )
     } else {
       return (
         <Card>
           <div className="title-container is-overlay">
-            <h3 className="summary-title is-uppercase">Număr de cazuri</h3>
-            <h4 className="summary-subtitle">De la {this.state.startDate} la {this.state.endDate}</h4>
+            <h3 className="summary-title is-uppercase">{t('case_count')}</h3>
+            <h4 className="summary-subtitle">{t('date_range', {'from': this.state.startDate, 'to': this.state.endDate})}</h4>
           </div>
           <ReactEcharts
             style={{
@@ -165,3 +158,5 @@ export class CasesPerDayCard extends React.PureComponent {
     }
   }
 }
+
+export const CasesPerDayCard = withTranslation()(CasesPerDayCardClass);

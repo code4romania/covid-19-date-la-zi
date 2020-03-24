@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './top-nav.css';
-// import { Footer } from "@code4ro/taskforce-fe-components";
 
+import { withTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
-export class TopNav extends React.PureComponent {
+class TopNavClass extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +25,14 @@ export class TopNav extends React.PureComponent {
     })
   }
 
+  setCurrentLanguage(key) {
+    // const {t, i18n} = useTranslation();
+    i18n.changeLanguage(key)
+    console.log("change lang to " + key)
+  }
+
   render() {
+    const {t, i18n} = this.props;
     return (
       <div className="navigation-container">
         <nav
@@ -66,6 +74,14 @@ export class TopNav extends React.PureComponent {
                 <a href="https://code4.ro/ro/doneaza" className="navbar-item">
                 Sprijină proiectul
                 </a>
+                <a className="navbar-item" role="button" href="#" onClick={() => this.setCurrentLanguage('ro')}>
+                  <span role="img" alt="Romanian flag">🇷🇴</span>
+                   Română
+                </a>
+                <a className="navbar-item" role="button" href="#" onClick={() => this.setCurrentLanguage('en')}>
+                  <span role="img" alt="English flag">🇬🇧</span>
+                   English
+                </a>
               </div>
             </div>
           </div>
@@ -98,3 +114,5 @@ export class TopNav extends React.PureComponent {
     );
   }
 }
+
+export const TopNav = withTranslation()(TopNavClass);

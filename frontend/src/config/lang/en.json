@@ -1,0 +1,16 @@
+{
+    "translation": {
+        "error": {
+            "default": "Couldn't load data"
+        },
+
+        "case_count": "Total cases",
+        "date_range": "From {{from}} to {{to}}",
+
+        "confirmed": "Confirmed",
+        "cured": "Cured",
+        "deaths": "Deceased",
+
+        "months": ["Ian", "Feb", "Mar", "Apr", "Mai", "Iun", "Iul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    }
+}
