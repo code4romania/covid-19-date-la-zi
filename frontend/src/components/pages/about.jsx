@@ -46,8 +46,8 @@ export class AboutPage extends React.PureComponent {
             <hr />
             <p><b>Programul Code for Romania Task Force este susținut de:</b></p>
             <div>
-              <img src="/images/supporters.png"
-              alt="ING Romanian American Foundation Fundația Vodafone România"
+              <img src="/images/supporters.png" 
+              alt="ING Romanian American Foundation Fundația Vodafone România" 
               className="logo-partnership" />
             </div>
           </div>

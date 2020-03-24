@@ -21,9 +21,9 @@ export class Dashboard extends React.PureComponent {
             title="Date Oficiale"
           />
           <p>
-            Accesul la date din surse oficiale ce descriu evoluția cazurilor de COVID-19 în România
-            este esențial în adoptarea măsurilor de sănătate publică împotriva pandemiei. Astfel,
-            venim în sprijinul publicului și al mass-media din România prin accesibilizarea datelor
+            Accesul la date din surse oficiale ce descriu evoluția cazurilor de COVID-19 în România 
+            este esențial în adoptarea măsurilor de sănătate publică împotriva pandemiei. Astfel, 
+            venim în sprijinul publicului și al mass-media din România prin accesibilizarea datelor 
             punându-le într-o formă grafică ușor de parcurs, urmând modelul portalului de informare 
             din <a href="https://co.vid19.sg/">Singapore</a>.
           </p>
