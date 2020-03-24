@@ -1,25 +1,25 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./top-nav.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './top-nav.css';
 
 export class TopNav extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       isBurgerMenuActive: false
-    };
+    }
   }
 
   toggleBurgerMenu() {
     this.setState({
       isBurgerMenuActive: !this.state.isBurgerMenuActive
-    });
+    })
   }
 
   hideBurgerMenu() {
     this.setState({
       isBurgerMenuActive: false
-    });
+    })
   }
 
   render() {
@@ -45,7 +45,7 @@ export class TopNav extends React.PureComponent {
                 aria-label="menu"
                 data-target="navMenu"
                 href="#/"
-                aria-expanded={this.state.isBurgerMenuActive ? "true" : "false"}
+                aria-expanded={this.state.isBurgerMenuActive ? 'true' : 'false'}
                 onClick={() => this.toggleBurgerMenu()}
               >
                 <span aria-hidden="true" />
@@ -57,8 +57,8 @@ export class TopNav extends React.PureComponent {
               id="navMenu"
               className={
                 this.state.isBurgerMenuActive
-                  ? "navbar-menu is-active"
-                  : "navbar-menu"
+                  ? 'navbar-menu is-active'
+                  : 'navbar-menu'
               }
             >
               <div className="navbar-start" />
