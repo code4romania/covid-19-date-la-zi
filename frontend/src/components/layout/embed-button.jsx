@@ -7,7 +7,7 @@ export class EmbedButton extends React.PureComponent {
 
   copyEmbedCode() {
     const {path} = this.props;
-    const result = `<iframe src="https://datelazi.ro/${path} />`;
+    const result = `<iframe src="${window.location.origin.toString()}/embed/${path}" />`;
 
     navigator.clipboard.writeText(result).then(() => {
       console.log('show');
