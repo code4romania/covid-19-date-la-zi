@@ -11,6 +11,14 @@
         "cured": "Vindecați",
         "deaths": "Decese",
 
-        "months": ["Ian", "Feb", "Mar", "Apr", "Mai", "Iun", "Iul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+
+        "about_project": "Despre proiect",
+        "ecosystem": "Ecosistemul Covid-19",
+        "support_call_to_action": "Sprijină proiectul",
+        "romanian": "Română",
+        "english": "Engleză",
+        "partnership_with": "Un proiect în parteneriat cu",
+        "developed_by": "dezvoltat de"
     }
 }

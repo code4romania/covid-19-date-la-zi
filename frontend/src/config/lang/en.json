@@ -9,8 +9,16 @@
 
         "confirmed": "Confirmed",
         "cured": "Cured",
-        "deaths": "Deceased",
+        "deaths": "Deaths",
 
-        "months": ["Ian", "Feb", "Mar", "Apr", "Mai", "Iun", "Iul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        "months": ["Ian", "Feb", "Mar", "Apr", "Mai", "Iun", "Iul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+
+        "about_project": "About the project",
+        "ecosystem": "The Covid-19 ecosystem",
+        "support_call_to_action": "Support this project",
+        "romanian": "Romanian",
+        "english": "English",
+        "partnership_with": "This project is the result of a partnership with",
+        "developed_by": " and was developed by"
     }
 }

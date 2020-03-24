@@ -75,21 +75,21 @@ class TopNavClass extends React.PureComponent {
                   className="navbar-item"
                   onClick={() => this.hideBurgerMenu()}
                 >
-                  Despre Proiect
+                  {t('about_project')}
                 </Link>
                 <a href="https://code4.ro/ro/apps" className="navbar-item">
-                  Ecosistemul Covid-19
+                  {t('ecosystem')}
                 </a>
                 <a href="https://code4.ro/ro/doneaza" className="navbar-item">
-                  Sprijină proiectul
+                  {t('support_call_to_action')}
                 </a>
                 <a className="navbar-item" role="button" href="#" onClick={() => this.setCurrentLanguage('ro')}>
                   <span role="img" alt="Romanian flag">🇷🇴</span>
-                   Română
+                  {t('romanian')}
                 </a>
                 <a className="navbar-item" role="button" href="#" onClick={() => this.setCurrentLanguage('en')}>
                   <span role="img" alt="English flag">🇬🇧</span>
-                   English
+                  {t('english')}
                 </a>
               </div>
             </div>
@@ -100,7 +100,7 @@ class TopNavClass extends React.PureComponent {
             <div className="developer border-bottom level-right is-clearfix">
               <div>
                 <span className="is-inline-block">
-                  Un proiect în parteneriat cu
+                  {t('partnership_with')}
                 </span>
                 &nbsp;&nbsp;
                 <a
@@ -130,7 +130,7 @@ class TopNavClass extends React.PureComponent {
               </div>
               <div>
                 &nbsp;&nbsp;
-                <span>dezvoltat de</span>
+                <span>{t('developed_by')}</span>
                 &nbsp;&nbsp;
                 <a
                   href="https://code4.ro"
