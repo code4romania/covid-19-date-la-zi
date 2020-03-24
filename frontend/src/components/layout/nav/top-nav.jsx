@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './top-nav.css';
 
 import { withTranslation } from 'react-i18next';
-import i18n from 'i18next';
 
 class TopNavClass extends React.PureComponent {
   constructor(props) {
@@ -26,9 +25,8 @@ class TopNavClass extends React.PureComponent {
   }
 
   setCurrentLanguage(key) {
-    // const {t, i18n} = useTranslation();
+    const {t, i18n} = this.props;
     i18n.changeLanguage(key)
-    console.log("change lang to " + key)
   }
 
   render() {

@@ -75,7 +75,7 @@ class CasesPerDayCardClass extends React.PureComponent {
   getChartOptions() {
     const {t} = this.props;
     const labels = [
-      t('confirmed'), 
+      t('confirmed'),
       t('cured')
     ];
     return {
@@ -143,7 +143,9 @@ class CasesPerDayCardClass extends React.PureComponent {
         <Card>
           <div className="title-container is-overlay">
             <h3 className="summary-title is-uppercase">{t('case_count')}</h3>
-            <h4 className="summary-subtitle">{t('date_range', {'from': this.state.startDate, 'to': this.state.endDate})}</h4>
+            <h4 className="summary-subtitle">
+              {t('date_range', {'from': this.state.startDate, 'to': this.state.endDate})}
+            </h4>
           </div>
           <ReactEcharts
             style={{
