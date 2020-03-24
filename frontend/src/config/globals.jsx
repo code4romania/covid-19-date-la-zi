@@ -7,7 +7,7 @@ if (windowEnvironment === undefined) {
 
 export const Constants = {
   api: windowEnvironment.REACT_APP_API_URL ||
-    (process.env.REACT_APP_API_URL || 'https://staging-api.datelazi.ro/api/v1'),
+    (process.env.REACT_APP_API_URL || 'https://staging-api.datelazi.ro/api/v2'),
   isDev: windowEnvironment.ENV === 'development' || process.env.NODE_ENV === 'development',
   isProd: windowEnvironment.ENV === 'production' || process.env.NODE_ENV === 'production',
 
@@ -24,6 +24,8 @@ export const Constants = {
 
   countyLowestColor: '#7EBCFF',
   countyHighestColor: 'red',
+
+  deathColor: 'black',
 
   womenText: 'Femei',
   menText: 'Bărbați',

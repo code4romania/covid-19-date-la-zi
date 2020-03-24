@@ -8,6 +8,7 @@ import { InfectionSourceCard } from '../cards/infection-source/infection-source-
 // import { CountiesCard } from '../cards/counties/counties-card';
 
 import './dashboard.css';
+import { MedianAgeCard } from '../cards/median-age/median-age-card';
 import {Hero, Instruments, InstrumentsItem, SocialsShare} from '@code4ro/taskforce-fe-components';
 import '@code4ro/taskforce-fe-components/dist/index.css';
 // import { Constants } from '../../config/globals';
@@ -64,9 +65,7 @@ export class Dashboard extends React.PureComponent {
               />
             </div>
             <div className="column is-one-quarter">
-              <InfectionSourceCard
-                title="Dupa sursa infectiei"
-              />
+              <MedianAgeCard />
             </div>
           </div>
         </div>
