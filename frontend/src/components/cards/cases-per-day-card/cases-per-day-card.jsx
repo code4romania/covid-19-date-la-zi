@@ -37,19 +37,23 @@ export class CasesPerDayCard extends React.PureComponent {
   }
 
   parseAPIResponse(result) {
-    const history = result.history;
-    const dates = history.map((entry) => { return entry.date });
+    let history = result.history;
+    const currentDay = result.currentDay;
+
+    history = history.reverse();
+    history.push(currentDay);
+
+    const dates = history.map((entry) => { return entry.datePublished });
     const startDate = dates[0];
     const endDate = dates[dates.length-1];
     const startDateStr = this.formattedShortDateString(this.dateFromTimestamp(startDate));
     const endDateStr = this.formattedShortDateString(this.dateFromTimestamp(endDate));
 
     const symptomaticCasesHistory = history.map((entry) => { return Math.max(entry.monitored, 0) });
-    const confirmedCasesHistory = history.map((entry) => { return Math.max(entry.confirmed, 0) });
+    const confirmedCasesHistory = history.map((entry) => { return Math.max(entry.infected, 0) });
     const curedCasesHistory = history.map((entry) => { return Math.max(entry.cured, 0) });
     const deathCasesHistory = history.map((entry) => {return Math.max(entry.deaths, 0)});
-    const dateStrings = history.map((entry) => {
-      return this.formattedShortDateString(this.dateFromTimestamp(entry.date)) });
+    const dateStrings = history.map((entry) => entry.datePublishedString);
 
     this.setState({
       isLoaded: true,
