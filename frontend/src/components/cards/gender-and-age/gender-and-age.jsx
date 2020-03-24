@@ -114,23 +114,15 @@ export class GenderAndAgeCard extends React.PureComponent {
     const { title } = this.props;
     const { isLoaded, error } = this.state;
 
-    if (this.state.error) {
-      return (
-        <Card>
-          <div className="is-error is-block">Nu am putut încărca datele</div>
-        </Card>
-      );
-    } else {
-      return (
-        <Card title={`${title}: ${this.state.total} cazuri`}>
-          <div className="pie-chart">
-            <ReactEcharts
-              id="gender-age-chart"
-              option={this.getChartOptions()}
-            />
-          </div>
-        </Card>
-      );
-    }
+    return (
+      <Card isLoaded={isLoaded} error={error} title={`${title}: ${this.state.total} cazuri`}>
+        <div className="pie-chart">
+          <ReactEcharts
+            id="gender-age-chart"
+            option={this.getChartOptions()}
+          />
+        </div>
+      </Card>
+    )
   }
 }
