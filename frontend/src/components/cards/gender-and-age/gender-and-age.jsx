@@ -26,7 +26,8 @@ export class GenderAndAgeCard extends React.PureComponent {
     this.state = {
       error: null,
       isLoaded: false,
-      data: []
+      data: [],
+      totalKnown: 0
     }
   }
 
@@ -96,9 +97,10 @@ export class GenderAndAgeCard extends React.PureComponent {
         icon: 'circle',
         right: isMobile ? 'auto' : 0,
         bottom: isMobile ? 0 : 'auto',
+        top: isMobile ? 'auto' : 60,
         formatter: (name) => {
           const filterItem = this.state.data.filter(item => item.name === name);
-          return filterItem.length === 1 ?  `${filterItem[0].value}  (${filterItem[0].percentage}%)` : '';
+          return filterItem.length === 1 ?  `${name} ani: ${filterItem[0].value} (${filterItem[0].percentage}%)` : '';
         },
         tooltip: {
           show: true,
@@ -114,10 +116,10 @@ export class GenderAndAgeCard extends React.PureComponent {
           radius: isMobile ? ['30%', '55%'] : ['40%', '70%'],
           avoidLabelOverlap: false,
           right: isMobile ? 'auto' : 40,
-          top: isMobile ? -50 : 'auto',
+          top: isMobile ? -140 : 'auto',
           label: {
             normal: {
-              show: true
+              show: false
             },
             emphasis: { show: false }
           },
