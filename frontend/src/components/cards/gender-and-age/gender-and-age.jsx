@@ -3,22 +3,6 @@ import ReactEcharts from "echarts-for-react";
 import { Card } from "../../layout/card";
 import { Constants, ApiURL } from "../../../config/globals";
 
-const sortCategories = categories => {
-  return categories.sort((a,b) => {
-    const firstStartAge = a.split('-',1)[0]
-    const secondStartAge = b.split('-',1)[0]
-    if (firstStartAge !== undefined
-      && secondStartAge !== undefined) {
-      const n1 = parseInt(firstStartAge)
-      const n2 = parseInt(secondStartAge)
-      if (n1 < n2) { return -1 }
-      else if (n1 > n2) { return 1 }
-      else return 0
-    }
-    return false
-  })
-}
-
 export class GenderAndAgeCard extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -26,7 +10,7 @@ export class GenderAndAgeCard extends React.PureComponent {
       error: null,
       isLoaded: false,
       data: [],
-      totalKnown: 0
+      total: 0
     }
   }
 
@@ -48,26 +32,21 @@ export class GenderAndAgeCard extends React.PureComponent {
 
   parseAPIResponse(result) {
     const stats = result.histogram;
-    const allValues = Object.entries(stats).map(k => { return k[1].men + k[1].women })
-    const totalKnown = allValues.reduce((a,b) => a + b, 0)
-    const categories = Object.entries(stats).map((k,v) => { return k[0] })
-    const sortedCategories = sortCategories(categories);
+    const total = result.total;
 
-    const data = sortedCategories.map(key => {
-      const { women, men } = stats[key];
-      const totalByAge = women + men;
+    const data = Object.keys(stats).map(key => {
       return {
-        value: totalByAge,
+        value: stats[key],
         name: key,
-        percentage: Math.round((100 * totalByAge) / totalKnown)
-      }
-    })
+        percentage: Math.round((100 * stats[key]) / total)
+      };
+    });
 
     this.setState({
       isLoaded: true,
       data,
-      totalKnown
-    })
+      total
+    });
   }
 
   getChartOptions = () => {
@@ -96,7 +75,7 @@ export class GenderAndAgeCard extends React.PureComponent {
         icon: 'circle',
         right: isMobile ? 'auto' : 0,
         bottom: isMobile ? 0 : 'auto',
-        top: isMobile ? 'auto' : 60,
+        top: isMobile ? 'auto' : 40,
         formatter: (name) => {
           const filterItem = this.state.data.filter(item => item.name === name);
           return filterItem.length === 1 ?  `${name} ani: ${filterItem[0].value} (${filterItem[0].percentage}%)` : '';
@@ -140,10 +119,10 @@ export class GenderAndAgeCard extends React.PureComponent {
         <Card>
           <div className="is-error is-block">Nu am putut încărca datele</div>
         </Card>
-      )
+      );
     } else {
       return (
-        <Card title={`${title}: ${this.state.totalKnown} cazuri`}>
+        <Card title={`${title}: ${this.state.total} cazuri`}>
           <div className="pie-chart">
             <ReactEcharts
               id="gender-age-chart"

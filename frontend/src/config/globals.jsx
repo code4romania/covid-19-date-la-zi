@@ -40,7 +40,7 @@ export const ApiURL = {
   summary: Constants.api + '/data/quickstats',
   dailyStats: Constants.api + '/data/dailystats',
   infectionSourceStats: Constants.api + '/data/infections-source',
-  genderAgeStats: Constants.api + '/data/gender-age-histogram',
+  genderAgeStats: Constants.api + '/data/age-histogram',
   genderStats: Constants.api + '/data/genderstats',
   countyStats: Constants.api + '/data/county-infections'
 }
