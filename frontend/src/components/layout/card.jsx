@@ -1,5 +1,5 @@
 import React from 'react';
-import Loader from "../loader";
+import Loader from '../loader';
 import './card.css';
 
 export class Card extends React.PureComponent {
