@@ -7,7 +7,6 @@ import { HttpEventType, HttpResponse } from "@angular/common/http";
   templateUrl: "./parser-result.component.html"
 })
 export class ParserResultComponent {
-  @Input() isV2Upload: boolean;
   constructor(private uploadService: UploadService) {}
 
   @ViewChild("file", { static: false }) file;
@@ -29,7 +28,7 @@ export class ParserResultComponent {
   }
 
   async startUpload() {
-    this.uploadService.upload(this.files[0], this.isV2Upload).subscribe(
+    this.uploadService.upload(this.files[0]).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
         } else if (event instanceof HttpResponse) {

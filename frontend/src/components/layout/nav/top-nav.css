@@ -6,12 +6,6 @@
   height: 73px;
 }
 
-.navbar-item {
-  font-size: 14px;
-  font-weight: normal;
-  padding: auto 12px;
-}
-
 .navbar-brand a {
   color: var(--accent-color);
   font-weight: bold;
