@@ -86,8 +86,8 @@ export class Dashboard extends React.PureComponent {
               <InstrumentsItem
                 color="green"
                 title="Instalează-ti extensia de Chrome"
-                ctaLink={"https://chrome.google.com/webstore/detail/" +
-                    "covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha"}
+                ctaLink={'https://chrome.google.com/webstore/detail/' +
+                'covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha'}
                 ctaText="Instalează add-on"
               />
             </section>
@@ -106,8 +106,8 @@ export class Dashboard extends React.PureComponent {
                 title="Recomandări oficiale"
                 content="15 recomandări privind conduita socială responsabilă în prevenirea răspândirii coronavirus."
                 ctaText="Citeşte aici"
-                ctaLink={"https://stirioficiale.ro/" +
-                    "15-recomandari-privind-conduita-sociala-responsabila-in-prevenirea-raspandirii-coronavirus"}
+                ctaLink={'https://stirioficiale.ro/' +
+                '15-recomandari-privind-conduita-sociala-responsabila-in-prevenirea-raspandirii-coronavirus'}
               />
             </section>
           </Instruments>
