@@ -7,9 +7,9 @@
         "NumberInfected": 576,
         "NumberCured": 73,
         "NumberDeceased": 4,
-        "NumberOfWomen": 0,
-        "NumberOfMen": 0,
-        "NumberOfChildren": 0,
+        "NumberOfWomen": 187,
+        "NumberOfMen": 165,
+        "NumberOfChildren": 15,
         "DistributionByAge": {
             "0-9": 10,
             "10-19": 20,
