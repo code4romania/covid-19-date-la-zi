@@ -37,7 +37,10 @@ export const Constants = {
   orange: '#FDC862',
   green: '#A4E064',
   grey: '#B2BECE',
-  lightblue: '#A5D7FC'
+  lightblue: '#A5D7FC',
+
+  oldestColor: '#CB466E',
+  processingColor: '#FFDE9F'
 };
 
 export const ApiURL = {
