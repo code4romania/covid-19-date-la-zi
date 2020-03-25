@@ -91,8 +91,8 @@ export class Dashboard extends React.PureComponent {
             <section>
               <InstrumentsItem
                 color="green"
-                title="Ştiri oficiale la zi"
-                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium."
+                title="Ştiri oficiale și informații la zi"
+                content=""
                 ctaText="Cele mai noi informaţii oficiale"
                 ctaLink="https://stirioficiale.ro/informatii"
               />
@@ -100,8 +100,8 @@ export class Dashboard extends React.PureComponent {
             <section>
               <InstrumentsItem
                 color="yellow"
-                title="Ce mă fac"
-                content="Află ce ai de făcut în orice situație"
+                title="Află ce ai de făcut în orice situație"
+                content=""
                 ctaText="Ce trebuie să fac"
                 ctaLink={'https://cemafac.ro'}
               />
