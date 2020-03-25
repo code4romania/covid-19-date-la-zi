@@ -70,12 +70,6 @@ export class TopNav extends React.PureComponent {
                 >
                   Despre Proiect
                 </Link>
-                <a href="https://code4.ro/ro/apps" className="navbar-item">
-                  Ecosistemul Covid-19
-                </a>
-                <a href="https://code4.ro/ro/doneaza" className="navbar-item">
-                  Sprijină proiectul
-                </a>
               </div>
             </div>
           </div>

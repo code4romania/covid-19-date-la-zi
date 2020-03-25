@@ -14,7 +14,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
         public int NumberDeceased { get; set; }
         public decimal PercentageOfWomen { get; set; }
         public decimal PercentageOfMen { get; set; }
-        public decimal percentageOfChildren { get; set; }
+        public decimal PercentageOfChildren { get; set; }
         public Dictionary<AgeRange, int> DistributionByAge { get; set; }
 
         public DailyPdfStats()

@@ -4,14 +4,11 @@ import { SummaryRow } from '../layout/rows/summary.row';
 import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
 import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
-import { InfectionSourceCard } from '../cards/infection-source/infection-source-card';
-// import { CountiesCard } from '../cards/counties/counties-card';
 
 import './dashboard.css';
+import { MedianAgeCard } from '../cards/median-age/median-age-card';
 import {Hero, Instruments, InstrumentsItem, SocialsShare} from '@code4ro/taskforce-fe-components';
 import '@code4ro/taskforce-fe-components/dist/index.css';
-import {Switch} from 'react-router-dom';
-// import { Constants } from '../../config/globals';
 
 export class Dashboard extends React.PureComponent {
 
@@ -33,10 +30,13 @@ export class Dashboard extends React.PureComponent {
             Infografiile se actualizează periodic și sunt centralizate în graficele de mai jos.
           </p>
           <p>
-            Acest proiect este realizat pro-bono în parteneriat cu Guvernul României prin
-            Autoritatea pentru Digitalizarea României pe baza datelor furnizate de Ministerul
-            Sănătății, de către Code for Romania.
+            Acest proiect este realizat pro-bono în parteneriat cu Guvernul României prin 
+            Autoritatea pentru Digitalizarea României. Funcționarea acestei platforme depinde 
+            exclusiv de conținutul datelor și informațiilor care vor fi furnizate de către 
+            Guvernul României.
           </p>
+
+          <SocialsShare currentPage="https://datelazi.ro/" />
         </div>
 
         <SummaryRow />
@@ -59,13 +59,11 @@ export class Dashboard extends React.PureComponent {
             </div> */}
             <div className="column is-two-quarters">
               <GenderAndAgeCard
-                title="După vârstă și gen"
+                title="După vârstă"
               />
             </div>
             <div className="column is-one-quarter">
-              <InfectionSourceCard
-                title="Dupa sursa infectiei"
-              />
+              <MedianAgeCard />
             </div>
           </div>
         </div>
@@ -94,8 +92,8 @@ export class Dashboard extends React.PureComponent {
             <section>
               <InstrumentsItem
                 color="green"
-                title="Ştiri oficiale la zi"
-                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium."
+                title="Ştiri oficiale și informații la zi"
+                content=""
                 ctaText="Cele mai noi informaţii oficiale"
                 ctaLink="https://stirioficiale.ro/informatii"
               />
@@ -103,11 +101,10 @@ export class Dashboard extends React.PureComponent {
             <section>
               <InstrumentsItem
                 color="yellow"
-                title="Recomandări oficiale"
-                content="15 recomandări privind conduita socială responsabilă în prevenirea răspândirii coronavirus."
-                ctaText="Citeşte aici"
-                ctaLink={'https://stirioficiale.ro/' +
-                '15-recomandari-privind-conduita-sociala-responsabila-in-prevenirea-raspandirii-coronavirus'}
+                title="Află ce ai de făcut în orice situație"
+                content=""
+                ctaText="Ce trebuie să fac"
+                ctaLink={'https://cemafac.ro'}
               />
             </section>
           </Instruments>

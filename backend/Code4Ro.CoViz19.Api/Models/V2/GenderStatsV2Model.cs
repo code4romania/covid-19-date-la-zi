@@ -4,9 +4,10 @@
     {
         public long DatePublished { get; set; }
         public string DatePublishedString { get; set; }
-        public decimal Men { get; set; }
-        public decimal Women { get; set; }
-        public decimal Children { get; set; }
-        public int Total { get; set; }
+        public decimal PercentageOfMen { get; set; }
+        public decimal PercentageOfWomen { get; set; }
+        public decimal PercentageOfChildren { get; set; }
+        public decimal TotalPercentage { get; set; }
+        public int TotalNumber { get; set; }
     }
 }
