@@ -27,7 +27,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
             CurrentDayStats.NumberDeceased = currentDayData.NumberDeceased;
             CurrentDayStats.PercentageOfWomen = currentDayData.PercentageOfWomen;
             CurrentDayStats.PercentageOfMen = currentDayData.PercentageOfMen;
-            CurrentDayStats.percentageOfChildren = currentDayData.percentageOfChildren;
+            CurrentDayStats.PercentageOfChildren = currentDayData.PercentageOfChildren;
             CurrentDayStats.DistributionByAge = currentDayData.DistributionByAge;
 
             HistoricalData = new Dictionary<string, DailyPdfStats>();
@@ -45,7 +45,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
                     DistributionByAge = previousDayData.CurrentDayStats.DistributionByAge,
                     PercentageOfWomen = previousDayData.CurrentDayStats.PercentageOfWomen,
                     PercentageOfMen = previousDayData.CurrentDayStats.PercentageOfMen,
-                    percentageOfChildren = previousDayData.CurrentDayStats.percentageOfChildren
+                    PercentageOfChildren = previousDayData.CurrentDayStats.PercentageOfChildren
                 });
 
                 if (previousDayData.HistoricalData != null)
