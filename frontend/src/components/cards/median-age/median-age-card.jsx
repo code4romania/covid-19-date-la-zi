@@ -33,7 +33,6 @@ export class MedianAgeCard extends React.PureComponent {
       value,
       isLoaded: true
     });
-    console.log(result);
   }
 
   getChartOptions() {
