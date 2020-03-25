@@ -24,7 +24,7 @@ export class Dashboard extends React.PureComponent {
             este esențial în adoptarea măsurilor de sănătate publică împotriva pandemiei. Astfel,
             venim în sprijinul publicului și al mass-media din România prin accesibilizarea datelor
             punându-le într-o formă grafică ușor de parcurs, urmând modelul portalului de informare
-            din <a href="https://co.vid19.sg/">Singapore</a>.
+            din <a href="https://co.vid19.sg/" target="_blank" rel="noopener noreferrer">Singapore</a>.
           </p>
           <p>
             Infografiile se actualizează periodic și sunt centralizate în graficele de mai jos.
