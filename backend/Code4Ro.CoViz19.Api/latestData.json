@@ -1,30 +1,57 @@
 {
+    "lasUpdatedOn": 1585152225,
+    "lasUpdatedOnString": "2020-03-25 18.10",
     "currentDayStats": {
-        "parsedOn": 1584914400,
-        "parsedOnString": "2020-03-24",
+        "parsedOn": 1585142100,
+        "parsedOnString": "2020-03-25",
         "fileName": "",
         "averageAge": "43",
-        "numberInfected": 762,
-        "numberCured": 79,
-        "numberDeceased": 8,
-        "percentageOfWomen": 53,
+        "numberInfected": 906,
+        "numberCured": 86,
+        "numberDeceased": 14,
+        "percentageOfWomen": 54,
         "percentageOfMen": 43,
-        "percentageOfChildren": 4,
+        "percentageOfChildren": 3,
         "distributionByAge": {
-            "0-9": 12,
+            "0-9": 14,
             "10-19": 22,
-            "20-29": 84,
-            "30-39": 174,
-            "40-49": 203,
-            "50-59": 140,
-            "60-69": 66,
-            "70-79": 33,
-            ">80": 3
+            "20-29": 99,
+            "30-39": 198,
+            "40-49": 232,
+            "50-59": 168,
+            "60-69": 96,
+            "70-79": 49,
+            ">80": 3,
+            "în procesare": 25
+
         }
     },
     "historicalData": {
+        "2020-03-24": {
+            "parsedOn": 1585054860,
+            "parsedOnString": "2020-03-24",
+            "fileName": "",
+            "averageAge": "43",
+            "numberInfected": 762,
+            "numberCured": 79,
+            "numberDeceased": 8,
+            "percentageOfWomen": 53,
+            "percentageOfMen": 43,
+            "percentageOfChildren": 4,
+            "distributionByAge": {
+                "0-9": 12,
+                "10-19": 22,
+                "20-29": 84,
+                "30-39": 174,
+                "40-49": 203,
+                "50-59": 140,
+                "60-69": 66,
+                "70-79": 33,
+                ">80": 3
+            }
+        },
         "2020-03-23": {
-            "parsedOn": 1584914400,
+            "parsedOn": 1584969300,
             "parsedOnString": "2020-03-23",
             "fileName": "Coronavirus 23.03 (1).pdf",
             "averageAge": "42",
@@ -47,7 +74,7 @@
             }
         },
         "2020-03-22": {
-            "parsedOn": 1584828000,
+            "parsedOn": 1584882900,
             "parsedOnString": "2020-03-22",
             "fileName": "Coronavirus 22.03.pdf",
             "averageAge": "41",
@@ -70,7 +97,7 @@
             }
         },
         "2020-03-21": {
-            "parsedOn": 1584741600,
+            "parsedOn": 1584796500,
             "parsedOnString": "2020-03-21",
             "fileName": "Coronavirus 21.03.pdf",
             "averageAge": "41",
@@ -93,7 +120,7 @@
             }
         },
         "2020-03-20": {
-            "parsedOn": 1584655200,
+            "parsedOn": 1584710100,
             "parsedOnString": "2020-03-20",
             "fileName": "Coronavirus 20.03.pdf",
             "averageAge": "41",
@@ -116,7 +143,7 @@
             }
         },
         "2020-03-19": {
-            "parsedOn": 1584568800,
+            "parsedOn": 1584623700,
             "parsedOnString": "2020-03-19",
             "fileName": "Coronavirus 19.03.pdf",
             "averageAge": "41",
@@ -139,7 +166,7 @@
             }
         },
         "2020-03-18": {
-            "parsedOn": 1584482400,
+            "parsedOn": 1584537300,
             "parsedOnString": "2020-03-18",
             "fileName": "Coronavirus 18.03.pdf",
             "averageAge": "41",
@@ -162,7 +189,7 @@
             }
         },
         "2020-03-17": {
-            "parsedOn": 1584396000,
+            "parsedOn": 1584450900,
             "parsedOnString": "2020-03-17",
             "fileName": "Coronavirus 17.03.pdf",
             "averageAge": "39-40",
