@@ -48,11 +48,6 @@ export class GenderAndAgeCard extends React.PureComponent {
         percentage: Math.round((100 * stats[key]) / total)
       };
     });
-    data.push({
-      name: "în procesare",
-      value: 25,
-      percentage: 15
-    })
 
     this.setState({
       isLoaded: true,
