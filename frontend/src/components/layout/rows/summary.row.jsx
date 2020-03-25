@@ -85,7 +85,7 @@ export class SummaryRow extends React.PureComponent {
     return {
       value: curedPercentage + '%',
       label: 'din total',
-      isGood: curedPercentage >= 50
+      isGood: true
     }
   };
 
