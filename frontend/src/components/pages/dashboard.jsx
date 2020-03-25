@@ -30,9 +30,10 @@ export class Dashboard extends React.PureComponent {
             Infografiile se actualizează periodic și sunt centralizate în graficele de mai jos.
           </p>
           <p>
-            Acest proiect este realizat pro-bono în parteneriat cu Guvernul României prin
-            Autoritatea pentru Digitalizarea României pe baza datelor furnizate de Ministerul
-            Sănătății, de către Code for Romania.
+            Acest proiect este realizat pro-bono în parteneriat cu Guvernul României prin 
+            Autoritatea pentru Digitalizarea României. Funcționarea acestei platforme depinde 
+            exclusiv de conținutul datelor și informațiilor care vor fi furnizate de către 
+            Guvernul României.
           </p>
 
           <SocialsShare currentPage="https://datelazi.ro/" />
@@ -91,8 +92,8 @@ export class Dashboard extends React.PureComponent {
             <section>
               <InstrumentsItem
                 color="green"
-                title="Ştiri oficiale la zi"
-                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit, duis pretium."
+                title="Ştiri oficiale și informații la zi"
+                content=""
                 ctaText="Cele mai noi informaţii oficiale"
                 ctaLink="https://stirioficiale.ro/informatii"
               />
@@ -100,8 +101,8 @@ export class Dashboard extends React.PureComponent {
             <section>
               <InstrumentsItem
                 color="yellow"
-                title="Ce mă fac"
-                content="Află ce ai de făcut în orice situație"
+                title="Află ce ai de făcut în orice situație"
+                content=""
                 ctaText="Ce trebuie să fac"
                 ctaLink={'https://cemafac.ro'}
               />
