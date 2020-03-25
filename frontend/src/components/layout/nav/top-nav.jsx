@@ -94,18 +94,6 @@ export class TopNav extends React.PureComponent {
                     className="logo-gov"
                   />
                 </a>
-                <a
-                  href="http://www.ms.ro/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="is-inline-block link-ms"
-                >
-                  <img
-                    src="/images/logo-ms.png"
-                    alt="Ministerul Sanatatii"
-                    className="logo-ms"
-                  />
-                </a>
               </div>
               <div>
                 &nbsp;&nbsp;
