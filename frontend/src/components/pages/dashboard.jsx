@@ -37,7 +37,7 @@ export class Dashboard extends React.PureComponent {
 
           <SocialsShare currentPage="https://datelazi.ro/" />
 
-          <p>Date actualizate pe 25 Martie la 13:15.</p>
+          <p>Date actualizate pe 25 Martie la 17:23.</p>
         </div>
 
         <SummaryRow />
