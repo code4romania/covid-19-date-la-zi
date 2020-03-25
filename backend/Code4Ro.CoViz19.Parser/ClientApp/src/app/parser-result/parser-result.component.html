@@ -1,0 +1,15 @@
+<h1>Data parser V3</h1>
+<div>
+  <input name="file-drop" class="drop-zone" type="file" #file (change)="onFilesAdded()" />
+</div>
+<div>
+  <button type="button" class="btn btn-primary" [disabled]="uploadInProgress" (click)="startUpload()">Transform to json</button>
+  <button type="button" class="btn btn-secondary" (click)="copyResponseToClipboard()">Copy to clipboard</button>
+  <button type="button" class="btn btn-danger" (click)="publishEditedData()">Publish data</button>
+
+</div>
+<div>
+</div>
+<textarea #jsonOutput style="width: 100%; height: 500px;"  [(ngModel)]="parsedData" >
+  {{ parsedResponse | json }}
+</textarea>

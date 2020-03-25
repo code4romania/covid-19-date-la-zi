@@ -1,0 +1,215 @@
+{
+    "lasUpdatedOn": 1585152225,
+    "lasUpdatedOnString": "2020-03-25 18.10",
+    "currentDayStats": {
+        "parsedOn": 1585142100,
+        "parsedOnString": "2020-03-25",
+        "fileName": "",
+        "averageAge": "43",
+        "numberInfected": 906,
+        "numberCured": 86,
+        "numberDeceased": 14,
+        "percentageOfWomen": 54,
+        "percentageOfMen": 43,
+        "percentageOfChildren": 3,
+        "distributionByAge": {
+            "0-9": 14,
+            "10-19": 22,
+            "20-29": 99,
+            "30-39": 198,
+            "40-49": 232,
+            "50-59": 168,
+            "60-69": 96,
+            "70-79": 49,
+            ">80": 3,
+            "în procesare": 25
+
+        }
+    },
+    "historicalData": {
+        "2020-03-24": {
+            "parsedOn": 1585054860,
+            "parsedOnString": "2020-03-24",
+            "fileName": "",
+            "averageAge": "43",
+            "numberInfected": 762,
+            "numberCured": 79,
+            "numberDeceased": 8,
+            "percentageOfWomen": 53,
+            "percentageOfMen": 43,
+            "percentageOfChildren": 4,
+            "distributionByAge": {
+                "0-9": 12,
+                "10-19": 22,
+                "20-29": 84,
+                "30-39": 174,
+                "40-49": 203,
+                "50-59": 140,
+                "60-69": 66,
+                "70-79": 33,
+                ">80": 3
+            }
+        },
+        "2020-03-23": {
+            "parsedOn": 1584969300,
+            "parsedOnString": "2020-03-23",
+            "fileName": "Coronavirus 23.03 (1).pdf",
+            "averageAge": "42",
+            "numberInfected": 576,
+            "numberCured": 73,
+            "numberDeceased": 4,
+            "percentageOfWomen": 53,
+            "percentageOfMen": 43,
+            "percentageOfChildren": 4,
+            "distributionByAge": {
+                "0-9": 10,
+                "10-19": 20,
+                "20-29": 74,
+                "30-39": 135,
+                "40-49": 165,
+                "50-59": 101,
+                "60-69": 46,
+                "70-79": 24,
+                ">80": 1
+            }
+        },
+        "2020-03-22": {
+            "parsedOn": 1584882900,
+            "parsedOnString": "2020-03-22",
+            "fileName": "Coronavirus 22.03.pdf",
+            "averageAge": "41",
+            "numberInfected": 433,
+            "numberCured": 64,
+            "numberDeceased": 2,
+            "percentageOfWomen": 50,
+            "percentageOfMen": 46,
+            "percentageOfChildren": 4,
+            "distributionByAge": {
+                "0-9": 8,
+                "10-19": 19,
+                "20-29": 60,
+                "30-39": 110,
+                "40-49": 112,
+                "50-59": 79,
+                "60-69": 27,
+                "70-79": 17,
+                ">80": 1
+            }
+        },
+        "2020-03-21": {
+            "parsedOn": 1584796500,
+            "parsedOnString": "2020-03-21",
+            "fileName": "Coronavirus 21.03.pdf",
+            "averageAge": "41",
+            "numberInfected": 367,
+            "numberCured": 52,
+            "numberDeceased": 0,
+            "percentageOfWomen": 51,
+            "percentageOfMen": 45,
+            "percentageOfChildren": 4,
+            "distributionByAge": {
+                "0-9": 7,
+                "10-19": 14,
+                "20-29": 51,
+                "30-39": 94,
+                "40-49": 96,
+                "50-59": 67,
+                "60-69": 22,
+                "70-79": 15,
+                ">80": 1
+            }
+        },
+        "2020-03-20": {
+            "parsedOn": 1584710100,
+            "parsedOnString": "2020-03-20",
+            "fileName": "Coronavirus 20.03.pdf",
+            "averageAge": "41",
+            "numberInfected": 308,
+            "numberCured": 31,
+            "numberDeceased": 0,
+            "percentageOfWomen": 50,
+            "percentageOfMen": 45,
+            "percentageOfChildren": 5,
+            "distributionByAge": {
+                "0-9": 6,
+                "10-19": 12,
+                "20-29": 39,
+                "30-39": 80,
+                "40-49": 85,
+                "50-59": 58,
+                "60-69": 15,
+                "70-79": 12,
+                ">80": 1
+            }
+        },
+        "2020-03-19": {
+            "parsedOn": 1584623700,
+            "parsedOnString": "2020-03-19",
+            "fileName": "Coronavirus 19.03.pdf",
+            "averageAge": "41",
+            "numberInfected": 277,
+            "numberCured": 25,
+            "numberDeceased": 0,
+            "percentageOfWomen": 51,
+            "percentageOfMen": 44,
+            "percentageOfChildren": 5,
+            "distributionByAge": {
+                "0-9": 6,
+                "10-19": 11,
+                "20-29": 33,
+                "30-39": 73,
+                "40-49": 78,
+                "50-59": 54,
+                "60-69": 13,
+                "70-79": 9,
+                ">80": 0
+            }
+        },
+        "2020-03-18": {
+            "parsedOn": 1584537300,
+            "parsedOnString": "2020-03-18",
+            "fileName": "Coronavirus 18.03.pdf",
+            "averageAge": "41",
+            "numberInfected": 260,
+            "numberCured": 19,
+            "numberDeceased": 0,
+            "percentageOfWomen": 51,
+            "percentageOfMen": 44,
+            "percentageOfChildren": 5,
+            "distributionByAge": {
+                "0-9": 6,
+                "10-19": 10,
+                "20-29": 32,
+                "30-39": 67,
+                "40-49": 75,
+                "50-59": 49,
+                "60-69": 12,
+                "70-79": 9,
+                ">80": 0
+            }
+        },
+        "2020-03-17": {
+            "parsedOn": 1584450900,
+            "parsedOnString": "2020-03-17",
+            "fileName": "Coronavirus 17.03.pdf",
+            "averageAge": "39-40",
+            "numberInfected": 217,
+            "numberCured": 19,
+            "numberDeceased": 0,
+            "percentageOfWomen": 49,
+            "percentageOfMen": 46,
+            "percentageOfChildren": 5,
+            "distributionByAge": {
+                "0-9": 4,
+                "10-19": 8,
+                "20-29": 30,
+                "30-39": 53,
+                "40-49": 60,
+                "50-59": 44,
+                "60-69": 11,
+                "70-79": 7,
+                ">80": 0
+            }
+        }
+    }
+}

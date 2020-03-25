@@ -1,0 +1,53 @@
+# https://hub.docker.com/_/microsoft-dotnet-core
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build
+WORKDIR /source
+
+RUN apk add --no-cache --update nodejs nodejs-npm
+        
+# copy csproj and restore as distinct layers
+WORKDIR /source/Code4Ro.CoViz19.Parser/
+COPY Code4Ro.CoViz19.Models/*.csproj /source/Code4Ro.CoViz19.Models/
+COPY Code4Ro.CoViz19.Services/*.csproj /source/Code4Ro.CoViz19.Services/
+COPY Code4Ro.CoViz19.Parser.UnitTests/*.csproj /source/Code4Ro.CoViz19.Parser.UnitTests/
+COPY Code4Ro.CoViz19.Parser/*.csproj .
+RUN dotnet restore
+
+# copy and publish app and libraries
+COPY Code4Ro.CoViz19.Parser/ ./
+COPY Code4Ro.CoViz19.Models/ /source/Code4Ro.CoViz19.Models/
+COPY Code4Ro.CoViz19.Services/ /source/Code4Ro.CoViz19.Services/
+COPY Code4Ro.CoViz19.Parser.UnitTests/ /source/Code4Ro.CoViz19.Parser.UnitTests/
+
+#test parser
+WORKDIR /source/Code4Ro.CoViz19.Parser.UnitTests/
+RUN dotnet test
+
+WORKDIR /source/Code4Ro.CoViz19.Parser/
+RUN dotnet build -c Release -o /app/build
+RUN dotnet publish -c Release -o /app/publish
+
+# final stage/image
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
+
+HEALTHCHECK --interval=60s --timeout=3s --retries=3 \
+    CMD wget -q http://localhost/health || exit 1
+
+EXPOSE 8080
+#this dependencies are for runtime 
+RUN apk add --no-cache --repository https://alpine.global.ssl.fastly.net/alpine/edge/testing/ \
+        libgdiplus-dev \
+        fontconfig \
+        ttf-dejavu
+
+WORKDIR /app
+COPY --from=build /app/publish .
+# See: https://github.com/dotnet/announcements/issues/20
+# Uncomment to enable globalization APIs (or delete)
+#ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT false
+#RUN apk add --no-cache icu-libs
+#ENV LC_ALL en_US.UTF-8
+#ENV LANG en_US.UTF-8
+
+ENV ASPNETCORE_URLS=http://*:8080
+
+ENTRYPOINT ["dotnet", "Code4Ro.CoViz19.Parser.dll"]

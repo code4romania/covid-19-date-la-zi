@@ -1,14 +1,15 @@
-# Vizualization App to track the COVID-19 virus epidemic
+# Date la zi
+## Vizualization App to track the COVID-19 virus epidemic
 
-[![GitHub contributors](https://img.shields.io/github/contributors/code4romania/NEW_REPO_SLUG_HERE.svg?style=for-the-badge)](https://github.com/code4romania/NEW_REPO_SLUG_HERE/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/NEW_REPO_SLUG_HERE.svg?style=for-the-badge)](https://github.com/code4romania/NEW_REPO_SLUG_HERE/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
+[![GitHub contributors](https://img.shields.io/github/contributors/code4romania/date-la-zi.svg?style=for-the-badge)](https://github.com/code4romania/date-la-zi/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/date-la-zi.svg?style=for-the-badge)](https://github.com/code4romania/date-la-zi/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
 
-Insert bullets description of the project if available.
+Objective: Clear information of the public, increase in transparency, diminishing panic.
 
-[See the project live](insert_link_here)
+How: System that takes in anonymised data from the cases database and transforms it into information understandable by the large public. Adapted for all devices.
 
-Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project.
+[See the project live](https://datelazi.ro/)
 
-[Contributing](#contributing) | [Built with](#built-with) | [Repos and projects](#repos-and-projects) | [Deployment](#deployment) | [Feedback](#feedback) | [License](#license) | [About Code4Ro](#about-code4ro)
+[Contributing](#contributing) | [Built with](#built-with) | [Deployment](#deployment) | [Feedback](#feedback) | [License](#license) | [About Code4Ro](#about-code4ro)
 
 ## Contributing
 
@@ -23,18 +24,6 @@ You can also list any pending features and planned improvements for the project 
 Backend: .NET Core
 
 Frontend: React
-
-### Platforms
-
-### Frontend framework
-
-### Package managers
-
-### Database technology & provider
-
-## Repos and projects
-
-Mention all related repos and projects.
 
 ## Deployment
 

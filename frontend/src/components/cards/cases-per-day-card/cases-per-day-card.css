@@ -1,0 +1,13 @@
+.card h3.summary-title {
+    font-size: 14px;
+}
+
+.card h4.summary-subtitle {
+    font-size: 0.75em;
+    font-weight: 500;
+    color: #6B6B6B;
+}
+
+.title-container {
+    padding: 25px;
+}
