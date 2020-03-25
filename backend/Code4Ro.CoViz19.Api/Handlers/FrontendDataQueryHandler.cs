@@ -161,7 +161,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             history.Add(response.Totals);
 
-            response.History = history.OrderBy(x => x.Date).ToArray();
+            response.History = history.OrderBy(x => x.Date).Skip(1).ToArray();
 
             return response;
         }
