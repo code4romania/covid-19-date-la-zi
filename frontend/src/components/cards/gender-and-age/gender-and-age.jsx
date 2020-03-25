@@ -9,10 +9,9 @@ export class GenderAndAgeCard extends React.PureComponent {
     this.state = {
       error: null,
       isLoaded: false,
-      categories: [], // array of strings, eg. '11-20', '21-30'
-      womenEntries: [], // map of [String: Int] (key is category above)
-      menEntries: [] // map of [String: Int] (key is category above)
-    };
+      data: [],
+      total: 0
+    }
   }
 
   componentDidMount() {
@@ -40,103 +39,83 @@ export class GenderAndAgeCard extends React.PureComponent {
     const totalKnown = allValues.reduce((a, b) => a + b, 0);
     const knownPercentage =
       total > 0 ? 100 - Math.round((totalKnown / total) * 100) : 100;
-    const categories = Object.entries(stats).map((k, v) => {
-      return k[0];
-    });
-    const sortedCategories = categories.sort((a, b) => {
-      const firstStartAge = a.split('-', 1)[0];
-      const secondStartAge = b.split('-', 1)[0];
-      if (firstStartAge !== undefined && secondStartAge !== undefined) {
-        const n1 = parseInt(firstStartAge);
-        const n2 = parseInt(secondStartAge);
-        if (n1 < n2) {
-          return -1;
-        } else if (n1 > n2) {
-          return 1;
-        } else return 0;
-      }
-      return false;
-    });
-    let menEntries = sortedCategories.map(k => {
-      return stats[k].men;
-    });
-    let womenEntries = sortedCategories.map(k => {
-      return -1 * stats[k].women;
+
+    const data = Object.keys(stats).map(key => {
+      return {
+        value: stats[key],
+        name: key,
+        percentage: Math.round((100 * stats[key]) / total)
+      };
     });
 
     this.setState({
       isLoaded: true,
-      total: total,
-      knownPercentage: knownPercentage,
-      categories: sortedCategories,
-      menEntries: menEntries,
-      womenEntries: womenEntries
+      data,
+      total,
+      knownPercentage
     });
   }
 
-  getChartOptions() {
+  getChartOptions = () => {
+    // this colors will be changed in the future. Waiting feedback from Olivia.
+    let colors = [
+      Constants.womenColor,
+      Constants.menColor,
+      Constants.orange,
+      Constants.magenta,
+      Constants.green,
+      Constants.grey,
+      Constants.lightblue,
+      Constants.curedColor
+    ]
+
+    const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    const isMobile = viewportWidth < 560;
+
     return {
       tooltip: {
-        trigger: 'axis',
-        formatter: function(entries) {
-          let lines = entries.map(
-            entry => entry.seriesName + ': ' + Math.abs(entry.value)
-          );
-          return lines.join('<br/>');
-        }
+        trigger: 'item',
+        formatter: '{b}: {c} ({d}%)'
       },
       legend: {
-        data: [Constants.womenText, Constants.menText],
-        bottom: 0,
-        icon: 'circle'
+        orient: isMobile ? 'horizontal' : 'vertical',
+        icon: 'circle',
+        right: isMobile ? 'auto' : 0,
+        bottom: isMobile ? 0 : 'auto',
+        top: isMobile ? 'auto' : 40,
+        formatter: (name) => {
+          const filterItem = this.state.data.filter(item => item.name === name);
+          return filterItem.length === 1 ?  `${name} ani: ${filterItem[0].value} (${filterItem[0].percentage}%)` : '';
+        },
+        tooltip: {
+          show: true,
+          trigger: 'item'
+        },
       },
-      grid: {
-        left: '30px',
-        right: '4%',
-        bottom: '16%',
-        top: '0%',
-        containLabel: true
-      },
-      xAxis: [
-        {
-          type: 'value',
-          axisLabel: {
-            formatter: function(value, index) {
-              return '' + Math.abs(value);
-            }
-          }
-        }
-      ],
-      yAxis: [
-        {
-          type: 'category',
-          name: 'Vârsta',
-          nameLocation: 'center',
-          nameGap: 50,
-          axisTick: {
-            show: false
-          },
-          data: this.state.categories
-        }
-      ],
+      animation: true,
       series: [
         {
-          name: Constants.menText,
-          type: 'bar',
-          stack: 'infections',
-          color: Constants.menColor,
-          data: this.state.menEntries
-        },
-        {
-          name: Constants.womenText,
-          type: 'bar',
-          stack: 'infections',
-          color: Constants.womenColor,
-          data: this.state.womenEntries
+          id: 'gender-age-chart-series',
+          name: this.props.title,
+          type: 'pie',
+          radius: isMobile ? ['30%', '55%'] : ['40%', '70%'],
+          avoidLabelOverlap: false,
+          right: isMobile ? 'auto' : 40,
+          top: isMobile ? -140 : 'auto',
+          label: {
+            normal: {
+              show: false
+            },
+            emphasis: { show: false }
+          },
+          data: this.state.data,
+          color: colors
         }
       ]
-    };
+    }
   }
+
+
 
   render() {
     const { title } = this.props;
@@ -151,11 +130,14 @@ export class GenderAndAgeCard extends React.PureComponent {
     }
 
     return (
-      <Card error={error} isLoaded={isLoaded} title={title + knownPercentage}>
-        <div className="bar-chart">
-          <ReactEcharts id="gender-age-chart" option={this.getChartOptions()} />
+      <Card isLoaded={isLoaded} error={error} title={`${title}${knownPercentage}`}>
+        <div className="pie-chart">
+          <ReactEcharts
+            id="gender-age-chart"
+            option={this.getChartOptions()}
+          />
         </div>
       </Card>
-    );
+    )
   }
 }
