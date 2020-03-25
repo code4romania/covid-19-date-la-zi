@@ -43,8 +43,10 @@ export class MedianAgeCard extends React.PureComponent {
   render() {
     return (
       <Card isLoaded={this.state.isLoaded} error={this.state.error} title="Vârsta medie">
-        <div className="circle">
-          <span className="value">{this.state.value}</span>
+        <div>
+          <div className="circle">
+            <span className="value">{this.state.value}</span>
+          </div>
         </div>
       </Card>
     );

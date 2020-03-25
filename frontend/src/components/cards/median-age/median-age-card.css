@@ -6,7 +6,13 @@
     border-radius: 50%;
     color: #000;
     text-align: center;
-    border: 3px solid #a7c72a;
+    border: 10px solid #F77EB9;
+}
+
+.circle:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
 }
 
 .value {

@@ -30,9 +30,9 @@ export class Dashboard extends React.PureComponent {
             Infografiile se actualizează periodic și sunt centralizate în graficele de mai jos.
           </p>
           <p>
-            Acest proiect este realizat pro-bono în parteneriat cu Guvernul României prin
-            Autoritatea pentru Digitalizarea României pe baza datelor furnizate de Ministerul
-            Sănătății, de către Code for Romania.
+            Acest proiect este realizat pro-bono în parteneriat cu Guvernul României prin Autoritatea 
+            pentru Digitalizarea României. Funcționarea acestei platforme depinde exclusiv de 
+            conținutul datelor și informațiilor care vor fi furnizate de către Guvernul României.
           </p>
 
           <SocialsShare currentPage="https://datelazi.ro/" />
