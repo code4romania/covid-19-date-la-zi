@@ -41,9 +41,6 @@ export class CasesPerDayCard extends React.PureComponent {
     let history = result.history;
     const currentDay = result.currentDay;
 
-    history = history.reverse();
-    history.push(currentDay);
-
     const dates = history.map((entry) => { return entry.datePublished });
     const startDate = dates[0];
     const endDate = dates[dates.length-1];
@@ -121,7 +118,7 @@ export class CasesPerDayCard extends React.PureComponent {
       },
       legend: {
         data: labels,
-        right: 0,
+        right: '30px',
         icon: 'circle',
         top: '0%'
       },
@@ -182,7 +179,7 @@ export class CasesPerDayCard extends React.PureComponent {
         </div>
         <ReactEcharts
           style={{
-            height: '400px',
+            height: '100%',
             width: '100%'
           }}
           option={this.getChartOptions()}
