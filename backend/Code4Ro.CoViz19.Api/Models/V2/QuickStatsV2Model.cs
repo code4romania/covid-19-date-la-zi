@@ -5,6 +5,8 @@ namespace Code4Ro.CoViz19.Api.Models.V2
 {
     public class QuickStatsV2Model
     {
+        [JsonProperty(PropertyName = "last_updated_on")] public long DataLastUpdatedOn { get; set; }
+        [JsonProperty(PropertyName = "last_updated_on_string")] public string DataLastUpdatedOnString { get; set; }
         [JsonProperty(PropertyName = "date")] public long DatePublished { get; set; }
         [JsonProperty(PropertyName = "date_string")] public string DatePublishedString { get; set; }
         [JsonProperty(PropertyName = "totals")] public InfectionsStatsV2Model Totals { get; set; }

@@ -1,7 +1,11 @@
-﻿namespace Code4Ro.CoViz19.Api.Models.V2
+﻿using Newtonsoft.Json;
+
+namespace Code4Ro.CoViz19.Api.Models.V2
 {
     public class DailyStatsV2Model
     {
+        [JsonProperty(PropertyName = "last_updated_on")] public long DataLastUpdatedOn { get; set; }
+        [JsonProperty(PropertyName = "last_updated_on_string")] public string DataLastUpdatedOnString { get; set; }
         public DailyStats CurrentDay { get; set; }
         public DailyStats[] History { get; set; }
     }
