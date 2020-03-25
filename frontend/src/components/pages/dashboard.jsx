@@ -7,7 +7,7 @@ import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
 
 import './dashboard.css';
 import { MedianAgeCard } from '../cards/median-age/median-age-card';
-import {Hero, Instruments, InstrumentsItem, SocialsShare} from '@code4ro/taskforce-fe-components';
+import { Hero, Instruments, InstrumentsItem, SocialsShare } from '@code4ro/taskforce-fe-components';
 import '@code4ro/taskforce-fe-components/dist/index.css';
 
 export class Dashboard extends React.PureComponent {
@@ -86,7 +86,7 @@ export class Dashboard extends React.PureComponent {
                 color="green"
                 title="Instalează-ti extensia de Chrome"
                 ctaLink={'https://chrome.google.com/webstore/detail/' +
-                'covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha'}
+                  'covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha'}
                 ctaText="Instalează add-on"
               />
             </section>
