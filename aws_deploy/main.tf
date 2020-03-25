@@ -7,7 +7,7 @@ locals {
   domain_root = "datelazi.ro"
 
   subdomains_frontend = [
-    "www.${local.domain_root}",                   # PROD
+    "${local.domain_root}",                       # PROD
     "staging.${local.domain_root}",               # STAGING
     "${terraform.workspace}.${local.domain_root}" # DEV
   ]
