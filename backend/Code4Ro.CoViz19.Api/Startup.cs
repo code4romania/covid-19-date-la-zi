@@ -12,7 +12,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
-using Amazon.S3;
 using Code4Ro.CoViz19.Services.Options;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
@@ -37,9 +36,6 @@ namespace Code4Ro.CoViz19.Api
             services.Configure<CacheOptions>(Configuration.GetSection("Cache"));
             services.Configure<AuthorizationOptions>(Configuration.GetSection("Authorization"));
             services.Configure<HttpFileServiceOptions>(Configuration.GetSection("HttpFileServiceOptions"));
-            services.Configure<S3StorageOptions>(Configuration.GetSection("AWS"));
-
-            services.AddAWSService<IAmazonS3>();
 
             services.AddSingleton<IDataProviderService, LocalDataProviderService>();
 
@@ -50,7 +46,7 @@ namespace Code4Ro.CoViz19.Api
                     services.AddSingleton<IFileService, LocalFileService>();
                     break;
                 default:
-                    services.AddSingleton<IFileService, S3FileService>();
+                    services.AddSingleton<IFileService, HttpFileService>();
                     break;
 
             }
