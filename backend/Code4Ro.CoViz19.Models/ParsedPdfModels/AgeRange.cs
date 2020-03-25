@@ -22,5 +22,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
         Age7079,
         [EnumMember(Value = ">80")]
         AgeOver80,
+        [EnumMember(Value = "în procesare")]
+        ProcessingData
     }
 }
