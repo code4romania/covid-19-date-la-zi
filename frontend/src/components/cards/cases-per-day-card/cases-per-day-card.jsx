@@ -97,7 +97,7 @@ export class CasesPerDayCard extends React.PureComponent {
 
   getChartOptions() {
     // const labels = ['Raportați', 'Confirmați', 'Vindecați'];
-    const labels = ["Raportați", "Confirmați", "Vindecați", "Decedaţi"];
+    const labels = ['Raportați', 'Confirmați', 'Vindecați', 'Decedaţi'];
     return {
       xAxis: {
         type: 'category',
@@ -156,8 +156,8 @@ export class CasesPerDayCard extends React.PureComponent {
         {
           data: this.state.deathCasesHistory,
           name: labels[3],
-          stack: "one",
-          type: "bar",
+          stack: 'one',
+          type: 'bar',
           color: Constants.deathColor
         }
       ]

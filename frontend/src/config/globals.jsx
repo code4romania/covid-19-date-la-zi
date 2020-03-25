@@ -33,11 +33,11 @@ export const Constants = {
   childrenText: 'Copii < 18 ani',
   unknownGenderText: 'Necunoscuți',
 
-  magenta: "#F1B8FF",
-  orange: "#FDC862",
-  green: "#A4E064",
-  grey: "#B2BECE",
-  lightblue: "#A5D7FC"
+  magenta: '#F1B8FF',
+  orange: '#FDC862',
+  green: '#A4E064',
+  grey: '#B2BECE',
+  lightblue: '#A5D7FC'
 };
 
 export const ApiURL = {
