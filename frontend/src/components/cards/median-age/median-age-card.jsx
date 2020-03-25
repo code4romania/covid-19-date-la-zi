@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {ApiURL} from '../../../config/globals';
-import {Card} from '../../layout/card';
+import { ApiURL } from '../../../config/globals';
+import { Card } from '../../layout/card';
 import './median-age-card.css';
 
 export class MedianAgeCard extends React.PureComponent {
@@ -33,7 +33,6 @@ export class MedianAgeCard extends React.PureComponent {
       value,
       isLoaded: true
     });
-    console.log(result);
   }
 
   getChartOptions() {

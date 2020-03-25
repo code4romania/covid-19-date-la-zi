@@ -7,7 +7,7 @@ import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
 
 import './dashboard.css';
 import { MedianAgeCard } from '../cards/median-age/median-age-card';
-import {Hero, Instruments, InstrumentsItem, SocialsShare} from '@code4ro/taskforce-fe-components';
+import { Hero, Instruments, InstrumentsItem, SocialsShare } from '@code4ro/taskforce-fe-components';
 import '@code4ro/taskforce-fe-components/dist/index.css';
 
 export class Dashboard extends React.PureComponent {
@@ -24,7 +24,7 @@ export class Dashboard extends React.PureComponent {
             este esențial în adoptarea măsurilor de sănătate publică împotriva pandemiei. Astfel,
             venim în sprijinul publicului și al mass-media din România prin accesibilizarea datelor
             punându-le într-o formă grafică ușor de parcurs, urmând modelul portalului de informare
-            din <a href="https://co.vid19.sg/">Singapore</a>.
+            din <a href="https://co.vid19.sg/" target="_blank" rel="noopener noreferrer">Singapore</a>.
           </p>
           <p>
             Infografiile se actualizează periodic și sunt centralizate în graficele de mai jos.
@@ -86,7 +86,7 @@ export class Dashboard extends React.PureComponent {
                 color="green"
                 title="Instalează-ti extensia de Chrome"
                 ctaLink={'https://chrome.google.com/webstore/detail/' +
-                'covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha'}
+                  'covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha'}
                 ctaText="Instalează add-on"
               />
             </section>
