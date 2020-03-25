@@ -10,7 +10,6 @@ env:
   IMAGE_PARSER: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-parser
   IMAGE_API: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-api
   IMAGE_FRONTEND: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-frontend
-  TF_WORKSPACE: "staging"
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -137,6 +136,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: Set env to staging
+        if: endsWith(github.ref, '/develop')
+        run: |
+          echo "::set-env name=TF_WORKSPACE::staging"
+      - name: Set env to production
+        if: endsWith(github.ref, '/master')
+        run: |
+          echo "::set-env name=TF_WORKSPACE::production"
+
+      - name: Check environment
+        run: |
+          echo "Deploying to environment «$TF_WORKSPACE»"
+
       - name: "Prep TF Vars"
         run: |
           cat << EOF > aws_deploy/github.tfvars
@@ -148,8 +160,6 @@ jobs:
 
       - name: "Terraform Init"
         uses: hashicorp/terraform-github-actions@master
-        env:
-          TF_WORKSPACE: staging
         with:
           tf_actions_version: 0.12.23
           tf_actions_subcommand: "init"
@@ -157,8 +167,6 @@ jobs:
           tf_actions_comment: false
       - name: "Terraform Plan"
         uses: hashicorp/terraform-github-actions@master
-        env:
-          TF_WORKSPACE: staging
         with:
           tf_actions_version: 0.12.23
           tf_actions_subcommand: "plan"
@@ -167,8 +175,6 @@ jobs:
           args: "--var-file github.tfvars"
       - name: "Terraform Apply"
         uses: hashicorp/terraform-github-actions@master
-        env:
-          TF_WORKSPACE: staging
         with:
           tf_actions_version: 0.12.23
           tf_actions_subcommand: "apply"
