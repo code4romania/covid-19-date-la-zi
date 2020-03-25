@@ -51,7 +51,7 @@ export class CasesPerDayCard extends React.PureComponent {
     const confirmedCasesHistory = history.map((entry) => { return Math.max(entry.infected, 0) });
     const curedCasesHistory = history.map((entry) => { return Math.max(entry.cured, 0) });
     const deathCasesHistory = history.map((entry) => {return Math.max(entry.deaths, 0)});
-    const dateStrings = history.map((entry) => 
+    const dateStrings = history.map((entry) =>
       this.formattedShortDateString(this.dateFromTimestamp(entry.datePublished)));
 
     this.setState({
