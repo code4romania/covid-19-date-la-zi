@@ -126,14 +126,15 @@ namespace Code4Ro.CoViz19.Api.Handlers
             {
                 response.DatePublished = currentPdfData.CurrentDayStats.ParsedOn;
                 response.DatePublishedString = currentPdfData.CurrentDayStats.ParsedOnString;
-                var numberOfChildren = currentPdfData.CurrentDayStats.PercentageOfChildren;
+                var percentageOfChildren = currentPdfData.CurrentDayStats.PercentageOfChildren;
                 var percentageOfMen = currentPdfData.CurrentDayStats.PercentageOfMen;
                 var percentageOfWomen = currentPdfData.CurrentDayStats.PercentageOfWomen;
 
-                response.Children = numberOfChildren;
-                response.Men = percentageOfMen;
-                response.Women = percentageOfWomen;
-                response.Total = currentPdfData.CurrentDayStats?.DistributionByAge?.Sum(x => x.Value) ?? 0;
+                response.PercentageOfChildren = percentageOfChildren;
+                response.PercentageOfMen = percentageOfMen;
+                response.PercentageOfWomen = percentageOfWomen;
+                response.TotalPercentage = percentageOfChildren + percentageOfWomen + percentageOfMen;
+                response.TotalNumber = currentPdfData.CurrentDayStats.NumberInfected;
             }
 
             return response;
