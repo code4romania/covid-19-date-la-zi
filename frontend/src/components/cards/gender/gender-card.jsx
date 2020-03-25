@@ -36,15 +36,17 @@ export class GenderCard extends React.PureComponent {
 
   parseAPIResponse(result) {
     const stats = result
-    const total = stats.total || 0;
-    const children = stats.children || 0;
+    const total = stats.totalPercentage || 0;
+    const men = stats.percentageOfMen || 0;
+    const women = stats.percentageOfWomen || 0;
+    const children = stats.percentageOfChildren || 0;
     const unknown = total - stats.men - stats.women
     const knownPercentage = total > 0 ? 100-Math.round(100*unknown / total) : 100;
 
     this.setState({
       isLoaded: true,
-      men: stats.men,
-      women: stats.women,
+      men,
+      women,
       children,
       date: stats.dateString,
       unknown: unknown > 0 ? unknown : 0,
@@ -76,7 +78,7 @@ export class GenderCard extends React.PureComponent {
     return {
       tooltip: {
         trigger: 'item',
-        formatter: '{b}: {c} ({d}%)'
+        formatter: '{b}: {c}%'
       },
       legend: {
         orient: 'horizontal',
