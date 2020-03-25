@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: PR to master only from...
-        if: github.head_ref != 'refs/heads/develop'
+        if: github.event.pull_request.head.ref != 'refs/heads/develop'
         run: |
           echo "You cannot PR to master from $GITHUB_REF. Only from develop"
           exit 1
