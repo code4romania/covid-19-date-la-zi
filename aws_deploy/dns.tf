@@ -27,9 +27,17 @@ module "parser_dns" {
 resource "aws_acm_certificate" "cert" {
   domain_name = module.front-end_dns.fqdn
   subject_alternative_names = [
-    module.api_dns.fqdn,
-    module.parser_dns.fqdn
+    module.api_dns.fqdn
   ]
+
+  validation_method = "DNS"
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_acm_certificate" "parser" {
+  domain_name = module.parser_dns.fqdn
 
   validation_method = "DNS"
   lifecycle {
@@ -54,10 +62,10 @@ resource "aws_route53_record" "cert_validation-api" {
 }
 
 resource "aws_route53_record" "cert_validation-parser" {
-  name    = aws_acm_certificate.cert.domain_validation_options.2.resource_record_name
-  type    = aws_acm_certificate.cert.domain_validation_options.2.resource_record_type
+  name    = aws_acm_certificate.parser.domain_validation_options.0.resource_record_name
+  type    = aws_acm_certificate.parser.domain_validation_options.0.resource_record_type
   zone_id = data.aws_route53_zone.main.zone_id
-  records = [aws_acm_certificate.cert.domain_validation_options.2.resource_record_value]
+  records = [aws_acm_certificate.parser.domain_validation_options.0.resource_record_value]
   ttl     = 60
 }
 
