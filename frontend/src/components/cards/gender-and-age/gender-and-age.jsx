@@ -73,7 +73,8 @@ export class GenderAndAgeCard extends React.PureComponent {
     ]
 
     const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    const isMobile = viewportWidth < 560;
+    const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    const isLandscape = viewportWidth < viewportHeight;
 
     return {
       tooltip: {
@@ -81,11 +82,11 @@ export class GenderAndAgeCard extends React.PureComponent {
         formatter: '{b}: {c} ({d}%)'
       },
       legend: {
-        orient: isMobile ? 'horizontal' : 'vertical',
+        orient: isLandscape ? 'horizontal' : 'vertical',
         icon: 'circle',
-        right: isMobile ? 'auto' : 0,
-        bottom: isMobile ? 0 : 'auto',
-        top: isMobile ? 'auto' : 40,
+        right: isLandscape ? 'auto' : 0,
+        bottom: isLandscape ? 0 : 'auto',
+        top: isLandscape ? 'auto' : 40,
         formatter: (name) => {
           const filterItem = this.state.data.filter(item => item.name === name);
           return filterItem.length === 1 ?  `${name}: ${filterItem[0].value} (${filterItem[0].percentage}%)` : '';
@@ -101,10 +102,10 @@ export class GenderAndAgeCard extends React.PureComponent {
           id: 'gender-age-chart-series',
           name: this.props.title,
           type: 'pie',
-          radius: isMobile ? ['30%', '55%'] : ['40%', '70%'],
+          radius: isLandscape ? ['30%', '45%'] : ['40%', '70%'],
           avoidLabelOverlap: false,
-          right: isMobile ? 'auto' : 40,
-          top: isMobile ? -140 : 'auto',
+          right: isLandscape ? 'auto' : 40,
+          top: isLandscape ? -140 : 'auto',
           label: {
             normal: {
               show: false

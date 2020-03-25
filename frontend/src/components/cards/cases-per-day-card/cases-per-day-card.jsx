@@ -51,7 +51,8 @@ export class CasesPerDayCard extends React.PureComponent {
     const confirmedCasesHistory = history.map((entry) => { return Math.max(entry.infected, 0) });
     const curedCasesHistory = history.map((entry) => { return Math.max(entry.cured, 0) });
     const deathCasesHistory = history.map((entry) => {return Math.max(entry.deaths, 0)});
-    const dateStrings = history.map((entry) => entry.datePublishedString);
+    const dateStrings = history.map((entry) =>
+      this.formattedShortDateString(this.dateFromTimestamp(entry.datePublished)));
 
     this.setState({
       isLoaded: true,
@@ -118,14 +119,13 @@ export class CasesPerDayCard extends React.PureComponent {
       },
       legend: {
         data: labels,
-        right: '30px',
+        bottom: '0px',
         icon: 'circle',
-        top: '0%'
       },
       grid: {
         left: '1%',
         right: 0,
-        bottom: 0,
+        bottom: '50px',
         top: '20%',
         containLabel: true
         // =======
@@ -172,14 +172,14 @@ export class CasesPerDayCard extends React.PureComponent {
     return (
       <Card isLoaded={isLoaded} error={error} embedPath={EMBED_PATH_CASES_PER_DAY}>
         <div className="title-container is-overlay">
-          <h3 className="summary-title is-uppercase">Număr de cazuri</h3>
+          <h3 className="summary-title is-uppercase">Număr de cazuri pe zile</h3>
           <h4 className="summary-subtitle">
             De la {this.state.startDate} la {this.state.endDate}
           </h4>
         </div>
         <ReactEcharts
           style={{
-            height: '100%',
+            height: '470px',
             width: '100%'
           }}
           option={this.getChartOptions()}

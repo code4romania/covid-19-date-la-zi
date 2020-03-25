@@ -109,7 +109,6 @@ export class SummaryRow extends React.PureComponent {
             to="/"
             title="Cazuri confirmate"
             total={this.state.totalCases}
-            special={this.specialValueForTotal()}
             data={this.state.totalCasesHistory}
             embedPath={PROP_SHOW_CONFIRMED_CASES}
           />
