@@ -1,7 +1,7 @@
-import React from "react";
-import ReactEcharts from "echarts-for-react";
-import { Card } from "../../layout/card";
-import { Constants, ApiURL } from "../../../config/globals";
+import React from 'react';
+import ReactEcharts from 'echarts-for-react';
+import { Card } from '../../layout/card';
+import { Constants, ApiURL } from '../../../config/globals';
 
 export const EMBED_PATH_GENDER_AND_AGE = 'gen-si-varsta';
 export class GenderAndAgeCard extends React.PureComponent {
@@ -33,7 +33,13 @@ export class GenderAndAgeCard extends React.PureComponent {
 
   parseAPIResponse(result) {
     const stats = result.histogram;
-    const total = result.total;
+    const total = result.total || 0;
+    const allValues = Object.entries(stats).map((k, index) => {
+      return k[1].men + k[1].women;
+    });
+    const totalKnown = allValues.reduce((a, b) => a + b, 0);
+    const knownPercentage =
+      total > 0 ? 100 - Math.round((totalKnown / total) * 100) : 100;
 
     const data = Object.keys(stats).map(key => {
       return {
@@ -46,7 +52,8 @@ export class GenderAndAgeCard extends React.PureComponent {
     this.setState({
       isLoaded: true,
       data,
-      total
+      total,
+      knownPercentage
     });
   }
 
@@ -106,7 +113,7 @@ export class GenderAndAgeCard extends React.PureComponent {
           color: colors
         }
       ]
-    };
+    }
   }
 
 
@@ -115,8 +122,20 @@ export class GenderAndAgeCard extends React.PureComponent {
     const { title } = this.props;
     const { isLoaded, error } = this.state;
 
+    let knownPercentage = '';
+    if (Constants.specifyUnknownData) {
+      knownPercentage =
+        this.state.knownPercentage !== undefined
+          ? ' (' + this.state.knownPercentage + '% cunoscuți)'
+          : '';
+    }
+
     return (
-      <Card isLoaded={isLoaded} error={error} title={`${title}: ${this.state.total} cazuri`} embedPath={EMBED_PATH_GENDER_AND_AGE}>
+      <Card
+        isLoaded={isLoaded} error={error}
+        title={`${title}${knownPercentage}`}
+        embedPath={EMBED_PATH_GENDER_AND_AGE}
+      >
         <div className="pie-chart">
           <ReactEcharts
             id="gender-age-chart"

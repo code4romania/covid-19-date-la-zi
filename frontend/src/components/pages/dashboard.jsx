@@ -4,14 +4,11 @@ import { SummaryRow } from '../layout/rows/summary.row';
 import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
 import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
-import { InfectionSourceCard } from '../cards/infection-source/infection-source-card';
-// import { CountiesCard } from '../cards/counties/counties-card';
 
 import './dashboard.css';
 import { MedianAgeCard } from '../cards/median-age/median-age-card';
 import {Hero, Instruments, InstrumentsItem, SocialsShare} from '@code4ro/taskforce-fe-components';
 import '@code4ro/taskforce-fe-components/dist/index.css';
-// import { Constants } from '../../config/globals';
 
 export class Dashboard extends React.PureComponent {
 
@@ -61,7 +58,7 @@ export class Dashboard extends React.PureComponent {
             </div> */}
             <div className="column is-two-quarters">
               <GenderAndAgeCard
-                title="După vârstă și gen"
+                title="După vârstă"
               />
             </div>
             <div className="column is-one-quarter">
@@ -102,7 +99,7 @@ export class Dashboard extends React.PureComponent {
             </section>
             <section>
               <InstrumentsItem
-                color="yellow"
+                color="green"
                 title="Recomandări oficiale"
                 content="15 recomandări privind conduita socială responsabilă în prevenirea răspândirii coronavirus."
                 ctaText="Citeşte aici"

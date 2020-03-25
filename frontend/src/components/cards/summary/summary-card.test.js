@@ -6,7 +6,7 @@ test('renders given title', () => {
   // const title = 'Some fancy title that nobody would ever hardcode'
   // const { getByText } = render(<SummaryCard title={title} />);
   // const linkElement = getByText(new RegExp(title));
-  // expect(true).toBe(true);
+  // expect(linkElement).toBeInTheDocument();
 });
 
 // this fails, no idea why:

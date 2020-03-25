@@ -1,5 +1,5 @@
 import React from 'react';
-import Loader from "../loader";
+import Loader from '../loader';
 import './card.css';
 import {EmbedButton} from './embed-button';
 import ReactDOM from 'react-dom';

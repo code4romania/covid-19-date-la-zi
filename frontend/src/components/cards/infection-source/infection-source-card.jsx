@@ -1,7 +1,7 @@
-import React from "react";
-import ReactEcharts from "echarts-for-react";
-import { Card } from "../../layout/card";
-import { Constants, ApiURL } from "../../../config/globals";
+import React from 'react';
+import ReactEcharts from 'echarts-for-react';
+import { Card } from '../../layout/card';
+import { Constants, ApiURL } from '../../../config/globals';
 
 export const EMBED_PATH_INFECTION_SOURCE = 'sursa-infectiei';
 export class InfectionSourceCard extends React.PureComponent {
@@ -10,7 +10,7 @@ export class InfectionSourceCard extends React.PureComponent {
     this.state = {
       error: null,
       isLoaded: false,
-      date: "",
+      date: '',
       external: 0,
       internal: 0
     };
@@ -51,38 +51,38 @@ export class InfectionSourceCard extends React.PureComponent {
 
   getChartOptions() {
     let data = [
-      { value: this.state.internal, name: "Transmise local" },
-      { value: this.state.external, name: "Importate" }
+      { value: this.state.internal, name: 'Transmise local' },
+      { value: this.state.external, name: 'Importate' }
     ];
 
     let colors = [Constants.womenColor, Constants.menColor];
 
     if (Constants.specifyUnknownData) {
-      data.push({ value: this.state.unknown, name: "Necunoscute" });
+      data.push({ value: this.state.unknown, name: 'Necunoscute' });
       colors.push(Constants.unknownColor);
     }
 
     return {
       tooltip: {
-        trigger: "item",
-        formatter: "{b}: {c} ({d}%)"
+        trigger: 'item',
+        formatter: '{b}: {c} ({d}%)'
       },
       legend: {
-        orient: "horizontal",
-        icon: "circle",
+        orient: 'horizontal',
+        icon: 'circle',
         bottom: 0,
         tooltip: {
           show: false,
-          trigger: "item"
+          trigger: 'item'
         }
       },
       animation: false,
       series: [
         {
-          id: "infection-source-chart",
-          name: "Sursa",
-          type: "pie",
-          radius: ["55%", "90%"],
+          id: 'infection-source-chart',
+          name: 'Sursa',
+          type: 'pie',
+          radius: ['55%', '90%'],
           avoidLabelOverlap: false,
           bottom: 40,
           label: {
@@ -102,12 +102,12 @@ export class InfectionSourceCard extends React.PureComponent {
     const { title } = this.props;
     const { isLoaded, error } = this.state;
 
-    let knownPercentage = "";
+    let knownPercentage = '';
     if (Constants.specifyUnknownData) {
       knownPercentage =
         this.state.knownPercentage !== undefined
-          ? " (" + this.state.knownPercentage + "% cunoscuți)"
-          : "";
+          ? ' (' + this.state.knownPercentage + '% cunoscuți)'
+          : '';
     }
 
     return (
