@@ -10,3 +10,7 @@ output "aws_alb_listener" {
   value      = {}
   depends_on = [aws_alb_listener.main]
 }
+
+output "zone_id" {
+  value = aws_alb.main.zone_id
+}
