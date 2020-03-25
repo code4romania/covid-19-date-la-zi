@@ -1,28 +1,51 @@
 {
     "currentDayStats": {
         "parsedOn": 1584914400,
-        "parsedOnString": "2020-03-23",
-        "fileName": "Coronavirus 23.03 (1).pdf",
-        "averageAge": "42",
-        "numberInfected": 576,
-        "numberCured": 73,
-        "numberDeceased": 4,
+        "parsedOnString": "2020-03-24",
+        "fileName": "",
+        "averageAge": "43",
+        "numberInfected": 762,
+        "numberCured": 79,
+        "numberDeceased": 8,
         "percentageOfWomen": 53,
         "percentageOfMen": 43,
         "percentageOfChildren": 4,
         "distributionByAge": {
-            "0-9": 10,
-            "10-19": 20,
-            "20-29": 74,
-            "30-39": 135,
-            "40-49": 165,
-            "50-59": 101,
-            "60-69": 46,
-            "70-79": 24,
-            ">80": 1
+            "0-9": 12,
+            "10-19": 22,
+            "20-29": 84,
+            "30-39": 174,
+            "40-49": 203,
+            "50-59": 140,
+            "60-69": 66,
+            "70-79": 33,
+            ">80": 3
         }
     },
     "historicalData": {
+        "2020-03-23": {
+            "parsedOn": 1584914400,
+            "parsedOnString": "2020-03-23",
+            "fileName": "Coronavirus 23.03 (1).pdf",
+            "averageAge": "42",
+            "numberInfected": 576,
+            "numberCured": 73,
+            "numberDeceased": 4,
+            "percentageOfWomen": 53,
+            "percentageOfMen": 43,
+            "percentageOfChildren": 4,
+            "distributionByAge": {
+                "0-9": 10,
+                "10-19": 20,
+                "20-29": 74,
+                "30-39": 135,
+                "40-49": 165,
+                "50-59": 101,
+                "60-69": 46,
+                "70-79": 24,
+                ">80": 1
+            }
+        },
         "2020-03-22": {
             "parsedOn": 1584828000,
             "parsedOnString": "2020-03-22",
