@@ -57,6 +57,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
                     .Select((el, i) => new { index = i, data = el })
                     .Where(x => x.index > 0)
                     .Select(x => GetDailyStatsDiff(x.data, mappedLists[x.index - 1]))
+                    .Skip(1)
                     .ToArray();
             }
 
