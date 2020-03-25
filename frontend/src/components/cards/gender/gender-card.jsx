@@ -4,6 +4,7 @@ import { Card } from "../../layout/card";
 import { Constants, ApiURL } from "../../../config/globals";
 import "./gender-card.css";
 
+export const EMBED_PATH_GENDER = 'gen';
 export class GenderCard extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -114,7 +115,7 @@ export class GenderCard extends React.PureComponent {
     }
 
     return (
-      <Card isLoaded={isLoaded} error={error} title={title + knownPercentage}>
+      <Card isLoaded={isLoaded} error={error} title={title + knownPercentage} embedPath={EMBED_PATH_GENDER}>
         <div className="pie-chart">
           <ReactEcharts
             id="gender-chart"

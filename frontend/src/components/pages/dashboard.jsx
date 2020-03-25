@@ -11,7 +11,6 @@ import './dashboard.css';
 import { MedianAgeCard } from '../cards/median-age/median-age-card';
 import {Hero, Instruments, InstrumentsItem, SocialsShare} from '@code4ro/taskforce-fe-components';
 import '@code4ro/taskforce-fe-components/dist/index.css';
-import {Switch} from 'react-router-dom';
 // import { Constants } from '../../config/globals';
 
 export class Dashboard extends React.PureComponent {
@@ -38,6 +37,8 @@ export class Dashboard extends React.PureComponent {
             Autoritatea pentru Digitalizarea României pe baza datelor furnizate de Ministerul
             Sănătății, de către Code for Romania.
           </p>
+
+          <SocialsShare currentPage="https://datelazi.ro/" />
         </div>
 
         <SummaryRow />
