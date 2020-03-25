@@ -46,7 +46,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
             if (currentData.HistoricalData != null)
             {
                 var mappedLists = currentData.HistoricalData.Values
-                    .OrderBy(x => x.ParsedOn)
+                    .OrderBy(x => x.ParsedOnString)
                     .Select(MapToDailyStats)
                     .ToList();
 
@@ -162,7 +162,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             history.Add(response.Totals);
 
-            response.History = history.OrderBy(x => x.Date).Skip(1).ToArray();
+            response.History = history.OrderBy(x => x.DateString).Skip(1).ToArray();
 
             return response;
         }
