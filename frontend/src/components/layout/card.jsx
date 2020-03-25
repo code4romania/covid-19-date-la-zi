@@ -39,7 +39,7 @@ export class Card extends React.PureComponent {
           </header>}
         <div className="card-content">
           <div className="content">{children}</div>
-          {embedPath && <EmbedButton path={embedPath} viewPort={this.state.viewport} />}
+          {/* {embedPath && <EmbedButton path={embedPath} viewPort={this.state.viewport} />} */}
         </div>
       </div>
     ): <Loader />;
