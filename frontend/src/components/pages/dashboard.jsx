@@ -103,7 +103,7 @@ export class Dashboard extends React.PureComponent {
                 title="Află ce ai de făcut în orice situație"
                 content=""
                 ctaText="Ce trebuie să fac"
-                ctaLink={'https://cemafac.ro'}
+                ctaLink="https://cemafac.ro"
               />
             </section>
           </Instruments>
