@@ -46,7 +46,7 @@ namespace Code4Ro.CoViz19.Api
                     services.AddSingleton<IFileService, LocalFileService>();
                     break;
                 default:
-                    services.AddSingleton<IFileService, HttpFileService>();
+                    services.AddSingleton<IFileService, S3FileService>();
                     break;
 
             }
