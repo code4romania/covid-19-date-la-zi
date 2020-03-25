@@ -48,6 +48,11 @@ export class GenderAndAgeCard extends React.PureComponent {
         percentage: Math.round((100 * stats[key]) / total)
       };
     });
+    data.push({
+      name: "în procesare",
+      value: 25,
+      percentage: 15
+    })
 
     this.setState({
       isLoaded: true,
@@ -67,7 +72,9 @@ export class GenderAndAgeCard extends React.PureComponent {
       Constants.green,
       Constants.grey,
       Constants.lightblue,
-      Constants.curedColor
+      Constants.curedColor,
+      Constants.oldestColor,
+      Constants.processingColor
     ]
 
     const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
@@ -86,7 +93,7 @@ export class GenderAndAgeCard extends React.PureComponent {
         top: isMobile ? 'auto' : 40,
         formatter: (name) => {
           const filterItem = this.state.data.filter(item => item.name === name);
-          return filterItem.length === 1 ?  `${name} ani: ${filterItem[0].value} (${filterItem[0].percentage}%)` : '';
+          return filterItem.length === 1 ?  `${name}: ${filterItem[0].value} (${filterItem[0].percentage}%)` : '';
         },
         tooltip: {
           show: true,
