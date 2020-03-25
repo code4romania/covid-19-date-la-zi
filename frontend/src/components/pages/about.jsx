@@ -15,22 +15,22 @@ export class AboutPage extends React.PureComponent {
         </div>
         <div className="container content">
           <p>
-            COVID-19, o boală cauzată de o nouă tulpină de coronavirus identificată pentru prima dată în decembrie 
-            2019 in Wuhan, China, este una dintre cele mai grave crize de sănătate publică din ultimele decenii. 
-            Dată fiind creșterea rapidă a cazurilor raportate în afara Chinei și a triplării numărului de țări 
-            afectate, Organizația Mondială a Sănătății (OMS) a caracterizat COVID-19 ca o pandemie. Potrivit 
-            OMS, dacă țările detectează, testează, tratează, izolează, urmăresc și își mobilizează oamenii ca 
+            COVID-19, o boală cauzată de o nouă tulpină de coronavirus identificată pentru prima dată în decembrie
+            2019 in Wuhan, China, este una dintre cele mai grave crize de sănătate publică din ultimele decenii.
+            Dată fiind creșterea rapidă a cazurilor raportate în afara Chinei și a triplării numărului de țări
+            afectate, Organizația Mondială a Sănătății (OMS) a caracterizat COVID-19 ca o pandemie. Potrivit
+            OMS, dacă țările detectează, testează, tratează, izolează, urmăresc și își mobilizează oamenii ca
             răspuns, pot dezvolta strategii de răspuns eficiente împotriva COVID-19.
           </p>
           <p>
-            Credem că este important ca publicul larg să aibă acces la un instrument ușor de utilizat pentru 
-            a urmări dimensiunea focarului, pentru a vizualiza date corecte din surse sigure. 
-            <Link to="/">Datelazi.ro</Link> 
+            Credem că este important ca publicul larg să aibă acces la un instrument ușor de utilizat pentru
+            a urmări dimensiunea focarului, pentru a vizualiza date corecte din surse sigure.
+            <Link to="/">Datelazi.ro</Link>
             prezintă infografii actualizate periodic cu datele furnizate de autoritățile competente.
           </p>
           <p>
-            Acest proiect este realizat pro-bono de Code for Romania în parteneriat cu Guvernul României 
-            prin Autoritatea pentru Digitalizarea României. Funcționarea acestei platforme depinde exclusiv de 
+            Acest proiect este realizat pro-bono de Code for Romania în parteneriat cu Guvernul României
+            prin Autoritatea pentru Digitalizarea României. Funcționarea acestei platforme depinde exclusiv de
             conținutul datelor și informațiilor care vor fi furnizate de către Guvernul României.
           </p>
           <div>
