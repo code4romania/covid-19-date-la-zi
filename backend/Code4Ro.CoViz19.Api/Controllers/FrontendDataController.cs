@@ -73,5 +73,18 @@ namespace Code4Ro.CoViz19.Api.Controllers
             return new OkObjectResult(data);
         }
 
+        [HttpGet]
+        [Route("quickstats")]
+        [SwaggerOperation(Summary = "Get quickstats data provided by Ministry of Health")]
+        [SwaggerResponse(200, "Quickstats data", typeof(QuickStatsV2Model))]
+        [SwaggerResponse(500, "Something went wrong when getting data", typeof(ErrorModel))]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> GetQuickStatsData()
+        {
+            var data = await _mediator.Send(new GetQuickstatsV2Data());
+            return new OkObjectResult(data);
+        }
+
+
     }
 }
