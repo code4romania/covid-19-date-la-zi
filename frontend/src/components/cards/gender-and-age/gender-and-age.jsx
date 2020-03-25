@@ -131,7 +131,11 @@ export class GenderAndAgeCard extends React.PureComponent {
     }
 
     return (
-      <Card isLoaded={isLoaded} error={error} title={`${title}${knownPercentage}`} embedPath={EMBED_PATH_GENDER_AND_AGE}>
+      <Card
+        isLoaded={isLoaded} error={error}
+        title={`${title}${knownPercentage}`}
+        embedPath={EMBED_PATH_GENDER_AND_AGE}
+      >
         <div className="pie-chart">
           <ReactEcharts
             id="gender-age-chart"

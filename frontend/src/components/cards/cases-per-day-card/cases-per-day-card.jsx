@@ -131,10 +131,10 @@ export class CasesPerDayCard extends React.PureComponent {
         bottom: 0,
         top: '20%',
         containLabel: true
-// =======
-//         icon: 'circle',
-//         bottom: 0
-// >>>>>>> develop
+        // =======
+        //         icon: 'circle',
+        //         bottom: 0
+        // >>>>>>> develop
       },
       series: [
         // {
