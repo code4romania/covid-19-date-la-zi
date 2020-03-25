@@ -99,12 +99,11 @@ export class Dashboard extends React.PureComponent {
             </section>
             <section>
               <InstrumentsItem
-                color="green"
-                title="Recomandări oficiale"
-                content="15 recomandări privind conduita socială responsabilă în prevenirea răspândirii coronavirus."
-                ctaText="Citeşte aici"
-                ctaLink={'https://stirioficiale.ro/' +
-                '15-recomandari-privind-conduita-sociala-responsabila-in-prevenirea-raspandirii-coronavirus'}
+                color="yellow"
+                title="Ce mă fac"
+                content="Află ce ai de făcut în orice situație"
+                ctaText="Ce trebuie să fac"
+                ctaLink={'https://cemafac.ro'}
               />
             </section>
           </Instruments>
