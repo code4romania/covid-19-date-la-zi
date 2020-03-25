@@ -85,6 +85,18 @@ namespace Code4Ro.CoViz19.Api.Controllers
             return new OkObjectResult(data);
         }
 
+        [HttpGet]
+        [Route("last-update-date")]
+        [SwaggerOperation(Summary = "Get date and time when data was updated")]
+        [SwaggerResponse(200, "Last date data was updated", typeof(LastDataUpdateDetailsModel))]
+        [SwaggerResponse(500, "Something went wrong when getting data", typeof(ErrorModel))]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> GetLastUpdateDate()
+        {
+            var data = await _mediator.Send(new GetLastDataUpdateDetails());
+            return new OkObjectResult(data);
+        }
+
 
     }
 }

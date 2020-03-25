@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Amazon.S3.Model;
-using Code4Ro.CoViz19.Api.Commands;
 using Code4Ro.CoViz19.Api.Commands.V2;
 using Code4Ro.CoViz19.Api.Models.V2;
 using Code4Ro.CoViz19.Api.Services;
 using Code4Ro.CoViz19.Models.ParsedPdfModels;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 
 namespace Code4Ro.CoViz19.Api.Handlers
 {
@@ -19,7 +15,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
         IRequestHandler<GetLatestDataV2, HistoricalPdfStats>,
         IRequestHandler<GetAgeHistogramV2, AgeHistogramV2Model>,
         IRequestHandler<GetGenderStatsV2, GenderStatsV2Model>,
-        IRequestHandler<GetQuickstatsV2Data, QuickStatsV2Model>
+        IRequestHandler<GetQuickstatsV2Data, QuickStatsV2Model>,
+        IRequestHandler<GetLastDataUpdateDetails, LastDataUpdateDetailsModel>
 
     {
         private readonly IDataProviderService _dataService;
@@ -60,6 +57,9 @@ namespace Code4Ro.CoViz19.Api.Handlers
                     .Skip(1)
                     .ToArray();
             }
+
+            response.DataLastUpdatedOn = currentData.LasUpdatedOn;
+            response.DataLastUpdatedOnString = currentData.LasUpdatedOnString;
 
             return response;
         }
@@ -113,6 +113,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
                 response.Total = currentPdfData.CurrentDayStats.DistributionByAge.Sum(x => x.Value);
             }
 
+            response.DataLastUpdatedOn = currentPdfData?.LasUpdatedOn ?? 0;
+            response.DataLastUpdatedOnString = currentPdfData?.LasUpdatedOnString;
 
             return response;
         }
@@ -137,6 +139,9 @@ namespace Code4Ro.CoViz19.Api.Handlers
                 response.TotalNumber = currentPdfData.CurrentDayStats.NumberInfected;
             }
 
+            response.DataLastUpdatedOn = currentPdfData?.LasUpdatedOn ?? 0;
+            response.DataLastUpdatedOnString = currentPdfData?.LasUpdatedOnString;
+
             return response;
         }
 
@@ -148,6 +153,10 @@ namespace Code4Ro.CoViz19.Api.Handlers
                 History = new InfectionsStatsV2Model[0],
                 Totals = new InfectionsStatsV2Model()
             };
+
+            response.DataLastUpdatedOn = currentPdfData?.LasUpdatedOn ?? 0;
+            response.DataLastUpdatedOnString = currentPdfData?.LasUpdatedOnString;
+
             if (currentPdfData?.CurrentDayStats == null)
             {
                 return response;
@@ -177,6 +186,18 @@ namespace Code4Ro.CoViz19.Api.Handlers
             response.Confirmed = data.NumberInfected;
 
             return response;
+        }
+
+        public async Task<LastDataUpdateDetailsModel> Handle(GetLastDataUpdateDetails request,
+            CancellationToken cancellationToken)
+        {
+            var result = new LastDataUpdateDetailsModel();
+            var currentPdfData = await _dataService.GetCurrentPdfData();
+
+            result.DataLastUpdatedOn = currentPdfData?.LasUpdatedOn ?? 0;
+            result.DataLastUpdatedOnString = currentPdfData?.LasUpdatedOnString;
+
+            return result;
         }
     }
 }
