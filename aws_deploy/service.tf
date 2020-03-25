@@ -103,7 +103,7 @@ module "front-end" {
   [
     {
       "name" : "REACT_APP_API_URL",
-      "value" : "https://${module.api_dns.fqdn}/api/v1"
+      "value" : "https://${module.api_dns.fqdn}/api/v2"
     }
   ]
 ENV
