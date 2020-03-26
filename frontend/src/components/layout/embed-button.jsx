@@ -13,8 +13,6 @@ export class EmbedButton extends React.PureComponent {
             height="${viewPort.height}" />`;
 
     navigator.clipboard.writeText(result).then(() => {
-      console.log('show');
-
       this.setState({
         showTooltip: true
       });

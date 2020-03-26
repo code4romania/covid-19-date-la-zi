@@ -43,7 +43,6 @@ export class SummaryRow extends React.PureComponent {
     const totalCases = this.formattedString(state.totalCases)
     const cured = this.formattedString(state.curedCases)
     const deaths = this.formattedString(state.deathCases)
-    console.log(state)
 
     const keyToCard = new Map([
       [PROP_SHOW_CONFIRMED_CASES, (

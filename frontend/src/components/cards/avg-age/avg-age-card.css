@@ -1,12 +1,12 @@
 .circle {
     position: relative;
-    width: 100%;
-    height: 0;
-    padding-top: 100%;
     border-radius: 50%;
     color: #000;
     text-align: center;
     border: 10px solid #2e8b57;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .circle:after {
@@ -16,14 +16,5 @@
 }
 
 .value {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: auto;
     font-size: 5em;
-    width: max-content;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
 }
