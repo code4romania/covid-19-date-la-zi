@@ -20,7 +20,7 @@ namespace Code4Ro.CoViz19.Parser.Handlers
 
         public async Task<Result<HistoricalPdfStats>> Handle(SavePdfParsedDataCommand request, CancellationToken cancellationToken)
         {
-            var previousJson = _fileService.GetRawData();
+            var previousJson = await _fileService.GetRawData();
             var previousDayData = string.IsNullOrEmpty(previousJson) ? null
                 : JsonConvert.DeserializeObject<HistoricalPdfStats>(previousJson);
 

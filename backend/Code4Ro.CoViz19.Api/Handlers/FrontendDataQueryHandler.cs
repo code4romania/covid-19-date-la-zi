@@ -16,7 +16,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
         IRequestHandler<GetAgeHistogramV2, AgeHistogramV2Model>,
         IRequestHandler<GetGenderStatsV2, GenderStatsV2Model>,
         IRequestHandler<GetQuickstatsV2Data, QuickStatsV2Model>,
-        IRequestHandler<GetLastDataUpdateDetails, LastDataUpdateDetailsModel>
+        IRequestHandler<GetLastDataUpdateDetails, LastDataUpdateDetailsModel>,
+        IRequestHandler<GetUiData, UiDataModel>
 
     {
         private readonly IDataProviderService _dataService;
@@ -29,8 +30,13 @@ namespace Code4Ro.CoViz19.Api.Handlers
         }
         public async Task<DailyStatsV2Model> Handle(GetDailyStatsV2 request, CancellationToken cancellationToken)
         {
-            _logger.LogDebug($"Hanling {nameof(GetDailyStatsV2)}");
             var currentData = await _dataService.GetCurrentPdfData();
+            return HandleGetDailyStatsV2(currentData);
+        }
+
+        private DailyStatsV2Model HandleGetDailyStatsV2(HistoricalPdfStats currentData)
+        {
+            _logger.LogInformation($"Hanling {nameof(GetDailyStatsV2)}");
             if (currentData?.CurrentDayStats == null)
             {
                 return null;
@@ -95,16 +101,22 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<HistoricalPdfStats> Handle(GetLatestDataV2 request, CancellationToken cancellationToken)
         {
-            _logger.LogDebug($"Hanling {nameof(GetLatestDataV2)}");
+            _logger.LogInformation($"Hanling {nameof(GetLatestDataV2)}");
 
             return await _dataService.GetCurrentPdfData();
         }
 
         public async Task<AgeHistogramV2Model> Handle(GetAgeHistogramV2 request, CancellationToken cancellationToken)
         {
-            _logger.LogDebug($"Hanling {nameof(GetAgeHistogramV2)}");
+            var currentData = await _dataService.GetCurrentPdfData();
 
-            var currentPdfData = await _dataService.GetCurrentPdfData();
+            return HandleGetAgeHistogramV2(currentData);
+        }
+
+        private AgeHistogramV2Model HandleGetAgeHistogramV2(HistoricalPdfStats currentPdfData)
+        {
+            _logger.LogInformation($"Hanling {nameof(GetAgeHistogramV2)}");
+
             var response = new AgeHistogramV2Model()
             {
                 Histogram = new Dictionary<AgeRange, int>()
@@ -126,9 +138,15 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<GenderStatsV2Model> Handle(GetGenderStatsV2 request, CancellationToken cancellationToken)
         {
-            _logger.LogDebug($"Hanling {nameof(GetGenderStatsV2)}");
+            var currentData = await _dataService.GetCurrentPdfData();
 
-            var currentPdfData = await _dataService.GetCurrentPdfData();
+            return HandleGetGenderStatsV2(currentData);
+        }
+
+        private GenderStatsV2Model HandleGetGenderStatsV2(HistoricalPdfStats currentPdfData)
+        {
+            _logger.LogInformation($"Hanling {nameof(GetGenderStatsV2)}");
+
             var response = new GenderStatsV2Model();
 
             if (currentPdfData?.CurrentDayStats != null)
@@ -154,9 +172,15 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<QuickStatsV2Model> Handle(GetQuickstatsV2Data request, CancellationToken cancellationToken)
         {
-            _logger.LogDebug($"Hanling {nameof(GetQuickstatsV2Data)}");
-
             var currentPdfData = await _dataService.GetCurrentPdfData();
+
+            return HandleGetQuickstatsV2Data(currentPdfData);
+        }
+
+        private QuickStatsV2Model HandleGetQuickstatsV2Data(HistoricalPdfStats currentPdfData)
+        {
+            _logger.LogInformation($"Hanling {nameof(GetQuickstatsV2Data)}");
+
             var response = new QuickStatsV2Model()
             {
                 History = new InfectionsStatsV2Model[0],
@@ -174,9 +198,9 @@ namespace Code4Ro.CoViz19.Api.Handlers
             response.Totals = MapToInfectionsStatsV2Model(currentPdfData.CurrentDayStats);
 
             var history = currentPdfData.HistoricalData?
-                     .Select(x => x.Value)
-                     .Select(MapToInfectionsStatsV2Model)
-                     .ToList() ?? new List<InfectionsStatsV2Model>();
+                .Select(x => x.Value)
+                .Select(MapToInfectionsStatsV2Model)
+                .ToList() ?? new List<InfectionsStatsV2Model>();
 
             history.Add(response.Totals);
 
@@ -200,15 +224,35 @@ namespace Code4Ro.CoViz19.Api.Handlers
         public async Task<LastDataUpdateDetailsModel> Handle(GetLastDataUpdateDetails request,
             CancellationToken cancellationToken)
         {
-            _logger.LogDebug($"Hanling {nameof(GetLastDataUpdateDetails)}");
+            var currentPdfData = await _dataService.GetCurrentPdfData();
+
+            return HandleGetLastDataUpdateDetails(currentPdfData);
+        }
+
+        private LastDataUpdateDetailsModel HandleGetLastDataUpdateDetails(HistoricalPdfStats currentPdfData)
+        {
+            _logger.LogInformation($"Hanling {nameof(GetLastDataUpdateDetails)}");
 
             var result = new LastDataUpdateDetailsModel();
-            var currentPdfData = await _dataService.GetCurrentPdfData();
 
             result.DataLastUpdatedOn = currentPdfData?.LasUpdatedOn ?? 0;
             result.DataLastUpdatedOnString = currentPdfData?.LasUpdatedOnString;
 
             return result;
+        }
+
+        public async Task<UiDataModel> Handle(GetUiData request, CancellationToken cancellationToken)
+        {
+            var currentPdfData = await _dataService.GetCurrentPdfData();
+
+            return new UiDataModel
+            {
+                AgeHistogram = HandleGetAgeHistogramV2(currentPdfData),
+                DailyStats = HandleGetDailyStatsV2(currentPdfData),
+                GenderStats = HandleGetGenderStatsV2(currentPdfData),
+                LastDataUpdateDetails = HandleGetLastDataUpdateDetails(currentPdfData),
+                QuickStats = HandleGetQuickstatsV2Data(currentPdfData)
+            };
         }
     }
 }
