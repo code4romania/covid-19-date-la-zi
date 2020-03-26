@@ -131,7 +131,6 @@ namespace Code4Ro.CoViz19.Api
             });
 
             app.UseDefaultProblemDetails();
-
             app.UseDefaultFiles();
             app.UseStaticFiles();
         }
