@@ -29,6 +29,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
         }
         public async Task<DailyStatsV2Model> Handle(GetDailyStatsV2 request, CancellationToken cancellationToken)
         {
+            _logger.LogDebug($"Hanling {nameof(GetDailyStatsV2)}");
             var currentData = await _dataService.GetCurrentPdfData();
             if (currentData?.CurrentDayStats == null)
             {
@@ -94,11 +95,15 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<HistoricalPdfStats> Handle(GetLatestDataV2 request, CancellationToken cancellationToken)
         {
+            _logger.LogDebug($"Hanling {nameof(GetLatestDataV2)}");
+
             return await _dataService.GetCurrentPdfData();
         }
 
         public async Task<AgeHistogramV2Model> Handle(GetAgeHistogramV2 request, CancellationToken cancellationToken)
         {
+            _logger.LogDebug($"Hanling {nameof(GetAgeHistogramV2)}");
+
             var currentPdfData = await _dataService.GetCurrentPdfData();
             var response = new AgeHistogramV2Model()
             {
@@ -121,6 +126,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<GenderStatsV2Model> Handle(GetGenderStatsV2 request, CancellationToken cancellationToken)
         {
+            _logger.LogDebug($"Hanling {nameof(GetGenderStatsV2)}");
+
             var currentPdfData = await _dataService.GetCurrentPdfData();
             var response = new GenderStatsV2Model();
 
@@ -147,6 +154,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<QuickStatsV2Model> Handle(GetQuickstatsV2Data request, CancellationToken cancellationToken)
         {
+            _logger.LogDebug($"Hanling {nameof(GetQuickstatsV2Data)}");
+
             var currentPdfData = await _dataService.GetCurrentPdfData();
             var response = new QuickStatsV2Model()
             {
@@ -191,6 +200,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
         public async Task<LastDataUpdateDetailsModel> Handle(GetLastDataUpdateDetails request,
             CancellationToken cancellationToken)
         {
+            _logger.LogDebug($"Hanling {nameof(GetLastDataUpdateDetails)}");
+
             var result = new LastDataUpdateDetailsModel();
             var currentPdfData = await _dataService.GetCurrentPdfData();
 
