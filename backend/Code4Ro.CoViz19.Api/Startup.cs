@@ -50,9 +50,7 @@ namespace Code4Ro.CoViz19.Api
                     break;
 
             }
-
-
-
+                       
             services.AddSingleton<ICacheSercice, NoCacheService>();
             services.AddSingleton<IApiKeyValidator, InMemoryApiKeyValidator>();
             services.AddTransient<ApiKeyRequestFilterAttribute>();
@@ -93,6 +91,7 @@ namespace Code4Ro.CoViz19.Api
                     }
                 });
             });
+            services.AddDefaultProblemDetails();
 
             services.AddSwaggerExamplesFromAssemblies();
             services.AddMvc()
@@ -112,9 +111,7 @@ namespace Code4Ro.CoViz19.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseHttpStatusCodeExceptionMiddleware();
-
-
+            
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
@@ -133,6 +130,7 @@ namespace Code4Ro.CoViz19.Api
                 endpoints.MapControllers();
             });
 
+            app.UseDefaultProblemDetails();
             app.UseDefaultFiles();
             app.UseStaticFiles();
         }
