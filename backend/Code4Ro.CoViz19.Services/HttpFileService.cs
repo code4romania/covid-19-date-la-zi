@@ -19,12 +19,21 @@ namespace Code4Ro.CoViz19.Services
 
         public async Task<string> GetRawData()
         {
-            var result = await new HttpClient().GetAsync(_options.JsonFileUrl);
-            _logger.LogDebug($"GET {_options.JsonFileUrl??string.Empty} returned {(result?.StatusCode)?.ToString() ?? "N/A"}");
-            if (result == null || !result.IsSuccessStatusCode || result.Content == null)
+            try
+            {
+                var result = await new HttpClient().GetAsync(_options.JsonFileUrl);
+                _logger.LogDebug(
+                    $"GET {_options.JsonFileUrl ?? string.Empty} returned {(result?.StatusCode)?.ToString() ?? "N/A"}");
+                if (result == null || !result.IsSuccessStatusCode || result.Content == null)
+                    return string.Empty;
+
+                return await result.Content.ReadAsStringAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
                 return string.Empty;
-            
-            return await result.Content.ReadAsStringAsync();
+            }
         }
 
 #pragma warning disable 1998
