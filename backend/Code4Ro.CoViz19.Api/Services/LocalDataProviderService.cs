@@ -26,10 +26,10 @@ namespace Code4Ro.CoViz19.Api.Services
 
         public async Task<HistoricalPdfStats> GetCurrentPdfData()
         {
-            _logger.LogDebug($"starting to read from _fileService of type {_fileService.GetType()}");
+            _logger.LogInformation($"starting to read from _fileService of type {_fileService.GetType()}");
             await Task.FromResult(0);
             var result = JsonConvert.DeserializeObject<HistoricalPdfStats>(_fileService.GetRawData());
-            _logger.LogDebug($"done reading from _fileService");
+            _logger.LogInformation($"done reading from _fileService");
             return result;
         }
     }
