@@ -1,18 +1,231 @@
 import React from 'react';
+import { ApiURL } from '../../config/globals';
 import { PageHeader } from '../layout/page.header';
 import { SummaryRow } from '../layout/rows/summary.row';
 import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
-import { GenderAndAgeCard } from '../cards/gender-and-age/gender-and-age';
+import { AverageAgeCard } from '../cards/avg-age/avg-age-card';
+import { AgeCard } from '../cards/age/age';
 
-import './dashboard.css';
-import { MedianAgeCard } from '../cards/median-age/median-age-card';
 import { Hero, Instruments, InstrumentsItem, SocialsShare } from '@code4ro/taskforce-fe-components';
+
 import '@code4ro/taskforce-fe-components/dist/index.css';
+import './dashboard.css';
 
 export class Dashboard extends React.PureComponent {
 
+  constructor(props) {
+    super(props);
+
+    const defaultState = {
+      isLoaded: false,
+      error: null
+    }
+
+    this.state = {
+      error: defaultState.error || null,
+      isLoaded: defaultState.isLoaded || false,
+      summary: defaultState,
+      daily: defaultState, // object
+      gender: defaultState, // object
+      age: defaultState, // object
+      averageAge: defaultState, // object
+      lastUpdate: defaultState, // object
+    }
+  }
+
+  // resets all object states with this object
+  resetState(defaultState) {
+    this.setState({
+      error: defaultState.error || null,
+      isLoaded: defaultState.isLoaded || false,
+      summary: defaultState,
+      daily: defaultState, // object
+      gender: defaultState, // object
+      age: defaultState, // object
+      averageAge: defaultState, // object
+      lastUpdate: defaultState, // object
+    })
+  }
+
+  componentDidMount() {
+    this.resetState({
+      isLoaded: false,
+      error: null
+    })
+
+    fetch(ApiURL.all)
+      .then(res => res.json())
+      .then((result) => {
+        if (result.error != null) {
+          this.setState({error: result.error, isLoaded: true})
+        } else {
+          this.parseAPIResponse(result)
+        }
+      })
+      .catch((error) => {
+        this.resetState({error: error, isLoaded: true})
+      })
+  }
+
+  parseAPIResponse(result) {
+    this.setState({
+      isLoaded: true,
+      summary: this.parseSummary(result),
+      daily: this.parseDailyStats(result),
+      gender: this.parseGenderStats(result),
+      age: this.parseAgeStats(result),
+      averageAge: this.parseAverageAge(result),
+      lastUpdate: this.parseLastUpdate(result)
+    })
+  }
+
+  parseSummary(result) {
+    const group = result.quickStats
+    const summary = group.totals
+    const history = group.history
+    const deathCasesHistory = history.map((entry) => { return entry.deaths || 0 })
+    const totalCasesHistory = history.map((entry) => { return entry.confirmed || 0 })
+    const curedCasesHistory = history.map((entry) => { return entry.cured || 0 })
+    const confirmed = summary.confirmed || 0
+    const cured = summary.cured || 0
+    const deaths = summary.deaths || 0
+    return {
+      error: null,
+      isLoaded: true,
+      totalCases: confirmed,
+      totalCasesHistory: totalCasesHistory,
+      curedCases: cured,
+      curedCasesHistory: curedCasesHistory,
+      deathCases: deaths,
+      deathCasesHistory: deathCasesHistory,
+    }
+  }
+
+  parseDailyStats(result) {
+    const group = result.dailyStats
+    let history = group.history;
+
+    const dates = history.map((entry) => { return entry.datePublished });
+    const startDate = dates[0];
+    const endDate = dates[dates.length-1];
+    const startDateStr = this.formattedShortDateString(this.dateFromTimestamp(startDate));
+    const endDateStr = this.formattedShortDateString(this.dateFromTimestamp(endDate));
+
+    const symptomaticCasesHistory = history.map((entry) => { return Math.max(entry.monitored, 0) });
+    const confirmedCasesHistory = history.map((entry) => { return Math.max(entry.infected, 0) });
+    const curedCasesHistory = history.map((entry) => { return Math.max(entry.cured, 0) });
+    const deathCasesHistory = history.map((entry) => {return Math.max(entry.deaths, 0)});
+    const dateStrings = history.map((entry) =>
+      this.formattedShortDateString(this.dateFromTimestamp(entry.datePublished)));
+
+    return {
+      isLoaded: true,
+      startDate: startDateStr,
+      endDate: endDateStr,
+      dates: dateStrings,
+      symptomaticCasesHistory: symptomaticCasesHistory,
+      confirmedCasesHistory: confirmedCasesHistory,
+      curedCasesHistory: curedCasesHistory,
+      deathCasesHistory: deathCasesHistory,
+    }
+  }
+
+  parseGenderStats(result) {
+    const stats = result.genderStats
+    const total = stats.totalPercentage || 0;
+    const men = stats.percentageOfMen || 0;
+    const women = stats.percentageOfWomen || 0;
+    const children = stats.percentageOfChildren || 0;
+    const unknown = total - stats.men - stats.women
+    const knownPercentage = total > 0 ? 100-Math.round(100*unknown / total) : 100;
+
+    return {
+      isLoaded: true,
+      men,
+      women,
+      children,
+      date: stats.dateString,
+      unknown: unknown > 0 ? unknown : 0,
+      knownPercentage: knownPercentage
+    }
+  }
+
+  parseAgeStats(result) {
+    const group = result.ageHistogram
+    const stats = group.histogram;
+    const total = group.total || 0;
+    const allValues = Object.entries(stats).map((k, index) => {
+      return k[1].men + k[1].women;
+    });
+    const totalKnown = allValues.reduce((a, b) => a + b, 0);
+    const knownPercentage =
+      total > 0 ? 100 - Math.round((totalKnown / total) * 100) : 100;
+
+    const data = Object.keys(stats).map(key => {
+      return {
+        value: stats[key],
+        name: key,
+        percentage: Math.round((100 * stats[key]) / total)
+      };
+    });
+
+    return {
+      isLoaded: true,
+      data,
+      total,
+      knownPercentage
+    }
+  }
+
+  parseAverageAge(result) {
+    const stats = result.dailyStats
+    const averageAge = stats.currentDay.averageAge;
+    return {
+      isLoaded: true,
+      averageAge
+    }
+  }
+
+  parseLastUpdate(result) {
+    const stats = result.quickStats
+    const lastUpdate = stats.last_updated_on_string
+    return {
+      isLoaded: true,
+      lastUpdate
+    }
+  }
+
+  dateFromTimestamp(timestamp) {
+    return new Date(timestamp * 1000);
+  }
+
+  formattedShortDateString(date) {
+    const months = [
+      'Ian',
+      'Feb',
+      'Mar',
+      'Apr',
+      'Mai',
+      'Iun',
+      'Iul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
+    return date.getDate() + ' ' + months[date.getMonth()];
+  }
+
+  shareableLink() {
+    return !!window.location.host ? window.location.protocol + '//' + window.location.host : 'https://datelazi.ro'
+  }
+
   render() {
+    const lastUpdate = !!this.state.lastUpdate ? this.state.lastUpdate.lastUpdate : '-'
+    const link = this.shareableLink()
+
     return (
       <section className="section">
         <div className="container cards-row content">
@@ -35,36 +248,38 @@ export class Dashboard extends React.PureComponent {
             conținutul datelor și informațiilor care vor fi furnizate de către Guvernul României.
           </p>
 
-          <SocialsShare currentPage="https://datelazi.ro/" />
+          <SocialsShare currentPage={link} />
 
-          <p>Date actualizate pe 26 Martie la 12:50.</p>
+          {lastUpdate &&
+            <p>Date actualizate în {lastUpdate}.</p>}
+
         </div>
 
-        <SummaryRow />
+        <SummaryRow state={this.state.summary} />
 
         <div className="container cards-row second-row">
           <div className="columns">
             <div className="column is-three-quarters">
-              <CasesPerDayCard />
+              <CasesPerDayCard state={this.state.daily} />
             </div>
             <div className="column is-one-quarter">
-              <GenderCard to="/" title="După gen" />
+              <GenderCard to="/" title="După gen" state={this.state.gender} />
             </div>
           </div>
         </div>
 
         <div className="container cards-row third-row">
           <div className="columns">
-            {/* <div className="column is-one-quarter">
-              <CountiesCard />
-            </div> */}
             <div className="column is-two-quarters">
-              <GenderAndAgeCard
+              <AgeCard
                 title="După vârstă"
+                state={this.state.age}
               />
             </div>
             <div className="column is-one-quarter">
-              <MedianAgeCard />
+              <AverageAgeCard
+                state={this.state.averageAge}
+              />
             </div>
           </div>
         </div>

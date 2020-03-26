@@ -1,63 +1,12 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
-import { Constants, ApiURL } from '../../../config/globals';
+import { Constants } from '../../../config/globals';
 
-export const EMBED_PATH_GENDER_AND_AGE = 'gen-si-varsta';
-export class GenderAndAgeCard extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      data: [],
-      total: 0
-    }
-  }
+export const EMBED_PATH_AGE = 'varsta';
+export class AgeCard extends React.PureComponent {
 
-  componentDidMount() {
-    fetch(ApiURL.genderAgeStats)
-      .then(res => res.json())
-      .then(result => {
-        if (result.error != null) {
-          this.setState({ error: result.error, isLoaded: true });
-          // TODO: handle error
-        } else {
-          this.parseAPIResponse(result);
-        }
-      })
-      .catch(error => {
-        this.setState({ error: error, isLoaded: true });
-      });
-  }
-
-  parseAPIResponse(result) {
-    const stats = result.histogram;
-    const total = result.total || 0;
-    const allValues = Object.entries(stats).map((k, index) => {
-      return k[1].men + k[1].women;
-    });
-    const totalKnown = allValues.reduce((a, b) => a + b, 0);
-    const knownPercentage =
-      total > 0 ? 100 - Math.round((totalKnown / total) * 100) : 100;
-
-    const data = Object.keys(stats).map(key => {
-      return {
-        value: stats[key],
-        name: key,
-        percentage: Math.round((100 * stats[key]) / total)
-      };
-    });
-
-    this.setState({
-      isLoaded: true,
-      data,
-      total,
-      knownPercentage
-    });
-  }
-
-  getChartOptions = () => {
+  getChartOptions = (state) => {
     // this colors will be changed in the future. Waiting feedback from Olivia.
     let colors = [
       Constants.womenColor,
@@ -88,7 +37,7 @@ export class GenderAndAgeCard extends React.PureComponent {
         bottom: isLandscape ? 0 : 'auto',
         top: isLandscape ? 'auto' : 40,
         formatter: (name) => {
-          const filterItem = this.state.data.filter(item => item.name === name);
+          const filterItem = state.data.filter(item => item.name === name);
           return filterItem.length === 1 ?  `${name}: ${filterItem[0].value} (${filterItem[0].percentage}%)` : '';
         },
         tooltip: {
@@ -99,7 +48,7 @@ export class GenderAndAgeCard extends React.PureComponent {
       animation: true,
       series: [
         {
-          id: 'gender-age-chart-series',
+          id: 'age-chart-series',
           name: this.props.title,
           type: 'pie',
           radius: isLandscape ? ['30%', '45%'] : ['40%', '70%'],
@@ -112,7 +61,7 @@ export class GenderAndAgeCard extends React.PureComponent {
             },
             emphasis: { show: false }
           },
-          data: this.state.data,
+          data: state.data,
           color: colors
         }
       ]
@@ -122,8 +71,8 @@ export class GenderAndAgeCard extends React.PureComponent {
 
 
   render() {
-    const { title } = this.props;
-    const { isLoaded, error } = this.state;
+    const { title, state } = this.props;
+    const { isLoaded, error } = state;
 
     let knownPercentage = '';
     if (Constants.specifyUnknownData) {
@@ -137,12 +86,12 @@ export class GenderAndAgeCard extends React.PureComponent {
       <Card
         isLoaded={isLoaded} error={error}
         title={`${title}${knownPercentage}`}
-        embedPath={EMBED_PATH_GENDER_AND_AGE}
+        embedPath={EMBED_PATH_AGE}
       >
         <div className="pie-chart">
           <ReactEcharts
-            id="gender-age-chart"
-            option={this.getChartOptions()}
+            id="age-chart"
+            option={this.getChartOptions(state)}
           />
         </div>
       </Card>

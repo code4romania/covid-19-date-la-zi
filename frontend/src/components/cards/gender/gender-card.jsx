@@ -1,75 +1,28 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card';
-import { Constants, ApiURL } from '../../../config/globals';
+import { Constants } from '../../../config/globals';
 import './gender-card.css';
 
 export const EMBED_PATH_GENDER = 'gen';
 export class GenderCard extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      date: '',
-      women: 0,
-      men: 0,
-      unknown: 0,
-      children: 0
-    }
-  }
 
-  componentDidMount() {
-    fetch(ApiURL.genderStats)
-      .then(res => res.json())
-      .then(result => {
-        if (result.error != null) {
-          this.setState({ error: result.error, isLoaded: true });
-        } else {
-          this.parseAPIResponse(result);
-        }
-      })
-      .catch(error => {
-        this.setState({ error: error, isLoaded: true });
-      });
-  }
-
-  parseAPIResponse(result) {
-    const stats = result
-    const total = stats.totalPercentage || 0;
-    const men = stats.percentageOfMen || 0;
-    const women = stats.percentageOfWomen || 0;
-    const children = stats.percentageOfChildren || 0;
-    const unknown = total - stats.men - stats.women
-    const knownPercentage = total > 0 ? 100-Math.round(100*unknown / total) : 100;
-
-    this.setState({
-      isLoaded: true,
-      men,
-      women,
-      children,
-      date: stats.dateString,
-      unknown: unknown > 0 ? unknown : 0,
-      knownPercentage: knownPercentage
-    });
-  }
-
-  getChartOptions() {
+  getChartOptions(state) {
     let data = [
-      { value: this.state.women, name: Constants.womenText },
-      { value: this.state.men, name: Constants.menText }
+      { value: state.women, name: Constants.womenText },
+      { value: state.men, name: Constants.menText }
     ];
 
     let colors = [Constants.womenColor, Constants.menColor];
 
-    if(this.state.children > 0){
-      data.push({value: this.state.children, name: Constants.childrenText});
+    if(state.children > 0){
+      data.push({value: state.children, name: Constants.childrenText});
       colors.push(Constants.childrenColor);
     }
 
     if (Constants.specifyUnknownData) {
       data.push({
-        value: this.state.unknown,
+        value: state.unknown,
         name: Constants.unknownGenderText
       });
       colors.push(Constants.unknownColor);
@@ -112,14 +65,14 @@ export class GenderCard extends React.PureComponent {
   }
 
   render() {
-    const { title } = this.props;
-    const { isLoaded, error } = this.state;
+    const { title, state } = this.props;
+    const { isLoaded, error } = state;
 
     let knownPercentage = '';
     if (Constants.specifyUnknownData) {
       knownPercentage =
-        this.state.knownPercentage !== undefined
-          ? ' (' + this.state.knownPercentage + '% cunoscuți)'
+        state.knownPercentage !== undefined
+          ? ' (' + state.knownPercentage + '% cunoscuți)'
           : '';
     }
 
@@ -129,7 +82,7 @@ export class GenderCard extends React.PureComponent {
           <ReactEcharts
             id="gender-chart"
             style={{ height: '400px' }}
-            option={this.getChartOptions()}
+            option={this.getChartOptions(state)}
           />
         </div>
       </Card>
