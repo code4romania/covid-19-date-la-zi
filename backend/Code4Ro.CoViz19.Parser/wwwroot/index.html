@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Code4Ro.CoViz19.Parser - 25-03.2020</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Data parser V3</h1>
+        <div>
+            <input id="file" name="file-drop" class="drop-zone" type="file" (change)="onFilesAdded()" />
+        </div>
+        <div>
+            <button id="upload-file" type="button" class="btn btn-primary" onclick="transformToJson()">Transform to json</button>
+            <button id="copy" class="btn btn-secondary" onclick="copyResponseToClipboard()">Copy to clipboard</button>
+            <button id="upload-json" type="button" class="btn btn-danger" onclick="publishEditedData()">Publish data</button>
+
+        </div>
+        <div>
+        </div>
+        <textarea id="jsonOutput" style="width: 100%; height: 500px;">
+    </textarea>
+
+    </div>
+
+    <script id="jsbin-javascript">
+        function transformToJson() {
+            var file = document.getElementById("file").files[0];  // file from input
+            if (file) {
+                disableButtons();
+
+                var req = new XMLHttpRequest();
+                var formData = new FormData();
+
+                formData.append("file", file);
+                req.onreadystatechange = state => {
+                    if (req.readyState != 4 || req.status != 200) return;
+                    document.getElementById('jsonOutput').value = JSON.stringify(JSON.parse(req.responseText), null, 4);
+
+                    enableButtons();
+                } // err handling
+
+                req.onerror = x => {
+                    alert(x);
+                    enableButtons();
+                }
+                req.open("POST", 'v3/pdf-to-json');
+                req.send(formData);
+            } else {
+                alert('please select a file');
+            }
+        }
+
+        function copyResponseToClipboard() {
+            var copyText = document.getElementById("jsonOutput");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 9999999); /*For mobile devices*/
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+        }
+
+        function publishEditedData() {
+            if (confirm("Did you triple check your data? Are you sure you want tot publish this ?")) {
+                disableButtons();
+
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = state => {
+                    if (xhr.readyState != 4 || xhr.status != 200) return;
+                    document.getElementById('jsonOutput').value = JSON.stringify(JSON.parse(xhr.responseText), null, 4);
+
+                    enableButtons();
+                } // err handling
+
+                xhr.onerror = x => {
+                    alert(x);
+                    enableButtons();
+                }
+                xhr.open("POST", 'v3/upload-json', false);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(document.getElementById('jsonOutput').value);
+            }
+        }
+
+        function disableButtons() {
+            document.getElementById('upload-file').setAttribute("disabled", "disabled");
+            document.getElementById('upload-json').setAttribute("disabled", "disabled");
+        }
+
+        function  enableButtons() {
+            document.getElementById('upload-file').removeAttribute("disabled");
+            document.getElementById('upload-json').removeAttribute("disabled");
+        }
+    </script>
+</body>
+
+</html>

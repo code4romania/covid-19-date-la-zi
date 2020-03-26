@@ -1,4 +1,5 @@
-﻿using Code4Ro.CoViz19.Api.Commands;
+﻿using System;
+using Code4Ro.CoViz19.Api.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
     [Route("api/v1/data")]
     [Produces("application/json")]
     [SwaggerTag("Enpoint for provinding latest relevant data")]
+    [Obsolete]
     public class DataController : Controller
     {
         private readonly IMediator _mediator;
