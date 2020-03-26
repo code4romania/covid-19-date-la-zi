@@ -22,15 +22,16 @@ namespace Code4Ro.CoViz19.Api.Services
 
 
         public async Task<ParsedDataModel> GetCurrentData() =>
-            _localData = JsonConvert.DeserializeObject<ParsedDataModel>(_fileService.GetRawData());
+            _localData = JsonConvert.DeserializeObject<ParsedDataModel>(await _fileService.GetRawData());
 
         public async Task<HistoricalPdfStats> GetCurrentPdfData()
         {
             _logger.LogInformation($"starting to read from _fileService of type {_fileService.GetType()}");
             await Task.FromResult(0);
-            var result = JsonConvert.DeserializeObject<HistoricalPdfStats>(_fileService.GetRawData());
-            _logger.LogInformation($"done reading from _fileService");
-            return result;
+            var rawData = await _fileService.GetRawData() ?? string.Empty;
+            var result = JsonConvert.DeserializeObject<HistoricalPdfStats>(rawData);
+            _logger.LogDebug($"done reading from _fileService");
+            return result ?? new HistoricalPdfStats();
         }
     }
 

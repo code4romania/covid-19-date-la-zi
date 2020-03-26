@@ -56,7 +56,7 @@ namespace Code4Ro.CoViz19.Services {
             return blockBlob.Uri.ToString();
         }
 
-        public string GetRawData()
+        public Task<string> GetRawData()
         {
             throw new NotImplementedException();
         }
