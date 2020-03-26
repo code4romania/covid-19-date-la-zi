@@ -18,11 +18,11 @@ namespace Code4Ro.CoViz19.Services
            _logger = logger;
        }
 
-       public string GetRawData()
+       public async Task<string> GetRawData()
        {
            try
            {
-               return File.ReadAllText(_path);
+               return await File.ReadAllTextAsync(_path);
            }
            catch (Exception ex)
            {

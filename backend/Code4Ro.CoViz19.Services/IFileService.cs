@@ -4,7 +4,7 @@ namespace Code4Ro.CoViz19.Services
 {
     public interface IFileService
     {
-        string GetRawData();
+        Task<string> GetRawData();
         Task SaveRawData(string fileContent);
     }
 }

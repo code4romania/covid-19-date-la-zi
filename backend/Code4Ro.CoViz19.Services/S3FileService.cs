@@ -32,7 +32,7 @@ namespace Code4Ro.CoViz19.Services
 
             _client = awsOptions.CreateServiceClient<IAmazonS3>();
         }
-        public string GetRawData()
+        public async Task<string> GetRawData()
         {
             var request = new GetObjectRequest
             {
@@ -43,7 +43,7 @@ namespace Code4Ro.CoViz19.Services
 
             try
             {
-                using (var response = _client.GetObjectAsync(request).Result)
+                using (var response = await _client.GetObjectAsync(request))
                 using (var responseStream = response.ResponseStream)
                 using (var reader = new StreamReader(responseStream))
                 {
