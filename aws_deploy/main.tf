@@ -12,7 +12,7 @@ locals {
     "${terraform.workspace}.${local.domain_root}" # DEV
   ]
   subdomains_api = [
-    "api1.${local.domain_root}",                       # PROD
+    "api1.${local.domain_root}",                      # PROD
     "staging-api.${local.domain_root}",               # STAGING
     "${terraform.workspace}-api.${local.domain_root}" # DEV
   ]
