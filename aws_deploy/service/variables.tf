@@ -60,3 +60,8 @@ variable "secrets" {
   type    = string
   default = "[]"
 }
+
+variable "instance_count" {
+  type    = number
+  default = 1
+}
