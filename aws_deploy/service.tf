@@ -112,7 +112,8 @@ ENV
 module "api" {
   source = "./service"
 
-  name = "api"
+  name           = "api"
+  instance_count = terraform.workspace == "production" ? 50 : 1
 
   cluster         = aws_ecs_cluster.app.id
   vpc_id          = aws_vpc.main.id

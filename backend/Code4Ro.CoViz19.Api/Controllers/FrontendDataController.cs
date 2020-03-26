@@ -34,9 +34,9 @@ namespace Code4Ro.CoViz19.Api.Controllers
         [SwaggerResponseExample(200, typeof(LatestDataExample))]
         public async Task<IActionResult> GetLatestData()
         {
-            _logger.LogDebug($"starting to get {nameof(GetLatestDataV2)}");
+            _logger.LogInformation($"starting to get {nameof(GetLatestDataV2)}");
             var data = await _mediator.Send(new GetLatestDataV2());
-            _logger.LogDebug($"finished to get {nameof(GetLatestDataV2)}");
+            _logger.LogInformation($"finished to get {nameof(GetLatestDataV2)}");
 
             return new OkObjectResult(data);
         }
@@ -49,9 +49,9 @@ namespace Code4Ro.CoViz19.Api.Controllers
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> GetDailystats()
         {
-            _logger.LogDebug($"starting to get {nameof(GetDailyStatsV2)}");
+            _logger.LogInformation($"starting to get {nameof(GetDailyStatsV2)}");
             var data = await _mediator.Send(new GetDailyStatsV2());
-            _logger.LogDebug($"finished to get {nameof(GetDailyStatsV2)}");
+            _logger.LogInformation($"finished to get {nameof(GetDailyStatsV2)}");
 
             return new OkObjectResult(data);
         }
@@ -64,9 +64,9 @@ namespace Code4Ro.CoViz19.Api.Controllers
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> GetGenderStats()
         {
-            _logger.LogDebug($"starting to get {nameof(GetGenderStatsV2)}");
+            _logger.LogInformation($"starting to get {nameof(GetGenderStatsV2)}");
             var data = await _mediator.Send(new GetGenderStatsV2());
-            _logger.LogDebug($"finished to get {nameof(GetGenderStatsV2)}");
+            _logger.LogInformation($"finished to get {nameof(GetGenderStatsV2)}");
 
             return new OkObjectResult(data);
         }
@@ -79,9 +79,9 @@ namespace Code4Ro.CoViz19.Api.Controllers
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> GetAgeHistogram()
         {
-            _logger.LogDebug($"starting to get {nameof(GetAgeHistogramV2)}");
+            _logger.LogInformation($"starting to get {nameof(GetAgeHistogramV2)}");
             var data = await _mediator.Send(new GetAgeHistogramV2());
-            _logger.LogDebug($"finished to get {nameof(GetAgeHistogramV2)}");
+            _logger.LogInformation($"finished to get {nameof(GetAgeHistogramV2)}");
             return new OkObjectResult(data);
         }
 
@@ -93,9 +93,9 @@ namespace Code4Ro.CoViz19.Api.Controllers
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> GetQuickStatsData()
         {
-            _logger.LogDebug($"starting to get {nameof(GetQuickstatsV2Data)}");
+            _logger.LogInformation($"starting to get {nameof(GetQuickstatsV2Data)}");
             var data = await _mediator.Send(new GetQuickstatsV2Data());
-            _logger.LogDebug($"finished to get {nameof(GetQuickstatsV2Data)}");
+            _logger.LogInformation($"finished to get {nameof(GetQuickstatsV2Data)}");
             return new OkObjectResult(data);
         }
 
@@ -107,9 +107,24 @@ namespace Code4Ro.CoViz19.Api.Controllers
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> GetLastUpdateDate()
         {
-            _logger.LogDebug($"starting to get {nameof(GetLastDataUpdateDetails)}");
+            _logger.LogInformation($"starting to get {nameof(GetLastDataUpdateDetails)}");
             var data = await _mediator.Send(new GetLastDataUpdateDetails());
-            _logger.LogDebug($"finished to get {nameof(GetLastDataUpdateDetails)}");
+            _logger.LogInformation($"finished to get {nameof(GetLastDataUpdateDetails)}");
+
+            return new OkObjectResult(data);
+        }
+
+        [HttpGet]
+        [Route("ui-data")]
+        [SwaggerOperation(Summary = "Get date and time when data was updated")]
+        [SwaggerResponse(200, "Last date data was updated", typeof(LastDataUpdateDetailsModel))]
+        [SwaggerResponse(500, "Something went wrong when getting data", typeof(ProblemDetails))]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> GetUiData()
+        {
+            _logger.LogInformation($"starting to get {nameof(GetUiData)}");
+            var data = await _mediator.Send(new GetUiData());
+            _logger.LogInformation($"finished to get {nameof(GetUiData)}");
 
             return new OkObjectResult(data);
         }

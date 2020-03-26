@@ -44,6 +44,7 @@ export const Constants = {
 };
 
 export const ApiURL = {
+  all: Constants.api + '/data/ui-data',
   summary: Constants.api + '/data/quickstats',
   dailyStats: Constants.api + '/data/dailystats',
   infectionSourceStats: Constants.api + '/data/infections-source',
