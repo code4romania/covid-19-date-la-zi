@@ -13,7 +13,7 @@ resource "aws_ecs_service" "main" {
   name            = var.name
   cluster         = var.cluster
   task_definition = "${aws_ecs_task_definition.main.id}:${aws_ecs_task_definition.main.revision}"
-  desired_count   = 1
+  desired_count   = var.instance_count
   launch_type     = "FARGATE"
 
   network_configuration {
