@@ -132,6 +132,9 @@ namespace Code4Ro.CoViz19.Api
             {
                 endpoints.MapControllers();
             });
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
         }
     }
 }
