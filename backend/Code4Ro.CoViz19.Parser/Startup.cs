@@ -34,7 +34,8 @@ namespace Code4Ro.CoViz19.Parser
             services.AddControllersWithViews().AddNewtonsoftJson();
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
-            services.Configure<FormOptions>(options => {
+            services.Configure<FormOptions>(options =>
+            {
                 options.MultipartBodyLengthLimit = long.MaxValue;
             });
             // In production, the Angular files will be served from this directory
@@ -78,6 +79,7 @@ namespace Code4Ro.CoViz19.Parser
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -89,21 +91,9 @@ namespace Code4Ro.CoViz19.Parser
                 app.UseHsts();
             }
 
-            app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
-
-            app.UseRouting();
             app.UseHealthChecks("/health");
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-            });
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
@@ -111,17 +101,17 @@ namespace Code4Ro.CoViz19.Parser
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Code4Ro.CoViz19.Parser V1");
                 c.DisplayRequestDuration();
             });
-
-            app.UseSpa(spa => {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment()) {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
+            app.UseRouting();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller}/{action=Index}/{id?}");
             });
+
+
         }
     }
 }

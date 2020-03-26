@@ -112,7 +112,8 @@ ENV
 module "api" {
   source = "./service"
 
-  name = "api"
+  name           = "api"
+  instance_count = terraform.workspace == "production" ? 50 : 1
 
   cluster         = aws_ecs_cluster.app.id
   vpc_id          = aws_vpc.main.id
@@ -153,7 +154,7 @@ module "parser" {
     aws_security_group.intra.id,
     aws_security_group.public.id
   ]
-  certificate_arn = aws_acm_certificate.cert.arn
+  certificate_arn = aws_acm_certificate.parser.arn
 
   container_port        = 8080
   task_role_arn         = aws_iam_role.ecs_instance.arn
