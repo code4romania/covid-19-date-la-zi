@@ -24,8 +24,8 @@ export class AboutPage extends React.PureComponent {
           </p>
           <p>
             Credem că este important ca publicul larg să aibă acces la un instrument ușor de utilizat pentru
-            a urmări dimensiunea focarului, pentru a vizualiza date corecte din surse 
-            sigure. <Link to="/">Datelazi.ro</Link> prezintă infografii actualizate periodic cu datele 
+            a urmări dimensiunea focarului, pentru a vizualiza date corecte din surse
+            sigure. <Link to="/">Datelazi.ro</Link> prezintă infografii actualizate periodic cu datele
             furnizate de autoritățile competente.
           </p>
           <p>

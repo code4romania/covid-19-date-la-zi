@@ -6,7 +6,7 @@ import './gender-card.css';
 
 export const EMBED_PATH_GENDER = 'gen';
 export class GenderCard extends React.PureComponent {
-  
+
   getChartOptions(state) {
     let data = [
       { value: state.women, name: Constants.womenText },

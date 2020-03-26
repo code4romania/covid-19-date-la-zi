@@ -18,7 +18,7 @@ export class Dashboard extends React.PureComponent {
     super(props);
 
     const defaultState = {
-      isLoaded: false, 
+      isLoaded: false,
       error: null
     }
 
@@ -50,7 +50,7 @@ export class Dashboard extends React.PureComponent {
 
   componentDidMount() {
     this.resetState({
-      isLoaded: false, 
+      isLoaded: false,
       error: null
     })
 
@@ -219,11 +219,11 @@ export class Dashboard extends React.PureComponent {
   }
 
   shareableLink() {
-    return !!window.location.host ? window.location.protocol + '//' + window.location.host : "https://datelazi.ro"
+    return !!window.location.host ? window.location.protocol + '//' + window.location.host : 'https://datelazi.ro'
   }
 
   render() {
-    const lastUpdate = !!this.state.lastUpdate ? this.state.lastUpdate.lastUpdate : "-"
+    const lastUpdate = !!this.state.lastUpdate ? this.state.lastUpdate.lastUpdate : '-'
     const link = this.shareableLink()
 
     return (
@@ -250,9 +250,9 @@ export class Dashboard extends React.PureComponent {
 
           <SocialsShare currentPage={link} />
 
-          {lastUpdate && 
+          {lastUpdate &&
             <p>Date actualizate în {lastUpdate}.</p>}
-          
+
         </div>
 
         <SummaryRow state={this.state.summary} />
@@ -277,8 +277,9 @@ export class Dashboard extends React.PureComponent {
               />
             </div>
             <div className="column is-one-quarter">
-              <AverageAgeCard 
-                state={this.state.averageAge} />
+              <AverageAgeCard
+                state={this.state.averageAge}
+              />
             </div>
           </div>
         </div>

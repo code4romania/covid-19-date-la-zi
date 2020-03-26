@@ -32,7 +32,7 @@ export class SummaryRow extends React.PureComponent {
     if (!!number) {
       return number.toLocaleString()
     } else {
-      return ""
+      return ''
     }
   }
 
