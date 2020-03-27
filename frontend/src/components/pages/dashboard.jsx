@@ -112,11 +112,11 @@ export class Dashboard extends React.PureComponent {
     const startDateStr = this.formattedShortDateString(this.dateFromTimestamp(startDate));
     const endDateStr = this.formattedShortDateString(this.dateFromTimestamp(endDate));
 
-    const confirmedCasesHistory = history.flatMap((entry) => { 
-      return entry.complete === false ? [] : Math.max(entry.infected, 0) 
+    const confirmedCasesHistory = history.flatMap((entry) => {
+      return entry.complete === false ? [] : Math.max(entry.infected, 0)
     });
     const curedCasesHistory = history.flatMap((entry) => {
-      return entry.complete === false ? [] : Math.max(entry.cured, 0) 
+      return entry.complete === false ? [] : Math.max(entry.cured, 0)
     });
     const deathCasesHistory = history.flatMap((entry) => {
       return entry.complete === false ? [] : Math.max(entry.deaths, 0)
@@ -306,7 +306,7 @@ export class Dashboard extends React.PureComponent {
                 color="green"
                 title="Instalează-ti extensia de Chrome"
                 ctaLink={'https://chrome.google.com/webstore/detail/' +
-                  'covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha'}
+                'covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha'}
                 ctaText="Instalează add-on"
               />
             </section>
