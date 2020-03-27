@@ -112,19 +112,25 @@ export class Dashboard extends React.PureComponent {
     const startDateStr = this.formattedShortDateString(this.dateFromTimestamp(startDate));
     const endDateStr = this.formattedShortDateString(this.dateFromTimestamp(endDate));
 
-    const symptomaticCasesHistory = history.map((entry) => { return Math.max(entry.monitored, 0) });
-    const confirmedCasesHistory = history.map((entry) => { return Math.max(entry.infected, 0) });
-    const curedCasesHistory = history.map((entry) => { return Math.max(entry.cured, 0) });
-    const deathCasesHistory = history.map((entry) => {return Math.max(entry.deaths, 0)});
-    const dateStrings = history.map((entry) =>
-      this.formattedShortDateString(this.dateFromTimestamp(entry.datePublished)));
+    const confirmedCasesHistory = history.flatMap((entry) => { 
+      return entry.complete === false ? [] : Math.max(entry.infected, 0) 
+    });
+    const curedCasesHistory = history.flatMap((entry) => {
+      return entry.complete === false ? [] : Math.max(entry.cured, 0) 
+    });
+    const deathCasesHistory = history.flatMap((entry) => {
+      return entry.complete === false ? [] : Math.max(entry.deaths, 0)
+    });
+    const dateStrings = history.flatMap((entry) => {
+      return entry.complete === false ? [] : this.formattedShortDateString(this.dateFromTimestamp(entry.datePublished))
+    });
+      
 
     return {
       isLoaded: true,
       startDate: startDateStr,
       endDate: endDateStr,
       dates: dateStrings,
-      symptomaticCasesHistory: symptomaticCasesHistory,
       confirmedCasesHistory: confirmedCasesHistory,
       curedCasesHistory: curedCasesHistory,
       deathCasesHistory: deathCasesHistory,
