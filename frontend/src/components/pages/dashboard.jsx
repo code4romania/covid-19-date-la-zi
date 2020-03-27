@@ -124,7 +124,6 @@ export class Dashboard extends React.PureComponent {
     const dateStrings = history.flatMap((entry) => {
       return entry.complete === false ? [] : this.formattedShortDateString(this.dateFromTimestamp(entry.datePublished))
     });
-      
 
     return {
       isLoaded: true,
