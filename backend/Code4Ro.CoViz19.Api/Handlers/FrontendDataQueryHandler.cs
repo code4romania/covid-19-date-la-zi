@@ -80,7 +80,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
                 DatePublished = currentDay.DatePublished,
                 DatePublishedString = currentDay.DatePublishedString,
                 Deaths = currentDay.Deaths - previousDay.Deaths,
-                Infected = currentDay.Infected - previousDay.Infected
+                Infected = currentDay.Infected - previousDay.Infected,
+                Complete = currentDay.Complete
             };
 
             return day;
@@ -95,7 +96,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
                 DatePublishedString = currentData.ParsedOnString,
                 Deaths = currentData.NumberDeceased,
                 Infected = currentData.NumberInfected,
-                AverageAge = currentData.AverageAge
+                AverageAge = currentData.AverageAge,
+                Complete = currentData.Complete
             };
         }
 

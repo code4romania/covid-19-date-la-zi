@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Code4Ro.CoViz19.Api.Options
+﻿namespace Code4Ro.CoViz19.Api.Options
 {
     public class AuthorizationOptions
     {
