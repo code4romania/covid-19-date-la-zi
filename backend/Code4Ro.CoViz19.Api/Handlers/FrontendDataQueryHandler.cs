@@ -95,7 +95,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
                 DatePublishedString = currentData.ParsedOnString,
                 Deaths = currentData.NumberDeceased,
                 Infected = currentData.NumberInfected,
-                AverageAge = currentData.AverageAge
+                AverageAge = currentData.AverageAge,
+                Complete = currentData.Complete
             };
         }
 
