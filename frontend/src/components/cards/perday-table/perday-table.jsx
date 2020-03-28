@@ -1,4 +1,5 @@
-import React from "react"
+import React from "react";
+import moment from "moment";
 import { Card } from "../../layout/card";
 import "./perday-table.css"
 
@@ -29,7 +30,7 @@ export class PerDayTable extends React.PureComponent {
         return data.slice(page * limit, limit * (page + 1)).map((row, index) => {
             return <tr key={`dailyTable${index}`}>
                 <td>{ row["id"] }</td>
-                <td>{ row["datePublishedString"] }</td>
+                <td>{ moment(row["datePublishedString"]).format("DD/MM") }</td>
                 <td>{ row["infected"] }</td>
                 <td>{ row["cured"] }</td>
                 <td>{ row["deaths"] }</td>
@@ -46,12 +47,10 @@ export class PerDayTable extends React.PureComponent {
         const shouldDisplayPagination = data.length > limit;
 
         if (shouldDisplayPagination) {
-            return <tr>
-                    <td colSpan="5">
+            return <div>
                         <div className={"button " + (page === 0 ? "hide": "")} onClick={ e => this.changePage(-1)}>Pagina anterioara</div>
                         <div className={"button " + ((page + 1) * limit >= data.length ? "hide": "")} onClick={ e => this.changePage(1)}>Pagina urmatoare</div>
-                    </td>
-                </tr>
+                </div>;
         }
     }
 
@@ -90,10 +89,9 @@ export class PerDayTable extends React.PureComponent {
                         <tbody>
                             { this.state.data && this.displayTable(this.state.data)}
                         </tbody>
-                        <tfoot>
-                            { this.displayPagination() }
-                        </tfoot>
                     </table>
+
+                    { this.displayPagination() }
                 </div>
             </Card>
         );
