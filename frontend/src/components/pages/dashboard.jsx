@@ -6,6 +6,7 @@ import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
 import { AverageAgeCard } from '../cards/avg-age/avg-age-card';
 import { AgeCard } from '../cards/age/age';
+import { PerDayTable } from '../cards/perday-table/perday-table';
 
 import { Hero, Instruments, InstrumentsItem, SocialsShare } from '@code4ro/taskforce-fe-components';
 
@@ -31,6 +32,7 @@ export class Dashboard extends React.PureComponent {
       age: defaultState, // object
       averageAge: defaultState, // object
       lastUpdate: defaultState, // object
+      dailyTable: defaultState, // object
     }
   }
 
@@ -44,7 +46,8 @@ export class Dashboard extends React.PureComponent {
       gender: defaultState, // object
       age: defaultState, // object
       averageAge: defaultState, // object
-      lastUpdate: defaultState, // object
+      lastUpdate: defaultState, // object,
+      dailyTable: defaultState, // object
     })
   }
 
@@ -76,7 +79,8 @@ export class Dashboard extends React.PureComponent {
       gender: this.parseGenderStats(result),
       age: this.parseAgeStats(result),
       averageAge: this.parseAverageAge(result),
-      lastUpdate: this.parseLastUpdate(result)
+      lastUpdate: this.parseLastUpdate(result),
+      dailyTable: this.parseDailyTable(result)
     })
   }
 
@@ -133,6 +137,37 @@ export class Dashboard extends React.PureComponent {
       confirmedCasesHistory: confirmedCasesHistory,
       curedCasesHistory: curedCasesHistory,
       deathCasesHistory: deathCasesHistory,
+    }
+  }
+
+  parseDailyTable(result) {
+    if (!result["dailyStats"]) {
+      return {
+        isLoaded: true,
+        error: "Nu am putut prelua datele"
+      };
+    }
+    
+    let dailyStats = result.dailyStats;
+    let dailyTable = [];
+
+    if (dailyStats["currentDay"]) {
+      dailyTable.push(dailyStats["currentDay"]);
+    }
+
+    if (dailyStats["history"]) {
+      dailyTable.push(...dailyStats["history"]);
+    }
+
+    const filterIncompleteRows = (row) => row.hasOwnProperty("complete") && row.complete === false ? false : true;
+
+    dailyTable = dailyTable.filter(filterIncompleteRows)
+      .sort((a,b) => b.datePublished - a.datePublished);
+      
+    return {
+      isLoaded: true,
+      error: null,
+      data: dailyTable
     }
   }
 
@@ -285,6 +320,14 @@ export class Dashboard extends React.PureComponent {
               <AverageAgeCard
                 state={this.state.averageAge}
               />
+            </div>
+          </div>
+        </div>
+
+        <div className="container cards-row third-row">
+          <div className="columns">
+            <div className="column">
+              <PerDayTable state={this.state.dailyTable} />
             </div>
           </div>
         </div>

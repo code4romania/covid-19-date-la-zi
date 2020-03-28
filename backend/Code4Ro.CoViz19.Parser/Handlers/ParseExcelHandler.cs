@@ -13,12 +13,15 @@ using System.Text;
 using Code4Ro.CoViz19.Models;
 using Code4Ro.CoViz19.Parser.Parsers;
 using Microsoft.Extensions.Logging;
+using System.Text.RegularExpressions;
 
 
 namespace Code4Ro.CoViz19.Parser.Handlers
 {
     public class ParseExcelHandler : IRequestHandler<ParseExcelCommand, Result<ParsedDataModel>>
     {
+        private static readonly Regex AGE_PATTERN = new Regex(@"(\d+)");
+
         public async Task<Result<ParsedDataModel>> Handle(ParseExcelCommand request, CancellationToken cancellationToken)
         {
             DataSet result;
@@ -154,33 +157,19 @@ namespace Code4Ro.CoViz19.Parser.Handlers
         private int? ParseAge(object value)
         {
             string ageInfo = ToSafeText(value);
-            int? age = null;
+
             if (string.IsNullOrEmpty(ageInfo))
-            {
-                return age;
-            }
-            ageInfo
-                .Replace("de ani", string.Empty, StringComparison.InvariantCultureIgnoreCase)
-                .Replace("ani", string.Empty, StringComparison.InvariantCultureIgnoreCase);
-
-            if (ageInfo.Length == 2)
-            {
-                if (int.TryParse(ageInfo, out _) == false)
-                {
-                    return age;
-                }
-
-                return int.Parse(ageInfo);
-            }
-
-            string ageValue = ageInfo.Substring(0, 2).Trim();
-            if (int.TryParse(ageValue, out _) == false)
             {
                 return null;
             }
 
-            return int.Parse(ageValue);
-
+            switch(AGE_PATTERN.Match(ageInfo)) {
+                case Match m when m.Success:
+                    int age;
+                    return int.TryParse(m.Value, out age) == true ? age : (int?) null;
+                default:
+                    return null;
+            }
         }
 
         private Result<CountyInfectionsInfo[]> ParseCountiesData(DataTable countiesData)
