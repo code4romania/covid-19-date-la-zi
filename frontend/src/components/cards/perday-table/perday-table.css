@@ -1,3 +1,7 @@
+.perDayTable {
+    height: 500px;
+}
+
 .perDayTable .button.hide {
     display: none;
 }

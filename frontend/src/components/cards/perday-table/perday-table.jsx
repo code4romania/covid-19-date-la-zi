@@ -47,7 +47,7 @@ export class PerDayTable extends React.PureComponent {
 
         if (shouldDisplayPagination) {
             return <tr>
-                    <td colSpan="5" className="perDayTable">
+                    <td colSpan="5">
                         <div className={"button " + (page == 0 ? "hide": "")} onClick={ e => this.changePage(-1)}>Pagina anterioara</div>
                         <div className={"button " + ((page + 1) * limit >= data.length ? "hide": "")} onClick={ e => this.changePage(1)}>Pagina urmatoare</div>
                     </td>
@@ -76,23 +76,25 @@ export class PerDayTable extends React.PureComponent {
                 isLoaded={isLoaded}
                 title="Date zilnice"
             >
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Data</th>
-                            <th>Infectati</th>
-                            <th>Vindecati</th>
-                            <th>Decedati</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { this.state.data && this.displayTable(this.state.data)}
-                    </tbody>
-                    <tfoot>
-                        { this.displayPagination() }
-                    </tfoot>
-                </table>
+                <div className="perDayTable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Data</th>
+                                <th>Infectati</th>
+                                <th>Vindecati</th>
+                                <th>Decedati</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { this.state.data && this.displayTable(this.state.data)}
+                        </tbody>
+                        <tfoot>
+                            { this.displayPagination() }
+                        </tfoot>
+                    </table>
+                </div>
             </Card>
         );
     }

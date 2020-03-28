@@ -152,15 +152,19 @@ export class Dashboard extends React.PureComponent {
     let dailyTable = [];
 
     if (dailyStats["currentDay"]) {
-      dailyStats["currentDay"]["id"] = 1;
       dailyTable.push(dailyStats["currentDay"]);
     }
 
     if (dailyStats["history"]) {
-      dailyStats["history"].forEach((e, index) => e["id"] = index + 2);
       dailyTable.push(...dailyStats["history"]);
     }
 
+    dailyTable = dailyTable.sort((a, b) => a.datePublished < b.datePublished)
+      .map((e, index) => {
+        e["id"] = index + 1;
+        return e;
+      });
+      
     return {
       isLoaded: true,
       error: null,
