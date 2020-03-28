@@ -48,7 +48,7 @@ export class PerDayTable extends React.PureComponent {
         if (shouldDisplayPagination) {
             return <tr>
                     <td colSpan="5">
-                        <div className={"button " + (page == 0 ? "hide": "")} onClick={ e => this.changePage(-1)}>Pagina anterioara</div>
+                        <div className={"button " + (page === 0 ? "hide": "")} onClick={ e => this.changePage(-1)}>Pagina anterioara</div>
                         <div className={"button " + ((page + 1) * limit >= data.length ? "hide": "")} onClick={ e => this.changePage(1)}>Pagina urmatoare</div>
                     </td>
                 </tr>
@@ -59,7 +59,7 @@ export class PerDayTable extends React.PureComponent {
     
         const { page, data, limit} = this.state;
 
-        if (inc < 0 && page != 0) {
+        if (inc < 0 && page !== 0) {
             this.setState({page: page + inc});
         }
 
