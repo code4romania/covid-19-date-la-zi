@@ -46,58 +46,66 @@ export class SummaryRow extends React.PureComponent {
 
     const keyToCard = new Map([
       [PROP_SHOW_CONFIRMED_CASES, (
-        <div className="column" key={PROP_SHOW_CONFIRMED_CASES}>
-          <SummaryCard
-            isLoaded={isLoaded}
-            error={error}
-            to="/"
-            title="Cazuri confirmate"
-            total={totalCases}
-            data={state.totalCasesHistory}
-            embedPath={PROP_SHOW_CONFIRMED_CASES}
-          />
-        </div>
+        <SummaryCard
+          key={PROP_SHOW_CONFIRMED_CASES}
+          isLoaded={isLoaded}
+          error={error}
+          to="/"
+          title="Cazuri confirmate"
+          total={totalCases}
+          data={state.totalCasesHistory}
+          embedPath={PROP_SHOW_CONFIRMED_CASES}
+        />
       )],
       [PROP_SHOW_CURED_CASES, (
-        <div className="column" key={PROP_SHOW_CURED_CASES}>
-          <SummaryCard
-            isLoaded={isLoaded}
-            error={error}
-            to="/"
-            title="Vindecați"
-            total={cured}
-            special={this.specialValueForCured(state)}
-            data={state.curedCasesHistory}
-            embedPath={PROP_SHOW_CURED_CASES}
-          />
-        </div>
+        <SummaryCard
+          key={PROP_SHOW_CURED_CASES}
+          isLoaded={isLoaded}
+          error={error}
+          to="/"
+          title="Vindecați"
+          total={cured}
+          special={this.specialValueForCured(state)}
+          data={state.curedCasesHistory}
+          embedPath={PROP_SHOW_CURED_CASES}
+        />
       )],
       [PROP_SHOW_DEATH_CASES, (
-        <div className="column" key={PROP_SHOW_DEATH_CASES}>
-          <SummaryCard
-            isLoaded={isLoaded}
-            error={error}
-            to="/"
-            title="Decedați"
-            total={deaths}
-            special={this.specialValueForDeaths(state)}
-            data={state.deathCasesHistory}
-            embedPath={PROP_SHOW_DEATH_CASES}
-          />
-        </div>
+        <SummaryCard
+          key={PROP_SHOW_DEATH_CASES}
+          isLoaded={isLoaded}
+          error={error}
+          to="/"
+          title="Decedați"
+          total={deaths}
+          special={this.specialValueForDeaths(state)}
+          data={state.deathCasesHistory}
+          embedPath={PROP_SHOW_DEATH_CASES}
+        />
       )]
     ]);
 
     const {visibleCards} = this.props;
-    const cardComponents = visibleCards === undefined || visibleCards.length === 0 ?
-      [...keyToCard.values()] :
-      visibleCards.map(k => keyToCard.get(k));
+
+    const cardKeyIndex = 0;
+    const cardValueIndex = 1;
+    const cardKeyComponents = visibleCards === undefined || visibleCards.length === 0 ?
+      [...keyToCard.entries()] : visibleCards.map(k => { return [k, keyToCard.get(k)]});
+
+    const cardComponents = cardKeyComponents.map(e => (
+      <div className="column" key={e[cardKeyIndex]}>
+        {e[cardValueIndex]}
+      </div>)
+    );
+
+    const justOneCardComponent = cardKeyComponents.length === 1 ? cardKeyComponents[0][cardValueIndex]: undefined;
 
     return (
-      <div className="container cards-row">
-        <div className="columns">
-          {cardComponents}
-        </div>
-      </div>);
+      (justOneCardComponent ||
+        <div className="container cards-row">
+          <div className="columns">
+            {cardComponents}
+          </div>
+        </div>));
   }
 }

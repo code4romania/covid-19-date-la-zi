@@ -258,13 +258,25 @@ class DashboardNoContext extends React.PureComponent {
         <GenderCard key={EMBED_PATH_GENDER} to="/" title="După gen" state={this.state.gender} />
       )],
       [PROP_SHOW_CONFIRMED_CASES, (
-        <SummaryRow key={PROP_SHOW_CONFIRMED_CASES} visibleCards={[PROP_SHOW_CONFIRMED_CASES]} />
+        <SummaryRow
+          key={PROP_SHOW_CONFIRMED_CASES}
+          visibleCards={[PROP_SHOW_CONFIRMED_CASES]}
+          state={this.state.summary}
+        />
       )],
       [PROP_SHOW_CURED_CASES, (
-        <SummaryRow key={PROP_SHOW_CURED_CASES} visibleCards={[PROP_SHOW_CURED_CASES]} />
+        <SummaryRow
+          key={PROP_SHOW_CURED_CASES}
+          visibleCards={[PROP_SHOW_CURED_CASES]}
+          state={this.state.summary}
+        />
       )],
       [PROP_SHOW_DEATH_CASES, (
-        <SummaryRow key={PROP_SHOW_DEATH_CASES} visibleCards={[PROP_SHOW_DEATH_CASES]} />
+        <SummaryRow
+          key={PROP_SHOW_DEATH_CASES}
+          visibleCards={[PROP_SHOW_DEATH_CASES]}
+          state={this.state.summary}
+        />
       )]
     ]);
 
