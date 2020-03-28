@@ -4,6 +4,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
 {
     public class DailyPdfStats
     {
+        public bool Complete { get; set; }
         public long ParsedOn { get; set; }
         public string ParsedOnString { get; set; }
         public string FileName { get; set; }

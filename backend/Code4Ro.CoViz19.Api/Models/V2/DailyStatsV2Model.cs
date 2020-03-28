@@ -18,6 +18,6 @@ namespace Code4Ro.CoViz19.Api.Models.V2
         public int Cured { get; set; }
         public int Deaths { get; set; }
         public string AverageAge { get; set; }
-
+        public bool Complete { get; set; }
     }
 }

@@ -1,13 +1,18 @@
-# Date la zi
+![logo](frontend/public/images/logo-coviz.svg)
+
+# Date la zi • [Live](https://datelazi.ro/)
+
 ## Vizualization App to track the COVID-19 virus epidemic
 
 [![GitHub contributors](https://img.shields.io/github/contributors/code4romania/date-la-zi.svg?style=for-the-badge)](https://github.com/code4romania/date-la-zi/graphs/contributors) [![GitHub last commit](https://img.shields.io/github/last-commit/code4romania/date-la-zi.svg?style=for-the-badge)](https://github.com/code4romania/date-la-zi/commits/master) [![License: MPL 2.0](https://img.shields.io/badge/license-MPL%202.0-brightgreen.svg?style=for-the-badge)](https://opensource.org/licenses/MPL-2.0)
 
-Objective: Clear information of the public, increase in transparency, diminishing panic.
+### Objective
 
-How: System that takes in anonymised data from the cases database and transforms it into information understandable by the large public. Adapted for all devices.
+Clear information of the public, increase in transparency, diminishing panic.
 
-[See the project live](https://datelazi.ro/)
+### How
+
+System that takes in anonymised data from the cases database and transforms it into information understandable by the large public. Adapted for all devices. [See it Live](https://datelazi.ro/)
 
 [Contributing](#contributing) | [Built with](#built-with) | [Deployment](#deployment) | [Feedback](#feedback) | [License](#license) | [About Code4Ro](#about-code4ro)
 
@@ -15,25 +20,30 @@ How: System that takes in anonymised data from the cases database and transforms
 
 This project is built by amazing volunteers and you can be one of them! Here's a list of ways in [which you can contribute to this project](.github/CONTRIBUTING.md).
 
-You can also list any pending features and planned improvements for the project here.
+If you plan on contributing code to the project, it's very important to read the [Collaboration Workflow](.github/WORKFLOW.md) we use at Code 4 Romania.
+It's very important to create your own fork, push code to branches into your fork, then creating PRs that go into the original project's `develop` branch.
+It's all very detailed in the link above.
+
+If you need any assistance you can contact the project's technical lead, [@CristiHabliuc](https://github.com/CristiHabliuc) on github / `@cristi` on Code 4 Romania's Slack.
 
 ## Built With
 
 ### Programming languages
 
-Backend: .NET Core
-
-Frontend: React
+- Backend: .NET Core
+- Frontend: React JS
 
 ## Deployment
 
-Guide users through getting your code up and running on their own system. In this section you can talk about:
-1. Installation process
-2. Software dependencies
-3. Latest releases
-4. API references
+The builds are automatically deployed when changes are merged as follows:
 
-Describe and show how to build your code and run the tests.
+- Merging a PR into `develop` will trigger the deployment into our staging environment, found at `https://staging.datelazi.ro`
+- Merging a PR into `master` (usually only production releases from `develop`) will trigger the deployment into our production environment, found at `https://datelazi.ro`
+
+Read these guides for running locally depending on the module: 
+
+- [Frontend](frontend/README.md)
+- [Backend](backend/README.md)
 
 ## Feedback
 
