@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
 using Amazon.S3;
+using Code4Ro.CoViz19.Parser.Filters;
 using Code4Ro.CoViz19.Services;
 using Code4Ro.CoViz19.Services.Options;
 using Microsoft.AspNetCore.Http.Features;
@@ -104,6 +105,7 @@ namespace Code4Ro.CoViz19.Parser
             app.UseRouting();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseMiddleware<CaptureJsonBodyMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
