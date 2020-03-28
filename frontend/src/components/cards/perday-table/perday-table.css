@@ -10,6 +10,17 @@
     max-width: 100%;
 }
 
+@media only screen and (max-width: 812px) {
+    .perDayTable table tbody td {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .perDayTable .button:first-child {
+        margin-bottom: 10px;
+    }
+}
+
 .perDayTable table tbody tr:hover {
     background-color: #3d3b3b83;
     color: white;
@@ -18,41 +29,6 @@
 .perDayTable table td,
 .perDayTable table th {
     text-align: right !important;
-}
-
-@media only screen and (max-width: 812px) {
-    
-    .perDayTable table thead tr th:first-child,
-    .perDayTable table tbody tr td:first-child {
-        display: none;
-        visibility: hidden;
-    }
-
-    .perDayTable table thead tr th {
-        visibility: hidden;
-    }
-
-    .perDayTable table thead tr th::first-letter {
-        visibility: visible;
-    }
-
-    .perDayTable table tbody tr th {
-        display: block;
-    }
-
-    .perDayTable table tbody tr td:first-child {
-        word-break: break-all;
-        word-wrap: break-word;
-    }
-
-    .perDayTable .button:first-child {
-        margin-bottom: 10px;
-    }
-
-    .perDayTable table td,
-    .perDayTable table th {
-    text-align: left !important;
-}
 }
 
 .perDayTable .button.hide {

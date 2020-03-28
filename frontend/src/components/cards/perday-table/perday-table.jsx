@@ -29,7 +29,6 @@ export class PerDayTable extends React.PureComponent {
 
         return data.slice(page * limit, limit * (page + 1)).map((row, index) => {
             return <tr key={`dailyTable${index}`}>
-                <td>{ row["id"] }</td>
                 <td>{ moment(row["datePublishedString"]).format("DD/MM") }</td>
                 <td>{ row["infected"] }</td>
                 <td>{ row["cured"] }</td>
@@ -79,7 +78,6 @@ export class PerDayTable extends React.PureComponent {
                     <table>
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Data</th>
                                 <th>Infectati</th>
                                 <th>Vindecati</th>
