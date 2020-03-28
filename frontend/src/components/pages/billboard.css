@@ -12,9 +12,9 @@
 }
 
 .big-screen.daily-chart .card {
-    height: 700px;
+    height: 540px;
 }
 
 .big-screen.daily-chart .summary-subtitle {
-    font-size: 20pt;
+    opacity: 0;
 }

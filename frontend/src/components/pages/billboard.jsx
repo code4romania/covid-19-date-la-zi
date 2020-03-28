@@ -9,7 +9,7 @@ import { AgeCard } from '../cards/age/age';
 import { PerDayTable } from '../cards/perday-table/perday-table';
 import { round } from 'prelude-ls';
 
-import { Hero, Instruments, InstrumentsItem, SocialsShare } from '@code4ro/taskforce-fe-components';
+import { Hero, Instruments, InstrumentsItem, SocialsShare, DevelopedBy } from '@code4ro/taskforce-fe-components';
 
 import '@code4ro/taskforce-fe-components/dist/index.css';
 import './billboard.css';
@@ -278,11 +278,21 @@ export class Billboard extends React.PureComponent {
 
     return (
       <section className="section">
-        <div className="container cards-row content">
-          <h1>COVID-19</h1>
 
-          {lastUpdate &&
-            <p>Situația în România în {lastUpdate}.</p>}
+        <div className="container cards-row content">
+            <div className="columns">
+                <div className="column">
+                <h1>COVID-19</h1>
+
+                {lastUpdate &&
+                    <p>Situația în România în {lastUpdate}.</p>}
+                    
+                </div>
+                <div className="column">
+                    <DevelopedBy />
+
+                </div>
+            </div>
 
         </div>
 
@@ -316,7 +326,7 @@ export class Billboard extends React.PureComponent {
         <div className="container cards-row big-screen daily-chart">
           <div className="columns">
             <div className="column is-four-quarters">
-              <CasesPerDayCard state={this.state.daily} />
+              <CasesPerDayCard state={this.state.daily} title="Evoluția pe zile" />
             </div>
           </div>
         </div>
