@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Code4Ro.CoViz19.Parser.Filters;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Code4Ro.CoViz19.Parser
 {
@@ -18,13 +15,11 @@ namespace Code4Ro.CoViz19.Parser
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
+                .ConfigureServices(services =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    services.AddControllers(options => { options.Filters.Add<ModelInvalidStateLogger>(); });
                 })
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    config.AddEnvironmentVariables();
-                });
+                .ConfigureAppConfiguration((hostingContext, config) => { config.AddEnvironmentVariables(); });
     }
 }

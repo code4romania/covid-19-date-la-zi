@@ -1,18 +1,19 @@
+using System.Reflection;
+using System.Text;
+using Amazon.S3;
+using Code4Ro.CoViz19.Parser.Middleware;
+using Code4Ro.CoViz19.Services;
+using Code4Ro.CoViz19.Services.Options;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Reflection;
-using Amazon.S3;
-using Code4Ro.CoViz19.Services;
-using Code4Ro.CoViz19.Services.Options;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 
 namespace Code4Ro.CoViz19.Parser
@@ -32,7 +33,7 @@ namespace Code4Ro.CoViz19.Parser
             services.AddHealthChecks();
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddControllersWithViews().AddNewtonsoftJson();
-            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             services.Configure<FormOptions>(options =>
             {
@@ -104,6 +105,7 @@ namespace Code4Ro.CoViz19.Parser
             app.UseRouting();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseMiddleware<CaptureJsonBodyMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
