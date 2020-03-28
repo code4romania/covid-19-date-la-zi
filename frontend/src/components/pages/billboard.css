@@ -1,0 +1,20 @@
+.big-screen .card {
+    background-color: #eaeaea;
+    min-height: 300px;
+}
+
+.big-screen .card h4 {
+    font-size: 60pt;
+}
+
+.big-screen .card h3 {
+    font-size: 35pt;
+}
+
+.big-screen.daily-chart .card {
+    height: 700px;
+}
+
+.big-screen.daily-chart .summary-subtitle {
+    font-size: 20pt;
+}

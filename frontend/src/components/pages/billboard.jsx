@@ -1,19 +1,20 @@
 import React from 'react';
 import { ApiURL } from '../../config/globals';
 import { PageHeader } from '../layout/page.header';
-import { SummaryRow } from '../layout/rows/summary.row';
+import { SummaryCard } from '../cards/summary/summary-card';
 import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
 import { AverageAgeCard } from '../cards/avg-age/avg-age-card';
 import { AgeCard } from '../cards/age/age';
 import { PerDayTable } from '../cards/perday-table/perday-table';
+import { round } from 'prelude-ls';
 
 import { Hero, Instruments, InstrumentsItem, SocialsShare } from '@code4ro/taskforce-fe-components';
 
 import '@code4ro/taskforce-fe-components/dist/index.css';
-import './dashboard.css';
+import './billboard.css';
 
-export class Dashboard extends React.PureComponent {
+export class Billboard extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -262,6 +263,15 @@ export class Dashboard extends React.PureComponent {
     return !!window.location.host ? window.location.protocol + '//' + window.location.host : 'https://datelazi.ro'
   }
 
+  specialValueForCured(state) {
+    const curedPercentage = state.totalCases > 0 ? round(100*(state.curedCases / state.totalCases)) : 0
+    return {
+      value: curedPercentage + '%',
+      label: 'din total',
+      isGood: true
+    }
+  };
+
   render() {
     const lastUpdate = !!this.state.lastUpdate ? this.state.lastUpdate.lastUpdate : '-'
     const link = this.shareableLink()
@@ -269,110 +279,48 @@ export class Dashboard extends React.PureComponent {
     return (
       <section className="section">
         <div className="container cards-row content">
-          <PageHeader
-            title="Date Oficiale"
-          />
-          <p>
-            Accesul la date din surse oficiale ce descriu evoluția cazurilor de COVID-19 în România
-            este esențial în adoptarea măsurilor de sănătate publică împotriva pandemiei. Astfel,
-            venim în sprijinul publicului și al mass-media din România prin accesibilizarea datelor
-            punându-le într-o formă grafică ușor de parcurs, urmând modelul portalului de informare
-            din <a href="https://co.vid19.sg/" target="_blank" rel="noopener noreferrer">Singapore</a>.
-          </p>
-          <p>
-            Infografiile se actualizează periodic și sunt centralizate în graficele de mai jos.
-          </p>
-          <p>
-            Acest proiect este realizat pro-bono în parteneriat cu Guvernul României prin Autoritatea
-            pentru Digitalizarea României. Funcționarea acestei platforme depinde exclusiv de
-            conținutul datelor și informațiilor care vor fi furnizate de către Guvernul României.
-          </p>
-
-          <SocialsShare currentPage={link} />
+          <h1>COVID-19</h1>
 
           {lastUpdate &&
-            <p>Date actualizate în {lastUpdate}.</p>}
+            <p>Situația în România în {lastUpdate}.</p>}
 
         </div>
 
-        <SummaryRow state={this.state.summary} />
-
-        <div className="container cards-row second-row">
-          <div className="columns">
-            <div className="column is-three-quarters">
-              <CasesPerDayCard state={this.state.daily} />
-            </div>
-            <div className="column is-one-quarter">
-              <GenderCard to="/" title="După gen" state={this.state.gender} />
-            </div>
-          </div>
-        </div>
-
-        <div className="container cards-row third-row">
-          <div className="columns">
-            <div className="column is-two-quarters">
-              <AgeCard
-                title="După vârstă"
-                state={this.state.age}
-              />
-            </div>
-            <div className="column is-one-quarter">
-              <AverageAgeCard
-                state={this.state.averageAge}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="container cards-row third-row">
+        <div className="container cards-row big-screen">
           <div className="columns">
             <div className="column">
-              <PerDayTable state={this.state.dailyTable} />
+              <SummaryCard
+                isLoaded={this.state.isLoaded}
+                error={this.state.error}
+                to="/"
+                title="Cazuri confirmate"
+                total={this.state.summary.totalCases}
+                data={this.state.summary.totalCasesHistory}
+              />
+            </div>
+            <div className="column">
+              <SummaryCard
+                isLoaded={this.state.isLoaded}
+                error={this.state.error}
+                to="/"
+                title="Vindecați"
+                total={this.state.summary.curedCases}
+                special={this.specialValueForCured(this.state.summary)}
+                data={this.state.summary.curedCasesHistory}
+              />
             </div>
           </div>
         </div>
 
-        <div className="container">
-          <div className="border-bottom">
-            <Hero title="Instrumente utile" useFallbackIcon />
-          </div>
 
-          <Instruments layout="grid">
-            <section>
-              <InstrumentsItem
-                color="green"
-                title="Instalează-ţi extensia de Firefox"
-                ctaLink="https://addons.mozilla.org/en-US/firefox/addon/covid-19-%C8%99tiri-oficiale/"
-                ctaText="Instalează add-on"
-              />
-              <InstrumentsItem
-                color="green"
-                title="Instalează-ti extensia de Chrome"
-                ctaLink={'https://chrome.google.com/webstore/detail/' +
-                'covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha'}
-                ctaText="Instalează add-on"
-              />
-            </section>
-            <section>
-              <InstrumentsItem
-                color="green"
-                title="Ştiri oficiale și informații la zi"
-                content=""
-                ctaText="Cele mai noi informaţii oficiale"
-                ctaLink="https://stirioficiale.ro/informatii"
-              />
-            </section>
-            <section>
-              <InstrumentsItem
-                color="yellow"
-                title="Află ce ai de făcut în orice situație"
-                content=""
-                ctaText="Ce trebuie să fac"
-                ctaLink="https://cemafac.ro"
-              />
-            </section>
-          </Instruments>
+        <div className="container cards-row big-screen daily-chart">
+          <div className="columns">
+            <div className="column is-four-quarters">
+              <CasesPerDayCard state={this.state.daily} />
+            </div>
+          </div>
         </div>
+
       </section>
     );
   }

@@ -86,6 +86,7 @@ export class CasesPerDayCard extends React.PureComponent {
           </h4>
         </div>
         <ReactEcharts
+          id="daily-chart"
           style={{
             height: '470px',
             width: '100%'
