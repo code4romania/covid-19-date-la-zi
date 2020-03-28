@@ -17,11 +17,11 @@ serve it in form of an API to this frontend app.
 
 ## Dependencies
 
-We use `yarn` so you should [install that first](https://classic.yarnpkg.com/en/docs/install#mac-stable) if you don't already have it.
+We use `yarn` so you should [install that first](https://classic.yarnpkg.com/en/docs/install#mac-stable) if you don't already have it. 
 
 ## Install project dependencies
 
-While in this directory, you can run this:
+While in **frontend** directory, you can run this:
 
 ```
 yarn
