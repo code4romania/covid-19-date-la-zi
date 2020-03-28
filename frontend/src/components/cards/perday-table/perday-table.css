@@ -1,0 +1,7 @@
+.perDayTable .button.hide {
+    display: none;
+}
+
+.perDayTable .button:first-child {
+    margin-right: 10px;
+}
