@@ -7,6 +7,7 @@ import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card'
 import { AverageAgeCard } from '../cards/avg-age/avg-age-card';
 import { AgeCard } from '../cards/age/age';
 import { PerDayTable } from '../cards/perday-table/perday-table';
+import download from 'downloadjs';
 
 import { Hero, Instruments, InstrumentsItem, SocialsShare } from '@code4ro/taskforce-fe-components';
 
@@ -147,7 +148,7 @@ export class Dashboard extends React.PureComponent {
         error: "Nu am putut prelua datele"
       };
     }
-    
+
     let dailyStats = result.dailyStats;
     let dailyTable = [];
 
@@ -163,7 +164,7 @@ export class Dashboard extends React.PureComponent {
 
     dailyTable = dailyTable.filter(filterIncompleteRows)
       .sort((a,b) => b.datePublished - a.datePublished);
-      
+
     return {
       isLoaded: true,
       error: null,
@@ -262,6 +263,26 @@ export class Dashboard extends React.PureComponent {
     return !!window.location.host ? window.location.protocol + '//' + window.location.host : 'https://datelazi.ro'
   }
 
+  handleDownloadAllData = () => {
+    fetch(ApiURL.allData)
+      .then(res => res.json())
+      .then((result) => {
+        if (result.error != null) {
+          this.setState({error: result.error, isLoaded: true})
+        } else {
+          const filename = this.getNormalizedFileName(result.lasUpdatedOnString);
+          download(JSON.stringify(result), `date_${filename}.json`, 'application/json');
+        }
+      })
+      .catch((error) => {
+        this.resetState({error: error, isLoaded: true})
+      })
+  };
+
+  getNormalizedFileName(filename) {
+    return filename.replace(/\s+/g, '_').toLowerCase();
+  }
+
   render() {
     const lastUpdate = !!this.state.lastUpdate ? this.state.lastUpdate.lastUpdate : '-'
     const link = this.shareableLink()
@@ -290,8 +311,15 @@ export class Dashboard extends React.PureComponent {
 
           <SocialsShare currentPage={link} />
 
-          {lastUpdate &&
-            <p>Date actualizate în {lastUpdate}.</p>}
+          <div className="level">
+            {lastUpdate &&
+            <p className="level-left">Date actualizate în {lastUpdate}.</p>}
+            <button
+              className="button is-primary is-light levelRight"
+              onClick={this.handleDownloadAllData}
+            >Descarcă datele
+            </button>
+          </div>
 
         </div>
 
