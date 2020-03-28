@@ -1,38 +1,25 @@
 import * as React from 'react';
 import './embed-button.css';
+import {useToast} from './toast/withToastProvider';
 
-export class EmbedButton extends React.PureComponent {
+export const EmbedButton = (props) => {
+  const toast = useToast();
+  const {path, viewPort} = props;
 
-  state = {showTooltip: false};
-
-  copyEmbedCode() {
-    const {path, viewPort} = this.props;
+  const handleCopyEmbedCode = () => {
     const result = `<iframe
             src="${window.location.origin.toString()}/embed/${path}"
             width="${viewPort.width}"
             height="${viewPort.height}" />`;
 
-    navigator.clipboard.writeText(result).then(() => {
-      this.setState({
-        showTooltip: true
-      });
-      setTimeout(() => this.setState({showTooltip: false}), 2000);
-    });
+    navigator.clipboard.writeText(result).then(() => toast.add('Textul a fost copiat in memoria clipboard'));
+  };
 
-  }
-
-  render() {
-    const visibilityClass = this.state.showTooltip ? 'visible' : 'invisible';
-    return (
-      <div className="fab-action">
-        <div className="tooltip">
-          <img src="/images/favicon/embed.png" alt="embed" className="fab-icon" onClick={() => this.copyEmbedCode()} />
-
-          <div className={`tooltip-text ${visibilityClass}`}>
-            <p>Textul a fost copiat în memoria clipboard.</p>
-          </div>
-        </div>
+  return (
+    <div className="fab-action">
+      <div className="tooltip">
+        <img src="/images/favicon/embed.png" alt="embed" className="fab-icon" onClick={handleCopyEmbedCode} />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
