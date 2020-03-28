@@ -171,7 +171,7 @@ export class Dashboard extends React.PureComponent {
       return {
         value: stats[key],
         name: key,
-        percentage: Math.round((100 * stats[key]) / total)
+        percentage: ((100 * stats[key]) / total).toFixed(2)
       };
     });
 
