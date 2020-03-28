@@ -49,8 +49,8 @@ export class AgeCard extends React.PureComponent {
       grid: {
         left: '1%',
         right: 0,
-        bottom: '50px',
-        top: '20%',
+        bottom: '0',
+        top: '2%',
         containLabel: true
       },
       series: [
@@ -87,7 +87,7 @@ export class AgeCard extends React.PureComponent {
           <ReactEcharts
             id="age-chart"
             style={{
-              height: '470px',
+              height: '250px',
               width: '100%'
             }}
             option={this.getChartOptions(state)}
