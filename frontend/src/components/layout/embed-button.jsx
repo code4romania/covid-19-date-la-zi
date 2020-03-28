@@ -6,13 +6,22 @@ export const EmbedButton = (props) => {
   const toast = useToast();
   const {path, viewPort} = props;
 
-  const handleCopyEmbedCode = () => {
-    const result = `<iframe
+  let getEmbeddableCode = () => `<iframe
             src="${window.location.origin.toString()}/embed/${path}"
             width="${viewPort.width}"
             height="${viewPort.height}" />`;
 
-    navigator.clipboard.writeText(result).then(() => toast.add('Textul a fost copiat in memoria clipboard'));
+  const handleCopyEmbedCode = () => {
+    const auxiliaryField = document.createElement('textarea');
+    auxiliaryField.innerText = getEmbeddableCode();
+
+    document.body.appendChild(auxiliaryField);
+    auxiliaryField.select();
+    document.execCommand('copy');
+
+    auxiliaryField.remove();
+
+    toast.add('Textul a fost copiat in memoria clipboard')
   };
 
   return (
