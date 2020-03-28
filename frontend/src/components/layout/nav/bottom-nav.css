@@ -12,39 +12,12 @@
     padding-right: 10px;
 }
 
-.bottom-navigation {
-    background-color: var(--accent-color);
-    color: white;
-    padding: 60px 5px 70px 5px;
-}
-
-.bottom-navigation a {
-    color: white;
-}
-
-.bottom-navigation h4 {
-    font-weight: 700;
-    padding-bottom: 15px;
-}
-
-.border-top {
-    border-top: 1px solid #5E80FF;
-}
-
-.logo-code4-gray {
-    height: 40px;
-}
-
 .logo-force {
     height: 45px;
     margin: -5px 0 auto;
     vertical-align: middle;
-  }
-
-.copyright {
-    text-align: right;
 }
 
-.vbottom {
-    margin-top: auto;
+.border-top {
+    border-top: 1px solid #5e80ff;
 }
