@@ -159,7 +159,10 @@ export class Dashboard extends React.PureComponent {
       dailyTable.push(...dailyStats["history"]);
     }
 
-    dailyTable = dailyTable.sort((a,b) => b.datePublished - a.datePublished)
+    const filterIncompleteRows = (row) => row.hasOwnProperty("complete") && row.complete === false ? false : true;
+
+    dailyTable = dailyTable.filter(filterIncompleteRows)
+      .sort((a,b) => b.datePublished - a.datePublished)
       .map((e, index) => {
         e["id"] = index + 1;
         return e;
