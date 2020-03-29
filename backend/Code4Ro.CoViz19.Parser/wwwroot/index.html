@@ -8,6 +8,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="js/bind-js.min.js"></script>
+
+    <!-- JSON viewer -->
+    <!-- load a custom version of Ace editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
+
+    <!-- load the minimalist version of JSONEditor, which doesn't have Ace embedded -->
+    <link href="/jsoneditor/jsoneditor.css" rel="stylesheet" type="text/css">
+    <script src="/jsoneditor/jsoneditor-minimalist.js"></script>
+    <!-- end JSON viewer -->
+
+    <link href="css/app.css" rel="stylesheet" type="text/css">
+    <script src="js/box.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
 </head>
 
@@ -21,16 +37,105 @@
             <button id="upload-file" type="button" class="btn btn-primary" onclick="transformToJson()">Transform to json</button>
             <button id="copy" class="btn btn-secondary" onclick="copyResponseToClipboard()">Copy to clipboard</button>
             <button id="upload-json" type="button" class="btn btn-danger" onclick="publishEditedData()">Publish data</button>
-
         </div>
-        <div>
-        </div>
-        <textarea id="jsonOutput" style="width: 100%; height: 500px;">
-    </textarea>
 
+
+        <div id="jsoneditor"></div>
+        <button class="button btn btn-primary" type="button">Afiseaza formular</button>
+    </div>
+
+    <div class="container box box-hidden">
+        <h1>Formular</h1>
+
+        <form action="#" bindjs-id="form">
+            <div class="form-group">
+                <label for="parsedOn">parsedOn:</label>
+                <input bindjs-id="parsedOn" type="text" class="form-control" id="parsedOn">
+
+                <label for="parsedOnString">parsedOnString:</label>
+                <input bindjs-id="parsedOnString" type="datetime-local" class="form-control" id="parsedOnString">
+
+                <label for="fileName">fileName:</label>
+                <input bindjs-id="fileName" type="text" class="form-control" id="fileName">
+
+                <div class="checkbox">
+                    <label>complete: <input bindjs-id="complete" type="checkbox" value="" id="complete"></label>
+                </div>
+
+                <label for="averageAge">averageAge:</label>
+                <input bindjs-id="averageAge" type="text" class="form-control" id="averageAge">
+
+                <label for="numberInfected">numberInfected:</label>
+                <input bindjs-id="numberInfected" type="number" class="form-control" id="numberInfected">
+
+                <label for="numberCured">numberCured:</label>
+                <input bindjs-id="numberCured" type="number" class="form-control" id="numberCured">
+
+                <label for="numberDeceased">numberDeceased:</label>
+                <input bindjs-id="numberDeceased" type="number" class="form-control" id="numberDeceased">
+
+                <label for="percentageOfWomen">percentageOfWomen:</label>
+                <input bindjs-id="percentageOfWomen" type="text" class="form-control" id="percentageOfWomen">
+
+                <label for="percentageOfChildren">percentageOfChildren:</label>
+                <input bindjs-id="percentageOfChildren" type="text" class="form-control" id="percentageOfChildren">
+
+                <label for="percentageOfMen">percentageOfMen:</label>
+                <input bindjs-id="percentageOfMen" type="text" class="form-control" id="percentageOfMen">
+
+
+                <div class="form-group" id="distributionByAge" bindjs-id="distributionByAge">
+                    <h2>distributionByAge</h2>
+                    <label for="0-9">0-9:</label>
+                    <input bindjs-id="0-9" type="number" class="form-control" id="0-9">
+
+                    <label for="10-19">10-19:</label>
+                    <input bindjs-id="10-19" type="number" class="form-control" id="10-19">
+
+                    <label for="20-29">20-29:</label>
+                    <input bindjs-id="20-29" type="number" class="form-control" id="20-29">
+
+                    <label for="30-39">30-39:</label>
+                    <input bindjs-id="30-39" type="number" class="form-control" id="30-39">
+
+                    <label for="40-49">40-49:</label>
+                    <input bindjs-id="40-49" type="number" class="form-control" id="40-49">
+
+                    <label for="50-59">50-59:</label>
+                    <input bindjs-id="50-59" type="number" class="form-control" id="50-59">
+
+                    <label for="60-69">60-69:</label>
+                    <input bindjs-id="60-69" type="number" class="form-control" id="60-69">
+
+                    <label for="70-79">70-79:</label>
+                    <input bindjs-id="70-79" type="number" class="form-control" id="70-79">
+
+                    <label for=">80">>80:</label>
+                    <input bindjs-id="80" type="number" class="form-control" id=">80">
+
+                    <label for="în procesare">în procesare:</label>
+                    <input bindjs-id="inProcesare" type="number" class="form-control" id="în procesare">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default">to json</button>
+        </form>
     </div>
 
     <script id="jsbin-javascript">
+        // Get bind context for app.
+        var formData = BindJS.context('form');
+
+        // create the editor
+        const container = document.getElementById('jsoneditor')
+        const options = {
+            modes: ['text', 'code', 'tree', 'form', 'view'],
+            mode: 'code',
+            ace: ace
+        }
+        const json = {}
+        const jsonEditor = new JSONEditor(container, options, json)
+
+
         function transformToJson() {
             var file = document.getElementById("file").files[0];  // file from input
             if (file) {
@@ -42,7 +147,8 @@
                 formData.append("file", file);
                 req.onreadystatechange = state => {
                     if (req.readyState != 4 || req.status != 200) return;
-                    document.getElementById('jsonOutput').value = JSON.stringify(JSON.parse(req.responseText), null, 4);
+                    //document.getElementById('jsonOutput').value = JSON.stringify(JSON.parse(req.responseText), null, 4);
+                    jsonEditor.set(JSON.parse(req.responseText));
 
                     enableButtons();
                 } // err handling
@@ -59,14 +165,7 @@
         }
 
         function copyResponseToClipboard() {
-            var copyText = document.getElementById("jsonOutput");
-
-            /* Select the text field */
-            copyText.select();
-            copyText.setSelectionRange(0, 9999999); /*For mobile devices*/
-
-            /* Copy the text inside the text field */
-            document.execCommand("copy");
+            navigator.clipboard.writeText(jsonEditor.getText());
         }
 
         function publishEditedData() {
@@ -76,7 +175,8 @@
                 var xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = state => {
                     if (xhr.readyState != 4 || xhr.status != 200) return;
-                    document.getElementById('jsonOutput').value = JSON.stringify(JSON.parse(xhr.responseText), null, 4);
+                    //document.getElementById('jsonOutput').value = JSON.stringify(JSON.parse(xhr.responseText), null, 4);
+                    jsonEditor.set(JSON.parse(xhr.responseText));
 
                     enableButtons();
                 } // err handling
@@ -87,7 +187,8 @@
                 }
                 xhr.open("POST", 'v3/upload-json', false);
                 xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.send(document.getElementById('jsonOutput').value);
+                //xhr.send(document.getElementById('jsonOutput').value);
+                xhr.send(jsonEditor.getText());
             }
         }
 
@@ -96,10 +197,25 @@
             document.getElementById('upload-json').setAttribute("disabled", "disabled");
         }
 
-        function  enableButtons() {
+        function enableButtons() {
             document.getElementById('upload-file').removeAttribute("disabled");
             document.getElementById('upload-json').removeAttribute("disabled");
         }
+
+        $('form').submit(function (e) {
+            console.log(formData);
+            var json = JSON.parse(formData.val());
+
+
+            //handle special characters from JSON
+            json.distributionByAge[">80"] = json.distributionByAge["80"];
+            delete json.distributionByAge["80"];
+
+            json.distributionByAge["în procesare"] = json.distributionByAge["inProcesare"];
+            delete json.distributionByAge["inProcesare"];
+
+            jsonEditor.set(json);
+        });
     </script>
 </body>
 
