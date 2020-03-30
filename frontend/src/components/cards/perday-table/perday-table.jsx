@@ -19,20 +19,20 @@ export class PerDayTable extends React.PureComponent {
 
     componentWillReceiveProps(newProps) {
         if (this.props !== newProps) {
-            const { state } = newProps;
-            this.setState({ ...state });
+            const {state} = newProps;
+            this.setState({...state});
         }
     }
 
     displayTable(data) {
-        const { page, limit } = this.state;
+        const {page, limit} = this.state;
 
         return data.slice(page * limit, limit * (page + 1)).map((row, index) => {
             return <tr key={`dailyTable${index}`}>
-                <td>{moment(row["datePublishedString"]).format("DD/MM")}</td>
-                <td>{row["infected"]}</td>
-                <td>{row["cured"]}</td>
-                <td>{row["deaths"]}</td>
+                <td>{ moment(row["datePublishedString"]).format("DD/MM") }</td>
+                <td>{ row["infected"] }</td>
+                <td>{ row["cured"] }</td>
+                <td>{ row["deaths"] }</td>
             </tr>;
         });
     }
@@ -42,7 +42,7 @@ export class PerDayTable extends React.PureComponent {
             return null;
         }
 
-        const { data, limit, page } = this.state;
+        const {data, limit, page} = this.state;
         const shouldDisplayPagination = data.length > limit;
 
         if (shouldDisplayPagination) {
@@ -62,19 +62,19 @@ export class PerDayTable extends React.PureComponent {
                         />    
                 </div>
             </div>;
-        }
+      }
     }
 
     changePage(inc) {
-
-        const { page, data, limit } = this.state;
+    
+        const { page, data, limit} = this.state;
 
         if (inc < 0 && page !== 0) {
-            this.setState({ page: page + inc });
+            this.setState({page: page + inc});
         }
 
         if (inc > 0 && ((page + inc) * limit) <= data.length) {
-            this.setState({ page: this.state.page + inc });
+            this.setState({page: this.state.page + inc});
         }
     }
 
@@ -97,11 +97,11 @@ export class PerDayTable extends React.PureComponent {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.data && this.displayTable(this.state.data)}
+                            { this.state.data && this.displayTable(this.state.data)}
                         </tbody>
                     </table>
 
-                    {this.displayPagination()}
+                    { this.displayPagination() }
                 </div>
             </Card>
         );
