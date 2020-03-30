@@ -152,10 +152,6 @@ export class Dashboard extends React.PureComponent {
     let dailyStats = result.dailyStats;
     let dailyTable = [];
 
-    if (dailyStats["currentDay"]) {
-      dailyTable.push(dailyStats["currentDay"]);
-    }
-
     if (dailyStats["history"]) {
       dailyTable.push(...dailyStats["history"]);
     }
