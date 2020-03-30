@@ -35,6 +35,14 @@
     display: none;
 }
 
+.perDayTable .button.right {
+    float: right;
+}
 .perDayTable .button:first-child {
     margin-right: 10px;
+}
+
+.navigation-chevron{
+    width: 24px;
+    height: 24px;
 }

@@ -47,10 +47,22 @@ export class PerDayTable extends React.PureComponent {
 
         if (shouldDisplayPagination) {
             return <div>
-                        <div className={"button " + (page === 0 ? "hide": "")} onClick={ e => this.changePage(-1)}>Pagina anterioara</div>
-                        <div className={"button " + ((page + 1) * limit >= data.length ? "hide": "")} onClick={ e => this.changePage(1)}>Pagina urmatoare</div>
-                </div>;
-        }
+                <div className={"button " + (page === 0 ? "hide" : "")} onClick={e => this.changePage(-1)}>
+                    <img
+                        src="/images/chevrons-left.svg"
+                        className="navigation-chevron"
+                        alt="Pagina anterioara"
+                    />
+                </div>
+                <div className={"button right " + ((page + 1) * limit >= data.length ? "hide" : "")} onClick={e => this.changePage(1)}>
+                    <img
+                        src="/images/chevrons-right.svg"
+                        className="navigation-chevron"
+                        alt="Pagina urmatoare"
+                        />    
+                </div>
+            </div>;
+      }
     }
 
     changePage(inc) {
