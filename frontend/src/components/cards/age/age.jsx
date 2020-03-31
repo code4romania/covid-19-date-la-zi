@@ -8,7 +8,7 @@ export class AgeCard extends React.PureComponent {
 
   getChartOptions = (state) => {
     // this is here to prevent errors until state is defined
-    const xAxisData = state.data && state.data.map(item => item.name)
+    const yAxisData = state.data && state.data.map(item => item.name)
     const seriesValues = state.data && state.data.map(item => {
       return {
         value: item.value,
@@ -19,14 +19,14 @@ export class AgeCard extends React.PureComponent {
     const labels = ['Confirmați'];
     return {
       xAxis: {
-        type: 'category',
-        data: xAxisData,
+        type: 'value',
         axisLabel: {
-          color: 'gray'
+          color: 'gray',
         }
       },
       yAxis: {
-        type: 'value',
+        type: 'category',
+        data: yAxisData,
         axisLabel: {
           color: 'gray'
         }
@@ -34,7 +34,7 @@ export class AgeCard extends React.PureComponent {
       tooltip: {
         trigger: 'axis',
         axisPointer: {
-          axis: 'x'
+          axis: 'y'
         },
         formatter: (rawData) => {
           const item = rawData[0]
@@ -42,13 +42,14 @@ export class AgeCard extends React.PureComponent {
         },
       },
       legend: {
-        data: labels[0],
-        bottom: '0px',
-        icon: 'circle',
+        show: false,
+        // data: labels[0],
+        // bottom: '0px',
+        // icon: 'circle',
       },
       grid: {
         left: '1%',
-        right: 0,
+        right: '2%',
         bottom: '0',
         top: '2%',
         containLabel: true
@@ -59,7 +60,17 @@ export class AgeCard extends React.PureComponent {
           name: labels[0],
           stack: 'one',
           type: 'bar',
-          color: Constants.confirmedColor
+          color: Constants.confirmedColor,
+          label: {
+            show: true,
+            position: 'right',
+            formatter: (rawData) => {
+              const item = rawData
+              return ` ${item.data.value} (${item.data.percentage}%) `
+            },
+            color: 'black',
+            fontWeight: 'bold'
+          }
         },
       ]
     }

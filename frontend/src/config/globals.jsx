@@ -20,7 +20,7 @@ export const Constants = {
   unknownColor: '#9FB3C7',
 
   symptomaticColor: '#F8AF69',
-  confirmedColor: '#69B2F8',
+  confirmedColor: '#66A4FB',
   curedColor: '#65E0E0',
 
   countyLowestColor: '#7EBCFF',
