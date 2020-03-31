@@ -1,25 +1,26 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './top-nav.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./top-nav.css";
+import { DevelopedBy } from "@code4ro/taskforce-fe-components";
 
 export class TopNav extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       isBurgerMenuActive: false
-    }
+    };
   }
 
   toggleBurgerMenu() {
     this.setState({
       isBurgerMenuActive: !this.state.isBurgerMenuActive
-    })
+    });
   }
 
   hideBurgerMenu() {
     this.setState({
       isBurgerMenuActive: false
-    })
+    });
   }
 
   render() {
@@ -45,7 +46,7 @@ export class TopNav extends React.PureComponent {
                 aria-label="menu"
                 data-target="navMenu"
                 href="#/"
-                aria-expanded={this.state.isBurgerMenuActive ? 'true' : 'false'}
+                aria-expanded={this.state.isBurgerMenuActive ? "true" : "false"}
                 onClick={() => this.toggleBurgerMenu()}
               >
                 <span aria-hidden="true" />
@@ -57,8 +58,8 @@ export class TopNav extends React.PureComponent {
               id="navMenu"
               className={
                 this.state.isBurgerMenuActive
-                  ? 'navbar-menu is-active'
-                  : 'navbar-menu'
+                  ? "navbar-menu is-active"
+                  : "navbar-menu"
               }
             >
               <div className="navbar-start" />
@@ -74,48 +75,7 @@ export class TopNav extends React.PureComponent {
             </div>
           </div>
         </nav>
-        <div className="container is-clearfix">
-          <div className="is-pulled-right">
-            <div className="developer border-bottom level-right is-clearfix">
-              <div>
-                <span className="is-inline-block">
-                  Un proiect în parteneriat cu
-                </span>
-                &nbsp;&nbsp;
-                <a
-                  href="https://www.gov.ro/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="is-inline-block"
-                >
-                  <img
-                    src="/images/logo-gov.png"
-                    alt="Guvernul Romaniei"
-                    className="logo-gov"
-                  />
-                </a>
-              </div>
-              <div>
-                &nbsp;&nbsp;
-                <span>dezvoltat de</span>
-                &nbsp;&nbsp;
-                <a
-                  href="https://code4.ro"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="is-inline-block"
-                >
-                  <img
-                    src="/images/logo-code4.svg"
-                    alt="Code 4 Romania Logo"
-                    className="logo-code4"
-                  />
-                </a>
-                &nbsp;
-              </div>
-            </div>
-          </div>
-        </div>
+        <DevelopedBy />
       </div>
     );
   }

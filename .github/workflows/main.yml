@@ -6,12 +6,12 @@ on:
 name: CI
 
 env:
-  IMAGE_PARSER: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-parser
-  IMAGE_API: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-api
-  IMAGE_FRONTEND: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-frontend
+  IMAGE_PARSER: datelazi-parser
+  IMAGE_API: datelazi-api
+  IMAGE_FRONTEND: datelazi-frontend
   TF_WORKSPACE: "staging"
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   build-parser:
@@ -84,31 +84,31 @@ jobs:
           tf_actions_subcommand: "fmt"
           tf_actions_working_dir: "aws_deploy"
           tf_actions_comment: true
-      - name: "Terraform Init"
-        uses: hashicorp/terraform-github-actions@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
-        with:
-          tf_actions_version: 0.12.23
-          tf_actions_subcommand: "init"
-          tf_actions_working_dir: "aws_deploy"
-          tf_actions_comment: true
-      - name: "Terraform Validate"
-        uses: hashicorp/terraform-github-actions@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
-        with:
-          tf_actions_version: 0.12.23
-          tf_actions_subcommand: "validate"
-          tf_actions_working_dir: "aws_deploy"
-          tf_actions_comment: true
-      - name: "Terraform Plan"
-        uses: hashicorp/terraform-github-actions@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
-        with:
-          tf_actions_version: 0.12.23
-          tf_actions_subcommand: "plan"
-          tf_actions_working_dir: "aws_deploy"
-          tf_actions_comment: true
-          args: "--var-file github.tfvars"
+      # - name: "Terraform Init"
+      #   uses: hashicorp/terraform-github-actions@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
+      #   with:
+      #     tf_actions_version: 0.12.23
+      #     tf_actions_subcommand: "init"
+      #     tf_actions_working_dir: "aws_deploy"
+      #     tf_actions_comment: true
+      # - name: "Terraform Validate"
+      #   uses: hashicorp/terraform-github-actions@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
+      #   with:
+      #     tf_actions_version: 0.12.23
+      #     tf_actions_subcommand: "validate"
+      #     tf_actions_working_dir: "aws_deploy"
+      #     tf_actions_comment: true
+      # - name: "Terraform Plan"
+      #   uses: hashicorp/terraform-github-actions@master
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
+      #   with:
+      #     tf_actions_version: 0.12.23
+      #     tf_actions_subcommand: "plan"
+      #     tf_actions_working_dir: "aws_deploy"
+      #     tf_actions_comment: true
+      #     args: "--var-file github.tfvars"

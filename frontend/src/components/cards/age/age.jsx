@@ -7,68 +7,63 @@ export const EMBED_PATH_AGE = 'varsta';
 export class AgeCard extends React.PureComponent {
 
   getChartOptions = (state) => {
-    // this colors will be changed in the future. Waiting feedback from Olivia.
-    let colors = [
-      Constants.womenColor,
-      Constants.menColor,
-      Constants.orange,
-      Constants.magenta,
-      Constants.green,
-      Constants.grey,
-      Constants.lightblue,
-      Constants.curedColor,
-      Constants.oldestColor,
-      Constants.processingColor
-    ]
+    // this is here to prevent errors until state is defined
+    const xAxisData = state.data && state.data.map(item => item.name)
+    const seriesValues = state.data && state.data.map(item => {
+      return {
+        value: item.value,
+        percentage: item.percentage
+      }
+    })
 
-    const viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-    const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-    const isLandscape = viewportWidth < viewportHeight;
-
+    const labels = ['Confirmați'];
     return {
+      xAxis: {
+        type: 'category',
+        data: xAxisData,
+        axisLabel: {
+          color: 'gray'
+        }
+      },
+      yAxis: {
+        type: 'value',
+        axisLabel: {
+          color: 'gray'
+        }
+      },
       tooltip: {
-        trigger: 'item',
-        formatter: '{b}: {c} ({d}%)'
+        trigger: 'axis',
+        axisPointer: {
+          axis: 'x'
+        },
+        formatter: (rawData) => {
+          const item = rawData[0]
+          return `${item.name}: ${item.data.value} (${item.data.percentage}%)`
+        },
       },
       legend: {
-        orient: isLandscape ? 'horizontal' : 'vertical',
+        data: labels[0],
+        bottom: '0px',
         icon: 'circle',
-        right: isLandscape ? 'auto' : 0,
-        bottom: isLandscape ? 0 : 'auto',
-        top: isLandscape ? 'auto' : 40,
-        formatter: (name) => {
-          const filterItem = state.data.filter(item => item.name === name);
-          return filterItem.length === 1 ?  `${name}: ${filterItem[0].value} (${filterItem[0].percentage}%)` : '';
-        },
-        tooltip: {
-          show: true,
-          trigger: 'item'
-        },
       },
-      animation: true,
+      grid: {
+        left: '1%',
+        right: 0,
+        bottom: '0',
+        top: '2%',
+        containLabel: true
+      },
       series: [
         {
-          id: 'age-chart-series',
-          name: this.props.title,
-          type: 'pie',
-          radius: isLandscape ? ['30%', '45%'] : ['40%', '70%'],
-          avoidLabelOverlap: false,
-          right: isLandscape ? 'auto' : 40,
-          top: isLandscape ? -140 : 'auto',
-          label: {
-            normal: {
-              show: false
-            },
-            emphasis: { show: false }
-          },
-          data: state.data,
-          color: colors
-        }
+          data: seriesValues,
+          name: labels[0],
+          stack: 'one',
+          type: 'bar',
+          color: Constants.confirmedColor
+        },
       ]
     }
   }
-
-
 
   render() {
     const { title, state } = this.props;
@@ -91,7 +86,12 @@ export class AgeCard extends React.PureComponent {
         <div className="pie-chart">
           <ReactEcharts
             id="age-chart"
+            style={{
+              height: '250px',
+              width: '100%'
+            }}
             option={this.getChartOptions(state)}
+            theme="light"
           />
         </div>
       </Card>

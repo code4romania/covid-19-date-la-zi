@@ -1,6 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './bottom-nav.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./bottom-nav.css";
+import {
+  Footer,
+  FooterLinkHeader,
+  FooterLinks,
+  FooterLinkItem
+} from "@code4ro/taskforce-fe-components";
 
 export class BottomNav extends React.PureComponent {
   render() {
@@ -11,53 +17,58 @@ export class BottomNav extends React.PureComponent {
             <span>proiect dezvoltat în programul</span>
             <a href="https://code4.ro/ro/apps">
               <img
-                className="logo-force" src="/images/logo-code4romania-force.svg"
+                className="logo-force"
+                src="/images/logo-code4romania-force.svg"
                 alt="Code4Romania Task Force Logo"
               />
             </a>
             &nbsp;
           </div>
         </div>
-        <section className="bottom-navigation">
-          <div className="container">
-            <div className="columns">
-              <div className="column is-one-quarter">
-                <h4>Link-uri utile</h4>
-                <ul>
-                  <li><Link to="/about">Despre Proiect</Link></li>
-                  <li>
-                    <a href="https://stirioficiale.ro/informatii" target="_blank" rel="noopener noreferrer">
-                      Știri Oficiale
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://www.gov.ro/" target="_blank" rel="noopener noreferrer">Guvernul României</a>
-                  </li>
-                  <li>
-                    <a href="http://www.ms.ro/" target="_blank" rel="noopener noreferrer">Ministerul Sănătății</a>
-                  </li>
-                </ul>
-              </div>
-              <div className="column levels copyright vbottom">
-                <div className="level-left" />
-                <div className="level-right">
-                  <div>
-                    <p>
-                      <a href="https://code4.ro/ro/" target="_blank" rel="noopener noreferrer">
-                        <img
-                          src="/images/logo-code4-gray.svg" className="logo-code4-gray"
-                          alt="Code4Romania Logo"
-                        />
-                      </a>
-                    </p>
-                    <p>© 2020 Code for Romania.</p>
-                    <p>Organizație neguvernamentală independentă, neafiliată politic și apolitică.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Footer>
+          <FooterLinks>
+            <FooterLinkHeader>Link-uri utile</FooterLinkHeader>
+            <FooterLinkItem>
+              <Link to="/about">Despre Proiect</Link>
+            </FooterLinkItem>
+            <FooterLinkItem>
+              <a
+                href="https://stirioficiale.ro/informatii"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Știri Oficiale
+              </a>
+            </FooterLinkItem>
+            <FooterLinkItem>
+              <a
+                href="https://www.gov.ro/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Guvernul României
+              </a>
+            </FooterLinkItem>
+            <FooterLinkItem>
+              <a
+                href="http://www.ms.ro/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ministerul Sănătății
+              </a>
+            </FooterLinkItem>
+            <FooterLinkItem>
+              <a
+                href="http://www.code4.ro/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Code for Romania
+              </a>
+            </FooterLinkItem>
+          </FooterLinks>
+        </Footer>
       </footer>
     );
   }

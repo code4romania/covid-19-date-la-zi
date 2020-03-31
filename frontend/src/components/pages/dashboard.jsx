@@ -11,6 +11,8 @@ import {EMBED_PATH_GENDER, GenderCard} from '../cards/gender/gender-card';
 import {CasesPerDayCard, EMBED_PATH_CASES_PER_DAY} from '../cards/cases-per-day-card/cases-per-day-card';
 import {AverageAgeCard, EMBED_PATH_AVERAGE_AGE} from '../cards/avg-age/avg-age-card';
 import {AgeCard, EMBED_PATH_AGE} from '../cards/age/age';
+import { PerDayTable } from '../cards/perday-table/perday-table';
+import download from 'downloadjs';
 
 import { Hero, Instruments, InstrumentsItem, SocialsShare } from '@code4ro/taskforce-fe-components';
 
@@ -37,6 +39,7 @@ class DashboardNoContext extends React.PureComponent {
       age: defaultState, // object
       averageAge: defaultState, // object
       lastUpdate: defaultState, // object
+      dailyTable: defaultState, // object
     }
   }
 
@@ -50,7 +53,8 @@ class DashboardNoContext extends React.PureComponent {
       gender: defaultState, // object
       age: defaultState, // object
       averageAge: defaultState, // object
-      lastUpdate: defaultState, // object
+      lastUpdate: defaultState, // object,
+      dailyTable: defaultState, // object
     })
   }
 
@@ -82,7 +86,8 @@ class DashboardNoContext extends React.PureComponent {
       gender: this.parseGenderStats(result),
       age: this.parseAgeStats(result),
       averageAge: this.parseAverageAge(result),
-      lastUpdate: this.parseLastUpdate(result)
+      lastUpdate: this.parseLastUpdate(result),
+      dailyTable: this.parseDailyTable(result)
     })
   }
 
@@ -142,6 +147,33 @@ class DashboardNoContext extends React.PureComponent {
     }
   }
 
+  parseDailyTable(result) {
+    if (!result["dailyStats"]) {
+      return {
+        isLoaded: true,
+        error: "Nu am putut prelua datele"
+      };
+    }
+
+    let dailyStats = result.dailyStats;
+    let dailyTable = [];
+
+    if (dailyStats["history"]) {
+      dailyTable.push(...dailyStats["history"]);
+    }
+
+    const filterIncompleteRows = (row) => row.hasOwnProperty("complete") && row.complete === false ? false : true;
+
+    dailyTable = dailyTable.filter(filterIncompleteRows)
+      .sort((a,b) => b.datePublished - a.datePublished);
+
+    return {
+      isLoaded: true,
+      error: null,
+      data: dailyTable
+    }
+  }
+
   parseGenderStats(result) {
     const stats = result.genderStats
     const total = stats.totalPercentage || 0;
@@ -177,7 +209,7 @@ class DashboardNoContext extends React.PureComponent {
       return {
         value: stats[key],
         name: key,
-        percentage: Math.round((100 * stats[key]) / total)
+        percentage: ((100 * stats[key]) / total).toFixed(2)
       };
     });
 
@@ -231,6 +263,26 @@ class DashboardNoContext extends React.PureComponent {
 
   shareableLink() {
     return !!window.location.host ? window.location.protocol + '//' + window.location.host : 'https://datelazi.ro'
+  }
+
+  handleDownloadAllData = () => {
+    fetch(ApiURL.allData)
+      .then(res => res.json())
+      .then((result) => {
+        if (result.error != null) {
+          this.setState({error: result.error, isLoaded: true})
+        } else {
+          const filename = this.getNormalizedFileName(result.lasUpdatedOnString);
+          download(JSON.stringify(result), `date_${filename}.json`, 'application/json');
+        }
+      })
+      .catch((error) => {
+        this.resetState({error: error, isLoaded: true})
+      })
+  };
+
+  getNormalizedFileName(filename) {
+    return filename.replace(/\s+/g, '_').toLowerCase();
   }
 
   render() {
@@ -311,8 +363,15 @@ class DashboardNoContext extends React.PureComponent {
 
             <SocialsShare currentPage={link} />
 
+          <div className="level">
             {lastUpdate &&
-              <p>Date actualizate în {lastUpdate}.</p>}
+            <p className="level-left">Date actualizate în {lastUpdate}.</p>}
+            <button
+              className="button is-primary is-light levelRight"
+              onClick={this.handleDownloadAllData}
+            >Descarcă datele
+            </button>
+          </div>
 
           </div>
 
@@ -345,10 +404,18 @@ class DashboardNoContext extends React.PureComponent {
             </div>
           </div>
 
-          <div className="container">
-            <div className="border-bottom">
-              <Hero title="Instrumente utile" useFallbackIcon />
+        <div className="container cards-row third-row">
+          <div className="columns">
+            <div className="column">
+              <PerDayTable state={this.state.dailyTable} />
             </div>
+          </div>
+        </div>
+
+        <div className="container">
+          <div className="border-bottom">
+            <Hero title="Instrumente utile" useFallbackIcon />
+          </div>
 
             <Instruments layout="grid">
               <section>

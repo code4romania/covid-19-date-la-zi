@@ -36,12 +36,7 @@
   height: 64px;
 }
 
-.navigation-container .developer {
-  /* padding: 20px 0 0; */
-  line-height: 89px;
-  text-align: right;
-}
-
-.navigation-container .developer span {
-  line-height: 89px;
+.developed-by {
+  padding-right: 1.25rem;
+  padding-left: 1.25rem;
 }

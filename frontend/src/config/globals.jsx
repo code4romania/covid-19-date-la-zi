@@ -50,5 +50,6 @@ export const ApiURL = {
   infectionSourceStats: Constants.api + '/data/infections-source',
   genderAgeStats: Constants.api + '/data/age-histogram',
   genderStats: Constants.api + '/data/genderstats',
-  countyStats: Constants.api + '/data/county-infections'
+  countyStats: Constants.api + '/data/county-infections',
+  allData: Constants.api + '/data'
 }
