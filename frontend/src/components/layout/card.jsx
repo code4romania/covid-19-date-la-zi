@@ -13,13 +13,19 @@ export class Card extends React.PureComponent {
     }
   };
 
-  componentDidMount() {
+  componentDidUpdate(prevProps, prevState) {
+    if(this.props.isLoaded !== prevProps.isLoaded) {
+      this.handleLoadedEvent();
+    }
+  }
+
+  handleLoadedEvent() {
     const node = ReactDOM.findDOMNode(this);
 
     this.setState({
       viewport: {
-        width: node.clientWidth,
-        height: node.clientHeight
+        width: node.clientWidth + 5, // + 5 just to make sure no scroll is displayed
+        height: node.clientHeight + 5
       }
     });
   }
@@ -39,7 +45,7 @@ export class Card extends React.PureComponent {
           </header>}
         <div className="card-content">
           <div className="content">{children}</div>
-          {/* {embedPath && <EmbedButton path={embedPath} viewPort={this.state.viewport} />} */}
+          {embedPath && <EmbedButton path={embedPath} viewPort={this.state.viewport} />}
         </div>
       </div>
     ): <Loader />;
