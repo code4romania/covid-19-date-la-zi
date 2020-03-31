@@ -2,6 +2,7 @@
     max-width: 100%;
     width: 100%;
     min-height: 500px;
+    position: relative;
 }
 
 .perDayTable table {
@@ -40,6 +41,14 @@
 }
 .perDayTable .button:first-child {
     margin-right: 10px;
+}
+
+.perDayTable .navigation {
+    position: absolute;
+    bottom: 5px;
+    display: block;
+    width: 100%;
+    min-width: 100%;
 }
 
 .navigation-chevron{

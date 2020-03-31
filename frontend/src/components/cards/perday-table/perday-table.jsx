@@ -46,7 +46,7 @@ export class PerDayTable extends React.PureComponent {
         const shouldDisplayPagination = data.length > limit;
 
         if (shouldDisplayPagination) {
-            return <div>
+            return <div className="navigation">
                 <div className={"button " + (page === 0 ? "hide" : "")} onClick={e => this.changePage(-1)}>
                     <img
                         src="/images/chevrons-left.svg"
