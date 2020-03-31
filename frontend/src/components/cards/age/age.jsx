@@ -8,7 +8,7 @@ export class AgeCard extends React.PureComponent {
 
   getChartOptions = (state) => {
     // this is here to prevent errors until state is defined
-    const xAxisData = state.data && state.data.map(item => item.name)
+    const yAxisData = state.data && state.data.map(item => item.name)
     const seriesValues = state.data && state.data.map(item => {
       return {
         value: item.value,
@@ -19,14 +19,14 @@ export class AgeCard extends React.PureComponent {
     const labels = ['Confirmați'];
     return {
       xAxis: {
-        type: 'category',
-        data: xAxisData,
+        type: 'value',
         axisLabel: {
-          color: 'gray'
+          color: 'gray',
         }
       },
       yAxis: {
-        type: 'value',
+        type: 'category',
+        data: yAxisData,
         axisLabel: {
           color: 'gray'
         }
