@@ -8,10 +8,12 @@ export const EmbedButton = (props) => {
 
   console.log(window.location);
 
+  const footerHeight = 75;
   let getEmbeddableCode = () => `<iframe
+            scrolling="no"
             src="${window.location.origin.toString()}/embed/${path}"
             width="${viewPort.width}"
-            height="${viewPort.height}" />`;
+            height="${viewPort.height + footerHeight}" />`;
 
   const handleCopyEmbedCode = () => {
     const auxiliaryField = document.createElement('textarea');

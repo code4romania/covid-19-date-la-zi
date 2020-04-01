@@ -1,0 +1,36 @@
+@media only screen and (max-width: 760px) {
+    .caption {
+        display: none;
+    }
+
+    .developed-by {
+        flex-direction: row;
+        padding: 0;
+    }
+}
+
+.developed-by div {
+    border: 0;
+}
+
+.embed-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.embed-container {
+    padding: 3px;
+    overflow: hidden;
+}
+
+.embed-logo-covid {
+    height: 32px;
+    margin-left: 20px;
+}
+
+.embed-website-logo {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
