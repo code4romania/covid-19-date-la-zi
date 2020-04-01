@@ -1,12 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./bottom-nav.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './bottom-nav.css';
 import {
   Footer,
   FooterLinkHeader,
   FooterLinks,
   FooterLinkItem
-} from "@code4ro/taskforce-fe-components";
+} from '@code4ro/taskforce-fe-components';
 
 export class BottomNav extends React.PureComponent {
   render() {
