@@ -15,6 +15,8 @@ import { PerDayTable } from '../cards/perday-table/perday-table';
 import download from 'downloadjs';
 
 import { Hero, Instruments, InstrumentsItem, SocialsShare } from '@code4ro/taskforce-fe-components';
+import DeveloperLogo from '../../images/code4romania-color.svg';
+import PartnerLogo from '../../images/partener.png';
 
 import '@code4ro/taskforce-fe-components/dist/index.css';
 import './dashboard.css';
@@ -334,8 +336,16 @@ class DashboardNoContext extends React.PureComponent {
 
     let particularChartComponent;
     if (this.props.match) {
-      const {particularChart} = this.props.match.params;
-      particularChartComponent = keyToCard.get(particularChart);
+      const { particularChart } = this.props.match.params;
+      const chart = keyToCard.get(particularChart);
+      particularChartComponent = chart &&
+        <>
+          {chart}
+          <div className="embeded-logos">
+            <img src={PartnerLogo} width="150" alt="Guvernul Romaniei" />
+            <img src={DeveloperLogo} width="100" alt="Code For Romania Taskforce" />
+          </div>
+        </>;
     }
 
     return (

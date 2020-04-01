@@ -2,6 +2,15 @@
     margin-bottom: 15px;
 }
 
+.embeded-logos {
+    display: flex;
+    justify-content: center;
+}
+
+.embeded-logos img {
+    margin: 15px;
+}
+
 /* .cards-row.second-row {
     min-height: 414px;
 } */
