@@ -5,6 +5,7 @@
   "dependencies": {
     "@code4ro/taskforce-fe-components": "1.0.0",
     "bulma": "^0.8.0",
+    "downloadjs": "^1.4.7",
     "echarts": "^4.6.0",
     "echarts-for-react": "^2.0.15-beta.1",
     "moment": "^2.24.0",

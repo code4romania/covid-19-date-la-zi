@@ -20,7 +20,7 @@ export const Constants = {
   unknownColor: '#9FB3C7',
 
   symptomaticColor: '#F8AF69',
-  confirmedColor: '#69B2F8',
+  confirmedColor: '#66A4FB',
   curedColor: '#65E0E0',
 
   countyLowestColor: '#7EBCFF',
@@ -50,5 +50,6 @@ export const ApiURL = {
   infectionSourceStats: Constants.api + '/data/infections-source',
   genderAgeStats: Constants.api + '/data/age-histogram',
   genderStats: Constants.api + '/data/genderstats',
-  countyStats: Constants.api + '/data/county-infections'
+  countyStats: Constants.api + '/data/county-infections',
+  allData: Constants.api + '/data'
 }

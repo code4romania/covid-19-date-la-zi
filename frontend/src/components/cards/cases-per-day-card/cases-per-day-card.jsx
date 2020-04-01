@@ -33,7 +33,8 @@ export class CasesPerDayCard extends React.PureComponent {
         trigger: 'axis',
         axisPointer: {
           axis: 'x'
-        }
+        },
+        formatter: '<h4 style="color: white">{b}</h4><span>{a2}: {c2}<br />{a1}: {c1}<br />{a0}: {c0}</span>'
       },
       legend: {
         data: labels,

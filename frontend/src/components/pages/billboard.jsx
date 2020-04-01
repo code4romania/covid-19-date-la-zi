@@ -1,20 +1,16 @@
 import React from 'react';
 import { ApiURL } from '../../config/globals';
-import { PageHeader } from '../layout/page.header';
 import { SummaryCard } from '../cards/summary/summary-card';
-import { GenderCard } from '../cards/gender/gender-card';
 import { CasesPerDayCard } from '../cards/cases-per-day-card/cases-per-day-card';
-import { AverageAgeCard } from '../cards/avg-age/avg-age-card';
-import { AgeCard } from '../cards/age/age';
-import { PerDayTable } from '../cards/perday-table/perday-table';
 import { round } from 'prelude-ls';
 
-import { Hero, Instruments, InstrumentsItem, SocialsShare, DevelopedBy } from '@code4ro/taskforce-fe-components';
+import { DevelopedBy } from '@code4ro/taskforce-fe-components';
 
 import '@code4ro/taskforce-fe-components/dist/index.css';
 import './billboard.css';
+import {withToastProvider} from '../layout/toast/withToastProvider';
 
-export class Billboard extends React.PureComponent {
+export class BillboardNoContext extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -274,7 +270,6 @@ export class Billboard extends React.PureComponent {
 
   render() {
     const lastUpdate = !!this.state.lastUpdate ? this.state.lastUpdate.lastUpdate : '-'
-    const link = this.shareableLink()
 
     return (
       <section className="section">
@@ -335,3 +330,5 @@ export class Billboard extends React.PureComponent {
     );
   }
 }
+
+export const Billboard = withToastProvider(BillboardNoContext);

@@ -1,0 +1,31 @@
+.toasts-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.toast {
+    border: 2px solid transparent;
+    background-color: #FEDE5D;
+    border-radius: 4px;
+    max-width: 480px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .2);
+    margin-top: 16px;
+    display: flex;
+    position: relative;
+    cursor: pointer;
+}
+
+.toast-text {
+    padding: 16px 24px;
+    line-height: 1.4;
+}
+
+.toast-close-btn {
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    margin-top: 8px;
+    margin-right: 8px;
+    cursor: pointer;
+}
