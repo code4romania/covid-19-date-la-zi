@@ -1,6 +1,18 @@
 {
     "LasUpdatedOn": 1585810860,
     "LasUpdatedOnString": "2 Aprilie la 10:01",
+    "charts": {
+        "casesByDay": {
+            "contains": [ "numberInfected", "numberCured", "numberDeceased" ],
+            "lastUpdatedOn": "2020-04-02",
+            "stale": false
+        },
+        "casesByGender": {
+            "contains": [ "percentageOfWomen", "percentageOfMen", "percentageOfChildren" ],
+            "lastUpdatedOn": "2020-03-30",
+            "stale": true
+        }
+    },
     "currentDayStats": {
         "parsedOn": 1585810860,
         "parsedOnString": "2020-04-02",

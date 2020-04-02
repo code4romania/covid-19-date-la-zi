@@ -22,6 +22,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
         public DailyPdfStats()
         {
             DistributionByAge = new Dictionary<AgeRange, int>();
+            CountyInfectionsNumbers = new Dictionary<County, int>();
         }
     }
 }

@@ -7,6 +7,8 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
         public long LasUpdatedOn { get; set; }
         public string LasUpdatedOnString { get; set; }
         public DailyPdfStats CurrentDayStats { get; set; }
+        public Dictionary<string, ChartDataDetails> Charts { get; set; }
+
 
         public Dictionary<string, DailyPdfStats> HistoricalData { get; set; }
 
@@ -14,6 +16,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
         {
             CurrentDayStats = new DailyPdfStats();
             HistoricalData = new Dictionary<string, DailyPdfStats>();
+            Charts = new Dictionary<string, ChartDataDetails>();
         }
 
         public HistoricalPdfStats(DailyPdfStats currentDayData, HistoricalPdfStats previousDayData)

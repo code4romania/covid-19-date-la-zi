@@ -240,8 +240,22 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             result.DataLastUpdatedOn = currentPdfData?.LasUpdatedOn ?? 0;
             result.DataLastUpdatedOnString = currentPdfData?.LasUpdatedOnString;
+            result.Charts = currentPdfData?.Charts?
+                                .Select(x => new { key = x.Key, value = MapToChartDataDetailsModel(x.Value) })
+                                .ToDictionary(x => x.key, y => y.value) ?? new Dictionary<string, ChartDataDetailsModel>();
 
             return result;
+        }
+
+        private ChartDataDetailsModel MapToChartDataDetailsModel(ChartDataDetails details)
+        {
+            return new ChartDataDetailsModel
+            {
+
+                Contains = details?.Contains ?? new string[0],
+                LastUpdatedOn = details?.LastUpdatedOn,
+                Stale = details?.Stale ?? false
+            };
         }
 
         public async Task<UiDataModel> Handle(GetUiData request, CancellationToken cancellationToken)
