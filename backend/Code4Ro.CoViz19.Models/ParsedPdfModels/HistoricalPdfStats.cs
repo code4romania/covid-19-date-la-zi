@@ -8,8 +8,6 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
         public string LasUpdatedOnString { get; set; }
         public DailyPdfStats CurrentDayStats { get; set; }
         public Dictionary<string, ChartDataDetails> Charts { get; set; }
-
-
         public Dictionary<string, DailyPdfStats> HistoricalData { get; set; }
 
         public HistoricalPdfStats()
