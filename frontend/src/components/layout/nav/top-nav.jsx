@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./top-nav.css";
-import { DevelopedBy } from "@code4ro/taskforce-fe-components";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './top-nav.css';
+import { DevelopedBy } from '@code4ro/taskforce-fe-components';
 
 export class TopNav extends React.PureComponent {
   constructor(props) {
@@ -46,7 +46,7 @@ export class TopNav extends React.PureComponent {
                 aria-label="menu"
                 data-target="navMenu"
                 href="#/"
-                aria-expanded={this.state.isBurgerMenuActive ? "true" : "false"}
+                aria-expanded={this.state.isBurgerMenuActive ? 'true' : 'false'}
                 onClick={() => this.toggleBurgerMenu()}
               >
                 <span aria-hidden="true" />
@@ -58,8 +58,8 @@ export class TopNav extends React.PureComponent {
               id="navMenu"
               className={
                 this.state.isBurgerMenuActive
-                  ? "navbar-menu is-active"
-                  : "navbar-menu"
+                  ? 'navbar-menu is-active'
+                  : 'navbar-menu'
               }
             >
               <div className="navbar-start" />

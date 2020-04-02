@@ -904,13 +904,14 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@code4ro/taskforce-fe-components@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@code4ro/taskforce-fe-components/-/taskforce-fe-components-1.0.0.tgz#a0b0dc137c440d37f8dfd987ca0d0be4d9c28506"
-  integrity sha512-R9Z2Qz35o3sYXko0lbcCchTMV1kCLS0UObhFqs6od9mvmmgg5LgStkqpg1iD8qLwRlPWmXm/gMdiQQHRxqjMbg==
+"@code4ro/taskforce-fe-components@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@code4ro/taskforce-fe-components/-/taskforce-fe-components-1.0.6.tgz#a4e182a5fdf4e5e3fa14d5d8a69eab8d394c3d15"
+  integrity sha512-ocfHJYpX8NvR9XeT4XglMiAIzcKO+nd03cPimJu28CF5OUlMbuBELSt+qAYLIRO1828xF0+GjU96SBkfqnRqHQ==
   dependencies:
     bulma "^0.8.0"
     react-share "^4.1.0"
+    underscore "^1.9.2"
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
@@ -3348,6 +3349,11 @@ data-urls@^1.0.0, data-urls@^1.1.0:
     abab "^2.0.0"
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
+
+date-fns@^2.11.1:
+  version "2.11.1"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.11.1.tgz#197b8be1bbf5c5e6fe8bea817f0fe111820e7a12"
+  integrity sha512-3RdUoinZ43URd2MJcquzBbDQo+J87cSzB8NkXdZiN5ia1UNyep0oCyitfiL88+R7clGTeq/RniXAc16gWyAu1w==
 
 debug@2.6.9, debug@^2.1.3, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.9:
   version "2.6.9"
@@ -6706,11 +6712,6 @@ mkdirp@0.5.1, mkdirp@^0.5.1, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
-moment@^2.24.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
-  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
-
 move-concurrently@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/move-concurrently/-/move-concurrently-1.0.1.tgz#be2c005fda32e0b29af1f05d7c4b33214c701f92"
@@ -10064,6 +10065,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+underscore@^1.9.2:
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.10.2.tgz#73d6aa3668f3188e4adb0f1943bd12cfd7efaaaf"
+  integrity sha512-N4P+Q/BuyuEKFJ43B9gYuOj4TQUHXX+j2FqguVOpjkssLUUrnJofCcBccJSCoeturDoZU6GorDTHSvUDlSQbTg==
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

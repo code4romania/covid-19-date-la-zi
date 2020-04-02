@@ -5,10 +5,10 @@
   "dependencies": {
     "@code4ro/taskforce-fe-components": "1.0.6",
     "bulma": "^0.8.0",
+    "date-fns": "^2.11.1",
     "downloadjs": "^1.4.7",
     "echarts": "^4.6.0",
     "echarts-for-react": "^2.0.15-beta.1",
-    "moment": "^2.24.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
@@ -26,11 +26,10 @@
     "dev": "chmod +x ./env.sh && ./env.sh && cp env-config.js ./public/ && react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "pretest": "yarn run lint:fix",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "./node_modules/.bin/eslint src",
-    "lint:fix": "./node_modules/.bin/eslint src --ext .js,.jsx --fix"
+    "lint": "eslint ./src --ext .js,.jsx",
+    "lint:fix": "yarn lint --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -49,7 +48,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn test -- --watchAll=false"
+      "pre-commit": "yarn lint"
     }
   }
 }
