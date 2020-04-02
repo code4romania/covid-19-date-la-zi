@@ -20,7 +20,10 @@ export class CasesPerDayCard extends React.PureComponent {
         type: 'category',
         data: state.dates,
         axisLabel: {
-          color: 'gray'
+          color: 'gray',
+          fontWeight: 'bold',
+          rotate: 45,
+          interval: 0
         }
       },
       yAxis: {
