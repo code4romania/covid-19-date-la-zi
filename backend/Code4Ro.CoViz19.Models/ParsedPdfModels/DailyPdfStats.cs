@@ -17,6 +17,7 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
         public decimal PercentageOfMen { get; set; }
         public decimal PercentageOfChildren { get; set; }
         public Dictionary<AgeRange, int> DistributionByAge { get; set; }
+        public Dictionary<County, int> CountyInfectionsNumbers { get; set; }
 
         public DailyPdfStats()
         {

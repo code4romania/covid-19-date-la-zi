@@ -17,7 +17,8 @@ namespace Code4Ro.CoViz19.Api.Handlers
         IRequestHandler<GetGenderStatsV2, GenderStatsV2Model>,
         IRequestHandler<GetQuickstatsV2Data, QuickStatsV2Model>,
         IRequestHandler<GetLastDataUpdateDetails, LastDataUpdateDetailsModel>,
-        IRequestHandler<GetUiData, UiDataModel>
+        IRequestHandler<GetUiData, UiDataModel>,
+        IRequestHandler<GetCountiesInfections, CountiesInfectionsModel>
 
     {
         private readonly IDataProviderService _dataService;
@@ -253,8 +254,24 @@ namespace Code4Ro.CoViz19.Api.Handlers
                 DailyStats = HandleGetDailyStatsV2(currentPdfData),
                 GenderStats = HandleGetGenderStatsV2(currentPdfData),
                 LastDataUpdateDetails = HandleGetLastDataUpdateDetails(currentPdfData),
-                QuickStats = HandleGetQuickstatsV2Data(currentPdfData)
+                QuickStats = HandleGetQuickstatsV2Data(currentPdfData),
+                Counties = HandleGetCountiesInfections(currentPdfData)
             };
+        }
+
+        private CountiesInfectionsModel HandleGetCountiesInfections(HistoricalPdfStats currentPdfData)
+        {
+            return new CountiesInfectionsModel
+            {
+                Data = currentPdfData?.CurrentDayStats?.CountyInfectionsNumbers ?? new Dictionary<County, int>()
+            };
+        }
+
+        public async Task<CountiesInfectionsModel> Handle(GetCountiesInfections request, CancellationToken cancellationToken)
+        {
+            var currentPdfData = await _dataService.GetCurrentPdfData();
+
+            return HandleGetCountiesInfections(currentPdfData);
         }
     }
 }
