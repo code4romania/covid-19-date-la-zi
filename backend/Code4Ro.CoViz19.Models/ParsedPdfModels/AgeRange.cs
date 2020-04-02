@@ -1,7 +1,10 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Code4Ro.CoViz19.Models.ParsedPdfModels
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum AgeRange
     {
         [EnumMember(Value = "0-9")]

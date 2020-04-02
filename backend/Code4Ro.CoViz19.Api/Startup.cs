@@ -50,7 +50,7 @@ namespace Code4Ro.CoViz19.Api
                     break;
 
             }
-                       
+
             services.AddSingleton<ICacheSercice, NoCacheService>();
             services.AddSingleton<IApiKeyValidator, InMemoryApiKeyValidator>();
             services.AddTransient<ApiKeyRequestFilterAttribute>();
@@ -97,9 +97,7 @@ namespace Code4Ro.CoViz19.Api
             services.AddMvc()
                 .AddNewtonsoftJson(options =>
                 {
-                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                 });
         }
@@ -111,7 +109,7 @@ namespace Code4Ro.CoViz19.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
