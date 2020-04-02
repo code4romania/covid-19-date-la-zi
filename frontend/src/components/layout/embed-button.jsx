@@ -6,10 +6,14 @@ export const EmbedButton = (props) => {
   const toast = useToast();
   const {path, viewPort} = props;
 
+  console.log(window.location);
+
+  const footerHeight = 75;
   let getEmbeddableCode = () => `<iframe
+            scrolling="no"
             src="${window.location.origin.toString()}/embed/${path}"
             width="${viewPort.width}"
-            height="${viewPort.height}" />`;
+            height="${viewPort.height + footerHeight}" />`;
 
   const handleCopyEmbedCode = () => {
     const auxiliaryField = document.createElement('textarea');
@@ -23,6 +27,11 @@ export const EmbedButton = (props) => {
 
     toast.add('Textul a fost copiat in memoria clipboard')
   };
+
+  // if already embedded hide the button
+  if (window.location.pathname === `/embed/${path}`) {
+    return (<span />);
+  }
 
   return (
     <div className="fab-action">
