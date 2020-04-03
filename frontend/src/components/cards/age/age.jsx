@@ -38,7 +38,7 @@ export class AgeCard extends React.PureComponent {
           axis: 'y'
         },
         formatter: rawData => {
-          const item = rawData[0];
+          const [item] = rawData;
           return `${item.name}: ${item.data.value} (${item.data.percentage}%)`;
         }
       },

@@ -8,7 +8,8 @@ export const EMBED_COUNTIES_MAP = 'counties-map';
 
 export class CountiesMap extends React.PureComponent {
   getChartOptions() {
-    const data = this.props.state.counties.map(countie => {
+    const { state } = this.props;
+    const data = state.counties.map(countie => {
       return {
         name: mnemonics[countie.name],
         value: countie.value
@@ -21,7 +22,6 @@ export class CountiesMap extends React.PureComponent {
       visualMap: {
         show: false,
         min: 0,
-        //max: this.props.state.max,
         max: 0,
         left: 'left',
         top: 'bottom',
@@ -51,7 +51,7 @@ export class CountiesMap extends React.PureComponent {
   }
 
   render() {
-    const state = this.props.state;
+    const { state } = this.props;
     const { isLoaded, error, topCounties, stale, lastUpdatedOnString } = state;
 
     return (

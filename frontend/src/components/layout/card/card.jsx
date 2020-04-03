@@ -49,14 +49,14 @@ export class Card extends React.PureComponent {
 
     return isLoaded ? (
       <div className={`card ${isStale ? 'card--warning' : ''}`}>
-        {title && (
-          <header className="card-header">
-            <div className="card-header-title has-text-weight-normal">
+        <header className="card-header">
+          <div className="card-header-title has-text-weight-normal">
+            {title && (
               <h3 className="card-title has-text-weight-bold">{title}</h3>
-              {subtitle && <small>{subtitle}</small>}
-            </div>
-          </header>
-        )}
+            )}
+            {subtitle && <small>{subtitle}</small>}
+          </div>
+        </header>
         <div className="card-content">
           <div className="content">{children}</div>
           {embedPath && (

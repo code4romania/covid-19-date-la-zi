@@ -89,7 +89,7 @@ export class CountiesTable extends React.PureComponent {
     }
 
     if (inc > 0 && (page + inc) * limit <= counties.length) {
-      this.setState({ page: this.state.page + inc });
+      this.setState({ page: page + inc });
     }
   }
 
