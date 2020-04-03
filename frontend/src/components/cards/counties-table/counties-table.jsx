@@ -1,5 +1,4 @@
 import React from 'react';
-import { mnemonics } from '../../../config/mnemonics';
 import ChevronImageLeft from './../../../images/chevrons-left.svg';
 import ChevronImageRight from './../../../images/chevrons-right.svg';
 import './counties-table.css';
@@ -35,7 +34,8 @@ export class CountiesTable extends React.PureComponent {
       .map((row, index) => {
         return (
           <tr key={`dailyTable${index}`}>
-            <td>{mnemonics[row.name]}</td>
+            <td>{row.name}</td>
+            <td className="has-text-right">{row.numberInfected}</td>
             <td className="has-text-right">{row.value}</td>
           </tr>
         );
@@ -112,6 +112,13 @@ export class CountiesTable extends React.PureComponent {
       >
         <div className="perDayTable">
           <table>
+            <thead>
+              <tr>
+                <th>Județ</th>
+                <th className="has-text-right">Cazuri per județ</th>
+                <th className="has-text-right">Cazuri la mia de locuitori</th>
+              </tr>
+            </thead>
             <tbody>{counties && this.displayTable(counties)}</tbody>
           </table>
 

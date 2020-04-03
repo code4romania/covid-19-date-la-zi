@@ -1,31 +1,25 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card/card';
-import { mnemonics } from '../../../config/mnemonics';
 import { Constants } from '../../../config/globals';
 
 export const EMBED_COUNTIES_MAP = 'counties-map';
 
 export class CountiesMap extends React.PureComponent {
-  getChartOptions(counties) {
-    const data = counties.map(countie => {
-      return {
-        name: mnemonics[countie.name],
-        value: countie.value
-      };
-    });
+  getChartOptions(data) {
     return {
       tooltip: {
-        trigger: 'item'
+        trigger: 'item',
+        formatter: '{a} </br> {b}: {c}‰'
       },
       visualMap: {
-        show: false,
+        show: true,
         min: 0,
-        max: 0,
+        max: this.props.state.max,
         left: 'left',
         top: 'bottom',
         text: ['Ridicat', 'Scazut'],
-        calculable: true,
+        calculable: false,
         inRange: {
           color: [Constants.countyLowestColor, Constants.countyHighestColor]
         }

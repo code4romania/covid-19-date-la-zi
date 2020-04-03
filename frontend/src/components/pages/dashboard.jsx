@@ -1,6 +1,7 @@
 import React from 'react';
 import { ApiURL } from '../../config/globals';
 import { PageHeader } from '../layout/page-header/page-header';
+import { mnemonics } from '../../config/mnemonics';
 import {
   PROP_SHOW_CONFIRMED_CASES,
   PROP_SHOW_CURED_CASES,
@@ -108,15 +109,18 @@ class DashboardNoContext extends React.PureComponent {
   parseCountiesTable(result) {
     const { data: counties, stale, lastUpdatedString } = result.counties;
     const countiesList = counties
-      .map(({ county, numberInfected }) => ({
-        name: county,
-        value: numberInfected
+      .map(countyObject => ({
+        name: mnemonics[countyObject.county],
+        value: (
+          (countyObject.numberInfected * 100000) /
+          countyObject.totalPopulation
+        ).toFixed(2),
+        ...countyObject
       }))
       .sort((a, b) =>
         // reversed by count
-        a.value > b.value ? -1 : 1
+        Math.round(a.value) > Math.round(b.value) ? -1 : 1
       );
-
     const max = countiesList[0].value;
     return {
       error: null,

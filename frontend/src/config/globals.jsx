@@ -31,8 +31,8 @@ export const Constants = {
   confirmedColor: '#66A4FB',
   curedColor: '#65E0E0',
 
-  countyLowestColor: '#eee',
-  countyHighestColor: '#65E0E0',
+  countyLowestColor: '#FFFF66',
+  countyHighestColor: '#DC143C',
 
   deathColor: 'black',
 
