@@ -32,8 +32,8 @@ export class PerDayTable extends React.PureComponent {
 
       return (
         <tr key={`dailyTable${index}`}>
-          <td>{`${publishedDate.getDate()}/${publishedDate.getMonth() +
-            1}`}
+          <td>
+            {`${publishedDate.getDate()}/${publishedDate.getMonth() + 1}`}
           </td>
           <td>{row['infected']}</td>
           <td>{row['cured']}</td>
@@ -95,14 +95,14 @@ export class PerDayTable extends React.PureComponent {
   }
 
   render() {
-    const { isLoaded, error, lastUpdatedOnString, isStale } = this.state;
+    const { isLoaded, error, lastUpdatedOnString, stale } = this.state;
     return (
       <Card
         error={error}
         isLoaded={isLoaded}
         title="Date zilnice"
         subtitle={`Ultima actualizare: ${lastUpdatedOnString}`}
-        isStale={isStale}
+        isStale={stale}
       >
         <div className="perDayTable">
           <table>

@@ -78,14 +78,14 @@ export class CasesPerDayCard extends React.PureComponent {
 
   render() {
     const state = this.props.state;
-    const { isLoaded, error, isStale } = state;
+    const { isLoaded, error, stale } = state;
 
     return (
       <Card
         isLoaded={isLoaded}
         title="Număr de cazuri pe zile"
         subtitle={`De la ${state.startDate} la ${state.endDate}`}
-        isStale={isStale}
+        isStale={stale}
         error={error}
         embedPath={EMBED_PATH_CASES_PER_DAY}
       >

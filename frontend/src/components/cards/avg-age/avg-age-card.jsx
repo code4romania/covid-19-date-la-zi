@@ -6,14 +6,14 @@ export const EMBED_PATH_AVERAGE_AGE = 'varsta-medie';
 export class AverageAgeCard extends React.PureComponent {
   render() {
     const { state } = this.props;
-    const { isLoaded, error, lastUpdatedOnString, averageAge, isStale } = state;
+    const { isLoaded, error, lastUpdatedOnString, averageAge, stale } = state;
     return (
       <Card
         isLoaded={isLoaded}
         error={error}
         title="Vârsta medie"
         subtitle={`Ultima actualizare: ${lastUpdatedOnString}`}
-        isStale={isStale}
+        isStale={stale}
         embedPath={EMBED_PATH_AVERAGE_AGE}
       >
         <div className="circle">

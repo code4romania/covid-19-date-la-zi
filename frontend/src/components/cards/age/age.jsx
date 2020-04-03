@@ -79,7 +79,7 @@ export class AgeCard extends React.PureComponent {
 
   render() {
     const { title, state } = this.props;
-    const { isLoaded, error, lastUpdatedOnString, isStale } = state;
+    const { isLoaded, error, lastUpdatedOnString, stale } = state;
 
     let knownPercentage = '';
     if (Constants.specifyUnknownData) {
@@ -95,7 +95,7 @@ export class AgeCard extends React.PureComponent {
         error={error}
         title={`${title}${knownPercentage}`}
         subtitle={`Ultima actualizare: ${lastUpdatedOnString}`}
-        isStale={isStale}
+        isStale={stale}
         embedPath={EMBED_PATH_AGE}
       >
         <div className="pie-chart">

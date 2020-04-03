@@ -17,11 +17,14 @@ import {
   EMBED_PATH_AVERAGE_AGE
 } from '../cards/avg-age/avg-age-card';
 import { AgeCard, EMBED_PATH_AGE } from '../cards/age/age';
-import { PerDayTable } from '../cards/perday-table/perday-table';
 import {
-  CountiesCard,
+  CountiesMap,
+  EMBED_COUNTIES_MAP
+} from '../cards/counties-map/counties-map';
+import {
+  CountiesTable,
   EMBED_COUNTIES_TABLE
-} from '../cards/counties/counties-card';
+} from '../cards/counties-table/counties-table';
 import download from 'downloadjs';
 
 import { SocialsShare } from '@code4ro/taskforce-fe-components';
@@ -98,13 +101,12 @@ class DashboardNoContext extends React.PureComponent {
       age: this.parseAgeStats(result),
       averageAge: this.parseAverageAge(result),
       lastUpdate: this.parseLastUpdate(result),
-      dailyTable: this.parseDailyTable(result),
       countiesTable: this.parseCountiesTable(result)
     });
   }
 
   parseCountiesTable(result) {
-    const counties = result.counties.data;
+    const { data: counties, stale } = result.counties;
     const countiesList = Object.entries(counties)
       .map(([key, value]) => ({
         name: key,
@@ -116,32 +118,24 @@ class DashboardNoContext extends React.PureComponent {
       );
 
     const max = countiesList[0].value;
-    const topCounties = countiesList.slice(0, 5);
+    const topCounties = countiesList.slice(0, 10);
     return {
       error: null,
       isLoaded: true,
       counties: countiesList,
       max,
-      topCounties
+      topCounties,
+      stale
     };
   }
 
   parseSummary(result) {
     const group = result.quickStats;
-    const summary = group.totals;
-    const history = group.history;
-    const deathCasesHistory = history.map(entry => {
-      return entry.deaths || 0;
-    });
-    const totalCasesHistory = history.map(entry => {
-      return entry.confirmed || 0;
-    });
-    const curedCasesHistory = history.map(entry => {
-      return entry.cured || 0;
-    });
-    const confirmed = summary.confirmed || 0;
-    const cured = summary.cured || 0;
-    const deaths = summary.deaths || 0;
+    const { totals, stale, history } = group;
+    const { confirmed, cured, deaths } = totals;
+    const totalCasesHistory = history.map(entry => entry.confirmed || 0);
+    const curedCasesHistory = history.map(entry => entry.cured || 0);
+    const deathCasesHistory = history.map(entry => entry.deaths || 0);
     return {
       error: null,
       isLoaded: true,
@@ -150,17 +144,17 @@ class DashboardNoContext extends React.PureComponent {
       curedCases: cured,
       curedCasesHistory: curedCasesHistory,
       deathCases: deaths,
-      deathCasesHistory: deathCasesHistory
+      deathCasesHistory: deathCasesHistory,
+      stale
     };
   }
 
   parseDailyStats(result) {
     const group = result.dailyStats;
+    const stale = group.stale;
     let history = group.history;
 
-    const dates = history.map(entry => {
-      return entry.datePublished;
-    });
+    const dates = history.map(entry => entry.datePublished);
     const startDate = dates[0];
     const endDate = dates[dates.length - 1];
     const startDateStr = this.formattedShortDateString(
@@ -194,43 +188,14 @@ class DashboardNoContext extends React.PureComponent {
       dates: dateStrings,
       confirmedCasesHistory: confirmedCasesHistory,
       curedCasesHistory: curedCasesHistory,
-      deathCasesHistory: deathCasesHistory
-    };
-  }
-
-  parseDailyTable(result) {
-    if (!result['dailyStats']) {
-      return {
-        isLoaded: true,
-        error: 'Nu am putut prelua datele'
-      };
-    }
-
-    const dailyStats = result.dailyStats;
-    const lastUpdatedOnString = dailyStats.last_updated_on_string;
-    let dailyTable = [];
-
-    if (dailyStats['history']) {
-      dailyTable.push(...dailyStats['history']);
-    }
-
-    const filterIncompleteRows = row =>
-      row.hasOwnProperty('complete') && row.complete === false ? false : true;
-
-    dailyTable = dailyTable
-      .filter(filterIncompleteRows)
-      .sort((a, b) => b.datePublished - a.datePublished);
-
-    return {
-      isLoaded: true,
-      error: null,
-      data: dailyTable,
-      lastUpdatedOnString
+      deathCasesHistory: deathCasesHistory,
+      stale
     };
   }
 
   parseGenderStats(result) {
     const stats = result.genderStats;
+    const { stale } = stats;
     const total = stats.totalPercentage || 0;
     const men = stats.percentageOfMen || 0;
     const women = stats.percentageOfWomen || 0;
@@ -248,14 +213,14 @@ class DashboardNoContext extends React.PureComponent {
       date: stats.dateString,
       unknown: unknown > 0 ? unknown : 0,
       knownPercentage,
-      lastUpdatedOnString
+      lastUpdatedOnString,
+      stale
     };
   }
 
   parseAgeStats(result) {
     const group = result.ageHistogram;
-    const stats = group.histogram;
-    const total = group.total || 0;
+    const { histogram: stats, stale, total = 0 } = group;
     const lastUpdatedOnString = group.last_updated_on_string;
     const allValues = Object.entries(stats).map((k, index) => {
       return k[1].men + k[1].women;
@@ -277,27 +242,29 @@ class DashboardNoContext extends React.PureComponent {
       data,
       total,
       knownPercentage,
-      lastUpdatedOnString
+      lastUpdatedOnString,
+      stale
     };
   }
 
   parseAverageAge(result) {
-    const stats = result.dailyStats;
-    const lastUpdatedOnString = stats.last_updated_on_string;
-    const averageAge = stats.currentDay.averageAge;
+    const stats = result.averageAge;
+    const { stale, value, last_updated_on_string } = stats;
     return {
       isLoaded: true,
-      averageAge,
-      lastUpdatedOnString
+      averageAge: value,
+      lastUpdatedOnString: last_updated_on_string,
+      stale
     };
   }
 
   parseLastUpdate(result) {
     const stats = result.quickStats;
-    const lastUpdateOnString = stats.last_updated_on_string;
+    const { stale, last_updated_on_string } = stats;
     return {
       isLoaded: true,
-      lastUpdateOnString
+      lastUpdateOnString: last_updated_on_string,
+      stale
     };
   }
 
@@ -418,8 +385,15 @@ class DashboardNoContext extends React.PureComponent {
         />
       ],
       [
+        EMBED_COUNTIES_MAP,
+        <CountiesMap
+          key={EMBED_COUNTIES_MAP}
+          state={this.state.countiesTable}
+        />
+      ],
+      [
         EMBED_COUNTIES_TABLE,
-        <CountiesCard
+        <CountiesTable
           key={EMBED_COUNTIES_TABLE}
           state={this.state.countiesTable}
         />
@@ -483,7 +457,7 @@ class DashboardNoContext extends React.PureComponent {
 
           <SummaryRow state={this.state.summary} />
 
-          <section className="cards-row second-row">
+          <section className="cards-row">
             <div className="columns">
               <div className="column is-three-quarters">
                 <CasesPerDayCard state={this.state.daily} />
@@ -494,29 +468,24 @@ class DashboardNoContext extends React.PureComponent {
             </div>
           </section>
 
-          <section className="cards-row third-row">
+          <section className="cards-row">
             <div className="columns">
-              <div className="column is-two-quarters">
-                <CountiesCard state={this.state.countiesTable} />
+              <div className="column is-two-quarter">
+                <CountiesMap state={this.state.countiesTable} />
+              </div>
+              <div className="column is-two-quarter">
+                <CountiesTable state={this.state.countiesTable} />
+              </div>
+            </div>
+          </section>
+
+          <section className="cards-row">
+            <div className="columns">
+              <div className="column is-two-quarter">
+                <AgeCard title="După vârstă" state={this.state.age} />
               </div>
               <div className="column is-one-quarter">
                 <AverageAgeCard state={this.state.averageAge} />
-              </div>
-            </div>
-          </section>
-
-          <section className="cards-row">
-            <div className="columns">
-              <div className="column">
-                <PerDayTable state={this.state.dailyTable} />
-              </div>
-            </div>
-          </section>
-
-          <section className="cards-row">
-            <div className="columns">
-              <div className="column">
-                <AgeCard title="După vârstă" state={this.state.age} />
               </div>
             </div>
           </section>
