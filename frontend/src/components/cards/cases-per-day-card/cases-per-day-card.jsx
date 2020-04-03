@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
-import { Card } from '../../layout/card';
+import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
-import './cases-per-day-card.css';
 
 export const EMBED_PATH_CASES_PER_DAY = 'cazuri-pe-zi';
 export class CasesPerDayCard extends React.PureComponent {
-
   getSubtitle(state) {
     let firstDate = state.startDate;
     let lastDate = state.endDate;
@@ -37,12 +35,13 @@ export class CasesPerDayCard extends React.PureComponent {
         axisPointer: {
           axis: 'x'
         },
-        formatter: '<h4 style="color: white">{b}</h4><span>{a2}: {c2}<br />{a1}: {c1}<br />{a0}: {c0}</span>'
+        formatter:
+          '<h4 style="color: white">{b}</h4><span>{a2}: {c2}<br />{a1}: {c1}<br />{a0}: {c0}</span>'
       },
       legend: {
         data: labels,
         bottom: '0px',
-        icon: 'circle',
+        icon: 'circle'
       },
       grid: {
         left: '1%',
@@ -78,17 +77,18 @@ export class CasesPerDayCard extends React.PureComponent {
   }
 
   render() {
-    const state = this.props.state
-    const { isLoaded, error } = state;
+    const state = this.props.state;
+    const { isLoaded, error, isStale } = state;
 
     return (
-      <Card isLoaded={isLoaded} error={error} embedPath={EMBED_PATH_CASES_PER_DAY}>
-        <div className="title-container is-overlay">
-          <h3 className="summary-title is-uppercase">Număr de cazuri pe zile</h3>
-          <h4 className="summary-subtitle">
-            De la {state.startDate} la {state.endDate}
-          </h4>
-        </div>
+      <Card
+        isLoaded={isLoaded}
+        title="Număr de cazuri pe zile"
+        subtitle={`De la ${state.startDate} la ${state.endDate}`}
+        isStale={isStale}
+        error={error}
+        embedPath={EMBED_PATH_CASES_PER_DAY}
+      >
         <ReactEcharts
           style={{
             height: '470px',

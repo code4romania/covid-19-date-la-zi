@@ -1,5 +1,5 @@
 import React from 'react';
-import './page.header.css';
+import './page-header.css';
 
 export class PageHeader extends React.PureComponent {
   render() {
@@ -7,10 +7,8 @@ export class PageHeader extends React.PureComponent {
 
     return (
       <div className="page-header">
-        {title &&
-          <h1 className="title">{title}</h1>}
-        {subtitle &&
-          <p className="subtitle">{subtitle}</p>}
+        {title && <h1 className="title">{title}</h1>}
+        {subtitle && <p className="subtitle">{subtitle}</p>}
       </div>
     );
   }

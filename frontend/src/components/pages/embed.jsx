@@ -1,7 +1,8 @@
 import React from 'react';
-import {BrowserRouter, Link, Route} from 'react-router-dom';
-import {Dashboard} from './components/pages/dashboard';
-import {DevelopedBy, Logo} from "@code4ro/taskforce-fe-components";
+import { BrowserRouter, Route } from 'react-router-dom';
+import { DevelopedBy } from '@code4ro/taskforce-fe-components';
+import { Dashboard } from './dashboard';
+import LogoImage from '../../images/logo-coviz.svg';
 import './embed.css';
 
 export function Embeddable() {
@@ -18,7 +19,7 @@ export function Embeddable() {
             rel="noopener noreferrer"
           >
             <img
-              src="/images/logo-coviz.svg"
+              src={LogoImage}
               className="embed-logo-covid"
               alt="Date La Zi Logo"
             />

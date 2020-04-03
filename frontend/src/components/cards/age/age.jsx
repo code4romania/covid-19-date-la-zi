@@ -1,27 +1,28 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
-import { Card } from '../../layout/card';
+import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
 
 export const EMBED_PATH_AGE = 'varsta';
 export class AgeCard extends React.PureComponent {
-
-  getChartOptions = (state) => {
+  getChartOptions = state => {
     // this is here to prevent errors until state is defined
-    const yAxisData = state.data && state.data.map(item => item.name)
-    const seriesValues = state.data && state.data.map(item => {
-      return {
-        value: item.value,
-        percentage: item.percentage
-      }
-    })
+    const yAxisData = state.data && state.data.map(item => item.name);
+    const seriesValues =
+      state.data &&
+      state.data.map(item => {
+        return {
+          value: item.value,
+          percentage: item.percentage
+        };
+      });
 
     const labels = ['Confirmați'];
     return {
       xAxis: {
         type: 'value',
         axisLabel: {
-          color: 'gray',
+          color: 'gray'
         }
       },
       yAxis: {
@@ -36,13 +37,13 @@ export class AgeCard extends React.PureComponent {
         axisPointer: {
           axis: 'y'
         },
-        formatter: (rawData) => {
-          const item = rawData[0]
-          return `${item.name}: ${item.data.value} (${item.data.percentage}%)`
-        },
+        formatter: rawData => {
+          const item = rawData[0];
+          return `${item.name}: ${item.data.value} (${item.data.percentage}%)`;
+        }
       },
       legend: {
-        show: false,
+        show: false
         // data: labels[0],
         // bottom: '0px',
         // icon: 'circle',
@@ -64,21 +65,21 @@ export class AgeCard extends React.PureComponent {
           label: {
             show: true,
             position: 'right',
-            formatter: (rawData) => {
-              const item = rawData
-              return ` ${item.data.value} (${item.data.percentage}%) `
+            formatter: rawData => {
+              const item = rawData;
+              return ` ${item.data.value} (${item.data.percentage}%) `;
             },
             color: 'black',
             fontWeight: 'bold'
           }
-        },
+        }
       ]
-    }
-  }
+    };
+  };
 
   render() {
     const { title, state } = this.props;
-    const { isLoaded, error } = state;
+    const { isLoaded, error, lastUpdatedOnString, isStale } = state;
 
     let knownPercentage = '';
     if (Constants.specifyUnknownData) {
@@ -90,8 +91,11 @@ export class AgeCard extends React.PureComponent {
 
     return (
       <Card
-        isLoaded={isLoaded} error={error}
+        isLoaded={isLoaded}
+        error={error}
         title={`${title}${knownPercentage}`}
+        subtitle={`Ultima actualizare: ${lastUpdatedOnString}`}
+        isStale={isStale}
         embedPath={EMBED_PATH_AGE}
       >
         <div className="pie-chart">

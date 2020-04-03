@@ -1,38 +1,47 @@
 import React from 'react';
 import { ApiURL } from '../../config/globals';
-import { PageHeader } from '../layout/page.header';
+import { PageHeader } from '../layout/page-header/page-header';
 import {
   PROP_SHOW_CONFIRMED_CASES,
   PROP_SHOW_CURED_CASES,
   PROP_SHOW_DEATH_CASES,
   SummaryRow
-} from '../layout/rows/summary.row';
-import {EMBED_PATH_GENDER, GenderCard} from '../cards/gender/gender-card';
-import {CasesPerDayCard, EMBED_PATH_CASES_PER_DAY} from '../cards/cases-per-day-card/cases-per-day-card';
-import {AverageAgeCard, EMBED_PATH_AVERAGE_AGE} from '../cards/avg-age/avg-age-card';
-import {AgeCard, EMBED_PATH_AGE} from '../cards/age/age';
+} from '../layout/rows/summary-row';
+import { EMBED_PATH_GENDER, GenderCard } from '../cards/gender/gender-card';
+import {
+  CasesPerDayCard,
+  EMBED_PATH_CASES_PER_DAY
+} from '../cards/cases-per-day-card/cases-per-day-card';
+import {
+  AverageAgeCard,
+  EMBED_PATH_AVERAGE_AGE
+} from '../cards/avg-age/avg-age-card';
+import { AgeCard, EMBED_PATH_AGE } from '../cards/age/age';
 import { PerDayTable } from '../cards/perday-table/perday-table';
+import {
+  CountiesCard,
+  EMBED_COUNTIES_TABLE
+} from '../cards/counties/counties-card';
 import download from 'downloadjs';
 
-import { Hero, Instruments, InstrumentsItem, SocialsShare } from '@code4ro/taskforce-fe-components';
+import { SocialsShare } from '@code4ro/taskforce-fe-components';
 
-import '@code4ro/taskforce-fe-components/dist/index.css';
 import './dashboard.css';
-import {withToastProvider} from '../layout/toast/withToastProvider';
+import { withToastProvider } from '../layout/toast/withToastProvider';
+import { InstrumentsWrapper } from '../layout/instruments/instruments';
 
 class DashboardNoContext extends React.PureComponent {
-
   constructor(props) {
     super(props);
 
     const defaultState = {
       isLoaded: false,
       error: null
-    }
+    };
 
     this.state = {
-      error: defaultState.error || null,
-      isLoaded: defaultState.isLoaded || false,
+      error: defaultState.error,
+      isLoaded: defaultState.isLoaded,
       summary: defaultState,
       daily: defaultState, // object
       gender: defaultState, // object
@@ -40,7 +49,8 @@ class DashboardNoContext extends React.PureComponent {
       averageAge: defaultState, // object
       lastUpdate: defaultState, // object
       dailyTable: defaultState, // object
-    }
+      countiesTable: defaultState
+    };
   }
 
   // resets all object states with this object
@@ -55,27 +65,28 @@ class DashboardNoContext extends React.PureComponent {
       averageAge: defaultState, // object
       lastUpdate: defaultState, // object,
       dailyTable: defaultState, // object
-    })
+      countiesTable: defaultState
+    });
   }
 
   componentDidMount() {
     this.resetState({
       isLoaded: false,
       error: null
-    })
+    });
 
     fetch(ApiURL.all)
       .then(res => res.json())
-      .then((result) => {
+      .then(result => {
         if (result.error != null) {
-          this.setState({error: result.error, isLoaded: true})
+          this.setState({ error: result.error, isLoaded: true });
         } else {
-          this.parseAPIResponse(result)
+          this.parseAPIResponse(result);
         }
       })
-      .catch((error) => {
-        this.resetState({error: error, isLoaded: true})
-      })
+      .catch(error => {
+        this.resetState({ error: error, isLoaded: true });
+      });
   }
 
   parseAPIResponse(result) {
@@ -87,20 +98,50 @@ class DashboardNoContext extends React.PureComponent {
       age: this.parseAgeStats(result),
       averageAge: this.parseAverageAge(result),
       lastUpdate: this.parseLastUpdate(result),
-      dailyTable: this.parseDailyTable(result)
-    })
+      dailyTable: this.parseDailyTable(result),
+      countiesTable: this.parseCountiesTable(result)
+    });
+  }
+
+  parseCountiesTable(result) {
+    const counties = result.counties.data;
+    const countiesList = Object.entries(counties)
+      .map(([key, value]) => ({
+        name: key,
+        value: value
+      }))
+      .sort((a, b) =>
+        // reversed by count
+        a.value > b.value ? -1 : 1
+      );
+
+    const max = countiesList[0].value;
+    const topCounties = countiesList.slice(0, 5);
+    return {
+      error: null,
+      isLoaded: true,
+      counties: countiesList,
+      max,
+      topCounties
+    };
   }
 
   parseSummary(result) {
-    const group = result.quickStats
-    const summary = group.totals
-    const history = group.history
-    const deathCasesHistory = history.map((entry) => { return entry.deaths || 0 })
-    const totalCasesHistory = history.map((entry) => { return entry.confirmed || 0 })
-    const curedCasesHistory = history.map((entry) => { return entry.cured || 0 })
-    const confirmed = summary.confirmed || 0
-    const cured = summary.cured || 0
-    const deaths = summary.deaths || 0
+    const group = result.quickStats;
+    const summary = group.totals;
+    const history = group.history;
+    const deathCasesHistory = history.map(entry => {
+      return entry.deaths || 0;
+    });
+    const totalCasesHistory = history.map(entry => {
+      return entry.confirmed || 0;
+    });
+    const curedCasesHistory = history.map(entry => {
+      return entry.cured || 0;
+    });
+    const confirmed = summary.confirmed || 0;
+    const cured = summary.cured || 0;
+    const deaths = summary.deaths || 0;
     return {
       error: null,
       isLoaded: true,
@@ -109,31 +150,41 @@ class DashboardNoContext extends React.PureComponent {
       curedCases: cured,
       curedCasesHistory: curedCasesHistory,
       deathCases: deaths,
-      deathCasesHistory: deathCasesHistory,
-    }
+      deathCasesHistory: deathCasesHistory
+    };
   }
 
   parseDailyStats(result) {
-    const group = result.dailyStats
+    const group = result.dailyStats;
     let history = group.history;
 
-    const dates = history.map((entry) => { return entry.datePublished });
+    const dates = history.map(entry => {
+      return entry.datePublished;
+    });
     const startDate = dates[0];
-    const endDate = dates[dates.length-1];
-    const startDateStr = this.formattedShortDateString(this.dateFromTimestamp(startDate));
-    const endDateStr = this.formattedShortDateString(this.dateFromTimestamp(endDate));
+    const endDate = dates[dates.length - 1];
+    const startDateStr = this.formattedShortDateString(
+      this.dateFromTimestamp(startDate)
+    );
+    const endDateStr = this.formattedShortDateString(
+      this.dateFromTimestamp(endDate)
+    );
 
-    const confirmedCasesHistory = history.flatMap((entry) => {
-      return entry.complete === false ? [] : Math.max(entry.infected, 0)
+    const confirmedCasesHistory = history.flatMap(entry => {
+      return entry.complete === false ? [] : Math.max(entry.infected, 0);
     });
-    const curedCasesHistory = history.flatMap((entry) => {
-      return entry.complete === false ? [] : Math.max(entry.cured, 0)
+    const curedCasesHistory = history.flatMap(entry => {
+      return entry.complete === false ? [] : Math.max(entry.cured, 0);
     });
-    const deathCasesHistory = history.flatMap((entry) => {
-      return entry.complete === false ? [] : Math.max(entry.deaths, 0)
+    const deathCasesHistory = history.flatMap(entry => {
+      return entry.complete === false ? [] : Math.max(entry.deaths, 0);
     });
-    const dateStrings = history.flatMap((entry) => {
-      return entry.complete === false ? [] : this.formattedShortDateString(this.dateFromTimestamp(entry.datePublished))
+    const dateStrings = history.flatMap(entry => {
+      return entry.complete === false
+        ? []
+        : this.formattedShortDateString(
+          this.dateFromTimestamp(entry.datePublished)
+        );
     });
 
     return {
@@ -143,45 +194,51 @@ class DashboardNoContext extends React.PureComponent {
       dates: dateStrings,
       confirmedCasesHistory: confirmedCasesHistory,
       curedCasesHistory: curedCasesHistory,
-      deathCasesHistory: deathCasesHistory,
-    }
+      deathCasesHistory: deathCasesHistory
+    };
   }
 
   parseDailyTable(result) {
-    if (!result["dailyStats"]) {
+    if (!result['dailyStats']) {
       return {
         isLoaded: true,
-        error: "Nu am putut prelua datele"
+        error: 'Nu am putut prelua datele'
       };
     }
 
-    let dailyStats = result.dailyStats;
+    const dailyStats = result.dailyStats;
+    const lastUpdatedOnString = dailyStats.last_updated_on_string;
     let dailyTable = [];
 
-    if (dailyStats["history"]) {
-      dailyTable.push(...dailyStats["history"]);
+    if (dailyStats['history']) {
+      dailyTable.push(...dailyStats['history']);
     }
 
-    const filterIncompleteRows = (row) => row.hasOwnProperty("complete") && row.complete === false ? false : true;
+    const filterIncompleteRows = row =>
+      row.hasOwnProperty('complete') && row.complete === false ? false : true;
 
-    dailyTable = dailyTable.filter(filterIncompleteRows)
-      .sort((a,b) => b.datePublished - a.datePublished);
+    dailyTable = dailyTable
+      .filter(filterIncompleteRows)
+      .sort((a, b) => b.datePublished - a.datePublished);
 
     return {
       isLoaded: true,
       error: null,
-      data: dailyTable
-    }
+      data: dailyTable,
+      lastUpdatedOnString
+    };
   }
 
   parseGenderStats(result) {
-    const stats = result.genderStats
+    const stats = result.genderStats;
     const total = stats.totalPercentage || 0;
     const men = stats.percentageOfMen || 0;
     const women = stats.percentageOfWomen || 0;
     const children = stats.percentageOfChildren || 0;
-    const unknown = total - stats.men - stats.women
-    const knownPercentage = total > 0 ? 100-Math.round(100*unknown / total) : 100;
+    const lastUpdatedOnString = stats.last_updated_on_string;
+    const unknown = total - stats.men - stats.women;
+    const knownPercentage =
+      total > 0 ? 100 - Math.round((100 * unknown) / total) : 100;
 
     return {
       isLoaded: true,
@@ -190,14 +247,16 @@ class DashboardNoContext extends React.PureComponent {
       children,
       date: stats.dateString,
       unknown: unknown > 0 ? unknown : 0,
-      knownPercentage: knownPercentage
-    }
+      knownPercentage,
+      lastUpdatedOnString
+    };
   }
 
   parseAgeStats(result) {
-    const group = result.ageHistogram
+    const group = result.ageHistogram;
     const stats = group.histogram;
     const total = group.total || 0;
+    const lastUpdatedOnString = group.last_updated_on_string;
     const allValues = Object.entries(stats).map((k, index) => {
       return k[1].men + k[1].women;
     });
@@ -217,26 +276,29 @@ class DashboardNoContext extends React.PureComponent {
       isLoaded: true,
       data,
       total,
-      knownPercentage
-    }
+      knownPercentage,
+      lastUpdatedOnString
+    };
   }
 
   parseAverageAge(result) {
-    const stats = result.dailyStats
+    const stats = result.dailyStats;
+    const lastUpdatedOnString = stats.last_updated_on_string;
     const averageAge = stats.currentDay.averageAge;
     return {
       isLoaded: true,
-      averageAge
-    }
+      averageAge,
+      lastUpdatedOnString
+    };
   }
 
   parseLastUpdate(result) {
-    const stats = result.quickStats
-    const lastUpdate = stats.last_updated_on_string
+    const stats = result.quickStats;
+    const lastUpdateOnString = stats.last_updated_on_string;
     return {
       isLoaded: true,
-      lastUpdate
-    }
+      lastUpdateOnString
+    };
   }
 
   dateFromTimestamp(timestamp) {
@@ -262,23 +324,31 @@ class DashboardNoContext extends React.PureComponent {
   }
 
   shareableLink() {
-    return !!window.location.host ? window.location.protocol + '//' + window.location.host : 'https://datelazi.ro'
+    return !!window.location.host
+      ? window.location.protocol + '//' + window.location.host
+      : 'https://datelazi.ro';
   }
 
   handleDownloadAllData = () => {
     fetch(ApiURL.allData)
       .then(res => res.json())
-      .then((result) => {
+      .then(result => {
         if (result.error != null) {
-          this.setState({error: result.error, isLoaded: true})
+          this.setState({ error: result.error, isLoaded: true });
         } else {
-          const filename = this.getNormalizedFileName(result.lasUpdatedOnString);
-          download(JSON.stringify(result), `date_${filename}.json`, 'application/json');
+          const filename = this.getNormalizedFileName(
+            result.lasUpdatedOnString
+          );
+          download(
+            JSON.stringify(result),
+            `date_${filename}.json`,
+            'application/json'
+          );
         }
       })
-      .catch((error) => {
-        this.resetState({error: error, isLoaded: true})
-      })
+      .catch(error => {
+        this.resetState({ error: error, isLoaded: true });
+      });
   };
 
   getNormalizedFileName(filename) {
@@ -286,98 +356,134 @@ class DashboardNoContext extends React.PureComponent {
   }
 
   render() {
-    const lastUpdate = !!this.state.lastUpdate ? this.state.lastUpdate.lastUpdate : '-'
-    const link = this.shareableLink()
+    const lastUpdate = !!this.state.lastUpdate
+      ? this.state.lastUpdate.lastUpdateOnString
+      : '-';
+    const link = this.shareableLink();
 
     const keyToCard = new Map([
-      [EMBED_PATH_CASES_PER_DAY, (
-        <CasesPerDayCard key={EMBED_PATH_CASES_PER_DAY} state={this.state.daily} />
-      )],
-      [EMBED_PATH_AGE, (
+      [
+        EMBED_PATH_CASES_PER_DAY,
+        <CasesPerDayCard
+          key={EMBED_PATH_CASES_PER_DAY}
+          state={this.state.daily}
+        />
+      ],
+      [
+        EMBED_PATH_AGE,
         <AgeCard
           key={EMBED_PATH_AGE}
           title="După vârstă"
           state={this.state.age}
         />
-      )],
-      [EMBED_PATH_AVERAGE_AGE, (
+      ],
+      [
+        EMBED_PATH_AVERAGE_AGE,
         <AverageAgeCard
           key={EMBED_PATH_AVERAGE_AGE}
           state={this.state.averageAge}
         />
-      )],
-      [EMBED_PATH_GENDER, (
-        <GenderCard key={EMBED_PATH_GENDER} to="/" title="După gen" state={this.state.gender} />
-      )],
-      [PROP_SHOW_CONFIRMED_CASES, (
+      ],
+      [
+        EMBED_PATH_GENDER,
+        <GenderCard
+          key={EMBED_PATH_GENDER}
+          to="/"
+          title="După gen"
+          state={this.state.gender}
+        />
+      ],
+      [
+        PROP_SHOW_CONFIRMED_CASES,
         <SummaryRow
           key={PROP_SHOW_CONFIRMED_CASES}
           visibleCards={[PROP_SHOW_CONFIRMED_CASES]}
           state={this.state.summary}
         />
-      )],
-      [PROP_SHOW_CURED_CASES, (
+      ],
+      [
+        PROP_SHOW_CURED_CASES,
         <SummaryRow
           key={PROP_SHOW_CURED_CASES}
           visibleCards={[PROP_SHOW_CURED_CASES]}
           state={this.state.summary}
         />
-      )],
-      [PROP_SHOW_DEATH_CASES, (
+      ],
+      [
+        PROP_SHOW_DEATH_CASES,
         <SummaryRow
           key={PROP_SHOW_DEATH_CASES}
           visibleCards={[PROP_SHOW_DEATH_CASES]}
           state={this.state.summary}
         />
-      )]
+      ],
+      [
+        EMBED_COUNTIES_TABLE,
+        <CountiesCard
+          key={EMBED_COUNTIES_TABLE}
+          state={this.state.countiesTable}
+        />
+      ]
     ]);
 
     let particularChartComponent;
     if (this.props.match) {
-      const {particularChart} = this.props.match.params;
+      const { particularChart } = this.props.match.params;
       particularChartComponent = keyToCard.get(particularChart);
     }
 
     return (
-      (particularChartComponent ||
-        <section className="section">
-          <div className="container cards-row content">
-            <PageHeader
-              title="Date Oficiale"
-            />
-            <p>
-            Accesul la date din surse oficiale ce descriu evoluția cazurilor de COVID-19 în România
-            este esențial în adoptarea măsurilor de sănătate publică împotriva pandemiei. Astfel,
-            venim în sprijinul publicului și al mass-media din România prin accesibilizarea datelor
-            punându-le într-o formă grafică ușor de parcurs, urmând modelul portalului de informare
-            din <a href="https://co.vid19.sg/" target="_blank" rel="noopener noreferrer">Singapore</a>.
-            </p>
-            <p>
-            Infografiile se actualizează periodic și sunt centralizate în graficele de mai jos.
-            </p>
-            <p>
-            Acest proiect este realizat pro-bono în parteneriat cu Guvernul României prin Autoritatea
-            pentru Digitalizarea României. Funcționarea acestei platforme depinde exclusiv de
-            conținutul datelor și informațiilor care vor fi furnizate de către Guvernul României.
-            </p>
+      particularChartComponent || (
+        <div className="container">
+          <section className="cards-row">
+            <PageHeader title="Date Oficiale" />
+            <div className="content">
+              <p>
+                Accesul la date din surse oficiale ce descriu evoluția cazurilor
+                de COVID-19 în România este esențial în adoptarea măsurilor de
+                sănătate publică împotriva pandemiei. Astfel, venim în sprijinul
+                publicului și al mass-media din România prin accesibilizarea
+                datelor punându-le într-o formă grafică ușor de parcurs, urmând
+                modelul portalului de informare din{' '}
+                <a
+                  href="https://co.vid19.sg/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Singapore
+                </a>
+                .
+              </p>
+              <p>
+                Infografiile se actualizează periodic și sunt centralizate în
+                graficele de mai jos.
+              </p>
+              <p>
+                Acest proiect este realizat pro-bono în parteneriat cu Guvernul
+                României prin Autoritatea pentru Digitalizarea României.
+                Funcționarea acestei platforme depinde exclusiv de conținutul
+                datelor și informațiilor care vor fi furnizate de către Guvernul
+                României.
+              </p>
 
-            <SocialsShare currentPage={link} />
-
-          <div className="level">
-            {lastUpdate &&
-            <p className="level-left">Date actualizate în {lastUpdate}.</p>}
-            <button
-              className="button is-primary is-light levelRight"
-              onClick={this.handleDownloadAllData}
-            >Descarcă datele
-            </button>
-          </div>
-
-          </div>
+              <SocialsShare currentPage={link} />
+            </div>
+            <div className="level">
+              {lastUpdate && (
+                <p className="level-left">Date actualizate în {lastUpdate}.</p>
+              )}
+              <button
+                className="button is-primary is-light levelRight"
+                onClick={this.handleDownloadAllData}
+              >
+                Descarcă datele
+              </button>
+            </div>
+          </section>
 
           <SummaryRow state={this.state.summary} />
 
-          <div className="container cards-row second-row">
+          <section className="cards-row second-row">
             <div className="columns">
               <div className="column is-three-quarters">
                 <CasesPerDayCard state={this.state.daily} />
@@ -386,74 +492,40 @@ class DashboardNoContext extends React.PureComponent {
                 <GenderCard to="/" title="După gen" state={this.state.gender} />
               </div>
             </div>
-          </div>
+          </section>
 
-          <div className="container cards-row third-row">
+          <section className="cards-row third-row">
             <div className="columns">
               <div className="column is-two-quarters">
-                <AgeCard
-                  title="După vârstă"
-                  state={this.state.age}
-                />
+                <CountiesCard state={this.state.countiesTable} />
               </div>
               <div className="column is-one-quarter">
-                <AverageAgeCard
-                  state={this.state.averageAge}
-                />
+                <AverageAgeCard state={this.state.averageAge} />
               </div>
             </div>
-          </div>
+          </section>
 
-        <div className="container cards-row third-row">
-          <div className="columns">
-            <div className="column">
-              <PerDayTable state={this.state.dailyTable} />
+          <section className="cards-row">
+            <div className="columns">
+              <div className="column">
+                <PerDayTable state={this.state.dailyTable} />
+              </div>
             </div>
-          </div>
+          </section>
+
+          <section className="cards-row">
+            <div className="columns">
+              <div className="column">
+                <AgeCard title="După vârstă" state={this.state.age} />
+              </div>
+            </div>
+          </section>
+
+          <aside>
+            <InstrumentsWrapper />
+          </aside>
         </div>
-
-        <div className="container">
-          <div className="border-bottom">
-            <Hero title="Instrumente utile" useFallbackIcon />
-          </div>
-
-            <Instruments layout="grid">
-              <section>
-                <InstrumentsItem
-                  color="green"
-                  title="Instalează-ţi extensia de Firefox"
-                  ctaLink="https://addons.mozilla.org/en-US/firefox/addon/covid-19-%C8%99tiri-oficiale/"
-                  ctaText="Instalează add-on"
-                />
-                <InstrumentsItem
-                  color="green"
-                  title="Instalează-ti extensia de Chrome"
-                  ctaLink={'https://chrome.google.com/webstore/detail/' +
-                  'covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha'}
-                  ctaText="Instalează add-on"
-                />
-              </section>
-              <section>
-                <InstrumentsItem
-                  color="green"
-                  title="Ştiri oficiale și informații la zi"
-                  content=""
-                  ctaText="Cele mai noi informaţii oficiale"
-                  ctaLink="https://stirioficiale.ro/informatii"
-                />
-              </section>
-              <section>
-                <InstrumentsItem
-                  color="yellow"
-                  title="Află ce ai de făcut în orice situație"
-                  content=""
-                  ctaText="Ce trebuie să fac"
-                  ctaLink="https://cemafac.ro"
-                />
-              </section>
-            </Instruments>
-          </div>
-        </section>)
+      )
     );
   }
 }

@@ -1,12 +1,10 @@
 import * as React from 'react';
 import './embed-button.css';
-import {useToast} from './toast/withToastProvider';
+import { useToast } from '../toast/withToastProvider';
 
-export const EmbedButton = (props) => {
+export const EmbedButton = props => {
   const toast = useToast();
-  const {path, viewPort} = props;
-
-  console.log(window.location);
+  const { path, viewPort } = props;
 
   const footerHeight = 75;
   let getEmbeddableCode = () => `<iframe
@@ -25,18 +23,23 @@ export const EmbedButton = (props) => {
 
     auxiliaryField.remove();
 
-    toast.add('Textul a fost copiat in memoria clipboard')
+    toast.add('Textul a fost copiat in memoria clipboard');
   };
 
   // if already embedded hide the button
   if (window.location.pathname === `/embed/${path}`) {
-    return (<span />);
+    return <span />;
   }
 
   return (
     <div className="fab-action">
       <div className="tooltip">
-        <img src="/images/favicon/embed.png" alt="embed" className="fab-icon" onClick={handleCopyEmbedCode} />
+        <img
+          src="/images/favicon/embed.png"
+          alt="embed"
+          className="fab-icon"
+          onClick={handleCopyEmbedCode}
+        />
       </div>
     </div>
   );
