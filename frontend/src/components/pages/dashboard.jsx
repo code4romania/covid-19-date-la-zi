@@ -233,7 +233,7 @@ class DashboardNoContext extends React.PureComponent {
       return {
         value: stats[key],
         name: key,
-        percentage: ((100 * stats[key]) / total).toFixed(2)
+        percentage: Math.round((100 * stats[key]) / total)
       };
     });
 
