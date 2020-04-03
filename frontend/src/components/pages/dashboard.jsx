@@ -221,29 +221,28 @@ class DashboardNoContext extends React.PureComponent {
 
   parseAgeStats(result) {
     const group = result.ageHistogram;
-    const { histogram: stats, stale, total = 0 } = group;
-    const lastUpdatedOnString = group.last_updated_on_string;
-    const allValues = Object.entries(stats).map((k, index) => {
-      return k[1].men + k[1].women;
-    });
+    const {
+      histogram: stats,
+      stale,
+      total = 0,
+      last_updated_on_string
+    } = group;
+    const allValues = Object.entries(stats).map(k => k[1].men + k[1].women);
     const totalKnown = allValues.reduce((a, b) => a + b, 0);
     const knownPercentage =
       total > 0 ? 100 - Math.round((totalKnown / total) * 100) : 100;
-
-    const data = Object.keys(stats).map(key => {
-      return {
-        value: stats[key],
-        name: key,
-        percentage: Math.round((100 * stats[key]) / total)
-      };
-    });
+    const data = Object.keys(stats).map(key => ({
+      value: stats[key],
+      name: key,
+      percentage: Math.round((100 * stats[key]) / total)
+    }));
 
     return {
       isLoaded: true,
       data,
       total,
       knownPercentage,
-      lastUpdatedOnString,
+      lastUpdatedOnString: last_updated_on_string,
       stale
     };
   }

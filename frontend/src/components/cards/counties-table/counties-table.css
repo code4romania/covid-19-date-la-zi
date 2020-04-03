@@ -27,11 +27,6 @@
     color: white;
 }
 
-.perDayTable table td,
-.perDayTable table th {
-    text-align: right !important;
-}
-
 .perDayTable .button.hide {
     display: none;
 }
@@ -51,7 +46,7 @@
     min-width: 100%;
 }
 
-.navigation-chevron{
+.navigation-chevron {
     width: 24px;
     height: 24px;
 }

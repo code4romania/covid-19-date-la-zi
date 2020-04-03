@@ -44,9 +44,6 @@ export class AgeCard extends React.PureComponent {
       },
       legend: {
         show: false
-        // data: labels[0],
-        // bottom: '0px',
-        // icon: 'circle',
       },
       grid: {
         left: '1%',
