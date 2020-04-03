@@ -1,23 +1,30 @@
-import React from 'react';
-import ReactEcharts from 'echarts-for-react';
-import { Card } from '../../layout/card/card';
-import { Constants } from '../../../config/globals';
+import React from "react";
+import ReactEcharts from "echarts-for-react";
+import { mnemonics } from "./mnemonics";
+import { Card } from "../../layout/card/card";
+import { Constants } from "../../../config/globals";
 
-export const EMBED_COUNTIES_TABLE = 'counties';
+export const EMBED_COUNTIES_TABLE = "counties";
 
 export class CountiesCard extends React.PureComponent {
   getChartOptions() {
+    const data = this.props.state.counties.map(countie => {
+      return {
+        name: mnemonics[countie.name],
+        value: countie.value
+      };
+    });
     return {
       tooltip: {
-        trigger: 'item'
+        trigger: "item"
       },
       visualMap: {
         show: false,
         min: 0,
         max: this.props.state.max,
-        left: 'left',
-        top: 'bottom',
-        text: ['Ridicat', 'Scazut'],
+        left: "left",
+        top: "bottom",
+        text: ["Ridicat", "Scazut"],
         calculable: true,
         inRange: {
           color: [Constants.countyLowestColor, Constants.countyHighestColor]
@@ -25,9 +32,9 @@ export class CountiesCard extends React.PureComponent {
       },
       series: [
         {
-          name: 'Cazuri',
-          type: 'map',
-          mapType: 'RO',
+          name: "Cazuri",
+          type: "map",
+          mapType: "RO",
           itemStyle: {
             areaColor: Constants.curedColor
           },
@@ -36,7 +43,7 @@ export class CountiesCard extends React.PureComponent {
               show: false
             }
           },
-          data: this.props.state.counties
+          data
         }
       ]
     };
@@ -63,11 +70,13 @@ export class CountiesCard extends React.PureComponent {
         isStale={isStale}
         embedPath={EMBED_COUNTIES_TABLE}
       >
-        <ReactEcharts
-          option={this.getChartOptions()}
-          style={{ height: '260px', width: '100%', top: '-5%' }}
-          className="react_for_echarts"
-        />
+        {topCounties && (
+          <ReactEcharts
+            option={this.getChartOptions()}
+            style={{ height: "260px", width: "100%", top: "-5%" }}
+            className="react_for_echarts"
+          />
+        )}
         <table className="table">
           <tbody>{topLines}</tbody>
         </table>
