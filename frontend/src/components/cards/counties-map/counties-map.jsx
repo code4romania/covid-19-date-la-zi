@@ -52,13 +52,14 @@ export class CountiesMap extends React.PureComponent {
 
   render() {
     const state = this.props.state;
-    const { isLoaded, error, topCounties, stale } = state;
+    const { isLoaded, error, topCounties, stale, lastUpdatedOnString } = state;
 
     return (
       <Card
         error={error}
         isLoaded={isLoaded}
         title="Cazuri confirmate pe judete"
+        subtitle={`Ultima actualizare: ${lastUpdatedOnString}`}
         isStale={stale}
         embedPath={EMBED_COUNTIES_MAP}
       >

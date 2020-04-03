@@ -106,7 +106,7 @@ class DashboardNoContext extends React.PureComponent {
   }
 
   parseCountiesTable(result) {
-    const { data: counties, stale } = result.counties;
+    const { data: counties, stale, lastUpdatedString } = result.counties;
     const countiesList = Object.entries(counties)
       .map(([key, value]) => ({
         name: key,
@@ -125,6 +125,7 @@ class DashboardNoContext extends React.PureComponent {
       counties: countiesList,
       max,
       topCounties,
+      lastUpdatedOnString: lastUpdatedString,
       stale
     };
   }
@@ -249,11 +250,11 @@ class DashboardNoContext extends React.PureComponent {
 
   parseAverageAge(result) {
     const stats = result.averageAge;
-    const { stale, value, last_updated_on_string } = stats;
+    const { stale, value, lastUpdatedString } = stats;
     return {
       isLoaded: true,
       averageAge: value,
-      lastUpdatedOnString: last_updated_on_string,
+      lastUpdatedOnString: lastUpdatedString,
       stale
     };
   }
