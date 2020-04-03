@@ -6,6 +6,7 @@ namespace Code4Ro.CoViz19.Api.Models.V2
     {
         [JsonProperty(PropertyName = "last_updated_on")] public long DataLastUpdatedOn { get; set; }
         [JsonProperty(PropertyName = "last_updated_on_string")] public string DataLastUpdatedOnString { get; set; }
+        [JsonProperty(PropertyName = "stale")] public bool Stale { get; set; }
         public DailyStats CurrentDay { get; set; }
         public DailyStats[] History { get; set; }
     }

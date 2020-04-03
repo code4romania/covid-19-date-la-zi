@@ -117,7 +117,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         [HttpGet]
         [Route("ui-data")]
         [SwaggerOperation(Summary = "Get ui needed to render charts in UI")]
-        [SwaggerResponse(200, "Last date data was updated", typeof(UiDataModel))]
+        [SwaggerResponse(200, "Ui data model", typeof(UiDataModel))]
         [SwaggerResponse(500, "Something went wrong when getting data", typeof(ProblemDetails))]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> GetUiData()
@@ -133,13 +133,28 @@ namespace Code4Ro.CoViz19.Api.Controllers
         [HttpGet]
         [Route("county-infections")]
         [SwaggerOperation(Summary = "Get counties number of infections")]
-        [SwaggerResponse(200, "Last date data was updated", typeof(CountiesInfectionsModel))]
+        [SwaggerResponse(200, "Counties infections stats", typeof(CountiesInfectionsModel))]
         [SwaggerResponse(500, "Something went wrong when getting data", typeof(ProblemDetails))]
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> GetCountyInfectionsNumbers()
         {
-            _logger.LogInformation($"starting to get {nameof(GetUiData)}");
+            _logger.LogInformation($"starting to get {nameof(GetCountiesInfections)}");
             var data = await _mediator.Send(new GetCountiesInfections());
+            _logger.LogInformation($"finished to get {nameof(GetCountiesInfections)}");
+
+            return new OkObjectResult(data);
+        }
+
+        [HttpGet]
+        [Route("average-age")]
+        [SwaggerOperation(Summary = "Get average age of infected persons")]
+        [SwaggerResponse(200, "Last date data was updated", typeof(AverageAgeModel))]
+        [SwaggerResponse(500, "Something went wrong when getting data", typeof(ProblemDetails))]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public async Task<IActionResult> GetAverageAge()
+        {
+            _logger.LogInformation($"starting to get {nameof(GetUiData)}");
+            var data = await _mediator.Send(new GetAverageAge());
             _logger.LogInformation($"finished to get {nameof(GetUiData)}");
 
             return new OkObjectResult(data);
