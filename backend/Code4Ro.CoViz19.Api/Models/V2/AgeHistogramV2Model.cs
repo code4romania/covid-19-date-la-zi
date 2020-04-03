@@ -13,6 +13,7 @@ namespace Code4Ro.CoViz19.Api.Models.V2
         [JsonProperty(PropertyName = "last_updated_on_string")] public string DataLastUpdatedOnString { get; set; }
         [JsonProperty(PropertyName = "histogram")] public Dictionary<AgeRange, int> Histogram { get; set; }
         [JsonProperty(PropertyName = "total")] public int Total { get; set; }
+        [JsonProperty(PropertyName = "stale")] public bool Stale { get; set; }
 
     }
 }

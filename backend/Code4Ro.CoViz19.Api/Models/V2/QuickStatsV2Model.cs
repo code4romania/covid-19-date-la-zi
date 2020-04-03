@@ -11,6 +11,7 @@ namespace Code4Ro.CoViz19.Api.Models.V2
         [JsonProperty(PropertyName = "date_string")] public string DatePublishedString { get; set; }
         [JsonProperty(PropertyName = "totals")] public InfectionsStatsV2Model Totals { get; set; }
         [JsonProperty(PropertyName = "history")] public InfectionsStatsV2Model[] History { get; set; }
+        [JsonProperty(PropertyName = "stale")] public bool Stale { get; set; }
     }
 
     public class InfectionsStatsV2Model

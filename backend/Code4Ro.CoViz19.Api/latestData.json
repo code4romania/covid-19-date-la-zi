@@ -1,27 +1,52 @@
 {
-    "LasUpdatedOn": 1585810860,
-    "LasUpdatedOnString": "2 Aprilie la 10:01",
+    "LasUpdatedOn": 1585844400,
+    "LasUpdatedOnString": "2 Aprilie la 19:20",
     "charts": {
-        "casesByDay": {
-            "contains": [ "numberInfected", "numberCured", "numberDeceased" ],
+        "dailyStats": {
+            "contains": [ "numberInfected", "numberDeceased", "numberCured" ],
+            "lastUpdatedOn": "2020-04-01",
+            "stale": false
+        },
+        "quickStats": {
+            "contains": [ "numberInfected", "numberDeceased", "numberCured" ],
             "lastUpdatedOn": "2020-04-02",
             "stale": false
         },
-        "casesByGender": {
-            "contains": [ "percentageOfWomen", "percentageOfMen", "percentageOfChildren" ],
-            "lastUpdatedOn": "2020-03-30",
+        "averageAge": {
+            "contains": [ "distributionByAge" ],
+            "lastUpdatedOn": "2020-04-03",
+            "stale": true
+        },
+        "counties": {
+            "contains": [ "countyInfectionsNumbers" ],
+            "lastUpdatedOn": "2020-04-04",
+            "stale": false
+        },
+        "genderStats": {
+            "contains": [
+                "percentageOfWomen",
+                "percentageOfMen",
+                "percentageOfChildren"
+            ],
+            "lastUpdatedOn": "2020-04-05",
+            "stale": true
+        },
+
+        "ageHistogram": {
+            "contains": [ "distributionByAge" ],
+            "lastUpdatedOn": "2020-04-05",
             "stale": true
         }
     },
     "currentDayStats": {
-        "parsedOn": 1585810860,
+        "parsedOn": 1585844400,
         "parsedOnString": "2020-04-02",
         "fileName": "",
-        "complete": false,
+        "complete": true,
         "averageAge": "46",
-        "numberInfected": 2460,
-        "numberCured": 252,
-        "numberDeceased": 94,
+        "numberInfected": 2738,
+        "numberCured": 267,
+        "numberDeceased": 107,
         "percentageOfWomen": 55,
         "percentageOfMen": 41,
         "percentageOfChildren": 4,
@@ -38,13 +63,51 @@
             "în procesare": 116
         },
         "countyInfectionsNumbers": {
-            "sv": 9,
-            "b": 110,
-            "is": 10,
-            "BC": 19
-
+            "AB": 9,
+            "AR": 110,
+            "AG": 10,
+            "BC": 19,
+            "BH": 39,
+            "BN": 22,
+            "BT": 40,
+            "BV": 117,
+            "BR": 11,
+            "BZ": 12,
+            "CS": 13,
+            "CL": 17,
+            "CJ": 105,
+            "CT": 111,
+            "CV": 34,
+            "DB": 19,
+            "DJ": 22,
+            "GL": 82,
+            "GR": 19,
+            "GJ": 7,
+            "HR": 0,
+            "HD": 100,
+            "IL": 37,
+            "IS": 54,
+            "IF": 54,
+            "MM": 39,
+            "MH": 10,
+            "MS": 38,
+            "NT": 107,
+            "OT": 8,
+            "PH": 27,
+            "SM": 16,
+            "SJ": 6,
+            "SB": 22,
+            "SV": 701,
+            "TR": 16,
+            "TM": 98,
+            "TL": 6,
+            "VS": 9,
+            "VL": 7,
+            "VN": 60,
+            "B": 505
         }
     },
+
     "historicalData": {
         "2020-04-01": {
             "parsedOn": 1585764600,

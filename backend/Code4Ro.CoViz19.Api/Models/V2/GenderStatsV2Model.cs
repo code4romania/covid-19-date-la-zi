@@ -13,5 +13,6 @@ namespace Code4Ro.CoViz19.Api.Models.V2
         public decimal PercentageOfChildren { get; set; }
         public decimal TotalPercentage { get; set; }
         public int TotalNumber { get; set; }
+        [JsonProperty(PropertyName = "stale")] public bool Stale { get; set; }
     }
 }
