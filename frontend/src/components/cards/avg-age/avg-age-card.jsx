@@ -5,15 +5,8 @@ import './avg-age-card.css';
 export const EMBED_PATH_AVERAGE_AGE = 'varsta-medie';
 export class AverageAgeCard extends React.PureComponent {
   render() {
-    const { state } = this.props;
-    const {
-      isLoaded,
-      error,
-      title,
-      lastUpdatedOnString,
-      averageAge,
-      stale
-    } = state;
+    const { state, title } = this.props;
+    const { isLoaded, error, lastUpdatedOnString, averageAge, stale } = state;
     return (
       <Card
         isLoaded={isLoaded}
