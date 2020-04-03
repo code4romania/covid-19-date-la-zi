@@ -107,10 +107,10 @@ class DashboardNoContext extends React.PureComponent {
 
   parseCountiesTable(result) {
     const { data: counties, stale, lastUpdatedString } = result.counties;
-    const countiesList = Object.entries(counties)
-      .map(([key, value]) => ({
-        name: key,
-        value: value
+    const countiesList = counties
+      .map(({ county, numberInfected }) => ({
+        name: county,
+        value: numberInfected
       }))
       .sort((a, b) =>
         // reversed by count
@@ -118,13 +118,11 @@ class DashboardNoContext extends React.PureComponent {
       );
 
     const max = countiesList[0].value;
-    const topCounties = countiesList.slice(0, 10);
     return {
       error: null,
       isLoaded: true,
       counties: countiesList,
       max,
-      topCounties,
       lastUpdatedOnString: lastUpdatedString,
       stale
     };

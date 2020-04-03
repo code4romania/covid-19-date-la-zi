@@ -7,9 +7,8 @@ import { Constants } from '../../../config/globals';
 export const EMBED_COUNTIES_MAP = 'counties-map';
 
 export class CountiesMap extends React.PureComponent {
-  getChartOptions() {
-    const { state } = this.props;
-    const data = state.counties.map(countie => {
+  getChartOptions(counties) {
+    const data = counties.map(countie => {
       return {
         name: mnemonics[countie.name],
         value: countie.value
@@ -52,7 +51,7 @@ export class CountiesMap extends React.PureComponent {
 
   render() {
     const { state } = this.props;
-    const { isLoaded, error, topCounties, stale, lastUpdatedOnString } = state;
+    const { isLoaded, error, counties, stale, lastUpdatedOnString } = state;
 
     return (
       <Card
@@ -63,9 +62,9 @@ export class CountiesMap extends React.PureComponent {
         isStale={stale}
         embedPath={EMBED_COUNTIES_MAP}
       >
-        {topCounties && (
+        {counties && (
           <ReactEcharts
-            option={this.getChartOptions()}
+            option={this.getChartOptions(counties)}
             style={{ height: '400px' }}
             className="react_for_echarts"
           />
