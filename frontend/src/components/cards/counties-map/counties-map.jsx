@@ -39,8 +39,8 @@ export class CountiesMap extends React.PureComponent {
           itemStyle: {
             areaColor: Constants.curedColor
           },
-          label: {
-            normal: {
+          emphasis: {
+            label: {
               show: false
             }
           },
