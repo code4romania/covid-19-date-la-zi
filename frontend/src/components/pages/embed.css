@@ -31,3 +31,10 @@
         justify-content: space-around;
     }
 }
+
+@media only screen and (max-width: 400px) {
+    .embed-footer {
+        padding-top: 10px;
+        flex-direction: column;
+    }
+}
