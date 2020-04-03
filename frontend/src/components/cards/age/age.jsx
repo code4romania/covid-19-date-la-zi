@@ -46,10 +46,10 @@ export class AgeCard extends React.PureComponent {
         show: false
       },
       grid: {
-        left: '1%',
-        right: '2%',
+        left: 0,
+        right: '40px',
         bottom: '0',
-        top: '2%',
+        top: 0,
         containLabel: true
       },
       series: [

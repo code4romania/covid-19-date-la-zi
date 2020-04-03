@@ -340,7 +340,7 @@ class DashboardNoContext extends React.PureComponent {
         EMBED_PATH_AGE,
         <AgeCard
           key={EMBED_PATH_AGE}
-          title="După vârstă"
+          title="Cazuri după vârstă"
           state={this.state.age}
         />
       ],
@@ -348,6 +348,7 @@ class DashboardNoContext extends React.PureComponent {
         EMBED_PATH_AVERAGE_AGE,
         <AverageAgeCard
           key={EMBED_PATH_AVERAGE_AGE}
+          title="Vârsta medie a cazurilor"
           state={this.state.averageAge}
         />
       ],
@@ -355,8 +356,7 @@ class DashboardNoContext extends React.PureComponent {
         EMBED_PATH_GENDER,
         <GenderCard
           key={EMBED_PATH_GENDER}
-          to="/"
-          title="După gen"
+          title="Cazuri după gen"
           state={this.state.gender}
         />
       ],
@@ -463,7 +463,11 @@ class DashboardNoContext extends React.PureComponent {
                 <CasesPerDayCard state={this.state.daily} />
               </div>
               <div className="column is-one-quarter">
-                <GenderCard to="/" title="După gen" state={this.state.gender} />
+                <GenderCard
+                  to="/"
+                  title="Cazuri după gen"
+                  state={this.state.gender}
+                />
               </div>
             </div>
           </section>
@@ -482,10 +486,13 @@ class DashboardNoContext extends React.PureComponent {
           <section className="cards-row">
             <div className="columns">
               <div className="column is-two-quarter">
-                <AgeCard title="După vârstă" state={this.state.age} />
+                <AgeCard title="Cazuri după vârstă" state={this.state.age} />
               </div>
               <div className="column is-one-quarter">
-                <AverageAgeCard state={this.state.averageAge} />
+                <AverageAgeCard
+                  title="Vârsta medie a cazurilor"
+                  state={this.state.averageAge}
+                />
               </div>
             </div>
           </section>

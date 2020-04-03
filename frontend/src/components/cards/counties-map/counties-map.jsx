@@ -66,7 +66,7 @@ export class CountiesMap extends React.PureComponent {
         {topCounties && (
           <ReactEcharts
             option={this.getChartOptions()}
-            style={{ height: '410px', width: '100%', top: '-5%' }}
+            style={{ height: '400px' }}
             className="react_for_echarts"
           />
         )}
