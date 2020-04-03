@@ -13,19 +13,19 @@ export function Embeddable() {
 
         <div className="embed-footer">
           <a
-            className="embed-website-logo"
             href="https://datelazi.ro"
+            className="embed-footer__logo"
             target="_blank"
             rel="noopener noreferrer"
           >
             <img
               src={LogoImage}
-              className="embed-logo-covid"
+              height="37"
+              width="120"
               alt="Date La Zi Logo"
             />
           </a>
-
-          <div className="detailed-logos">
+          <div>
             <DevelopedBy />
           </div>
         </div>
