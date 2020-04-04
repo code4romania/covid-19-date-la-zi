@@ -26,6 +26,7 @@ import {
   CountiesTable,
   EMBED_COUNTIES_TABLE
 } from '../cards/counties-table/counties-table';
+import { formatDate, formatShortDate, dateFromTimestamp } from '../../utils/date';
 import download from 'downloadjs';
 
 import { SocialsShare } from '@code4ro/taskforce-fe-components';
@@ -159,12 +160,8 @@ class DashboardNoContext extends React.PureComponent {
     const dates = history.map(entry => entry.datePublished);
     const startDate = dates[0];
     const endDate = dates[dates.length - 1];
-    const startDateStr = this.formattedShortDateString(
-      this.dateFromTimestamp(startDate)
-    );
-    const endDateStr = this.formattedShortDateString(
-      this.dateFromTimestamp(endDate)
-    );
+    const startDateStr = formatShortDate(dateFromTimestamp(startDate));
+    const endDateStr = formatShortDate(dateFromTimestamp(endDate));
 
     const confirmedCasesHistory = history.flatMap(entry => {
       return entry.complete === false ? [] : Math.max(entry.infected, 0);
@@ -178,9 +175,7 @@ class DashboardNoContext extends React.PureComponent {
     const dateStrings = history.flatMap(entry => {
       return entry.complete === false
         ? []
-        : this.formattedShortDateString(
-          this.dateFromTimestamp(entry.datePublished)
-        );
+        : formatShortDate(dateFromTimestamp(entry.datePublished));
     });
 
     return {
@@ -267,28 +262,6 @@ class DashboardNoContext extends React.PureComponent {
       lastUpdateOnString: last_updated_on_string,
       stale
     };
-  }
-
-  dateFromTimestamp(timestamp) {
-    return new Date(timestamp * 1000);
-  }
-
-  formattedShortDateString(date) {
-    const months = [
-      'Ian',
-      'Feb',
-      'Mar',
-      'Apr',
-      'Mai',
-      'Iun',
-      'Iul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
-    ];
-    return date.getDate() + ' ' + months[date.getMonth()];
   }
 
   shareableLink() {
@@ -445,7 +418,7 @@ class DashboardNoContext extends React.PureComponent {
             </div>
             <div className="level">
               {lastUpdate && (
-                <p className="level-left">Date actualizate în {lastUpdate}.</p>
+                <p className="level-left">Date actualizate în {formatDate(lastUpdate)}.</p>
               )}
               <button
                 className="button is-primary is-light levelRight"
