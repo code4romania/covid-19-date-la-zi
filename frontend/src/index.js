@@ -9,6 +9,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import roGeoJson from './config/roGeo';
 import { Embeddable } from './components/pages/embed';
+import { BannerChartsPage } from './components/pages/banner-charts';
 
 echarts.registerMap('RO', roGeoJson);
 
@@ -17,6 +18,9 @@ ReactDOM.render(
     <Switch>
       <Route path="/embed">
         <Embeddable />
+      </Route>
+      <Route path="/banners">
+        <BannerChartsPage />
       </Route>
       <Route path="*">
         <App />
