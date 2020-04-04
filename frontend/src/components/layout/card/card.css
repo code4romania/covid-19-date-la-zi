@@ -1,0 +1,30 @@
+.card {
+    border-radius: 4px;
+    border: 1px solid #e2e5ed;
+    box-shadow: none;
+}
+.card--warning small {
+    background: #fff177;
+    border-radius: 5px;
+    padding: 2px 8px;
+    margin-top: 5px;
+}
+.card--warning .card-content {
+    opacity: 0.6;
+}
+.card-header {
+    box-shadow: none;
+    border-bottom: 1px solid #e2e5ed;
+    flex-direction: column;
+}
+
+.card-header-title {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.is-error {
+    color: red;
+    text-align: center;
+    margin: auto 0;
+}

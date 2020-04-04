@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
-import { Card } from '../../layout/card';
+import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
+import { formatDate } from '../../../utils/date';
 import './gender-card.css';
 
 export const EMBED_PATH_GENDER = 'gen';
 export class GenderCard extends React.PureComponent {
-
   getChartOptions(state) {
     let data = [
       { value: state.women, name: Constants.womenText },
@@ -15,8 +15,8 @@ export class GenderCard extends React.PureComponent {
 
     let colors = [Constants.womenColor, Constants.menColor];
 
-    if(state.children > 0){
-      data.push({value: state.children, name: Constants.childrenText});
+    if (state.children > 0) {
+      data.push({ value: state.children, name: Constants.childrenText });
       colors.push(Constants.childrenColor);
     }
 
@@ -66,7 +66,7 @@ export class GenderCard extends React.PureComponent {
 
   render() {
     const { title, state } = this.props;
-    const { isLoaded, error } = state;
+    const { isLoaded, error, lastUpdatedOnString, stale } = state;
 
     let knownPercentage = '';
     if (Constants.specifyUnknownData) {
@@ -77,7 +77,14 @@ export class GenderCard extends React.PureComponent {
     }
 
     return (
-      <Card isLoaded={isLoaded} error={error} title={title + knownPercentage} embedPath={EMBED_PATH_GENDER}>
+      <Card
+        isLoaded={isLoaded}
+        error={error}
+        title={title + knownPercentage}
+        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOnString)}`}
+        isStale={stale}
+        embedPath={EMBED_PATH_GENDER}
+      >
         <div className="pie-chart">
           <ReactEcharts
             id="gender-chart"

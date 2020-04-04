@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Code4Ro.CoViz19.Api.Commands.V2;
 using Code4Ro.CoViz19.Api.Models.V2;
 using Code4Ro.CoViz19.Api.Services;
+using Code4Ro.CoViz19.Api.StaticData;
 using Code4Ro.CoViz19.Models.ParsedPdfModels;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -17,7 +18,9 @@ namespace Code4Ro.CoViz19.Api.Handlers
         IRequestHandler<GetGenderStatsV2, GenderStatsV2Model>,
         IRequestHandler<GetQuickstatsV2Data, QuickStatsV2Model>,
         IRequestHandler<GetLastDataUpdateDetails, LastDataUpdateDetailsModel>,
-        IRequestHandler<GetUiData, UiDataModel>
+        IRequestHandler<GetUiData, UiDataModel>,
+        IRequestHandler<GetCountiesInfections, CountiesInfectionsModel>,
+        IRequestHandler<GetAverageAge, AverageAgeModel>
 
     {
         private readonly IDataProviderService _dataService;
@@ -65,8 +68,11 @@ namespace Code4Ro.CoViz19.Api.Handlers
                     .ToArray();
             }
 
-            response.DataLastUpdatedOn = currentData.LasUpdatedOn;
-            response.DataLastUpdatedOnString = currentData.LasUpdatedOnString;
+            var updateDetails = GetLastUpdatedDates(currentData, "dailyStats");
+
+            response.DataLastUpdatedOn = updateDetails.lastUpdatedOn;
+            response.DataLastUpdatedOnString = updateDetails.lastUpdatedOnString;
+            response.Stale = updateDetails.stale;
 
             return response;
         }
@@ -76,7 +82,6 @@ namespace Code4Ro.CoViz19.Api.Handlers
             var day = new DailyStats
             {
                 Cured = currentDay.Cured - previousDay.Cured,
-                AverageAge = currentDay.AverageAge,
                 DatePublished = currentDay.DatePublished,
                 DatePublishedString = currentDay.DatePublishedString,
                 Deaths = currentDay.Deaths - previousDay.Deaths,
@@ -115,25 +120,27 @@ namespace Code4Ro.CoViz19.Api.Handlers
             return HandleGetAgeHistogramV2(currentData);
         }
 
-        private AgeHistogramV2Model HandleGetAgeHistogramV2(HistoricalPdfStats currentPdfData)
+        private AgeHistogramV2Model HandleGetAgeHistogramV2(HistoricalPdfStats data)
         {
             _logger.LogInformation($"Hanling {nameof(GetAgeHistogramV2)}");
+            var updateDetails = GetLastUpdatedDates(data, "ageHistogram");
 
-            var response = new AgeHistogramV2Model()
+            var response = new AgeHistogramV2Model
             {
                 Histogram = new Dictionary<AgeRange, int>()
             };
 
-            if (currentPdfData?.CurrentDayStats != null)
+            if (data?.CurrentDayStats != null)
             {
-                response.DatePublished = currentPdfData.CurrentDayStats.ParsedOn;
-                response.DatePublishedString = currentPdfData.CurrentDayStats.ParsedOnString;
-                response.Histogram = currentPdfData.CurrentDayStats.DistributionByAge;
-                response.Total = currentPdfData.CurrentDayStats.DistributionByAge.Sum(x => x.Value);
+                response.DatePublished = data.CurrentDayStats.ParsedOn;
+                response.DatePublishedString = data.CurrentDayStats.ParsedOnString;
+                response.Histogram = data.CurrentDayStats.DistributionByAge;
+                response.Total = data.CurrentDayStats.DistributionByAge.Sum(x => x.Value);
             }
 
-            response.DataLastUpdatedOn = currentPdfData?.LasUpdatedOn ?? 0;
-            response.DataLastUpdatedOnString = currentPdfData?.LasUpdatedOnString;
+            response.DataLastUpdatedOn = updateDetails.lastUpdatedOn;
+            response.DataLastUpdatedOnString = updateDetails.lastUpdatedOnString;
+            response.Stale = updateDetails.stale;
 
             return response;
         }
@@ -145,43 +152,46 @@ namespace Code4Ro.CoViz19.Api.Handlers
             return HandleGetGenderStatsV2(currentData);
         }
 
-        private GenderStatsV2Model HandleGetGenderStatsV2(HistoricalPdfStats currentPdfData)
+        private GenderStatsV2Model HandleGetGenderStatsV2(HistoricalPdfStats data)
         {
             _logger.LogInformation($"Hanling {nameof(GetGenderStatsV2)}");
+            var updateDetails = GetLastUpdatedDates(data, "genderStats");
 
             var response = new GenderStatsV2Model();
 
-            if (currentPdfData?.CurrentDayStats != null)
+            if (data?.CurrentDayStats != null)
             {
-                response.DatePublished = currentPdfData.CurrentDayStats.ParsedOn;
-                response.DatePublishedString = currentPdfData.CurrentDayStats.ParsedOnString;
-                var percentageOfChildren = currentPdfData.CurrentDayStats.PercentageOfChildren;
-                var percentageOfMen = currentPdfData.CurrentDayStats.PercentageOfMen;
-                var percentageOfWomen = currentPdfData.CurrentDayStats.PercentageOfWomen;
+                response.DatePublished = data.CurrentDayStats.ParsedOn;
+                response.DatePublishedString = data.CurrentDayStats.ParsedOnString;
+                var percentageOfChildren = data.CurrentDayStats.PercentageOfChildren;
+                var percentageOfMen = data.CurrentDayStats.PercentageOfMen;
+                var percentageOfWomen = data.CurrentDayStats.PercentageOfWomen;
 
                 response.PercentageOfChildren = percentageOfChildren;
                 response.PercentageOfMen = percentageOfMen;
                 response.PercentageOfWomen = percentageOfWomen;
                 response.TotalPercentage = percentageOfChildren + percentageOfWomen + percentageOfMen;
-                response.TotalNumber = currentPdfData.CurrentDayStats.NumberInfected;
+                response.TotalNumber = data.CurrentDayStats.NumberInfected;
             }
 
-            response.DataLastUpdatedOn = currentPdfData?.LasUpdatedOn ?? 0;
-            response.DataLastUpdatedOnString = currentPdfData?.LasUpdatedOnString;
+            response.DataLastUpdatedOn = updateDetails.lastUpdatedOn;
+            response.DataLastUpdatedOnString = updateDetails.lastUpdatedOnString;
+            response.Stale = updateDetails.stale;
 
             return response;
         }
 
         public async Task<QuickStatsV2Model> Handle(GetQuickstatsV2Data request, CancellationToken cancellationToken)
         {
-            var currentPdfData = await _dataService.GetCurrentPdfData();
+            var data = await _dataService.GetCurrentPdfData();
 
-            return HandleGetQuickstatsV2Data(currentPdfData);
+            return HandleGetQuickstatsV2Data(data);
         }
 
-        private QuickStatsV2Model HandleGetQuickstatsV2Data(HistoricalPdfStats currentPdfData)
+        private QuickStatsV2Model HandleGetQuickstatsV2Data(HistoricalPdfStats data)
         {
             _logger.LogInformation($"Hanling {nameof(GetQuickstatsV2Data)}");
+            var updateDetails = GetLastUpdatedDates(data, "quickStats");
 
             var response = new QuickStatsV2Model()
             {
@@ -189,17 +199,18 @@ namespace Code4Ro.CoViz19.Api.Handlers
                 Totals = new InfectionsStatsV2Model()
             };
 
-            response.DataLastUpdatedOn = currentPdfData?.LasUpdatedOn ?? 0;
-            response.DataLastUpdatedOnString = currentPdfData?.LasUpdatedOnString;
+            response.DataLastUpdatedOn = updateDetails.lastUpdatedOn;
+            response.DataLastUpdatedOnString = updateDetails.lastUpdatedOnString;
+            response.Stale = updateDetails.stale;
 
-            if (currentPdfData?.CurrentDayStats == null)
+            if (data?.CurrentDayStats == null)
             {
                 return response;
             }
 
-            response.Totals = MapToInfectionsStatsV2Model(currentPdfData.CurrentDayStats);
+            response.Totals = MapToInfectionsStatsV2Model(data.CurrentDayStats);
 
-            var history = currentPdfData.HistoricalData?
+            var history = data.HistoricalData?
                 .Select(x => x.Value)
                 .Select(MapToInfectionsStatsV2Model)
                 .ToList() ?? new List<InfectionsStatsV2Model>();
@@ -226,35 +237,134 @@ namespace Code4Ro.CoViz19.Api.Handlers
         public async Task<LastDataUpdateDetailsModel> Handle(GetLastDataUpdateDetails request,
             CancellationToken cancellationToken)
         {
-            var currentPdfData = await _dataService.GetCurrentPdfData();
+            var data = await _dataService.GetCurrentPdfData();
 
-            return HandleGetLastDataUpdateDetails(currentPdfData);
+            return HandleGetLastDataUpdateDetails(data);
         }
 
-        private LastDataUpdateDetailsModel HandleGetLastDataUpdateDetails(HistoricalPdfStats currentPdfData)
+        private LastDataUpdateDetailsModel HandleGetLastDataUpdateDetails(HistoricalPdfStats data)
         {
             _logger.LogInformation($"Hanling {nameof(GetLastDataUpdateDetails)}");
 
             var result = new LastDataUpdateDetailsModel();
+            var updateDetails = GetLastUpdatedDates(data, "");
 
-            result.DataLastUpdatedOn = currentPdfData?.LasUpdatedOn ?? 0;
-            result.DataLastUpdatedOnString = currentPdfData?.LasUpdatedOnString;
+            result.DataLastUpdatedOn = updateDetails.lastUpdatedOn;
+            result.DataLastUpdatedOnString = updateDetails.lastUpdatedOnString;
+
+            result.Charts = data?.Charts?
+                                .Select(x => new { key = x.Key, value = MapToChartDataDetailsModel(x.Value) })
+                                .ToDictionary(x => x.key, y => y.value) ?? new Dictionary<string, ChartDataDetailsModel>();
 
             return result;
         }
 
+        private ChartDataDetailsModel MapToChartDataDetailsModel(ChartDataDetails details)
+        {
+            return new ChartDataDetailsModel
+            {
+
+                Contains = details?.Contains ?? new string[0],
+                LastUpdatedOn = details?.LastUpdatedOn,
+                Stale = details?.Stale ?? false
+            };
+        }
+
         public async Task<UiDataModel> Handle(GetUiData request, CancellationToken cancellationToken)
         {
-            var currentPdfData = await _dataService.GetCurrentPdfData();
+            var data = await _dataService.GetCurrentPdfData();
 
             return new UiDataModel
             {
-                AgeHistogram = HandleGetAgeHistogramV2(currentPdfData),
-                DailyStats = HandleGetDailyStatsV2(currentPdfData),
-                GenderStats = HandleGetGenderStatsV2(currentPdfData),
-                LastDataUpdateDetails = HandleGetLastDataUpdateDetails(currentPdfData),
-                QuickStats = HandleGetQuickstatsV2Data(currentPdfData)
+                AgeHistogram = HandleGetAgeHistogramV2(data),
+                DailyStats = HandleGetDailyStatsV2(data),
+                GenderStats = HandleGetGenderStatsV2(data),
+                LastDataUpdateDetails = HandleGetLastDataUpdateDetails(data),
+                QuickStats = HandleGetQuickstatsV2Data(data),
+                Counties = HandleGetCountiesInfections(data),
+                AverageAge = HandleGetAverageAge(data)
             };
+        }
+
+        private AverageAgeModel HandleGetAverageAge(HistoricalPdfStats data)
+        {
+            var updateDetails = GetLastUpdatedDates(data, "averageAge");
+            return new AverageAgeModel()
+            {
+                LastUpdated = updateDetails.lastUpdatedOn,
+                LastUpdatedString = updateDetails.lastUpdatedOnString,
+                Stale = updateDetails.stale,
+                Value = data?.CurrentDayStats?.AverageAge
+            };
+        }
+
+        private (string lastUpdatedOnString, long lastUpdatedOn, bool stale) GetLastUpdatedDates(HistoricalPdfStats data, string chartKey)
+        {
+            if (data?.Charts?.ContainsKey(chartKey) ?? false)
+            {
+                var chartDataDetails = data.Charts[chartKey];
+
+                var lastUpdatedOnString = string.IsNullOrEmpty(chartDataDetails.LastUpdatedOn) ? data.LasUpdatedOnString : chartDataDetails.LastUpdatedOn;
+                return (lastUpdatedOnString, -1, chartDataDetails.Stale);
+            }
+
+
+            return (data?.LasUpdatedOnString, -1, false);
+        }
+
+        private CountiesInfectionsModel HandleGetCountiesInfections(HistoricalPdfStats data)
+        {
+            var updateDetails = GetLastUpdatedDates(data, "counties");
+
+            return new CountiesInfectionsModel
+            {
+                Data = data?.CurrentDayStats?.CountyInfectionsNumbers?.Select(x => MapToCountyInfectionModel(x.Key, x.Value)).ToArray() ?? new CountyInfectionModel[0],
+                LastUpdated = updateDetails.lastUpdatedOn,
+                LastUpdatedString = updateDetails.lastUpdatedOnString,
+                Stale = updateDetails.stale
+            };
+        }
+
+        private static CountyInfectionModel MapToCountyInfectionModel(County county, int number)
+        {
+            if (Data.CountyPopulation.ContainsKey(county))
+            {
+                var countyPopulation = Data.CountyPopulation[county];
+                decimal population = (decimal)countyPopulation;
+                return new CountyInfectionModel
+                {
+                    County = county,
+                    NumberInfected = number,
+                    TotalPopulation = countyPopulation,
+                    InfectionPercentage = ((decimal)number / population) * 100,
+                    InfectionsPerThousand = ((decimal)number / ToThousandQuotient(population))
+                };
+            }
+
+            return new CountyInfectionModel()
+            {
+                County = county,
+                NumberInfected = number
+            };
+        }
+
+        private static decimal ToThousandQuotient(decimal value)
+        {
+            return value / 1000m;
+        }
+
+        public async Task<CountiesInfectionsModel> Handle(GetCountiesInfections request, CancellationToken cancellationToken)
+        {
+            var data = await _dataService.GetCurrentPdfData();
+
+            return HandleGetCountiesInfections(data);
+        }
+
+        public async Task<AverageAgeModel> Handle(GetAverageAge request, CancellationToken cancellationToken)
+        {
+            var data = await _dataService.GetCurrentPdfData();
+
+            return HandleGetAverageAge(data);
         }
     }
 }

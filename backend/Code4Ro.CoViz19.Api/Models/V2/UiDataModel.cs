@@ -1,4 +1,5 @@
-﻿namespace Code4Ro.CoViz19.Api.Models.V2
+﻿
+namespace Code4Ro.CoViz19.Api.Models.V2
 {
     public class UiDataModel
     {
@@ -7,5 +8,7 @@
         public GenderStatsV2Model GenderStats { get; set; }
         public LastDataUpdateDetailsModel LastDataUpdateDetails { get; set; }
         public QuickStatsV2Model QuickStats { get; set; }
+        public CountiesInfectionsModel Counties { get; set; }
+        public AverageAgeModel AverageAge { get; set; }
     }
 }

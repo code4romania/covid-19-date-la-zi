@@ -1,29 +1,70 @@
-import React from 'react';
-import { TopNav } from './components/layout/nav/top-nav';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { BottomNav } from './components/layout/nav/bottom-nav';
+import React, { useEffect, Suspense, lazy } from 'react';
+import {
+  Header,
+  DevelopedBy,
+  IncubatedBy
+} from '@code4ro/taskforce-fe-components';
+import {
+  BrowserRouter as Router,
+  Link,
+  Switch,
+  Route,
+  useHistory
+} from 'react-router-dom';
+import LogoSvg from './images/logo-coviz.svg';
+import { logPageView } from './analyticsTracker';
+import FooterWrapper from './components/layout/footer/footer';
 
 // pages
 import { Dashboard } from './components/pages/dashboard';
-import { AboutPage } from './components/pages/about';
+const AboutPage = lazy(() => import('./components/pages/about'));
 
-function App() {
+const Logo = () => (
+  <Link to="/">
+    <img width="110" alt="Covid-19. Ce trebuie să fac?" src={LogoSvg} />
+  </Link>
+);
+
+const MenuItems = [
+  <Link to="/about" key="des">
+    Despre proiect
+  </Link>
+];
+
+const AppWrapper = () => {
   return (
     <Router>
-      <div id="app">
-        <TopNav />
-        <Switch>
-          <Route path="/about">
-            <AboutPage />
-          </Route>
-          <Route path="/">
-            <Dashboard />
-          </Route>
-        </Switch>
-        <BottomNav />
-      </div>
+      <App />
     </Router>
   );
-}
+};
 
-export default App;
+const App = () => {
+  const history = useHistory();
+  useEffect(() => {
+    logPageView(history);
+  }, [history]);
+
+  return (
+    <>
+      <Header Logo={Logo()} MenuItems={MenuItems} />
+      <DevelopedBy />
+      <Suspense fallback={<div style={{ height: 500 }} />}>
+        <main>
+          <Switch>
+            <Route path="/about">
+              <AboutPage />
+            </Route>
+            <Route path="/">
+              <Dashboard />
+            </Route>
+          </Switch>
+        </main>
+      </Suspense>
+      <IncubatedBy />
+      <FooterWrapper />
+    </>
+  );
+};
+
+export default AppWrapper;
