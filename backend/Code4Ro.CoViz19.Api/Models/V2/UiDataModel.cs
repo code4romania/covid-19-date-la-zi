@@ -1,6 +1,4 @@
 ﻿
-using Code4Ro.CoViz19.Models;
-
 namespace Code4Ro.CoViz19.Api.Models.V2
 {
     public class UiDataModel

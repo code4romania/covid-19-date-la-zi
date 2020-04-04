@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Code4Ro.CoViz19.Api.Commands.V2;
 using Code4Ro.CoViz19.Api.Models.V2;
 using Code4Ro.CoViz19.Api.Services;
+using Code4Ro.CoViz19.Api.StaticData;
 using Code4Ro.CoViz19.Models.ParsedPdfModels;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -317,11 +318,39 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
             return new CountiesInfectionsModel
             {
-                Data = data?.CurrentDayStats?.CountyInfectionsNumbers ?? new Dictionary<County, int>(),
+                Data = data?.CurrentDayStats?.CountyInfectionsNumbers?.Select(x => MapToCountyInfectionModel(x.Key, x.Value)).ToArray() ?? new CountyInfectionModel[0],
                 LastUpdated = updateDetails.lastUpdatedOn,
                 LastUpdatedString = updateDetails.lastUpdatedOnString,
                 Stale = updateDetails.stale
             };
+        }
+
+        private static CountyInfectionModel MapToCountyInfectionModel(County county, int number)
+        {
+            if (Data.CountyPopulation.ContainsKey(county))
+            {
+                var countyPopulation = Data.CountyPopulation[county];
+                decimal population = (decimal)countyPopulation;
+                return new CountyInfectionModel
+                {
+                    County = county,
+                    NumberInfected = number,
+                    TotalPopulation = countyPopulation,
+                    InfectionPercentage = ((decimal)number / population) * 100,
+                    InfectionsPerThousand = ((decimal)number / ToThousandQuotient(population))
+                };
+            }
+
+            return new CountyInfectionModel()
+            {
+                County = county,
+                NumberInfected = number
+            };
+        }
+
+        private static decimal ToThousandQuotient(decimal value)
+        {
+            return value / 1000m;
         }
 
         public async Task<CountiesInfectionsModel> Handle(GetCountiesInfections request, CancellationToken cancellationToken)

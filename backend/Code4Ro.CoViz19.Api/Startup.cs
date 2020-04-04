@@ -13,9 +13,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 using Code4Ro.CoViz19.Services.Options;
-using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Code4Ro.CoViz19.Api
 {
