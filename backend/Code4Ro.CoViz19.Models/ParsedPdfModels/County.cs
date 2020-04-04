@@ -49,5 +49,6 @@ namespace Code4Ro.CoViz19.Models.ParsedPdfModels
         [EnumMember(Value = "VS")] VS,
         [EnumMember(Value = "VL")] VL,
         [EnumMember(Value = "VN")] VN,
+        [EnumMember(Value = "-")] Unknown,
     }
 }
