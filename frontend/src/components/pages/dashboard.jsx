@@ -34,6 +34,8 @@ import './dashboard.css';
 import { withToastProvider } from '../layout/toast/withToastProvider';
 import { InstrumentsWrapper } from '../layout/instruments/instruments';
 
+const NA = 'Nu se aplică';
+
 class DashboardNoContext extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -111,14 +113,14 @@ class DashboardNoContext extends React.PureComponent {
     const countiesList = counties
       .map(countyObject => ({
         name: mnemonics[countyObject.county],
-        value: countyObject.infectionsPerThousand.toFixed(2),
+        value: countyObject.county !== '-' ? countyObject.infectionsPerThousand.toFixed(2) : NA,
         ...countyObject
       }))
       .sort((a, b) =>
         // reversed by count
-        Math.round(a.value) > Math.round(b.value) ? -1 : 1
+        a.infectionsPerThousand > b.infectionsPerThousand ? -1 : 1
       );
-    const max = countiesList[0].value;
+    const max = countiesList[0].infectionsPerThousand;
     return {
       error: null,
       isLoaded: true,

@@ -42,5 +42,6 @@ export const mnemonics = {
   TR: 'Teleorman',
   VL: 'Vâlcea',
   VN: 'Vrancea',
-  VS: 'Vaslui'
+  VS: 'Vaslui',
+  '-': 'În procesare'
 };
