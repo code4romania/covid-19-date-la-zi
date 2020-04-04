@@ -2,6 +2,7 @@ import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
+import { formatDate } from '../../../utils/date';
 
 export const EMBED_PATH_AGE = 'varsta';
 export class AgeCard extends React.PureComponent {
@@ -91,7 +92,7 @@ export class AgeCard extends React.PureComponent {
         isLoaded={isLoaded}
         error={error}
         title={`${title}${knownPercentage}`}
-        subtitle={`Ultima actualizare: ${lastUpdatedOnString}`}
+        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOnString)}`}
         isStale={stale}
         embedPath={EMBED_PATH_AGE}
       >

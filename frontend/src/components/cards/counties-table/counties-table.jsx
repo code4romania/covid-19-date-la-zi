@@ -3,6 +3,7 @@ import ChevronImageLeft from './../../../images/chevrons-left.svg';
 import ChevronImageRight from './../../../images/chevrons-right.svg';
 import './counties-table.css';
 import { Card } from '../../layout/card/card';
+import { formatDate } from '../../../utils/date';
 
 export const EMBED_COUNTIES_TABLE = 'counties-table';
 
@@ -106,7 +107,7 @@ export class CountiesTable extends React.PureComponent {
         error={error}
         isLoaded={isLoaded}
         title="Cazuri confirmate pe judet"
-        subtitle={`Ultima actualizare: ${lastUpdatedOnString}`}
+        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOnString)}`}
         embedPath={EMBED_COUNTIES_TABLE}
         isStale={stale}
       >

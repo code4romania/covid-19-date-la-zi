@@ -2,6 +2,7 @@ import React from 'react';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
+import { formatDate } from '../../../utils/date';
 
 export const EMBED_COUNTIES_MAP = 'counties-map';
 
@@ -10,7 +11,10 @@ export class CountiesMap extends React.PureComponent {
     return {
       tooltip: {
         trigger: 'item',
-        formatter: '{a} </br> {b}: {c}‰'
+        formatter: (item) => `
+          <strong style="color:#fff">${item.name}</strong></br>
+          Cazuri: ${item.data.numberInfected}</br>
+          Cazuri per mie: ${item.value}‰`,
       },
       visualMap: {
         show: true,
@@ -52,7 +56,7 @@ export class CountiesMap extends React.PureComponent {
         error={error}
         isLoaded={isLoaded}
         title="Cazuri confirmate pe judete"
-        subtitle={`Ultima actualizare: ${lastUpdatedOnString}`}
+        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOnString)}`}
         isStale={stale}
         embedPath={EMBED_COUNTIES_MAP}
       >

@@ -3,8 +3,14 @@
     border: 1px solid #e2e5ed;
     box-shadow: none;
 }
-.card--warning {
-    border: 3px solid #f97575;
+.card--warning small {
+    background: #fff177;
+    border-radius: 5px;
+    padding: 2px 8px;
+    margin-top: 5px;
+}
+.card--warning .card-content {
+    opacity: 0.6;
 }
 .card-header {
     box-shadow: none;
