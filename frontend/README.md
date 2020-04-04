@@ -27,7 +27,7 @@ While in **frontend** directory, you can run this:
 yarn
 ```
 
-This sill fetch the dependencies.
+This will fetch the dependencies.
 
 ## Run the project in development mode
 
