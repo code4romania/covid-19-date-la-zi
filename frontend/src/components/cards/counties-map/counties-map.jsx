@@ -10,7 +10,10 @@ export class CountiesMap extends React.PureComponent {
     return {
       tooltip: {
         trigger: 'item',
-        formatter: '{a} </br> {b}: {c}‰'
+        formatter: (item) => `
+          <strong style="color:#fff">${item.name}</strong></br>
+          Cazuri: ${item.data.numberInfected}</br>
+          Cazuri per mie: ${item.value}‰`,
       },
       visualMap: {
         show: true,

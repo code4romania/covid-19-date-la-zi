@@ -111,10 +111,7 @@ class DashboardNoContext extends React.PureComponent {
     const countiesList = counties
       .map(countyObject => ({
         name: mnemonics[countyObject.county],
-        value: (
-          (countyObject.numberInfected * 100000) /
-          countyObject.totalPopulation
-        ).toFixed(2),
+        value: countyObject.infectionsPerThousand.toFixed(2),
         ...countyObject
       }))
       .sort((a, b) =>
