@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Code4Ro.CoViz19.Models.ParsedPdfModels;
+﻿using Code4Ro.CoViz19.Models.ParsedPdfModels;
 
 namespace Code4Ro.CoViz19.Api.Models.V2
 {

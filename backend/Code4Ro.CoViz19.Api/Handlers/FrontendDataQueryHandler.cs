@@ -327,15 +327,24 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         private static CountyInfectionModel MapToCountyInfectionModel(County county, int number)
         {
-            var countyPopulation = Data.CountyPopulation[county];
-            decimal population = (decimal)countyPopulation;
-            return new CountyInfectionModel
+            if (Data.CountyPopulation.ContainsKey(county))
+            {
+                var countyPopulation = Data.CountyPopulation[county];
+                decimal population = (decimal)countyPopulation;
+                return new CountyInfectionModel
+                {
+                    County = county,
+                    NumberInfected = number,
+                    TotalPopulation = countyPopulation,
+                    InfectionPercentage = ((decimal)number / population) * 100,
+                    InfectionsPerThousand = ((decimal)number / ToThousandQuotient(population))
+                };
+            }
+
+            return new CountyInfectionModel()
             {
                 County = county,
-                NumberInfected = number,
-                TotalPopulation = countyPopulation,
-                InfectionPercentage = ((decimal)number / population) * 100,
-                InfectionsPerThousand = ((decimal)number / ToThousandQuotient(population))
+                NumberInfected = number
             };
         }
 
