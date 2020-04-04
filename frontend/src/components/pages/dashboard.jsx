@@ -418,7 +418,7 @@ class DashboardNoContext extends React.PureComponent {
             </div>
             <div className="level">
               {lastUpdate && (
-                <p className="level-left">Date actualizate în {formatDate(lastUpdate)}.</p>
+                <p className="level-left">Date actualizate {formatDate(lastUpdate)}.</p>
               )}
               <button
                 className="button is-primary is-light levelRight"
