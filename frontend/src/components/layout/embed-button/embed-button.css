@@ -3,10 +3,17 @@
     top: 10px;
     right: 10px;
     border-radius: 4px;
-    background-color: #f7f7f7;
+    background-color: #f0f0f0;
+    cursor: pointer;
 }
 
-.fab-icon {
+.fab-action .tooltip {
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
+.fab-action .fab-icon {
     width: 16px;
     height: 16px;
     margin: 4px 8px;
