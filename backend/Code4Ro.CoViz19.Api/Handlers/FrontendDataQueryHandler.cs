@@ -328,14 +328,20 @@ namespace Code4Ro.CoViz19.Api.Handlers
         private static CountyInfectionModel MapToCountyInfectionModel(County county, int number)
         {
             var countyPopulation = Data.CountyPopulation[county];
-
+            decimal population = (decimal)countyPopulation;
             return new CountyInfectionModel
             {
                 County = county,
                 NumberInfected = number,
                 TotalPopulation = countyPopulation,
-                Infectionpercentage = ((decimal)number / (decimal)countyPopulation) * 100
+                InfectionPercentage = ((decimal)number / population) * 100,
+                InfectionsPerThousand = ((decimal)number / ToThousandQuotient(population))
             };
+        }
+
+        private static decimal ToThousandQuotient(decimal value)
+        {
+            return value / 1000m;
         }
 
         public async Task<CountiesInfectionsModel> Handle(GetCountiesInfections request, CancellationToken cancellationToken)

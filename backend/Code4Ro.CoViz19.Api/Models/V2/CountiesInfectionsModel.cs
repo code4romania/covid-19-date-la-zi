@@ -16,6 +16,7 @@ namespace Code4Ro.CoViz19.Api.Models.V2
         public County County { get; set; }
         public int NumberInfected { get; set; }
         public int TotalPopulation { get; set; }
-        public decimal Infectionpercentage { get; set; }
+        public decimal InfectionPercentage { get; set; }
+        public decimal InfectionsPerThousand { get; set; }
     }
 }
