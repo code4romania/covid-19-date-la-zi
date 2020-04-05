@@ -19,7 +19,7 @@ ReactDOM.render(
       <Route path="/embed">
         <Embeddable />
       </Route>
-      <Route path="/banners">
+      <Route path="/banners/:bannerSize?/">
         <BannerChartsPage />
       </Route>
       <Route path="*">

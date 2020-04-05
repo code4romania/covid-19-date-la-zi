@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import ReactEcharts from 'echarts-for-react';
 import { Constants, ApiURL } from '../../config/globals';
 import partnerLogo from '../../images/partener.png';
@@ -7,14 +8,24 @@ import CeTrebuieSaFacLogo from '../../images/cetrebuiesafac.svg';
 import { formatShortDate } from '../../utils/date';
 import './banner-charts.css';
 
+const BANNER_SIZES = ['landscape', 'ultraWide', 'portrait'];
+
 export const BannerChartsPage = () => {
   const [latestData, setLatestData] = useState({});
   const [totals, setTotals] = useState({});
   const [trends, setTrends] = useState({});
   const [updatedAt, setUpdatedAt] = useState(null);
+  const [size, setSize] = useState('landscape');
+  const { bannerSize } = useParams();
   // eslint-disable-next-line
   const [errors, setErrors] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (BANNER_SIZES.includes(bannerSize)) {
+      setSize(bannerSize);
+    }
+  }, [bannerSize])
 
   useEffect(() => {
     function parseData(rawData) {
@@ -71,7 +82,7 @@ export const BannerChartsPage = () => {
         axisLabel: {
           color: '#4a4a4a',
           fontFamily: 'Titillium Web, sans-serif',
-          fontSize: 16,
+          fontSize: size === 'portrait' ? 22 : 16,
           rotate: 0,
           interval: 0
         }
@@ -84,14 +95,14 @@ export const BannerChartsPage = () => {
       },
       legend: {
         data: labels,
-        bottom: '0px',
+        bottom: size === 'portrait' ? '-10px' : '0px',
         left: 'center',
         icon: 'none',
         textStyle: {
           color: '#4a4a4a',
           fontWeight: 'bold',
           fontFamily: 'Titillium Web, sans-serif',
-          fontSize: 20,
+          fontSize: size === 'portrait' ? 30 : 16,
         }
       },
       series: [
@@ -103,7 +114,7 @@ export const BannerChartsPage = () => {
             color: '#4a4a4a',
             fontWeight: 'bold',
             fontFamily: 'Titillium Web, sans-serif',
-            fontSize: 20,
+            fontSize: size === 'portrait' ? 40 : 20,
           },
           name: labels[0],
           stack: 'one',
@@ -114,12 +125,20 @@ export const BannerChartsPage = () => {
     };
   }
 
-  return <div className="charts-wrapper">
-    <header>
-      <img src={CeTrebuieSaFacLogo} alt="Ce Trebuie Sa Fac" />
-      <div className="charts-header-site">cetrebuiesafac.ro</div>
-      {isLoaded && updatedAt && <div>Date actualizate in <strong>{updatedAt}</strong></div>}
-    </header>
+  const footer = <footer className="charts-footer">
+    <div><p>Un proiect in parteneriat cu</p><img src={partnerLogo} alt="Guvernul Romaniei" /></div>
+    <div><p>dezvoltat de</p><img src={DeveloperLogo} alt="Code4Romania" /></div>
+  </footer>
+
+  const header = <header>
+    <img src={CeTrebuieSaFacLogo} alt="Ce Trebuie Sa Fac" />
+    {size !== 'ultraWide' && <div className="charts-header-site">cetrebuiesafac.ro</div>}
+    {isLoaded && updatedAt &&
+      <div className="charts-header-updated">Date actualizate in <strong>{updatedAt}</strong></div>}
+  </header>
+
+  return <div className={`charts-wrapper ${size}`}>
+    {header}
 
     <section>
       <div className="charts-content-wrapper">
@@ -130,48 +149,61 @@ export const BannerChartsPage = () => {
               <div className="chart-value">{totals.confirmed}</div>
             </div>
 
-            <ReactEcharts
-              style={{ height: '280px', width: '100%' }}
-              option={getChartOptions('confirmed', latestData.confirmed, latestData.dateLabels)}
-              theme="light"
-            />
+            {size !== 'ultraWide' &&
+              <ReactEcharts
+                style={{ height: size === 'portrait' ? '320px' : '240px', width: '100%' }}
+                className="chart-item"
+                option={getChartOptions('confirmed', latestData.confirmed, latestData.dateLabels)}
+                theme="light"
+              />}
           </div>}
 
         {isLoaded &&
           <div className="chart-column">
             <div className="chart-column-header">
-              <div className="chart-type">Vindecati</div>
+              <div className="chart-column-title">
+                <div className="chart-type">Vindecati</div>
+                {size === 'ultraWide' &&
+                  <div className="chart-badge chart-badge--green">({trends.cured}% din total)</div>}
+              </div>
               <div className="chart-value">{totals.cured}</div>
-              <div className="chart-badge chart-badge--green">{trends.cured}% din total</div>
+              {size !== 'ultraWide' &&
+                <div className="chart-badge chart-badge--green">{trends.cured}% din total</div>}
             </div>
 
-            <ReactEcharts
-              style={{ height: '280px', width: '100%' }}
-              option={getChartOptions('cured', latestData.cured, latestData.dateLabels)}
-              theme="light"
-            />
+            {size !== 'ultraWide' &&
+              <ReactEcharts
+                style={{ height: size === 'portrait' ? '320px' : '240px', width: '100%' }}
+                className="chart-item"
+                option={getChartOptions('cured', latestData.cured, latestData.dateLabels)}
+                theme="light"
+              />}
           </div>}
 
         {isLoaded &&
           <div className="chart-column">
             <div className="chart-column-header">
-              <div className="chart-type">Decedati</div>
+              <div className="chart-column-title">
+                <div className="chart-type">Decedati</div>
+                {size === 'ultraWide' &&
+                  <div className="chart-badge chart-badge--red">({trends.deaths}% din total)</div>}
+              </div>
               <div className="chart-value">{totals.deaths}</div>
-              <div className="chart-badge chart-badge--red">{trends.deaths}% din total</div>
+              {size !== 'ultraWide' &&
+                <div className="chart-badge chart-badge--red">{trends.deaths}% din total</div>}
             </div>
 
-            <ReactEcharts
-              style={{ height: '280px', width: '100%' }}
-              option={getChartOptions('death', latestData.deaths, latestData.dateLabels)}
-              theme="light"
-            />
+            {size !== 'ultraWide' &&
+              <ReactEcharts
+                style={{ height: size === 'portrait' ? '320px' : '240px', width: '100%' }}
+                className="chart-item"
+                option={getChartOptions('death', latestData.deaths, latestData.dateLabels)}
+                theme="light"
+              />}
           </div>}
       </div>
     </section>
 
-    <footer className="charts-footer">
-      <p>Un proiect in partenetiat cu</p><img src={partnerLogo} alt="Guvernul Romaniei" />
-      <p>dezvoltat de</p><img src={DeveloperLogo} alt="Code4Romania" />
-    </footer>
+    {footer}
   </div>
 }
