@@ -2,7 +2,11 @@ variable "name" {
   type = string
 }
 
-variable "cluster" {
+variable "cluster_name" {
+  type = string
+}
+
+variable "cluster_arn" {
   type = string
 }
 
@@ -61,7 +65,12 @@ variable "secrets" {
   default = "[]"
 }
 
-variable "instance_count" {
+variable "min_capacity" {
+  type    = number
+  default = 1
+}
+
+variable "max_capacity" {
   type    = number
   default = 1
 }

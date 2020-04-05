@@ -82,9 +82,12 @@ data "aws_iam_policy_document" "use_ssm_parameter" {
 module "front-end" {
   source = "./service"
 
-  name = "front-end"
+  name         = "front-end"
+  min_capacity = terraform.workspace == "production" ? 2 : 1
+  max_capacity = terraform.workspace == "production" ? 20 : 1
 
-  cluster         = aws_ecs_cluster.app.id
+  cluster_name    = aws_ecs_cluster.app.name
+  cluster_arn     = aws_ecs_cluster.app.arn
   vpc_id          = aws_vpc.main.id
   subnets         = aws_subnet.private.*.id
   lb-subnets      = aws_subnet.public.*.id
@@ -112,10 +115,12 @@ ENV
 module "api" {
   source = "./service"
 
-  name           = "api"
-  instance_count = terraform.workspace == "production" ? 50 : 1
+  name         = "api"
+  min_capacity = terraform.workspace == "production" ? 2 : 1
+  max_capacity = terraform.workspace == "production" ? 50 : 1
 
-  cluster         = aws_ecs_cluster.app.id
+  cluster_name    = aws_ecs_cluster.app.name
+  cluster_arn     = aws_ecs_cluster.app.arn
   vpc_id          = aws_vpc.main.id
   subnets         = aws_subnet.private.*.id
   lb-subnets      = aws_subnet.public.*.id
@@ -145,7 +150,8 @@ module "parser" {
 
   name = "parser"
 
-  cluster         = aws_ecs_cluster.app.id
+  cluster_name    = aws_ecs_cluster.app.name
+  cluster_arn     = aws_ecs_cluster.app.arn
   vpc_id          = aws_vpc.main.id
   subnets         = aws_subnet.private.*.id
   lb-subnets      = aws_subnet.public.*.id
