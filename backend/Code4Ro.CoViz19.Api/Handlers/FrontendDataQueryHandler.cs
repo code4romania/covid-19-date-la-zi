@@ -20,23 +20,36 @@ namespace Code4Ro.CoViz19.Api.Handlers
         IRequestHandler<GetLastDataUpdateDetails, LastDataUpdateDetailsModel>,
         IRequestHandler<GetUiData, UiDataModel>,
         IRequestHandler<GetCountiesInfections, CountiesInfectionsModel>,
-        IRequestHandler<GetAverageAge, AverageAgeModel>
+        IRequestHandler<GetAverageAge, AverageAgeModel>,
+        IRequestHandler<GetCachedData, HistoricalPdfStats>
 
     {
         private readonly IDataProviderService _dataService;
         private readonly ILogger<FrontendDataQueryHandler> _logger;
+        private readonly ICacheService _cacheService;
 
-        public FrontendDataQueryHandler(IDataProviderService dataService, ILogger<FrontendDataQueryHandler> logger)
+        public FrontendDataQueryHandler(IDataProviderService dataService, ILogger<FrontendDataQueryHandler> logger, ICacheService cacheService)
         {
             _dataService = dataService;
             _logger = logger;
+            _cacheService = cacheService;
         }
         public async Task<DailyStatsV2Model> Handle(GetDailyStatsV2 request, CancellationToken cancellationToken)
         {
-            var currentData = await _dataService.GetCurrentPdfData();
+            var currentData = await GetData();
             return HandleGetDailyStatsV2(currentData);
         }
 
+        private async Task<HistoricalPdfStats> GetData()
+        {
+            var data = await _cacheService.GetObjectSafeAsync<HistoricalPdfStats>("current-data");
+            if (data == null)
+            {
+                return await _dataService.GetCurrentPdfData();
+            }
+
+            return data;
+        }
         private DailyStatsV2Model HandleGetDailyStatsV2(HistoricalPdfStats currentData)
         {
             _logger.LogInformation($"Hanling {nameof(GetDailyStatsV2)}");
@@ -110,12 +123,12 @@ namespace Code4Ro.CoViz19.Api.Handlers
         {
             _logger.LogInformation($"Hanling {nameof(GetLatestDataV2)}");
 
-            return await _dataService.GetCurrentPdfData();
+            return await GetData();
         }
 
         public async Task<AgeHistogramV2Model> Handle(GetAgeHistogramV2 request, CancellationToken cancellationToken)
         {
-            var currentData = await _dataService.GetCurrentPdfData();
+            var currentData = await GetData();
 
             return HandleGetAgeHistogramV2(currentData);
         }
@@ -147,7 +160,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<GenderStatsV2Model> Handle(GetGenderStatsV2 request, CancellationToken cancellationToken)
         {
-            var currentData = await _dataService.GetCurrentPdfData();
+            var currentData = await GetData();
 
             return HandleGetGenderStatsV2(currentData);
         }
@@ -183,7 +196,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<QuickStatsV2Model> Handle(GetQuickstatsV2Data request, CancellationToken cancellationToken)
         {
-            var data = await _dataService.GetCurrentPdfData();
+            var data = await GetData();
 
             return HandleGetQuickstatsV2Data(data);
         }
@@ -237,7 +250,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
         public async Task<LastDataUpdateDetailsModel> Handle(GetLastDataUpdateDetails request,
             CancellationToken cancellationToken)
         {
-            var data = await _dataService.GetCurrentPdfData();
+            var data = await GetData();
 
             return HandleGetLastDataUpdateDetails(data);
         }
@@ -272,7 +285,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<UiDataModel> Handle(GetUiData request, CancellationToken cancellationToken)
         {
-            var data = await _dataService.GetCurrentPdfData();
+            var data = await GetData();
 
             return new UiDataModel
             {
@@ -355,16 +368,23 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<CountiesInfectionsModel> Handle(GetCountiesInfections request, CancellationToken cancellationToken)
         {
-            var data = await _dataService.GetCurrentPdfData();
+            var data = await GetData();
 
             return HandleGetCountiesInfections(data);
         }
 
         public async Task<AverageAgeModel> Handle(GetAverageAge request, CancellationToken cancellationToken)
         {
-            var data = await _dataService.GetCurrentPdfData();
+            var data = await GetData();
 
             return HandleGetAverageAge(data);
+        }
+
+        public async Task<HistoricalPdfStats> Handle(GetCachedData request, CancellationToken cancellationToken)
+        {
+            var data = await _cacheService.GetObjectSafeAsync<HistoricalPdfStats>("current-data");
+
+            return data;
         }
     }
 }

@@ -160,6 +160,21 @@ namespace Code4Ro.CoViz19.Api.Controllers
             return new OkObjectResult(data);
         }
 
+        [HttpGet]
+        [Route("cached-data")]
+        [SwaggerOperation(Summary = "Get data stored in cache")]
+        [SwaggerResponse(200, "Latest data", typeof(HistoricalPdfStats))]
+        [SwaggerResponse(500, "Something went wrong when getting data", typeof(ProblemDetails))]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        [SwaggerResponseExample(200, typeof(LatestDataExample))]
+        public async Task<IActionResult> GetCachedLatestData()
+        {
+            _logger.LogInformation($"starting to get {nameof(GetCachedData)}");
+            var data = await _mediator.Send(new GetCachedData());
+            _logger.LogInformation($"finished to get {nameof(GetCachedData)}");
+
+            return new OkObjectResult(data);
+        }
 
     }
 }

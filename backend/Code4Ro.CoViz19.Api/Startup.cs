@@ -1,3 +1,4 @@
+using System;
 using Code4Ro.CoViz19.Api.Filters;
 using Code4Ro.CoViz19.Api.Middleware;
 using Code4Ro.CoViz19.Api.Options;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
+using Code4Ro.CoViz19.Api.Extensions;
 using Code4Ro.CoViz19.Services.Options;
 using Newtonsoft.Json;
 
@@ -34,6 +36,7 @@ namespace Code4Ro.CoViz19.Api
             services.Configure<CacheOptions>(Configuration.GetSection("Cache"));
             services.Configure<AuthorizationOptions>(Configuration.GetSection("Authorization"));
             services.Configure<HttpFileServiceOptions>(Configuration.GetSection("HttpFileServiceOptions"));
+            services.Configure<PeanutOptions>(Configuration.GetSection("PeanutOptions"));
 
             services.AddSingleton<IDataProviderService, LocalDataProviderService>();
 
@@ -49,7 +52,16 @@ namespace Code4Ro.CoViz19.Api
 
             }
 
-            services.AddSingleton<ICacheSercice, NoCacheService>();
+            switch (Configuration.GetValue<CacheType>("CacheType"))
+            {
+                case CacheType.Memory:
+                    services.AddSingleton<ICacheService, MemoryCacheService>();
+                    break;
+                default:
+                    services.AddSingleton<ICacheService, NoCacheService>();
+                    break;
+            }
+
             services.AddSingleton<IApiKeyValidator, InMemoryApiKeyValidator>();
             services.AddTransient<ApiKeyRequestFilterAttribute>();
             services.AddControllers();
@@ -98,6 +110,13 @@ namespace Code4Ro.CoViz19.Api
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                 });
+
+            services.AddMemoryCache();
+            services.AddCronJob<DataLoaderService>(c =>
+            {
+                c.TimeZoneInfo = TimeZoneInfo.Local;
+                c.CronExpression = @"* * * * *";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
