@@ -42,13 +42,13 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         private async Task<HistoricalPdfStats> GetData()
         {
-            var data = await _cacheService.GetObjectSafeAsync<HistoricalPdfStats>("current-data");
-            if (data == null)
-            {
-                return await _dataService.GetCurrentPdfData();
-            }
+            //var data = await _cacheService.GetObjectSafeAsync<HistoricalPdfStats>("current-data");
+            //if (data == null)
+            //{
+            return await _dataService.GetCurrentPdfData();
+            //}
 
-            return data;
+            //    return data;
         }
         private DailyStatsV2Model HandleGetDailyStatsV2(HistoricalPdfStats currentData)
         {
