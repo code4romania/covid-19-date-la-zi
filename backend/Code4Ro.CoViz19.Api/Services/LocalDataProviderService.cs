@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Code4Ro.CoViz19.Models;
 using Code4Ro.CoViz19.Models.ParsedPdfModels;
 using Code4Ro.CoViz19.Services;
@@ -25,12 +26,20 @@ namespace Code4Ro.CoViz19.Api.Services
 
         public async Task<HistoricalPdfStats> GetCurrentPdfData()
         {
-            _logger.LogInformation($"starting to read from _fileService of type {_fileService.GetType()}");
-            await Task.FromResult(0);
-            var rawData = await _fileService.GetRawData() ?? string.Empty;
-            var result = JsonConvert.DeserializeObject<HistoricalPdfStats>(rawData);
-            _logger.LogDebug($"done reading from _fileService");
-            return result ?? new HistoricalPdfStats();
+            try
+            {
+                _logger.LogInformation($"starting to read from _fileService of type {_fileService.GetType()}");
+                await Task.FromResult(0);
+                var rawData = await _fileService.GetRawData() ?? string.Empty;
+                var result = JsonConvert.DeserializeObject<HistoricalPdfStats>(rawData);
+                _logger.LogDebug($"done reading from _fileService");
+                return result ?? new HistoricalPdfStats();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error deserializing object");
+                return new HistoricalPdfStats();
+            }
         }
     }
 
