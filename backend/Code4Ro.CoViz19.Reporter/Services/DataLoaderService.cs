@@ -58,10 +58,10 @@ namespace Code4Ro.CoViz19.Reporter.Services
                     {
                         var response = await _peanutHttpClient.PostAsync(_peanutOptions.Url, new StringContent(@"{
 	                        ""outputs"":{
-                                ""3196x288"":""https://date-la-zi.ro/banners/ultraWide"",
-                                ""1280x720"":""https://date-la-zi.ro/banners/landscape"",
-                                ""1024x635"":""https://date-la-zi.ro/banners/landscape"",
-                                ""1080x1920"":""https://date-la-zi.ro/banners/portrait""
+                                ""3196x288"":""https://datelazi.ro/banners/ultraWide"",
+                                ""1280x720"":""https://datelazi.ro/banners/landscape"",
+                                ""1024x635"":""https://datelazi.ro/banners/landscape"",
+                                ""1080x1920"":""https://datelazi.ro/banners/portrait""
                             }
                         }", Encoding.UTF8, "application/json"), cancellationToken);
 
