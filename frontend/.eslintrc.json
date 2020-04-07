@@ -26,6 +26,7 @@
         "ignoreRefs": true
       }
     ],
+    "react/jsx-closing-tag-location": "off",
     "react/no-did-update-set-state": "error",
     "react/no-unknown-property": "error",
     "react/no-unused-prop-types": "error",
