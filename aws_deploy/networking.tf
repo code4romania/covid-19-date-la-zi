@@ -49,8 +49,7 @@ resource "aws_internet_gateway" "public" {
 }
 
 resource "aws_eip" "private" {
-  count = var.az_count
-  vpc   = true
+  vpc = true
 
   tags = {
     Name = "${local.name}-private"
@@ -58,9 +57,8 @@ resource "aws_eip" "private" {
 }
 
 resource "aws_nat_gateway" "private" {
-  count         = var.az_count
-  allocation_id = element(aws_eip.private.*.id, count.index)
-  subnet_id     = element(aws_subnet.public.*.id, count.index)
+  allocation_id = aws_eip.private.id
+  subnet_id     = aws_subnet.public.0.id
 
   tags = {
     Name = "${local.name}-private"
@@ -79,12 +77,11 @@ resource "aws_route" "internet_access" {
 }
 
 resource "aws_route_table" "private" {
-  count  = var.az_count
   vpc_id = aws_vpc.main.id
 
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = element(aws_nat_gateway.private.*.id, count.index)
+    nat_gateway_id = aws_nat_gateway.private.id
   }
 
   tags = {
@@ -94,6 +91,6 @@ resource "aws_route_table" "private" {
 
 resource "aws_route_table_association" "private" {
   count          = var.az_count
-  route_table_id = element(aws_route_table.private.*.id, count.index)
+  route_table_id = aws_route_table.private.id
   subnet_id      = element(aws_subnet.private.*.id, count.index)
 }
