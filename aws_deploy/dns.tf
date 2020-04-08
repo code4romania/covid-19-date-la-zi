@@ -37,9 +37,14 @@ resource "aws_route53_record" "root" {
   }
 }
 
+locals {
+  cert_domain       = terraform.workspace == "production" ? local.domain_root : module.front-end_dns.fqdn
+  alternative_names = terraform.workspace == "production" ? [module.front-end_dns.fqdn, module.api_dns.fqdn, ] : [module.api_dns.fqdn]
+}
+
 resource "aws_acm_certificate" "cert" {
-  domain_name               = terraform.workspace == "production" ? local.domain_root : module.front-end_dns.fqdn
-  subject_alternative_names = terraform.workspace == "production" ? [module.front-end_dns.fqdn, module.api_dns.fqdn, ] : [module.api_dns.fqdn]
+  domain_name               = local.cert_domain
+  subject_alternative_names = local.alternative_names
 
   validation_method = "DNS"
   lifecycle {
@@ -57,7 +62,7 @@ resource "aws_acm_certificate" "parser" {
 }
 
 resource "aws_route53_record" "cert_validation" {
-  count   = length(aws_acm_certificate.cert.domain_validation_options.*)
+  count   = length(local.alternative_names) + 1
   name    = aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_name
   type    = aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_type
   zone_id = data.aws_route53_zone.main.zone_id
