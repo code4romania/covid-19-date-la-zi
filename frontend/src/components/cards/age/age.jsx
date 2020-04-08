@@ -1,35 +1,35 @@
-import React from 'react';
-import ReactEcharts from 'echarts-for-react';
-import { Card } from '../../layout/card/card';
-import { Constants } from '../../../config/globals';
-import { formatDate } from '../../../utils/date';
+import React from "react";
+import ReactEcharts from "echarts-for-react";
+import { Card } from "../../layout/card/card";
+import { Constants } from "../../../config/globals";
+import { formatDate } from "../../../utils/date";
 
-export const EMBED_PATH_AGE = 'varsta';
+export const EMBED_PATH_AGE = "varsta";
 export class AgeCard extends React.PureComponent {
   getChartOptions = (state) => {
     // this is here to prevent errors until state is defined
     const yAxisData = state.data && state.data.map((item) => item.name);
     const seriesValues = state.data;
 
-    const labels = ['Confirmați'];
+    const labels = ["Confirmați"];
     return {
       xAxis: {
-        type: 'value',
+        type: "value",
         axisLabel: {
-          color: 'gray',
+          color: "gray",
         },
       },
       yAxis: {
-        type: 'category',
+        type: "category",
         data: yAxisData,
         axisLabel: {
-          color: 'gray',
+          color: "gray",
         },
       },
       tooltip: {
-        trigger: 'axis',
+        trigger: "axis",
         axisPointer: {
-          axis: 'y',
+          axis: "y",
         },
         formatter: (rawData) => {
           const [item] = rawData;
@@ -41,8 +41,8 @@ export class AgeCard extends React.PureComponent {
       },
       grid: {
         left: 0,
-        right: '40px',
-        bottom: '0',
+        right: "40px",
+        bottom: "0",
         top: 0,
         containLabel: true,
       },
@@ -50,18 +50,18 @@ export class AgeCard extends React.PureComponent {
         {
           data: seriesValues,
           name: labels[0],
-          stack: 'one',
-          type: 'bar',
+          stack: "one",
+          type: "bar",
           color: Constants.confirmedColor,
           label: {
             show: true,
-            position: 'right',
+            position: "right",
             formatter: (rawData) => {
               const { data } = rawData;
               return ` ${data.value} (${data.percentage}%) `;
             },
-            color: 'black',
-            fontWeight: 'bold',
+            color: "black",
+            fontWeight: "bold",
           },
         },
       ],
@@ -84,8 +84,8 @@ export class AgeCard extends React.PureComponent {
           <ReactEcharts
             id="age-chart"
             style={{
-              height: '250px',
-              width: '100%',
+              height: "250px",
+              width: "100%",
             }}
             option={this.getChartOptions(state)}
             theme="light"

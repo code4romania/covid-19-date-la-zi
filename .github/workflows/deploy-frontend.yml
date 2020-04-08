@@ -1,0 +1,96 @@
+name: Production Build and Deploy
+on:
+  push:
+    branches:
+      - develop
+      - master
+
+env:
+  AWS_S3_BUCKET_TEST: ${{ secrets.AWS_S3_BUCKET_TEST }}
+  AWS_S3_BUCKET_PROD: ${{ secrets.AWS_S3_BUCKET_PROD }}
+  DISTRIBUTION_ID_TEST: ${{ secrets.DISTRIBUTION_ID_TEST }}
+  DISTRIBUTION_ID_PROD: ${{ secrets.DISTRIBUTION_ID_PROD }}
+  PATHS: "/*"
+  SOURCE_DIR: "./frontend/build"
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: ${{ secrets.AWS_REGION }}
+
+jobs:
+  deploy-stage:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: "./frontend"
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Install Dependencies
+        working-directory: ${{env.working-directory}}
+        run: yarn
+
+      - name: Lint
+        working-directory: ${{env.working-directory}}
+        run: yarn lint
+
+      - name: Build
+        working-directory: ${{env.working-directory}}
+        run: yarn build
+        env:
+          REACT_APP_API_URL: "https://code4rocoviz19api-demo.azurewebsites.net/api/v2"
+
+      - name: Deploy to S3 Staging
+        uses: jakejarvis/s3-sync-action@v0.5.1
+        with:
+          args: --acl public-read --delete
+        env:
+          AWS_S3_BUCKET: $AWS_S3_BUCKET_TEST
+
+      - name: Invalidate Cloudfront Staging
+        uses: muratiger/invalidate-cloudfront-and-wait-for-completion-action@master
+        env:
+          DISTRIBUTION_ID: $DISTRIBUTION_ID_TEST
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: "./frontend"
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Install Dependencies
+        working-directory: ${{env.working-directory}}
+        run: yarn
+
+      - name: Lint
+        working-directory: ${{env.working-directory}}
+        run: yarn lint
+
+      - name: Build
+        working-directory: ${{env.working-directory}}
+        run: yarn build
+        env:
+          REACT_APP_API_URL: "https://api1.datelazi.ro/api/v2"
+
+      - name: Deploy to S3 Production
+        uses: jakejarvis/s3-sync-action@v0.5.1
+        with:
+          args: --acl public-read --delete
+        env:
+          AWS_S3_BUCKET: $AWS_S3_BUCKET_PROD
+
+      - name: Invalidate Cloudfront Production
+        uses: muratiger/invalidate-cloudfront-and-wait-for-completion-action@master
+        env:
+          DISTRIBUTION_ID: $DISTRIBUTION_ID_PROD
