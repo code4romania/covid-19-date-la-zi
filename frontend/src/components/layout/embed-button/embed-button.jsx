@@ -7,15 +7,15 @@ export const EmbedButton = props => {
   const { path, viewPort } = props;
 
   const footerHeight = 75;
-  let getEmbeddableCode = () => `<iframe
+  const getEmbeddableCode = `<iframe
             scrolling="no"
             src="${window.location.origin.toString()}/embed/${path}"
             width="${viewPort.width}"
-            height="${viewPort.height + footerHeight}" />`;
+            height="${viewPort.height + footerHeight}"></iframe>`;
 
   const handleCopyEmbedCode = () => {
     const auxiliaryField = document.createElement('textarea');
-    auxiliaryField.innerText = getEmbeddableCode();
+    auxiliaryField.innerText = getEmbeddableCode.replace(/\s+(?=\s)/g, '');
 
     document.body.appendChild(auxiliaryField);
     auxiliaryField.select();
