@@ -12,12 +12,14 @@ import {
   useHistory
 } from 'react-router-dom';
 import LogoSvg from './images/logo-coviz.svg';
-import { logPageView } from './analyticsTracker';
+import { initializeGA, logPageView } from './analyticsTracker';
 import FooterWrapper from './components/layout/footer/footer';
 
 // pages
 import { Dashboard } from './components/pages/dashboard';
 const AboutPage = lazy(() => import('./components/pages/about'));
+
+initializeGA();
 
 const Logo = () => (
   <Link to="/">
