@@ -23,7 +23,7 @@ export const EmbedButton = props => {
 
     auxiliaryField.remove();
 
-    toast.add('Textul a fost copiat in memoria clipboard');
+    toast.add('Codul de embed a fost copiat în clipboard');
   };
 
   // if already embedded hide the button
