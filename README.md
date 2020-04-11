@@ -1,4 +1,4 @@
-![logo](frontend/public/images/logo-coviz.svg)
+![logo](frontend/src/images/logo-coviz.svg)
 
 # Date la zi • [Live](https://datelazi.ro/)
 
