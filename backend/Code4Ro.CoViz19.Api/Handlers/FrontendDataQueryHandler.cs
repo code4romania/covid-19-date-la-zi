@@ -33,7 +33,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
         }
         public async Task<DailyStatsV2Model> Handle(GetDailyStatsV2 request, CancellationToken cancellationToken)
         {
-            var currentData = await _dataService.GetCurrentPdfData();
+            var currentData = await _dataService.GetCurrentPdfData().ConfigureAwait(false);
             return HandleGetDailyStatsV2(currentData);
         }
 
@@ -106,16 +106,16 @@ namespace Code4Ro.CoViz19.Api.Handlers
             };
         }
 
-        public async Task<HistoricalPdfStats> Handle(GetLatestDataV2 request, CancellationToken cancellationToken)
+        public Task<HistoricalPdfStats> Handle(GetLatestDataV2 request, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Hanling {nameof(GetLatestDataV2)}");
 
-            return await _dataService.GetCurrentPdfData();
+            return _dataService.GetCurrentPdfData();
         }
 
         public async Task<AgeHistogramV2Model> Handle(GetAgeHistogramV2 request, CancellationToken cancellationToken)
         {
-            var currentData = await _dataService.GetCurrentPdfData();
+            var currentData = await _dataService.GetCurrentPdfData().ConfigureAwait(false);
 
             return HandleGetAgeHistogramV2(currentData);
         }
@@ -147,7 +147,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<GenderStatsV2Model> Handle(GetGenderStatsV2 request, CancellationToken cancellationToken)
         {
-            var currentData = await _dataService.GetCurrentPdfData();
+            var currentData = await _dataService.GetCurrentPdfData().ConfigureAwait(false);
 
             return HandleGetGenderStatsV2(currentData);
         }
@@ -183,7 +183,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<QuickStatsV2Model> Handle(GetQuickstatsV2Data request, CancellationToken cancellationToken)
         {
-            var data = await _dataService.GetCurrentPdfData();
+            var data = await _dataService.GetCurrentPdfData().ConfigureAwait(false);
 
             return HandleGetQuickstatsV2Data(data);
         }
@@ -237,7 +237,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
         public async Task<LastDataUpdateDetailsModel> Handle(GetLastDataUpdateDetails request,
             CancellationToken cancellationToken)
         {
-            var data = await _dataService.GetCurrentPdfData();
+            var data = await _dataService.GetCurrentPdfData().ConfigureAwait(false);
 
             return HandleGetLastDataUpdateDetails(data);
         }
@@ -272,7 +272,7 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<UiDataModel> Handle(GetUiData request, CancellationToken cancellationToken)
         {
-            var data = await _dataService.GetCurrentPdfData();
+            var data = await _dataService.GetCurrentPdfData().ConfigureAwait(false);
 
             return new UiDataModel
             {
@@ -355,14 +355,14 @@ namespace Code4Ro.CoViz19.Api.Handlers
 
         public async Task<CountiesInfectionsModel> Handle(GetCountiesInfections request, CancellationToken cancellationToken)
         {
-            var data = await _dataService.GetCurrentPdfData();
+            var data = await _dataService.GetCurrentPdfData().ConfigureAwait(false);
 
             return HandleGetCountiesInfections(data);
         }
 
         public async Task<AverageAgeModel> Handle(GetAverageAge request, CancellationToken cancellationToken)
         {
-            var data = await _dataService.GetCurrentPdfData();
+            var data = await _dataService.GetCurrentPdfData().ConfigureAwait(false);
 
             return HandleGetAverageAge(data);
         }

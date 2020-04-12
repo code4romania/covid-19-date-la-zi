@@ -35,7 +35,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         public async Task<IActionResult> GetLatestData()
         {
             _logger.LogInformation($"starting to get {nameof(GetLatestDataV2)}");
-            var data = await _mediator.Send(new GetLatestDataV2());
+            var data = await _mediator.Send(new GetLatestDataV2()).ConfigureAwait(false);
             _logger.LogInformation($"finished to get {nameof(GetLatestDataV2)}");
 
             return new OkObjectResult(data);
@@ -50,7 +50,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         public async Task<IActionResult> GetDailystats()
         {
             _logger.LogInformation($"starting to get {nameof(GetDailyStatsV2)}");
-            var data = await _mediator.Send(new GetDailyStatsV2());
+            var data = await _mediator.Send(new GetDailyStatsV2()).ConfigureAwait(false);
             _logger.LogInformation($"finished to get {nameof(GetDailyStatsV2)}");
 
             return new OkObjectResult(data);
@@ -65,7 +65,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         public async Task<IActionResult> GetGenderStats()
         {
             _logger.LogInformation($"starting to get {nameof(GetGenderStatsV2)}");
-            var data = await _mediator.Send(new GetGenderStatsV2());
+            var data = await _mediator.Send(new GetGenderStatsV2()).ConfigureAwait(false);
             _logger.LogInformation($"finished to get {nameof(GetGenderStatsV2)}");
 
             return new OkObjectResult(data);
@@ -80,7 +80,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         public async Task<IActionResult> GetAgeHistogram()
         {
             _logger.LogInformation($"starting to get {nameof(GetAgeHistogramV2)}");
-            var data = await _mediator.Send(new GetAgeHistogramV2());
+            var data = await _mediator.Send(new GetAgeHistogramV2()).ConfigureAwait(false);
             _logger.LogInformation($"finished to get {nameof(GetAgeHistogramV2)}");
             return new OkObjectResult(data);
         }
@@ -94,7 +94,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         public async Task<IActionResult> GetQuickStatsData()
         {
             _logger.LogInformation($"starting to get {nameof(GetQuickstatsV2Data)}");
-            var data = await _mediator.Send(new GetQuickstatsV2Data());
+            var data = await _mediator.Send(new GetQuickstatsV2Data()).ConfigureAwait(false);
             _logger.LogInformation($"finished to get {nameof(GetQuickstatsV2Data)}");
             return new OkObjectResult(data);
         }
@@ -108,7 +108,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         public async Task<IActionResult> GetLastUpdateDate()
         {
             _logger.LogInformation($"starting to get {nameof(GetLastDataUpdateDetails)}");
-            var data = await _mediator.Send(new GetLastDataUpdateDetails());
+            var data = await _mediator.Send(new GetLastDataUpdateDetails()).ConfigureAwait(false);
             _logger.LogInformation($"finished to get {nameof(GetLastDataUpdateDetails)}");
 
             return new OkObjectResult(data);
@@ -123,7 +123,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         public async Task<IActionResult> GetUiData()
         {
             _logger.LogInformation($"starting to get {nameof(GetUiData)}");
-            var data = await _mediator.Send(new GetUiData());
+            var data = await _mediator.Send(new GetUiData()).ConfigureAwait(false);
             _logger.LogInformation($"finished to get {nameof(GetUiData)}");
 
             return new OkObjectResult(data);
@@ -139,7 +139,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         public async Task<IActionResult> GetCountyInfectionsNumbers()
         {
             _logger.LogInformation($"starting to get {nameof(GetCountiesInfections)}");
-            var data = await _mediator.Send(new GetCountiesInfections());
+            var data = await _mediator.Send(new GetCountiesInfections()).ConfigureAwait(false);
             _logger.LogInformation($"finished to get {nameof(GetCountiesInfections)}");
 
             return new OkObjectResult(data);
@@ -154,7 +154,7 @@ namespace Code4Ro.CoViz19.Api.Controllers
         public async Task<IActionResult> GetAverageAge()
         {
             _logger.LogInformation($"starting to get {nameof(GetUiData)}");
-            var data = await _mediator.Send(new GetAverageAge());
+            var data = await _mediator.Send(new GetAverageAge()).ConfigureAwait(false);
             _logger.LogInformation($"finished to get {nameof(GetUiData)}");
 
             return new OkObjectResult(data);

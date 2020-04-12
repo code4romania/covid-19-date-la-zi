@@ -1,4 +1,3 @@
-using Code4Ro.CoViz19.Api.Filters;
 using Code4Ro.CoViz19.Api.Middleware;
 using Code4Ro.CoViz19.Api.Options;
 using Code4Ro.CoViz19.Api.Services;
@@ -32,7 +31,6 @@ namespace Code4Ro.CoViz19.Api
             services.AddOptions();
             services.AddHealthChecks();
             services.Configure<CacheOptions>(Configuration.GetSection("Cache"));
-            services.Configure<AuthorizationOptions>(Configuration.GetSection("Authorization"));
             services.Configure<HttpFileServiceOptions>(Configuration.GetSection("HttpFileServiceOptions"));
 
             services.AddSingleton<IDataProviderService, LocalDataProviderService>();
@@ -49,9 +47,6 @@ namespace Code4Ro.CoViz19.Api
 
             }
 
-            services.AddSingleton<ICacheSercice, NoCacheService>();
-            services.AddSingleton<IApiKeyValidator, InMemoryApiKeyValidator>();
-            services.AddTransient<ApiKeyRequestFilterAttribute>();
             services.AddControllers();
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
@@ -67,27 +62,6 @@ namespace Code4Ro.CoViz19.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Code4Ro.CoViz19.Api", Version = "v1" });
                 c.EnableAnnotations();
                 c.ExampleFilters();
-                c.AddSecurityDefinition(ApiKeyRequestFilterAttribute.HeaderName, new OpenApiSecurityScheme
-                {
-                    Description = "Api key needed to access the endpoints. api-key: My_API_Key",
-                    In = ParameterLocation.Header,
-                    Name = ApiKeyRequestFilterAttribute.HeaderName,
-                    Type = SecuritySchemeType.ApiKey
-                });
-
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Name = ApiKeyRequestFilterAttribute.HeaderName,
-                            Type = SecuritySchemeType.ApiKey,
-                            In = ParameterLocation.Header,
-                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = ApiKeyRequestFilterAttribute.HeaderName },
-                        },
-                        System.Array.Empty<string>()
-                    }
-                });
             });
             services.AddDefaultProblemDetails();
 

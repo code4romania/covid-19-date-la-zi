@@ -1,6 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+// ReSharper disable InconsistentNaming
 
 namespace Code4Ro.CoViz19.Models.ParsedPdfModels
 {
