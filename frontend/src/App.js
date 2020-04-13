@@ -2,15 +2,15 @@ import React, { useEffect, Suspense, lazy } from 'react';
 import {
   Header,
   DevelopedBy,
-  IncubatedBy
+  IncubatedBy,
+  BackToTop,
 } from '@code4ro/taskforce-fe-components';
 import {
   BrowserRouter as Router,
   Link,
   Switch,
   Route,
-  useHistory,
-  BackToTop,
+  useHistory
 } from 'react-router-dom';
 import LogoSvg from './images/logo-coviz.svg';
 import { logPageView } from './analyticsTracker';
