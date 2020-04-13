@@ -9,7 +9,8 @@ import {
   Link,
   Switch,
   Route,
-  useHistory
+  useHistory,
+  BackToTop,
 } from 'react-router-dom';
 import LogoSvg from './images/logo-coviz.svg';
 import { initializeGA, logPageView } from './analyticsTracker';
@@ -61,6 +62,7 @@ const App = () => {
               <Dashboard />
             </Route>
           </Switch>
+          <BackToTop />
         </main>
       </Suspense>
       <IncubatedBy />
