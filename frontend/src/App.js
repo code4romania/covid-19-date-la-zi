@@ -1,24 +1,24 @@
-import React, { useEffect, Suspense, lazy } from "react";
+import React, { useEffect, Suspense, lazy } from 'react';
 import {
   Header,
   DevelopedBy,
   IncubatedBy,
   BackToTop,
-} from "@code4ro/taskforce-fe-components";
+} from '@code4ro/taskforce-fe-components';
 import {
   BrowserRouter as Router,
   Link,
   Switch,
   Route,
-  useHistory,
-} from "react-router-dom";
-import LogoSvg from "./images/logo-coviz.svg";
-import { initializeGA, logPageView } from "./analyticsTracker";
-import FooterWrapper from "./components/layout/footer/footer";
+  useHistory
+} from 'react-router-dom';
+import LogoSvg from './images/logo-coviz.svg';
+import { initializeGA, logPageView } from './analyticsTracker';
+import FooterWrapper from './components/layout/footer/footer';
 
 // pages
-import { Dashboard } from "./components/pages/dashboard";
-const AboutPage = lazy(() => import("./components/pages/about"));
+import { Dashboard } from './components/pages/dashboard';
+const AboutPage = lazy(() => import('./components/pages/about'));
 
 initializeGA();
 
@@ -31,7 +31,7 @@ const Logo = () => (
 const MenuItems = [
   <Link to="/about" key="des">
     Despre proiect
-  </Link>,
+  </Link>
 ];
 
 const AppWrapper = () => {
