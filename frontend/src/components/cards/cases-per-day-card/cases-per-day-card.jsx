@@ -5,12 +5,28 @@ import { Constants } from '../../../config/globals';
 
 export const EMBED_PATH_CASES_PER_DAY = 'cazuri-pe-zi';
 export class CasesPerDayCard extends React.PureComponent {
+  // how many days to limit the chart to
+  recordsLimit = Constants.dailyRecordsLimit;
+
+  lastRecords(array, limit) {
+    if (array !== undefined && limit > 0) {
+      return array.slice(Math.max(array.length - limit, 0))
+    } else {
+      return array
+    }
+  }
+
   getChartOptions(state) {
+    const dates = this.lastRecords(state.dates, this.recordsLimit);
+    const listConfirmed = this.lastRecords(state.confirmedCasesHistory, this.recordsLimit);
+    const listCured = this.lastRecords(state.curedCasesHistory, this.recordsLimit);
+    const listDeaths = this.lastRecords(state.deathCasesHistory, this.recordsLimit);
+
     const labels = ['Confirmați', 'Vindecați', 'Decedaţi'];
     return {
       xAxis: {
         type: 'category',
-        data: state.dates,
+        data: dates,
         axisLabel: {
           color: 'gray',
           fontWeight: 'bold',
@@ -46,21 +62,21 @@ export class CasesPerDayCard extends React.PureComponent {
       },
       series: [
         {
-          data: state.confirmedCasesHistory,
+          data: listConfirmed,
           name: labels[0],
           stack: 'one',
           type: 'bar',
           color: Constants.confirmedColor
         },
         {
-          data: state.curedCasesHistory,
+          data: listCured,
           name: labels[1],
           stack: 'one',
           type: 'bar',
           color: Constants.curedColor
         },
         {
-          data: state.deathCasesHistory,
+          data: listDeaths,
           name: labels[2],
           stack: 'one',
           type: 'bar',
@@ -78,7 +94,7 @@ export class CasesPerDayCard extends React.PureComponent {
       <Card
         isLoaded={isLoaded}
         title="Număr de cazuri pe zile"
-        subtitle={`De la ${state.startDate} la ${state.endDate}`}
+        subtitle={`Pana la ${state.endDate} (Ultimele ${this.recordsLimit} zile)`}
         isStale={isStale}
         error={error}
         embedPath={EMBED_PATH_CASES_PER_DAY}
