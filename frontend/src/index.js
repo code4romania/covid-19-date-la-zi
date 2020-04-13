@@ -11,6 +11,7 @@ import roGeoJson from './config/roGeo';
 import { Embeddable } from './components/pages/embed';
 import { BannerChartsPage } from './components/pages/banner-charts';
 
+
 echarts.registerMap('RO', roGeoJson);
 
 ReactDOM.render(
