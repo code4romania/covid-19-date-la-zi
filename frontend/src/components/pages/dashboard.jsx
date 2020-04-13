@@ -227,11 +227,11 @@ class DashboardNoContext extends React.PureComponent {
     const totalKnown = allValues.reduce((a, b) => a + b, 0);
     const knownPercentage =
       total > 0 ? 100 - Math.round((totalKnown / total) * 100) : 100;
-    const data = Object.keys(stats).map(key => ({
-      value: stats[key],
-      name: key,
-      percentage: Math.round((100 * stats[key]) / total)
-    }));
+    const data = Object.keys(stats).sort(key => (key === 'în procesare' ? -1 : 0)).map(key => ({
+        value: stats[key],
+        name: key,
+        percentage: Math.round(100 * stats[key] / total)
+      }));
 
     return {
       isLoaded: true,
