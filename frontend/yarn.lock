@@ -904,12 +904,15 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@code4ro/taskforce-fe-components@1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@code4ro/taskforce-fe-components/-/taskforce-fe-components-1.0.6.tgz#a4e182a5fdf4e5e3fa14d5d8a69eab8d394c3d15"
-  integrity sha512-ocfHJYpX8NvR9XeT4XglMiAIzcKO+nd03cPimJu28CF5OUlMbuBELSt+qAYLIRO1828xF0+GjU96SBkfqnRqHQ==
+"@code4ro/taskforce-fe-components@1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@code4ro/taskforce-fe-components/-/taskforce-fe-components-1.0.10.tgz#7f3a04768c5660b230a1e264a6ddcd809bde7119"
+  integrity sha512-2oGJkjoq1Z0qbfxN1T/RvQZXI/Zs/tEqAsV71dpGxQP1msky6F+NVTgHzMp6gAGEp+R5Sis/o8lkbwHAvgf+lw==
   dependencies:
     bulma "^0.8.0"
+    date-fns "^2.11.1"
+    echarts "^4.7.0"
+    echarts-for-react "^2.0.15-beta.1"
     react-share "^4.1.0"
     underscore "^1.9.2"
 
@@ -3349,6 +3352,11 @@ data-urls@^1.0.0, data-urls@^1.1.0:
     abab "^2.0.0"
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
+
+date-fns@^2.11.1:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.12.0.tgz#01754c8a2f3368fc1119cf4625c3dad8c1845ee6"
+  integrity sha512-qJgn99xxKnFgB1qL4jpxU7Q2t0LOn1p8KMIveef3UZD7kqjT3tpFNNdXJelEHhE+rUgffriXriw/sOSU+cS1Hw==
 
 debug@2.6.9, debug@^2.1.3, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.9:
   version "2.6.9"
