@@ -48,7 +48,9 @@ export const Constants = {
   lightblue: '#A5D7FC',
 
   oldestColor: '#CB466E',
-  processingColor: '#FFDE9F'
+  processingColor: '#FFDE9F',
+
+  dailyRecordsLimit: 14
 };
 
 export const ApiURL = {

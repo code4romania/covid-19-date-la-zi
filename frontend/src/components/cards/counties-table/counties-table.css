@@ -27,25 +27,3 @@
     color: white;
 }
 
-.perDayTable .button.hide {
-    display: none;
-}
-
-.perDayTable .button.right {
-    float: right;
-}
-.perDayTable .button:first-child {
-    margin-right: 10px;
-}
-
-.perDayTable .navigation {
-    bottom: 5px;
-    display: block;
-    width: 100%;
-    min-width: 100%;
-}
-
-.navigation-chevron {
-    width: 24px;
-    height: 24px;
-}
