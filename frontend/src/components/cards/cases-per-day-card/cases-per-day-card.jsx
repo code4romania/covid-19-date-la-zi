@@ -82,6 +82,15 @@ export class CasesPerDayCard extends React.PureComponent {
     }
   }
 
+  getDateRange(records) {
+    if (records.dates === undefined) { return { } }
+    const dates = this.getPage(records.dates, null).filter( x => !!x )
+    return {
+      from: dates[0],
+      to: dates[dates.length - 1]
+    }
+  }
+
   getChartOptions(records) {
     const dates = this.getPage(records.dates, ' ');
     const listConfirmed = this.getPage(records.confirmedCasesHistory);
@@ -168,15 +177,15 @@ export class CasesPerDayCard extends React.PureComponent {
   }
 
   render() {
-    const { limit } = this.state
     const records = this.props.state
     const { isLoaded, error, isStale } = records;
+    const { from, to } = this.getDateRange(records);
 
     return (
       <Card
         isLoaded={isLoaded}
         title="Număr de cazuri pe zile"
-        subtitle={`Pana la ${records.endDate} (Ultimele ${limit} zile)`}
+        subtitle={`De la ${from} pana la ${to}`}
         isStale={isStale}
         error={error}
         embedPath={EMBED_PATH_CASES_PER_DAY}
