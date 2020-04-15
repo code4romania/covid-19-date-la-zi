@@ -69,3 +69,28 @@ code {
 .content p {
     margin: 1em 0;
 }
+
+.button.hide {
+    display: none;
+}
+
+.button.right {
+    float: right;
+}
+.button:first-child {
+    margin-right: 10px;
+}
+
+.navigation-chevron {
+    width: 24px;
+    height: 24px;
+}
+
+.card .navigation {
+    padding-top: 5px;
+    bottom: 0px;
+    display: block;
+    width: 100%;
+    min-width: 100%;
+    height: 35px;
+}

@@ -1,26 +1,92 @@
 import React from 'react';
+import ChevronImageLeft from './../../../images/chevrons-left.svg';
+import ChevronImageRight from './../../../images/chevrons-right.svg';
 import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
 
 export const EMBED_PATH_CASES_PER_DAY = 'cazuri-pe-zi';
 export class CasesPerDayCard extends React.PureComponent {
-  // how many days to limit the chart to
-  recordsLimit = Constants.dailyRecordsLimit;
+  constructor(props) {
+    super(props);
 
-  lastRecords(array, limit) {
+    this.state = {
+      page: 1,
+      limit: Constants.dailyRecordsLimit
+    };
+
+  }
+
+  getPage(array, defaultEmptyValue) {
+    const { page, limit } = this.state
     if (array !== undefined && limit > 0) {
-      return array.slice(Math.max(array.length - limit, 0))
+      const start = array.length - page * limit
+      if (start < 0) {
+        let pad = new Array(0 - start).fill(defaultEmptyValue || 0)
+        return pad.concat(array.slice(0, limit + start))
+      } else {
+        return array.slice(start, start + limit)
+      }
     } else {
       return array
     }
   }
 
-  getChartOptions(state) {
-    const dates = this.lastRecords(state.dates, this.recordsLimit);
-    const listConfirmed = this.lastRecords(state.confirmedCasesHistory, this.recordsLimit);
-    const listCured = this.lastRecords(state.curedCasesHistory, this.recordsLimit);
-    const listDeaths = this.lastRecords(state.deathCasesHistory, this.recordsLimit);
+  gotoPreviousPage() {
+    let state = this.state
+    state.page += 1
+    this.setState(state)
+    this.forceUpdate()
+  }
+
+  gotoNextPage() {
+    let state = this.state
+    state.page -= 1
+    this.setState(state)
+    this.forceUpdate()
+  }
+
+  displayPagination(records, isLoaded) {
+    const { page, limit } = this.state;
+    const shouldDisplayPagination = isLoaded;
+
+    if (shouldDisplayPagination) {
+      console.log(records.length - page * limit)
+      return (
+        <div className="navigation">
+          <div
+            className={'button ' + (records.length - page * limit < 0 ? 'hide' : '')}
+            onClick={e => this.gotoPreviousPage()}
+          >
+            <img
+              src={ChevronImageLeft}
+              className="navigation-chevron"
+              alt="Pagina anterioara"
+            />
+          </div>
+          <div
+            className={
+              'button right ' +
+              (page === 1 ? 'hide' : '')
+            }
+            onClick={e => this.gotoNextPage()}
+          >
+            <img
+              src={ChevronImageRight}
+              className="navigation-chevron"
+              alt="Pagina urmatoare"
+            />
+          </div>
+        </div>
+      );
+    }
+  }
+
+  getChartOptions(records) {
+    const dates = this.getPage(records.dates, ' ');
+    const listConfirmed = this.getPage(records.confirmedCasesHistory);
+    const listCured = this.getPage(records.curedCasesHistory);
+    const listDeaths = this.getPage(records.deathCasesHistory);
 
     const labels = ['Confirmați', 'Vindecați', 'Decedaţi'];
     return {
@@ -45,8 +111,23 @@ export class CasesPerDayCard extends React.PureComponent {
         axisPointer: {
           axis: 'x'
         },
-        formatter:
-          '<h4 style="color: white">{b}</h4><span>{a2}: {c2}<br />{a1}: {c1}<br />{a0}: {c0}</span>'
+        formatter: function (params, ticket, callback) {
+          const confirmed = params[0]
+          const cured = params[1]
+          const deaths = params[2]
+
+          if (confirmed.axisValue === ' ') {
+            return null
+          } else {
+            return '<h4 style="color: white">'
+            + confirmed.axisValue + '</h4><span>'
+            + deaths.seriesName + ': ' + deaths.value + '<br />'
+            + cured.seriesName + ': ' + cured.value + '<br />'
+            + confirmed.seriesName + ': ' + confirmed.value + '</span>'
+          }
+        },
+        // formatter:
+        //   '<h4 style="color: white">{b}</h4><span>{a2}: {c2}<br />{a1}: {c1}<br />{a0}: {c0}</span>'
       },
       legend: {
         data: labels,
@@ -87,26 +168,31 @@ export class CasesPerDayCard extends React.PureComponent {
   }
 
   render() {
-    const { state } = this.props;
-    const { isLoaded, error, isStale } = state;
+    const { limit } = this.state
+    const records = this.props.state
+    const { isLoaded, error, isStale } = records;
 
     return (
       <Card
         isLoaded={isLoaded}
         title="Număr de cazuri pe zile"
-        subtitle={`Pana la ${state.endDate} (Ultimele ${this.recordsLimit} zile)`}
+        subtitle={`Pana la ${records.endDate} (Ultimele ${limit} zile)`}
         isStale={isStale}
         error={error}
         embedPath={EMBED_PATH_CASES_PER_DAY}
       >
+
         <ReactEcharts
           style={{
             height: '470px',
             width: '100%'
           }}
-          option={this.getChartOptions(state)}
+          option={this.getChartOptions(records)}
           theme="light"
         />
+
+        {this.displayPagination(records.dates, isLoaded)}
+
       </Card>
     );
   }
