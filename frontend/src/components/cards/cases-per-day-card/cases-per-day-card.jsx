@@ -12,38 +12,37 @@ export class CasesPerDayCard extends React.PureComponent {
 
     this.state = {
       page: 1,
-      limit: Constants.dailyRecordsLimit
+      limit: Constants.dailyRecordsLimit,
     };
-
   }
 
   getPage(array, defaultEmptyValue) {
-    const { page, limit } = this.state
+    const { page, limit } = this.state;
     if (array !== undefined && limit > 0) {
-      const start = array.length - page * limit
+      const start = array.length - page * limit;
       if (start < 0) {
-        let pad = new Array(0 - start).fill(defaultEmptyValue || 0)
-        return pad.concat(array.slice(0, limit + start))
+        let pad = new Array(0 - start).fill(defaultEmptyValue || 0);
+        return pad.concat(array.slice(0, limit + start));
       } else {
-        return array.slice(start, start + limit)
+        return array.slice(start, start + limit);
       }
     } else {
-      return array
+      return array;
     }
   }
 
   gotoPreviousPage() {
-    let state = this.state
-    state.page += 1
-    this.setState(state)
-    this.forceUpdate()
+    let state = this.state;
+    state.page += 1;
+    this.setState(state);
+    this.forceUpdate();
   }
 
   gotoNextPage() {
-    let state = this.state
-    state.page -= 1
-    this.setState(state)
-    this.forceUpdate()
+    let state = this.state;
+    state.page -= 1;
+    this.setState(state);
+    this.forceUpdate();
   }
 
   displayPagination(records, isLoaded) {
@@ -51,12 +50,13 @@ export class CasesPerDayCard extends React.PureComponent {
     const shouldDisplayPagination = isLoaded;
 
     if (shouldDisplayPagination) {
-      console.log(records.length - page * limit)
       return (
         <div className="navigation">
           <div
-            className={'button ' + (records.length - page * limit < 0 ? 'hide' : '')}
-            onClick={e => this.gotoPreviousPage()}
+            className={
+              'button ' + (records.length - page * limit < 0 ? 'hide' : '')
+            }
+            onClick={(e) => this.gotoPreviousPage()}
           >
             <img
               src={ChevronImageLeft}
@@ -65,11 +65,8 @@ export class CasesPerDayCard extends React.PureComponent {
             />
           </div>
           <div
-            className={
-              'button right ' +
-              (page === 1 ? 'hide' : '')
-            }
-            onClick={e => this.gotoNextPage()}
+            className={'button right ' + (page === 1 ? 'hide' : '')}
+            onClick={(e) => this.gotoNextPage()}
           >
             <img
               src={ChevronImageRight}
@@ -83,12 +80,14 @@ export class CasesPerDayCard extends React.PureComponent {
   }
 
   getDateRange(records) {
-    if (records.dates === undefined) { return { } }
-    const dates = this.getPage(records.dates, null).filter( x => !!x )
+    if (records.dates === undefined) {
+      return {};
+    }
+    const dates = this.getPage(records.dates, null).filter((x) => !!x);
     return {
       from: dates[0],
-      to: dates[dates.length - 1]
-    }
+      to: dates[dates.length - 1],
+    };
   }
 
   getChartOptions(records) {
@@ -106,33 +105,45 @@ export class CasesPerDayCard extends React.PureComponent {
           color: 'gray',
           fontWeight: 'bold',
           rotate: 45,
-          interval: 0
-        }
+          interval: 0,
+        },
       },
       yAxis: {
         type: 'value',
         axisLabel: {
-          color: 'gray'
-        }
+          color: 'gray',
+        },
       },
       tooltip: {
         trigger: 'axis',
         axisPointer: {
-          axis: 'x'
+          axis: 'x',
         },
         formatter: function (params, ticket, callback) {
-          const confirmed = params[0]
-          const cured = params[1]
-          const deaths = params[2]
+          const confirmed = params[0];
+          const cured = params[1];
+          const deaths = params[2];
 
           if (confirmed.axisValue === ' ') {
-            return null
+            return null;
           } else {
-            return '<h4 style="color: white">'
-            + confirmed.axisValue + '</h4><span>'
-            + deaths.seriesName + ': ' + deaths.value + '<br />'
-            + cured.seriesName + ': ' + cured.value + '<br />'
-            + confirmed.seriesName + ': ' + confirmed.value + '</span>'
+            return (
+              '<h4 style="color: white">' +
+              confirmed.axisValue +
+              '</h4><span>' +
+              deaths.seriesName +
+              ': ' +
+              deaths.value +
+              '<br />' +
+              cured.seriesName +
+              ': ' +
+              cured.value +
+              '<br />' +
+              confirmed.seriesName +
+              ': ' +
+              confirmed.value +
+              '</span>'
+            );
           }
         },
         // formatter:
@@ -141,14 +152,14 @@ export class CasesPerDayCard extends React.PureComponent {
       legend: {
         data: labels,
         bottom: '0px',
-        icon: 'circle'
+        icon: 'circle',
       },
       grid: {
         left: '1%',
         right: 0,
         bottom: '20px',
         top: '20px',
-        containLabel: true
+        containLabel: true,
       },
       series: [
         {
@@ -156,31 +167,31 @@ export class CasesPerDayCard extends React.PureComponent {
           name: labels[0],
           stack: 'one',
           type: 'bar',
-          color: Constants.confirmedColor
+          color: Constants.confirmedColor,
         },
         {
           data: listCured,
           name: labels[1],
           stack: 'one',
           type: 'bar',
-          color: Constants.curedColor
+          color: Constants.curedColor,
         },
         {
           data: listDeaths,
           name: labels[2],
           stack: 'one',
           type: 'bar',
-          color: Constants.deathColor
-        }
-      ]
+          color: Constants.deathColor,
+        },
+      ],
     };
   }
 
   render() {
-    const records = this.props.state
+    const records = this.props.state;
     const { isLoaded, error, isStale } = records;
     const { from, to } = this.getDateRange(records);
-
+    console.log(records);
     return (
       <Card
         isLoaded={isLoaded}
@@ -190,18 +201,16 @@ export class CasesPerDayCard extends React.PureComponent {
         error={error}
         embedPath={EMBED_PATH_CASES_PER_DAY}
       >
-
         <ReactEcharts
           style={{
             height: '470px',
-            width: '100%'
+            width: '100%',
           }}
           option={this.getChartOptions(records)}
           theme="light"
         />
 
         {this.displayPagination(records.dates, isLoaded)}
-
       </Card>
     );
   }
