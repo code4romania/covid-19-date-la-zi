@@ -1,7 +1,8 @@
 import React from 'react';
+import ReactEcharts from 'echarts-for-react';
+import { formatShortDate } from '../../../utils/date';
 import ChevronImageLeft from './../../../images/chevrons-left.svg';
 import ChevronImageRight from './../../../images/chevrons-right.svg';
-import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
 
@@ -47,9 +48,8 @@ export class CasesPerDayCard extends React.PureComponent {
 
   displayPagination(records, isLoaded) {
     const { page, limit } = this.state;
-    const shouldDisplayPagination = isLoaded;
 
-    if (shouldDisplayPagination) {
+    if (isLoaded) {
       return (
         <div className="navigation">
           <div
@@ -85,8 +85,8 @@ export class CasesPerDayCard extends React.PureComponent {
     }
     const dates = this.getPage(records.dates, null).filter((x) => !!x);
     return {
-      from: dates[0],
-      to: dates[dates.length - 1],
+      from: formatShortDate(dates[0]),
+      to: formatShortDate(dates[dates.length - 1]),
     };
   }
 
@@ -191,7 +191,6 @@ export class CasesPerDayCard extends React.PureComponent {
     const records = this.props.state;
     const { isLoaded, error, isStale } = records;
     const { from, to } = this.getDateRange(records);
-    console.log(records);
     return (
       <Card
         isLoaded={isLoaded}

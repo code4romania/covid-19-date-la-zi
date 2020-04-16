@@ -109,27 +109,28 @@ class DashboardNoContext extends React.PureComponent {
 
   parseCountiesTable(result) {
     const { countyInfectionsNumbers } = result.currentDayStats;
-    const counties = Object.keys(countyInfectionsNumbers)
-      .map((key) => ({
+    const {
+      counties: { lastUpdatedOn, stale },
+    } = result.charts;
+
+    const counties = Object.entries(countyInfectionsNumbers)
+      .map(([key, entry]) => ({
         name: mnemonics[key][0],
-        value: (
-          (1000 * countyInfectionsNumbers[key]) /
-          mnemonics[key][1]
-        ).toFixed(2),
+        value: ((1000 * entry) / mnemonics[key][1]).toFixed(2),
         totalPopulation: mnemonics[key][1],
-        numberInfected: countyInfectionsNumbers[key],
+        numberInfected: entry,
         county: key,
       }))
       .sort((a, b) =>
         // reversed by count
         a.value > b.value ? -1 : 1
       );
-    const max = counties[0].value;
     return {
       error: null,
       isLoaded: true,
-      counties: counties,
-      max,
+      counties,
+      lastUpdatedOn,
+      stale,
     };
   }
 
@@ -139,69 +140,80 @@ class DashboardNoContext extends React.PureComponent {
       numberCured,
       numberDeceased,
     } = result.currentDayStats;
+    const {
+      dailyStats: { lastUpdatedOn, stale },
+    } = result.charts;
     const { historicalData } = result;
-    const totalCasesHistory = Object.entries(historicalData).map(
-      (entry) => entry[1].numberInfected || 0
-    );
-    const curedCasesHistory = Object.entries(historicalData).map(
-      (entry) => entry[1].numberCured || 0
-    );
-    const deathCasesHistory = Object.entries(historicalData).map(
-      (entry) => entry[1].numberDeceased || 0
-    );
+    const totalCasesHistory = [];
+    const curedCasesHistory = [];
+    const deathCasesHistory = [];
+
+    Object.entries(historicalData)
+      .reverse()
+      .forEach(([, entry]) => {
+        totalCasesHistory.push(entry.numberInfected || 0);
+        curedCasesHistory.push(entry.numberCured || 0);
+        deathCasesHistory.push(entry.numberDeceased || 0);
+      });
+
     return {
       isLoaded: true,
       totalCases: numberInfected,
-      totalCasesHistory: totalCasesHistory,
+      totalCasesHistory,
       curedCases: numberCured,
-      curedCasesHistory: curedCasesHistory,
+      curedCasesHistory,
       deathCases: numberDeceased,
-      deathCasesHistory: deathCasesHistory,
+      deathCasesHistory,
+      lastUpdatedOn,
+      stale,
     };
   }
 
   parseDailyStats(result) {
+    const {
+      dailyStats: { lastUpdatedOn, stale },
+    } = result.charts;
     const { historicalData } = result;
 
-    const dates = Object.keys(historicalData);
-    const startDate = dates[0];
-    const endDate = dates[dates.length - 1];
-    const startDateStr = formatShortDate(startDate);
-    const endDateStr = formatShortDate(endDate);
     const confirmedCasesHistory = [];
     const curedCasesHistory = [];
     const deathCasesHistory = [];
     const dateStrings = [];
-    const dataEntries = Object.entries(historicalData);
-    for (let i = dataEntries.length - 1; i > 0; i--) {
+    const dataEntries = Object.entries(historicalData).reverse();
+
+    for (let i = 0; i < dataEntries.length - 1; i++) {
       const numberInfected = dataEntries[i][1].numberInfected;
-      const prevNumberInfected = dataEntries[i - 1][1].numberInfected;
-      confirmedCasesHistory.push(prevNumberInfected - numberInfected);
+      const nextNumberInfected = dataEntries[i + 1][1].numberInfected;
+      confirmedCasesHistory.push(nextNumberInfected - numberInfected);
 
       const numberCured = dataEntries[i][1].numberCured;
-      const prevNumberCured = dataEntries[i - 1][1].numberCured;
-      curedCasesHistory.push(prevNumberCured - numberCured);
+      const nextNumberCured = dataEntries[i + 1][1].numberCured;
+      curedCasesHistory.push(nextNumberCured - numberCured);
 
       const numberDeceased = dataEntries[i][1].numberDeceased;
-      const prevNmberDeceased = dataEntries[i - 1][1].numberDeceased;
-      deathCasesHistory.push(prevNmberDeceased - numberDeceased);
+      const nextNmberDeceased = dataEntries[i + 1][1].numberDeceased;
+      deathCasesHistory.push(nextNmberDeceased - numberDeceased);
 
-      dateStrings.push(dataEntries[i][0]);
+      dateStrings.push(formatShortDate(dataEntries[i][0]));
     }
-    dateStrings.push(dataEntries[0][0]);
+    dateStrings.push(formatShortDate(dataEntries[dataEntries.length - 1][0]));
+
     return {
       isLoaded: true,
-      startDate: startDateStr,
-      endDate: endDateStr,
       dates: dateStrings,
       confirmedCasesHistory,
       curedCasesHistory,
       deathCasesHistory,
+      lastUpdatedOn,
+      stale,
     };
   }
 
   parseGenderStats(result) {
     const { currentDayStats } = result;
+    const {
+      genderStats: { lastUpdatedOn, stale },
+    } = result.charts;
     const men = currentDayStats.percentageOfMen;
     const women = currentDayStats.percentageOfWomen;
     const children = currentDayStats.percentageOfChildren;
@@ -211,30 +223,45 @@ class DashboardNoContext extends React.PureComponent {
       men,
       women,
       children,
+      lastUpdatedOn,
+      stale,
     };
   }
 
   parseAgeStats(result) {
     const { distributionByAge } = result.currentDayStats;
-    let total = 0;
-    Object.entries(distributionByAge).forEach((entry) => (total += entry[1]));
-    const data = Object.keys(distributionByAge).map((key) => ({
-      value: distributionByAge[key],
+    const {
+      ageHistogram: { lastUpdatedOn, stale },
+    } = result.charts;
+    const distributionByAgeEntries = Object.entries(distributionByAge);
+    const total = distributionByAgeEntries.reduce(
+      (acc, [, entry]) => acc + entry,
+      0
+    );
+    const data = distributionByAgeEntries.map(([key, entry]) => ({
+      value: entry,
       name: key,
-      percentage: Math.round((100 * distributionByAge[key]) / total),
+      percentage: Math.round((100 * entry) / total),
     }));
 
     return {
       isLoaded: true,
       data,
+      lastUpdatedOn,
+      stale,
     };
   }
 
   parseAverageAge(result) {
     const { averageAge } = result.currentDayStats;
+    const {
+      averageAge: { lastUpdatedOn, stale },
+    } = result.charts;
     return {
       isLoaded: true,
       averageAge,
+      lastUpdatedOn,
+      stale,
     };
   }
 

@@ -16,7 +16,7 @@ export class CountiesTable extends React.PureComponent {
       limit: 10,
       isLoaded: false,
       error: null,
-      counties: []
+      counties: [],
     };
   }
 
@@ -56,7 +56,7 @@ export class CountiesTable extends React.PureComponent {
         <div className="navigation">
           <div
             className={'button ' + (page === 0 ? 'hide' : '')}
-            onClick={e => this.changePage(-1)}
+            onClick={(e) => this.changePage(-1)}
           >
             <img
               src={ChevronImageLeft}
@@ -69,7 +69,7 @@ export class CountiesTable extends React.PureComponent {
               'button right ' +
               ((page + 1) * limit >= counties.length ? 'hide' : '')
             }
-            onClick={e => this.changePage(1)}
+            onClick={(e) => this.changePage(1)}
           >
             <img
               src={ChevronImageRight}
@@ -95,19 +95,13 @@ export class CountiesTable extends React.PureComponent {
   }
 
   render() {
-    const {
-      isLoaded,
-      error,
-      lastUpdatedOnString,
-      stale,
-      counties
-    } = this.state;
+    const { isLoaded, error, lastUpdatedOn, stale, counties } = this.state;
     return (
       <Card
         error={error}
         isLoaded={isLoaded}
         title="Cazuri confirmate pe judet"
-        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOnString)}`}
+        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         embedPath={EMBED_COUNTIES_TABLE}
         isStale={stale}
       >

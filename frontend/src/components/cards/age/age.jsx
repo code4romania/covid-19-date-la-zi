@@ -70,13 +70,13 @@ export class AgeCard extends React.PureComponent {
 
   render() {
     const { title, state } = this.props;
-    const { isLoaded, error, lastUpdatedOnString, stale } = state;
+    const { isLoaded, error, lastUpdatedOn, stale } = state;
     return (
       <Card
         isLoaded={isLoaded}
         error={error}
         title={title}
-        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOnString)}`}
+        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={stale}
         embedPath={EMBED_PATH_AGE}
       >
