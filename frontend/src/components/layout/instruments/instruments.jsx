@@ -15,23 +15,6 @@ export const InstrumentsWrapper = () => (
       <section>
         <InstrumentsItem
           color="green"
-          title="Instalează-ţi extensia de Firefox"
-          ctaLink="https://addons.mozilla.org/en-US/firefox/addon/covid-19-%C8%99tiri-oficiale/"
-          ctaText="Instalează add-on"
-        />
-        <InstrumentsItem
-          color="green"
-          title="Instalează-ti extensia de Chrome"
-          ctaLink={
-            'https://chrome.google.com/webstore/detail/' +
-          'covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha'
-          }
-          ctaText="Instalează add-on"
-        />
-      </section>
-      <section>
-        <InstrumentsItem
-          color="green"
           title="Ştiri oficiale și informații la zi"
           content=""
           ctaText="Cele mai noi informaţii oficiale"
@@ -45,6 +28,43 @@ export const InstrumentsWrapper = () => (
           content=""
           ctaText="Ce trebuie să fac"
           ctaLink="https://cemafac.ro"
+        />
+      </section>
+      <section>
+      <InstrumentsItem
+          color="red"
+          title="Contribuie la lupta împotriva Covid-19"
+          content=""
+          ctaText="Donează prin RoHelp"
+          ctaLink="https://rohelp.ro/"
+        />
+      </section>
+      <section>
+      <InstrumentsItem
+          color="blue"
+          title="Ești în afara țării?"
+          content=""
+          ctaText="Informează-te pe Diaspora Hub"
+          ctaLink="https://diasporahub.ro"
+        />
+      </section>
+      <section>
+        <InstrumentsItem
+          color="green"
+          title="Instalează-ţi extensia de Firefox"
+          ctaLink="https://addons.mozilla.org/en-US/firefox/addon/covid-19-%C8%99tiri-oficiale/"
+          ctaText="Instalează add-on"
+        />
+      </section>
+      <section>
+        <InstrumentsItem
+          color="green"
+          title="Instalează-ti extensia de Chrome"
+          ctaLink={
+            'https://chrome.google.com/webstore/detail/' +
+          'covid-19-stiri-oficiale/pdcpkplohipjhdfdchpmgekifmcdbnha'
+          }
+          ctaText="Instalează add-on"
         />
       </section>
     </Instruments>
