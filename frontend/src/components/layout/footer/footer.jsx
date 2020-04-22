@@ -13,7 +13,7 @@ const FooterWrapper = () => {
       <FooterLinks>
         <FooterLinkHeader>Link-uri utile</FooterLinkHeader>
         <FooterLinkItem>
-          <Link to="/despre">Despre proiect</Link>
+          <Link to="/about">Despre proiect</Link>
         </FooterLinkItem>
         <FooterLinkItem>
           <a
