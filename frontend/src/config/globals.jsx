@@ -50,16 +50,9 @@ export const Constants = {
   oldestColor: '#CB466E',
   processingColor: '#FFDE9F',
 
-  dailyRecordsLimit: 14
+  dailyRecordsLimit: 14,
 };
 
 export const ApiURL = {
-  all: Constants.api + '/data/ui-data',
-  summary: Constants.api + '/data/quickstats',
-  dailyStats: Constants.api + '/data/dailystats',
-  infectionSourceStats: Constants.api + '/data/infections-source',
-  genderAgeStats: Constants.api + '/data/age-histogram',
-  genderStats: Constants.api + '/data/genderstats',
-  countyStats: Constants.api + '/data/county-infections',
-  allData: Constants.api + '/data'
+  allData: Constants.api + '/data',
 };

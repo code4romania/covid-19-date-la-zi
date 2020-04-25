@@ -6,52 +6,45 @@ import { formatDate } from '../../../utils/date';
 
 export const EMBED_PATH_AGE = 'varsta';
 export class AgeCard extends React.PureComponent {
-  getChartOptions = state => {
+  getChartOptions = (state) => {
     // this is here to prevent errors until state is defined
-    const yAxisData = state.data && state.data.map(item => item.name);
-    const seriesValues =
-      state.data &&
-      state.data.map(item => {
-        return {
-          value: item.value,
-          percentage: item.percentage
-        };
-      });
+    const yAxisData = state.data && state.data.map((item) => item.name);
+    const seriesValues = state.data;
 
     const labels = ['Confirmați'];
     return {
       xAxis: {
         type: 'value',
         axisLabel: {
-          color: 'gray'
-        }
+          color: 'gray',
+        },
       },
       yAxis: {
         type: 'category',
         data: yAxisData,
         axisLabel: {
-          color: 'gray'
-        }
+          color: 'gray',
+        },
       },
       tooltip: {
         trigger: 'axis',
         axisPointer: {
-          axis: 'y'
+          axis: 'y',
         },
-        formatter: rawData => {
+        formatter: (rawData) => {
           const [item] = rawData;
           return `${item.name}: ${item.data.value} (${item.data.percentage}%)`;
-        }
+        },
       },
       legend: {
-        show: false
+        show: false,
       },
       grid: {
         left: 0,
         right: '40px',
         bottom: '0',
         top: 0,
-        containLabel: true
+        containLabel: true,
       },
       series: [
         {
@@ -63,36 +56,27 @@ export class AgeCard extends React.PureComponent {
           label: {
             show: true,
             position: 'right',
-            formatter: rawData => {
-              const item = rawData;
-              return ` ${item.data.value} (${item.data.percentage}%) `;
+            formatter: (rawData) => {
+              const { data } = rawData;
+              return ` ${data.value} (${data.percentage}%) `;
             },
             color: 'black',
-            fontWeight: 'bold'
-          }
-        }
-      ]
+            fontWeight: 'bold',
+          },
+        },
+      ],
     };
   };
 
   render() {
     const { title, state } = this.props;
-    const { isLoaded, error, lastUpdatedOnString, stale } = state;
-
-    let knownPercentage = '';
-    if (Constants.specifyUnknownData) {
-      knownPercentage =
-        this.state.knownPercentage !== undefined
-          ? ' (' + this.state.knownPercentage + '% cunoscuți)'
-          : '';
-    }
-
+    const { isLoaded, error, lastUpdatedOn, stale } = state;
     return (
       <Card
         isLoaded={isLoaded}
         error={error}
-        title={`${title}${knownPercentage}`}
-        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOnString)}`}
+        title={title}
+        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={stale}
         embedPath={EMBED_PATH_AGE}
       >
@@ -101,7 +85,7 @@ export class AgeCard extends React.PureComponent {
             id="age-chart"
             style={{
               height: '250px',
-              width: '100%'
+              width: '100%',
             }}
             option={this.getChartOptions(state)}
             theme="light"

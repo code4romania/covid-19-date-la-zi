@@ -10,7 +10,7 @@ export class GenderCard extends React.PureComponent {
   getChartOptions(state) {
     let data = [
       { value: state.women, name: Constants.womenText },
-      { value: state.men, name: Constants.menText }
+      { value: state.men, name: Constants.menText },
     ];
 
     let colors = [Constants.womenColor, Constants.menColor];
@@ -23,7 +23,7 @@ export class GenderCard extends React.PureComponent {
     if (Constants.specifyUnknownData) {
       data.push({
         value: state.unknown,
-        name: Constants.unknownGenderText
+        name: Constants.unknownGenderText,
       });
       colors.push(Constants.unknownColor);
     }
@@ -31,7 +31,7 @@ export class GenderCard extends React.PureComponent {
     return {
       tooltip: {
         trigger: 'item',
-        formatter: '{b}: {c}%'
+        formatter: '{b}: {c}%',
       },
       legend: {
         orient: 'horizontal',
@@ -39,8 +39,8 @@ export class GenderCard extends React.PureComponent {
         bottom: 0,
         tooltip: {
           show: false,
-          trigger: 'item'
-        }
+          trigger: 'item',
+        },
       },
       animation: false,
       series: [
@@ -53,35 +53,27 @@ export class GenderCard extends React.PureComponent {
           bottom: 40,
           label: {
             normal: {
-              show: false
+              show: false,
             },
-            emphasis: { show: false }
+            emphasis: { show: false },
           },
           data: data,
-          color: colors
-        }
-      ]
+          color: colors,
+        },
+      ],
     };
   }
 
   render() {
     const { title, state } = this.props;
-    const { isLoaded, error, lastUpdatedOnString, stale } = state;
-
-    let knownPercentage = '';
-    if (Constants.specifyUnknownData) {
-      knownPercentage =
-        state.knownPercentage !== undefined
-          ? ' (' + state.knownPercentage + '% cunoscuți)'
-          : '';
-    }
+    const { isLoaded, error, lastUpdatedOn, stale } = state;
 
     return (
       <Card
         isLoaded={isLoaded}
         error={error}
-        title={title + knownPercentage}
-        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOnString)}`}
+        title={title}
+        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={stale}
         embedPath={EMBED_PATH_GENDER}
       >
