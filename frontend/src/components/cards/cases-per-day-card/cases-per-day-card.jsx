@@ -208,9 +208,53 @@ export class CasesPerDayCard extends React.PureComponent {
           option={this.getChartOptions(records)}
           theme="light"
         />
-
+        <AccessibillityCasesPerDayTable
+          dates={this.getPage(records.dates, ' ')}
+          listConfirmed={this.getPage(records.confirmedCasesHistory)}
+          listCured={this.getPage(records.curedCasesHistory)}
+          listDeaths={this.getPage(records.deathCasesHistory)}
+        />
         {this.displayPagination(records.dates, isLoaded)}
       </Card>
     );
   }
 }
+
+/*
+A table containg the data from cases-per-day-card that is hidden and can be only 
+accessed by screen readers
+*/
+const AccessibillityCasesPerDayTable = (props) => {
+  /*Putting the data from props inside one single array to use map inside the return function*/
+  const records = [];
+  for (let i = props.dates.length - 1; i >= 0; i--) {
+    if (props.dates[i] === ' ') {
+      break;
+    }
+    records.push({
+      date: props.dates[i],
+      confirmed: props.listConfirmed[i],
+      cured: props.listCured[i],
+      deaths: props.listDeaths[i],
+    });
+  }
+  return (
+    <table role="table" style={{ position: 'absolute', left: -99999 }}>
+      <tr role="row">
+        <th role="columnheader">Dată</th>
+        <th role="columnheader">Confirmaţi</th>
+        <th role="columnheader">Vindecaţi</th>
+        <th role="columnheader">Decedaţi</th>
+      </tr>
+      {records.map((record) => (
+        <tr role="row" key={record.id}>
+          <td role="cell">{record.date}</td>
+          <td role="cell">{record.confirmed}</td>
+          <td role="cell">{record.cured}</td>
+          <td role="cell">{record.deaths}</td>
+        </tr>
+      ))}
+    </table>
+  );
+};
+
