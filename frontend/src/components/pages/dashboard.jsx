@@ -6,27 +6,27 @@ import {
   PROP_SHOW_CONFIRMED_CASES,
   PROP_SHOW_CURED_CASES,
   PROP_SHOW_DEATH_CASES,
-  SummaryRow
+  SummaryRow,
 } from '../layout/rows/summary-row';
 import { EMBED_PATH_GENDER, GenderCard } from '../cards/gender/gender-card';
 import {
   CasesPerDayCard,
-  EMBED_PATH_CASES_PER_DAY
+  EMBED_PATH_CASES_PER_DAY,
 } from '../cards/cases-per-day-card/cases-per-day-card';
 import {
   AverageAgeCard,
-  EMBED_PATH_AVERAGE_AGE
+  EMBED_PATH_AVERAGE_AGE,
 } from '../cards/avg-age/avg-age-card';
 import { AgeCard, EMBED_PATH_AGE } from '../cards/age/age';
 import {
   CountiesMap,
-  EMBED_COUNTIES_MAP
+  EMBED_COUNTIES_MAP,
 } from '../cards/counties-map/counties-map';
 import {
   CountiesTable,
-  EMBED_COUNTIES_TABLE
+  EMBED_COUNTIES_TABLE,
 } from '../cards/counties-table/counties-table';
-import { formatDate, formatShortDate, dateFromTimestamp } from '../../utils/date';
+import { formatDate, formatShortDate } from '../../utils/date';
 import download from 'downloadjs';
 
 import { SocialsShare } from '@code4ro/taskforce-fe-components';
@@ -35,15 +35,13 @@ import './dashboard.css';
 import { withToastProvider } from '../layout/toast/withToastProvider';
 import { InstrumentsWrapper } from '../layout/instruments/instruments';
 
-const NA = 'Nu se aplică';
-
 class DashboardNoContext extends React.PureComponent {
   constructor(props) {
     super(props);
 
     const defaultState = {
       isLoaded: false,
-      error: null
+      error: null,
     };
 
     this.state = {
@@ -56,7 +54,7 @@ class DashboardNoContext extends React.PureComponent {
       averageAge: defaultState, // object
       lastUpdate: defaultState, // object
       dailyTable: defaultState, // object
-      countiesTable: defaultState
+      countiesTable: defaultState,
     };
   }
 
@@ -72,27 +70,27 @@ class DashboardNoContext extends React.PureComponent {
       averageAge: defaultState, // object
       lastUpdate: defaultState, // object,
       dailyTable: defaultState, // object
-      countiesTable: defaultState
+      countiesTable: defaultState,
     });
   }
 
   componentDidMount() {
     this.resetState({
       isLoaded: false,
-      error: null
+      error: null,
     });
 
-    fetch(ApiURL.all)
-      .then(res => res.json())
-      .then(result => {
+    fetch(ApiURL.allData)
+      .then((res) => res.json())
+      .then((result) => {
         if (result.error != null) {
           this.setState({ error: result.error, isLoaded: true });
         } else {
           this.parseAPIResponse(result);
         }
       })
-      .catch(error => {
-        this.resetState({ error: error, isLoaded: true });
+      .catch((error) => {
+        this.resetState({ error, isLoaded: true });
       });
   }
 
@@ -105,162 +103,173 @@ class DashboardNoContext extends React.PureComponent {
       age: this.parseAgeStats(result),
       averageAge: this.parseAverageAge(result),
       lastUpdate: this.parseLastUpdate(result),
-      countiesTable: this.parseCountiesTable(result)
+      countiesTable: this.parseCountiesTable(result),
     });
   }
 
   parseCountiesTable(result) {
-    const { data: counties, stale, lastUpdatedString } = result.counties;
-    const countiesList = counties
-      .map(countyObject => ({
-        name: mnemonics[countyObject.county],
-        value: countyObject.county !== '-' ? countyObject.infectionsPerThousand.toFixed(2) : NA,
-        ...countyObject
+    const { countyInfectionsNumbers } = result.currentDayStats;
+    const {
+      counties: { lastUpdatedOn, stale },
+    } = result.charts;
+
+    const counties = Object.entries(countyInfectionsNumbers)
+      .map(([key, entry]) => ({
+        name: mnemonics[key][0],
+        value: ((1000 * entry) / mnemonics[key][1]).toFixed(2),
+        totalPopulation: mnemonics[key][1],
+        numberInfected: entry,
+        county: key,
       }))
       .sort((a, b) =>
         // reversed by count
-        a.infectionsPerThousand > b.infectionsPerThousand ? -1 : 1
+        a.value > b.value ? -1 : 1
       );
-    const max = countiesList[0].infectionsPerThousand;
     return {
       error: null,
       isLoaded: true,
-      counties: countiesList,
-      max,
-      lastUpdatedOnString: lastUpdatedString,
-      stale
+      counties,
+      lastUpdatedOn,
+      stale,
     };
   }
 
   parseSummary(result) {
-    const group = result.quickStats;
-    const { totals, stale, history } = group;
-    const { confirmed, cured, deaths } = totals;
-    const totalCasesHistory = history.map(entry => entry.confirmed || 0);
-    const curedCasesHistory = history.map(entry => entry.cured || 0);
-    const deathCasesHistory = history.map(entry => entry.deaths || 0);
+    const {
+      numberInfected,
+      numberCured,
+      numberDeceased,
+    } = result.currentDayStats;
+    const {
+      dailyStats: { lastUpdatedOn, stale },
+    } = result.charts;
+    const { historicalData } = result;
+    const totalCasesHistory = [];
+    const curedCasesHistory = [];
+    const deathCasesHistory = [];
+
+    Object.entries(historicalData)
+      .reverse()
+      .forEach(([, entry]) => {
+        totalCasesHistory.push(entry.numberInfected || 0);
+        curedCasesHistory.push(entry.numberCured || 0);
+        deathCasesHistory.push(entry.numberDeceased || 0);
+      });
+
     return {
-      error: null,
       isLoaded: true,
-      totalCases: confirmed,
-      totalCasesHistory: totalCasesHistory,
-      curedCases: cured,
-      curedCasesHistory: curedCasesHistory,
-      deathCases: deaths,
-      deathCasesHistory: deathCasesHistory,
-      stale
+      totalCases: numberInfected,
+      totalCasesHistory,
+      curedCases: numberCured,
+      curedCasesHistory,
+      deathCases: numberDeceased,
+      deathCasesHistory,
+      lastUpdatedOn,
+      stale,
     };
   }
 
   parseDailyStats(result) {
-    const group = result.dailyStats;
-    const stale = group.stale;
-    let history = group.history;
+    const {
+      dailyStats: { lastUpdatedOn, stale },
+    } = result.charts;
+    const { historicalData } = result;
 
-    const dates = history.map(entry => entry.datePublished);
-    const startDate = dates[0];
-    const endDate = dates[dates.length - 1];
-    const startDateStr = formatShortDate(dateFromTimestamp(startDate));
-    const endDateStr = formatShortDate(dateFromTimestamp(endDate));
+    const confirmedCasesHistory = [];
+    const curedCasesHistory = [];
+    const deathCasesHistory = [];
+    const dateStrings = [];
+    const dataEntries = Object.entries(historicalData).reverse();
 
-    const confirmedCasesHistory = history.flatMap(entry => {
-      return entry.complete === false ? [] : Math.max(entry.infected, 0);
-    });
-    const curedCasesHistory = history.flatMap(entry => {
-      return entry.complete === false ? [] : Math.max(entry.cured, 0);
-    });
-    const deathCasesHistory = history.flatMap(entry => {
-      return entry.complete === false ? [] : Math.max(entry.deaths, 0);
-    });
-    const dateStrings = history.flatMap(entry => {
-      return entry.complete === false
-        ? []
-        : formatShortDate(dateFromTimestamp(entry.datePublished));
-    });
+    for (let i = 0; i < dataEntries.length - 1; i++) {
+      const numberInfected = dataEntries[i][1].numberInfected;
+      const nextNumberInfected = dataEntries[i + 1][1].numberInfected;
+      confirmedCasesHistory.push(nextNumberInfected - numberInfected);
+
+      const numberCured = dataEntries[i][1].numberCured;
+      const nextNumberCured = dataEntries[i + 1][1].numberCured;
+      curedCasesHistory.push(nextNumberCured - numberCured);
+
+      const numberDeceased = dataEntries[i][1].numberDeceased;
+      const nextNmberDeceased = dataEntries[i + 1][1].numberDeceased;
+      deathCasesHistory.push(nextNmberDeceased - numberDeceased);
+
+      dateStrings.push(formatShortDate(dataEntries[i][0]));
+    }
+    dateStrings.push(formatShortDate(dataEntries[dataEntries.length - 1][0]));
 
     return {
       isLoaded: true,
-      startDate: startDateStr,
-      endDate: endDateStr,
       dates: dateStrings,
-      confirmedCasesHistory: confirmedCasesHistory,
-      curedCasesHistory: curedCasesHistory,
-      deathCasesHistory: deathCasesHistory,
-      stale
+      confirmedCasesHistory,
+      curedCasesHistory,
+      deathCasesHistory,
+      lastUpdatedOn,
+      stale,
     };
   }
 
   parseGenderStats(result) {
-    const stats = result.genderStats;
-    const { stale } = stats;
-    const total = stats.totalPercentage || 0;
-    const men = stats.percentageOfMen || 0;
-    const women = stats.percentageOfWomen || 0;
-    const children = stats.percentageOfChildren || 0;
-    const lastUpdatedOnString = stats.last_updated_on_string;
-    const unknown = total - stats.men - stats.women;
-    const knownPercentage =
-      total > 0 ? 100 - Math.round((100 * unknown) / total) : 100;
+    const { currentDayStats } = result;
+    const {
+      genderStats: { lastUpdatedOn, stale },
+    } = result.charts;
+    const men = currentDayStats.percentageOfMen;
+    const women = currentDayStats.percentageOfWomen;
+    const children = currentDayStats.percentageOfChildren;
 
     return {
       isLoaded: true,
       men,
       women,
       children,
-      date: stats.dateString,
-      unknown: unknown > 0 ? unknown : 0,
-      knownPercentage,
-      lastUpdatedOnString,
-      stale
+      lastUpdatedOn,
+      stale,
     };
   }
 
   parseAgeStats(result) {
-    const group = result.ageHistogram;
+    const { distributionByAge } = result.currentDayStats;
     const {
-      histogram: stats,
-      stale,
-      total = 0,
-      last_updated_on_string
-    } = group;
-    const allValues = Object.entries(stats).map(k => k[1].men + k[1].women);
-    const totalKnown = allValues.reduce((a, b) => a + b, 0);
-    const knownPercentage =
-      total > 0 ? 100 - Math.round((totalKnown / total) * 100) : 100;
-    const data = Object.keys(stats).map(key => ({
-      value: stats[key],
+      ageHistogram: { lastUpdatedOn, stale },
+    } = result.charts;
+    const distributionByAgeEntries = Object.entries(distributionByAge);
+    const total = distributionByAgeEntries.reduce(
+      (acc, [, entry]) => acc + entry,
+      0
+    );
+    const data = distributionByAgeEntries.map(([key, entry]) => ({
+      value: entry,
       name: key,
-      percentage: Math.round((100 * stats[key]) / total)
+      percentage: Math.round((100 * entry) / total),
     }));
 
     return {
       isLoaded: true,
       data,
-      total,
-      knownPercentage,
-      lastUpdatedOnString: last_updated_on_string,
-      stale
+      lastUpdatedOn,
+      stale,
     };
   }
 
   parseAverageAge(result) {
-    const stats = result.averageAge;
-    const { stale, value, lastUpdatedString } = stats;
+    const { averageAge } = result.currentDayStats;
+    const {
+      averageAge: { lastUpdatedOn, stale },
+    } = result.charts;
     return {
       isLoaded: true,
-      averageAge: value,
-      lastUpdatedOnString: lastUpdatedString,
-      stale
+      averageAge,
+      lastUpdatedOn,
+      stale,
     };
   }
 
   parseLastUpdate(result) {
-    const stats = result.quickStats;
-    const { stale, last_updated_on_string } = stats;
+    const { parsedOnString } = result.currentDayStats;
     return {
       isLoaded: true,
-      lastUpdateOnString: last_updated_on_string,
-      stale
+      lastUpdateOnString: parsedOnString,
     };
   }
 
@@ -272,8 +281,8 @@ class DashboardNoContext extends React.PureComponent {
 
   handleDownloadAllData = () => {
     fetch(ApiURL.allData)
-      .then(res => res.json())
-      .then(result => {
+      .then((res) => res.json())
+      .then((result) => {
         if (result.error != null) {
           this.setState({ error: result.error, isLoaded: true });
         } else {
@@ -287,7 +296,7 @@ class DashboardNoContext extends React.PureComponent {
           );
         }
       })
-      .catch(error => {
+      .catch((error) => {
         this.resetState({ error: error, isLoaded: true });
       });
   };
@@ -308,7 +317,7 @@ class DashboardNoContext extends React.PureComponent {
         <CasesPerDayCard
           key={EMBED_PATH_CASES_PER_DAY}
           state={this.state.daily}
-        />
+        />,
       ],
       [
         EMBED_PATH_AGE,
@@ -316,7 +325,7 @@ class DashboardNoContext extends React.PureComponent {
           key={EMBED_PATH_AGE}
           title="Cazuri după vârstă"
           state={this.state.age}
-        />
+        />,
       ],
       [
         EMBED_PATH_AVERAGE_AGE,
@@ -324,7 +333,7 @@ class DashboardNoContext extends React.PureComponent {
           key={EMBED_PATH_AVERAGE_AGE}
           title="Vârsta medie a cazurilor"
           state={this.state.averageAge}
-        />
+        />,
       ],
       [
         EMBED_PATH_GENDER,
@@ -332,7 +341,7 @@ class DashboardNoContext extends React.PureComponent {
           key={EMBED_PATH_GENDER}
           title="Cazuri după gen"
           state={this.state.gender}
-        />
+        />,
       ],
       [
         PROP_SHOW_CONFIRMED_CASES,
@@ -340,7 +349,7 @@ class DashboardNoContext extends React.PureComponent {
           key={PROP_SHOW_CONFIRMED_CASES}
           visibleCards={[PROP_SHOW_CONFIRMED_CASES]}
           state={this.state.summary}
-        />
+        />,
       ],
       [
         PROP_SHOW_CURED_CASES,
@@ -348,7 +357,7 @@ class DashboardNoContext extends React.PureComponent {
           key={PROP_SHOW_CURED_CASES}
           visibleCards={[PROP_SHOW_CURED_CASES]}
           state={this.state.summary}
-        />
+        />,
       ],
       [
         PROP_SHOW_DEATH_CASES,
@@ -356,22 +365,22 @@ class DashboardNoContext extends React.PureComponent {
           key={PROP_SHOW_DEATH_CASES}
           visibleCards={[PROP_SHOW_DEATH_CASES]}
           state={this.state.summary}
-        />
+        />,
       ],
       [
         EMBED_COUNTIES_MAP,
         <CountiesMap
           key={EMBED_COUNTIES_MAP}
           state={this.state.countiesTable}
-        />
+        />,
       ],
       [
         EMBED_COUNTIES_TABLE,
         <CountiesTable
           key={EMBED_COUNTIES_TABLE}
           state={this.state.countiesTable}
-        />
-      ]
+        />,
+      ],
     ]);
 
     let particularChartComponent;
@@ -418,7 +427,9 @@ class DashboardNoContext extends React.PureComponent {
             </div>
             <div className="level">
               {lastUpdate && (
-                <p className="level-left">Date actualizate {formatDate(lastUpdate)}.</p>
+                <p className="level-left">
+                  Date actualizate {formatDate(lastUpdate)}.
+                </p>
               )}
               <button
                 className="button is-primary is-light levelRight"

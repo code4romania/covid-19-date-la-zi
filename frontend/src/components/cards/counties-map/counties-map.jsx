@@ -19,14 +19,14 @@ export class CountiesMap extends React.PureComponent {
       visualMap: {
         show: true,
         min: 0,
-        max: this.props.state.max,
+        max: this.props.state.counties[0].value,
         left: 'left',
         top: 'bottom',
         text: ['Ridicat', 'Scazut'],
         calculable: false,
         inRange: {
-          color: [Constants.countyLowestColor, Constants.countyHighestColor]
-        }
+          color: [Constants.countyLowestColor, Constants.countyHighestColor],
+        },
       },
       series: [
         {
@@ -34,29 +34,29 @@ export class CountiesMap extends React.PureComponent {
           type: 'map',
           mapType: 'RO',
           itemStyle: {
-            areaColor: Constants.curedColor
+            areaColor: Constants.curedColor,
           },
           emphasis: {
             label: {
-              show: false
-            }
+              show: false,
+            },
           },
-          data
-        }
-      ]
+          data,
+        },
+      ],
     };
   }
 
   render() {
     const { state } = this.props;
-    const { isLoaded, error, counties, stale, lastUpdatedOnString } = state;
+    const { isLoaded, error, counties, stale, lastUpdatedOn } = state;
 
     return (
       <Card
         error={error}
         isLoaded={isLoaded}
         title="Cazuri confirmate pe judete"
-        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOnString)}`}
+        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={stale}
         embedPath={EMBED_COUNTIES_MAP}
       >
