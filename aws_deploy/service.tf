@@ -79,39 +79,6 @@ data "aws_iam_policy_document" "use_ssm_parameter" {
 # Services
 #################################################
 
-module "front-end" {
-  source = "./service"
-
-  name         = "front-end"
-  min_capacity = terraform.workspace == "production" ? 2 : 1
-  max_capacity = terraform.workspace == "production" ? 20 : 1
-
-  cluster_name    = aws_ecs_cluster.app.name
-  cluster_arn     = aws_ecs_cluster.app.arn
-  vpc_id          = aws_vpc.main.id
-  subnets         = aws_subnet.private.*.id
-  lb-subnets      = aws_subnet.public.*.id
-  security_groups = [aws_security_group.intra.id]
-  lb-security_groups = [
-    aws_security_group.intra.id,
-    aws_security_group.public.id
-  ]
-  certificate_arn = aws_acm_certificate.cert.arn
-
-  container_port        = 80
-  execution_role_arn    = aws_iam_role.ecs_execution.arn
-  image                 = var.IMAGE_FRONTEND
-  prefix                = local.name
-  environment_variables = <<ENV
-  [
-    {
-      "name" : "REACT_APP_API_URL",
-      "value" : "https://${module.api_dns.fqdn}/api/v2"
-    }
-  ]
-ENV
-}
-
 module "api" {
   source = "./service"
 
@@ -129,7 +96,7 @@ module "api" {
     aws_security_group.intra.id,
     aws_security_group.public.id
   ]
-  certificate_arn = aws_acm_certificate.cert.arn
+  certificate_arn = aws_acm_certificate.api.arn
 
   container_port        = 80
   execution_role_arn    = aws_iam_role.ecs_execution.arn

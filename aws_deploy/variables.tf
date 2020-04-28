@@ -8,10 +8,6 @@ variable "prefix" {
   default = "date-la-zi"
 }
 
-variable "IMAGE_FRONTEND" {
-  type = string
-}
-
 variable "IMAGE_API" {
   type = string
 }
