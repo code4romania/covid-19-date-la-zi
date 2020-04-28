@@ -221,7 +221,7 @@ export class CasesPerDayCard extends React.PureComponent {
 }
 
 /*
-A table containg the data from cases-per-day-card that is hidden and can be only 
+A table containg the data from cases-per-day-card that is hidden and can be only
 accessed by screen readers
 */
 const AccessibillityCasesPerDayTable = (props) => {
@@ -240,21 +240,22 @@ const AccessibillityCasesPerDayTable = (props) => {
   }
   return (
     <table role="table" style={{ position: 'absolute', left: -99999 }}>
-      <tr role="row">
-        <th role="columnheader">Dată</th>
-        <th role="columnheader">Confirmaţi</th>
-        <th role="columnheader">Vindecaţi</th>
-        <th role="columnheader">Decedaţi</th>
-      </tr>
-      {records.map((record) => (
-        <tr role="row" key={record.id}>
-          <td role="cell">{record.date}</td>
-          <td role="cell">{record.confirmed}</td>
-          <td role="cell">{record.cured}</td>
-          <td role="cell">{record.deaths}</td>
+      <tbody>
+        <tr role="row">
+          <th role="columnheader">Dată</th>
+          <th role="columnheader">Confirmaţi</th>
+          <th role="columnheader">Vindecaţi</th>
+          <th role="columnheader">Decedaţi</th>
         </tr>
-      ))}
+        {records.map((record) => (
+          <tr role="row" key={record.id}>
+            <td role="cell">{record.date}</td>
+            <td role="cell">{record.confirmed}</td>
+            <td role="cell">{record.cured}</td>
+            <td role="cell">{record.deaths}</td>
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 };
-
