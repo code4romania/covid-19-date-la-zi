@@ -95,7 +95,8 @@ jobs:
       working-directory: "./frontend"
     if: github.ref == 'refs/heads/develop'
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Install node
         uses: actions/setup-node@v1
