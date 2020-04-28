@@ -43,6 +43,32 @@ jobs:
             --tag $IMAGE_API:$GITHUB_SHA \
             --file Dockerfile-api
 
+  build-frontend:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: "./frontend"
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Install Dependencies
+        working-directory: ${{env.working-directory}}
+        run: yarn
+
+      - name: Lint
+        working-directory: ${{env.working-directory}}
+        run: yarn lint
+
+      - name: Build
+        working-directory: ${{env.working-directory}}
+        run: yarn build
+
   check-infra:
     name: Test Infrastructure
     runs-on: ubuntu-latest
