@@ -43,5 +43,4 @@ export const mnemonics = {
   VL: ['Vâlcea', 371714],
   VN: ['Vrancea', 340310],
   VS: ['Vaslui', 395499],
-  '-': ['În procesare'],
 };

@@ -247,8 +247,8 @@ const AccessibillityCasesPerDayTable = (props) => {
           <th role="columnheader">Vindecaţi</th>
           <th role="columnheader">Decedaţi</th>
         </tr>
-        {records.map((record) => (
-          <tr role="row" key={record.id}>
+        {records.map((record, index) => (
+          <tr role="row" key={index}>
             <td role="cell">{record.date}</td>
             <td role="cell">{record.confirmed}</td>
             <td role="cell">{record.cured}</td>

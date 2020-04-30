@@ -17,6 +17,7 @@ export class CountiesTable extends React.PureComponent {
       isLoaded: false,
       error: null,
       counties: [],
+      isInProcess: 0,
     };
   }
 
@@ -50,7 +51,6 @@ export class CountiesTable extends React.PureComponent {
 
     const { counties, limit, page } = this.state;
     const shouldDisplayPagination = counties.length > limit;
-
     if (shouldDisplayPagination) {
       return (
         <div className="navigation">
@@ -95,7 +95,22 @@ export class CountiesTable extends React.PureComponent {
   }
 
   render() {
-    const { isLoaded, error, lastUpdatedOn, stale, counties } = this.state;
+    const {
+      isLoaded,
+      error,
+      lastUpdatedOn,
+      stale,
+      counties,
+      isInProcess,
+    } = this.state;
+    const cloneOfCounties = [...counties];
+    if (isInProcess) {
+      cloneOfCounties.push({
+        name: `In procesare ${isInProcess}`,
+        value: '',
+        totalValuePopulation: '',
+      });
+    }
     return (
       <Card
         error={error}
@@ -114,7 +129,9 @@ export class CountiesTable extends React.PureComponent {
                 <th className="has-text-right">Cazuri la mia de locuitori</th>
               </tr>
             </thead>
-            <tbody>{counties && this.displayTable(counties)}</tbody>
+            <tbody>
+              {cloneOfCounties && this.displayTable(cloneOfCounties)}
+            </tbody>
           </table>
 
           {this.displayPagination()}

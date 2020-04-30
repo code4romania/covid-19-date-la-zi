@@ -114,6 +114,7 @@ class DashboardNoContext extends React.PureComponent {
     } = result.charts;
 
     const counties = Object.entries(countyInfectionsNumbers)
+      .filter(([key]) => key !== '-')
       .map(([key, entry]) => ({
         name: mnemonics[key][0],
         value: ((1000 * entry) / mnemonics[key][1]).toFixed(2),
@@ -125,10 +126,12 @@ class DashboardNoContext extends React.PureComponent {
         // reversed by count
         a.value > b.value ? -1 : 1
       );
+    const isInProcess = countyInfectionsNumbers['-'];
     return {
       error: null,
       isLoaded: true,
       counties,
+      isInProcess,
       lastUpdatedOn,
       stale,
     };
@@ -191,8 +194,8 @@ class DashboardNoContext extends React.PureComponent {
       curedCasesHistory.push(nextNumberCured - numberCured);
 
       const numberDeceased = dataEntries[i][1].numberDeceased;
-      const nextNmberDeceased = dataEntries[i + 1][1].numberDeceased;
-      deathCasesHistory.push(nextNmberDeceased - numberDeceased);
+      const nextNumberDeceased = dataEntries[i + 1][1].numberDeceased;
+      deathCasesHistory.push(nextNumberDeceased - numberDeceased);
 
       dateStrings.push(formatShortDate(dataEntries[i][0]));
     }
