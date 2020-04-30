@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
-import { formatShortDate } from '../../../utils/date';
 import ChevronImageLeft from './../../../images/chevrons-left.svg';
 import ChevronImageRight from './../../../images/chevrons-right.svg';
 import { Card } from '../../layout/card/card';
@@ -85,8 +84,8 @@ export class CasesPerDayCard extends React.PureComponent {
     }
     const dates = this.getPage(records.dates, null).filter((x) => !!x);
     return {
-      from: formatShortDate(dates[0]),
-      to: formatShortDate(dates[dates.length - 1]),
+      from: dates[0],
+      to: dates[dates.length - 1],
     };
   }
 
@@ -146,8 +145,6 @@ export class CasesPerDayCard extends React.PureComponent {
             );
           }
         },
-        // formatter:
-        //   '<h4 style="color: white">{b}</h4><span>{a2}: {c2}<br />{a1}: {c1}<br />{a0}: {c0}</span>'
       },
       legend: {
         data: labels,
