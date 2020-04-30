@@ -104,11 +104,13 @@ export class CountiesTable extends React.PureComponent {
       isInProcess,
     } = this.state;
     const cloneOfCounties = [...counties];
-    cloneOfCounties.push({
-      name: `In procesare ${isInProcess}`,
-      value: '',
-      totalValuePopulation: '',
-    });
+    if (isInProcess) {
+      cloneOfCounties.push({
+        name: `In procesare ${isInProcess}`,
+        value: '',
+        totalValuePopulation: '',
+      });
+    }
     return (
       <Card
         error={error}
