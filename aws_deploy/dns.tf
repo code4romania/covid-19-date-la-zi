@@ -17,8 +17,15 @@ module "parser_dns" {
   destination = [module.parser.dns]
 }
 
-resource "aws_acm_certificate" "api" {
-  domain_name = module.api_dns.fqdn
+locals {
+  alt_certs = terraform.workspace == "production" ? [local.domain_frontend, module.api_dns.fqdn] : [module.api_dns.fqdn]
+}
+
+resource "aws_acm_certificate" "cert" {
+  domain_name               = terraform.workspace == "production" ? local.domain_root : local.domain_frontend
+  subject_alternative_names = local.alt_certs
+
+  provider = aws.us-east-1
 
   validation_method = "DNS"
   lifecycle {
@@ -35,12 +42,17 @@ resource "aws_acm_certificate" "parser" {
   }
 }
 
-resource "aws_route53_record" "cert_validation-api" {
-  name    = aws_acm_certificate.api.domain_validation_options[0].resource_record_name
-  type    = aws_acm_certificate.api.domain_validation_options[0].resource_record_type
+resource "aws_route53_record" "cert_validation" {
+  count   = length(local.alt_certs) + 1
+  name    = aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_name
+  type    = aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_type
   zone_id = data.aws_route53_zone.main.zone_id
-  records = [aws_acm_certificate.api.domain_validation_options[0].resource_record_value]
+  records = [aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_value]
   ttl     = 60
+
+  depends_on = [
+    aws_acm_certificate.cert
+  ]
 }
 
 resource "aws_route53_record" "cert_validation-parser" {
@@ -52,6 +64,6 @@ resource "aws_route53_record" "cert_validation-parser" {
 }
 
 resource "aws_acm_certificate_validation" "cert" {
-  certificate_arn         = aws_acm_certificate.api.arn
-  validation_record_fqdns = [aws_route53_record.cert_validation-api.fqdn, aws_route53_record.cert_validation-parser.fqdn]
+  certificate_arn         = aws_acm_certificate.cert.arn
+  validation_record_fqdns = concat(aws_route53_record.cert_validation.*.fqdn, [aws_route53_record.cert_validation-parser.fqdn])
 }
