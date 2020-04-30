@@ -176,13 +176,14 @@ class DashboardNoContext extends React.PureComponent {
     const {
       dailyStats: { lastUpdatedOn, stale },
     } = result.charts;
-    const { historicalData } = result;
+    const { historicalData, currentDayStats } = result;
 
     const confirmedCasesHistory = [];
     const curedCasesHistory = [];
     const deathCasesHistory = [];
     const dateStrings = [];
     const dataEntries = Object.entries(historicalData).reverse();
+    dataEntries.push([currentDayStats.parsedOnString, currentDayStats]);
 
     for (let i = 0; i < dataEntries.length - 1; i++) {
       const numberInfected = dataEntries[i][1].numberInfected;
