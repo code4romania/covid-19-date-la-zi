@@ -31,7 +31,7 @@ export const InstrumentsWrapper = () => (
         />
       </section>
       <section>
-      <InstrumentsItem
+        <InstrumentsItem
           color="red"
           title="Contribuie la lupta împotriva Covid-19"
           content=""
@@ -40,7 +40,7 @@ export const InstrumentsWrapper = () => (
         />
       </section>
       <section>
-      <InstrumentsItem
+        <InstrumentsItem
           color="blue"
           title="Ești în afara țării?"
           content=""
