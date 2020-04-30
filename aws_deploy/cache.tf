@@ -4,13 +4,13 @@ resource "aws_cloudfront_distribution" "main" {
   price_class     = "PriceClass_100"
   aliases         = terraform.workspace == "production" ? [local.domain_root, local.domain_frontend] : [local.domain_frontend]
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn = aws_acm_certificate.cert.arn
+    ssl_support_method  = "sni-only"
   }
 
   default_root_object = "frontend/index.html"
 
   origin {
-    # domain_name = module.api.dns
     domain_name = aws_s3_bucket.storage.bucket_domain_name
     origin_id   = local.name
 
