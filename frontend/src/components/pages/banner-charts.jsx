@@ -25,53 +25,52 @@ export const BannerChartsPage = () => {
     if (BANNER_SIZES.includes(bannerSize)) {
       setSize(bannerSize);
     }
-  }, [bannerSize])
+  }, [bannerSize]);
 
   useEffect(() => {
-    function parseData(rawData) {
-      const rawTotals = rawData.quickStats.totals;
-      setTotals(rawTotals);
-
-      setUpdatedAt(rawData.lastDataUpdateDetails.last_updated_on_string.toLowerCase());
-
-      setTrends({
-        cured: Math.round(100 * (rawTotals.cured/rawTotals.confirmed)),
-        deaths: Math.round(100 * (rawTotals.deaths/rawTotals.confirmed)),
-      });
-
-      // Get the data from the past 3 days
-      // ordered chronologically
-      const latestRawData = rawData.dailyStats.history
-        .sort((a, b) =>
-          a.datePublished > b.datePublished ? -1 : 1
-        )
-        .splice(0, 3)
-        .sort((a, b) =>
-          a.datePublished < b.datePublished ? -1 : 1
-        );
-
-      setLatestData({
-        dateLabels: latestRawData.map(data => formatShortDate(data.datePublishedString)),
-        confirmed: latestRawData.map(data => data.infected),
-        cured: latestRawData.map(data => data.cured),
-        deaths: latestRawData.map(data => data.deaths)
-      });
-    };
-
-    fetch(ApiURL.all)
-      .then(res => res.json())
-      .then(result => {
+    fetch(ApiURL.allData)
+      .then((res) => res.json())
+      .then((result) => {
         if (result.error != null) {
           setErrors(result.error);
         } else {
           parseData(result);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         setErrors(error);
       })
       .finally(() => setIsLoaded(true));
   }, []);
+
+  const parseData = (rawData) => {
+    const { historicalData, currentDayStats, lasUpdatedOnString } = rawData;
+    setTotals(currentDayStats);
+
+    setUpdatedAt(lasUpdatedOnString.toLowerCase());
+
+    setTrends({
+      cured: Math.round(
+        100 * (currentDayStats.numberCured / currentDayStats.numberInfected)
+      ),
+      deaths: Math.round(
+        100 * (currentDayStats.numberDeceased / currentDayStats.numberInfected)
+      ),
+    });
+
+    // Get the data from the past 3 days
+    // ordered chronologically
+    const latestRawData = Object.values(historicalData).splice(0, 2).reverse();
+    latestRawData.push(currentDayStats);
+    setLatestData({
+      dateLabels: latestRawData.map((data) =>
+        formatShortDate(data.parsedOnString)
+      ),
+      confirmed: latestRawData.map((data) => data.numberInfected),
+      cured: latestRawData.map((data) => data.numberCured),
+      deaths: latestRawData.map((data) => data.numberDeceased),
+    });
+  };
 
   const getChartOptions = (type, data, labelData) => {
     const labels = ['NUMAR CAZURI PE ZILE'];
@@ -84,14 +83,14 @@ export const BannerChartsPage = () => {
           fontFamily: 'Titillium Web, sans-serif',
           fontSize: size === 'portrait' ? 22 : 16,
           rotate: 0,
-          interval: 0
-        }
+          interval: 0,
+        },
       },
       yAxis: {
         show: false,
       },
       grid: {
-        show: false
+        show: false,
       },
       legend: {
         data: labels,
@@ -103,7 +102,7 @@ export const BannerChartsPage = () => {
           fontWeight: 'bold',
           fontFamily: 'Titillium Web, sans-serif',
           fontSize: size === 'portrait' ? 30 : 16,
-        }
+        },
       },
       series: [
         {
@@ -119,91 +118,147 @@ export const BannerChartsPage = () => {
           name: labels[0],
           stack: 'one',
           type: 'bar',
-          color: Constants[`${type}Color`]
-        }
-      ]
+          color: Constants[`${type}Color`],
+        },
+      ],
     };
-  }
+  };
 
-  const footer = <footer className="charts-footer">
-    <div><p>Un proiect in parteneriat cu</p><img src={partnerLogo} alt="Guvernul Romaniei" /></div>
-    <div><p>dezvoltat de</p><img src={DeveloperLogo} alt="Code4Romania" /></div>
-  </footer>
-
-  const header = <header>
-    <img src={CeTrebuieSaFacLogo} alt="Ce Trebuie Sa Fac" />
-    {size !== 'ultraWide' && <div className="charts-header-site">cetrebuiesafac.ro</div>}
-    {isLoaded && updatedAt &&
-      <div className="charts-header-updated">Date actualizate in <strong>{updatedAt}</strong></div>}
-  </header>
-
-  return <div className={`charts-wrapper ${size}`}>
-    {header}
-
-    <section>
-      <div className="charts-content-wrapper">
-        {isLoaded &&
-          <div className="chart-column">
-            <div className="chart-column-header">
-              <div className="chart-type">Cazuri confirmate</div>
-              <div className="chart-value">{totals.confirmed}</div>
-            </div>
-
-            {size !== 'ultraWide' &&
-              <ReactEcharts
-                style={{ height: size === 'portrait' ? '320px' : '240px', width: '100%' }}
-                className="chart-item"
-                option={getChartOptions('confirmed', latestData.confirmed, latestData.dateLabels)}
-                theme="light"
-              />}
-          </div>}
-
-        {isLoaded &&
-          <div className="chart-column">
-            <div className="chart-column-header">
-              <div className="chart-column-title">
-                <div className="chart-type">Vindecati</div>
-                {size === 'ultraWide' &&
-                  <div className="chart-badge chart-badge--green">({trends.cured}% din total)</div>}
-              </div>
-              <div className="chart-value">{totals.cured}</div>
-              {size !== 'ultraWide' &&
-                <div className="chart-badge chart-badge--green">{trends.cured}% din total</div>}
-            </div>
-
-            {size !== 'ultraWide' &&
-              <ReactEcharts
-                style={{ height: size === 'portrait' ? '320px' : '240px', width: '100%' }}
-                className="chart-item"
-                option={getChartOptions('cured', latestData.cured, latestData.dateLabels)}
-                theme="light"
-              />}
-          </div>}
-
-        {isLoaded &&
-          <div className="chart-column">
-            <div className="chart-column-header">
-              <div className="chart-column-title">
-                <div className="chart-type">Decedati</div>
-                {size === 'ultraWide' &&
-                  <div className="chart-badge chart-badge--red">({trends.deaths}% din total)</div>}
-              </div>
-              <div className="chart-value">{totals.deaths}</div>
-              {size !== 'ultraWide' &&
-                <div className="chart-badge chart-badge--red">{trends.deaths}% din total</div>}
-            </div>
-
-            {size !== 'ultraWide' &&
-              <ReactEcharts
-                style={{ height: size === 'portrait' ? '320px' : '240px', width: '100%' }}
-                className="chart-item"
-                option={getChartOptions('death', latestData.deaths, latestData.dateLabels)}
-                theme="light"
-              />}
-          </div>}
+  const footer = (
+    <footer className="charts-footer">
+      <div>
+        <p>Un proiect in parteneriat cu</p>
+        <img src={partnerLogo} alt="Guvernul Romaniei" />
       </div>
-    </section>
+      <div>
+        <p>dezvoltat de</p>
+        <img src={DeveloperLogo} alt="Code4Romania" />
+      </div>
+    </footer>
+  );
 
-    {footer}
-  </div>
-}
+  const header = (
+    <header>
+      <img src={CeTrebuieSaFacLogo} alt="Ce Trebuie Sa Fac" />
+      {size !== 'ultraWide' && (
+        <div className="charts-header-site">cetrebuiesafac.ro</div>
+      )}
+      {isLoaded && updatedAt && (
+        <div className="charts-header-updated">
+          Date actualizate in <strong>{updatedAt}</strong>
+        </div>
+      )}
+    </header>
+  );
+
+  return (
+    <div className={`charts-wrapper ${size}`}>
+      {header}
+
+      <section>
+        <div className="charts-content-wrapper">
+          {isLoaded && (
+            <div className="chart-column">
+              <div className="chart-column-header">
+                <div className="chart-type">Cazuri confirmate</div>
+                <div className="chart-value">{totals.numberInfected}</div>
+              </div>
+
+              {size !== 'ultraWide' && (
+                <ReactEcharts
+                  style={{
+                    height: size === 'portrait' ? '320px' : '240px',
+                    width: '100%',
+                  }}
+                  className="chart-item"
+                  option={getChartOptions(
+                    'confirmed',
+                    latestData.confirmed,
+                    latestData.dateLabels
+                  )}
+                  theme="light"
+                />
+              )}
+            </div>
+          )}
+
+          {isLoaded && (
+            <div className="chart-column">
+              <div className="chart-column-header">
+                <div className="chart-column-title">
+                  <div className="chart-type">Vindecati</div>
+                  {size === 'ultraWide' && (
+                    <div className="chart-badge chart-badge--green">
+                      ({trends.cured}% din total)
+                    </div>
+                  )}
+                </div>
+                <div className="chart-value">{totals.numberCured}</div>
+                {size !== 'ultraWide' && (
+                  <div className="chart-badge chart-badge--green">
+                    {trends.cured}% din total
+                  </div>
+                )}
+              </div>
+
+              {size !== 'ultraWide' && (
+                <ReactEcharts
+                  style={{
+                    height: size === 'portrait' ? '320px' : '240px',
+                    width: '100%',
+                  }}
+                  className="chart-item"
+                  option={getChartOptions(
+                    'cured',
+                    latestData.cured,
+                    latestData.dateLabels
+                  )}
+                  theme="light"
+                />
+              )}
+            </div>
+          )}
+
+          {isLoaded && (
+            <div className="chart-column">
+              <div className="chart-column-header">
+                <div className="chart-column-title">
+                  <div className="chart-type">Decedati</div>
+                  {size === 'ultraWide' && (
+                    <div className="chart-badge chart-badge--red">
+                      ({trends.deaths}% din total)
+                    </div>
+                  )}
+                </div>
+                <div className="chart-value">{totals.numberDeceased}</div>
+                {size !== 'ultraWide' && (
+                  <div className="chart-badge chart-badge--red">
+                    {trends.deaths}% din total
+                  </div>
+                )}
+              </div>
+
+              {size !== 'ultraWide' && (
+                <ReactEcharts
+                  style={{
+                    height: size === 'portrait' ? '320px' : '240px',
+                    width: '100%',
+                  }}
+                  className="chart-item"
+                  option={getChartOptions(
+                    'death',
+                    latestData.deaths,
+                    latestData.dateLabels
+                  )}
+                  theme="light"
+                />
+              )}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {footer}
+    </div>
+  );
+};

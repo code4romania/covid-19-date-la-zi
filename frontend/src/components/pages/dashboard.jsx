@@ -194,8 +194,8 @@ class DashboardNoContext extends React.PureComponent {
       curedCasesHistory.push(nextNumberCured - numberCured);
 
       const numberDeceased = dataEntries[i][1].numberDeceased;
-      const nextNmberDeceased = dataEntries[i + 1][1].numberDeceased;
-      deathCasesHistory.push(nextNmberDeceased - numberDeceased);
+      const nextNumberDeceased = dataEntries[i + 1][1].numberDeceased;
+      deathCasesHistory.push(nextNumberDeceased - numberDeceased);
 
       dateStrings.push(formatShortDate(dataEntries[i][0]));
     }
