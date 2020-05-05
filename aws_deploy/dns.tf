@@ -3,6 +3,13 @@ data "aws_route53_zone" "main" {
   private_zone = false
 }
 
+module "frontend_dns" {
+  source      = "./dns"
+  zone_id     = data.aws_route53_zone.main.zone_id
+  domain      = local.domain_frontend
+  destination = [aws_cloudfront_distribution.main.domain_name]
+}
+
 module "api_dns" {
   source      = "./dns"
   zone_id     = data.aws_route53_zone.main.zone_id
@@ -18,7 +25,7 @@ module "parser_dns" {
 }
 
 locals {
-  alt_certs = terraform.workspace == "production" ? [local.domain_frontend, module.api_dns.fqdn] : [module.api_dns.fqdn]
+  alt_certs = terraform.workspace == "production" ? [local.domain_frontend] : []
 }
 
 resource "aws_acm_certificate" "cert" {
@@ -33,8 +40,9 @@ resource "aws_acm_certificate" "cert" {
   }
 }
 
-resource "aws_acm_certificate" "parser" {
-  domain_name = module.parser_dns.fqdn
+resource "aws_acm_certificate" "api" {
+  domain_name               = module.api_dns.fqdn
+  subject_alternative_names = [module.parser_dns.fqdn]
 
   validation_method = "DNS"
   lifecycle {
@@ -43,6 +51,8 @@ resource "aws_acm_certificate" "parser" {
 }
 
 resource "aws_route53_record" "cert_validation" {
+  provider = aws.us-east-1
+
   count   = length(local.alt_certs) + 1
   name    = aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_name
   type    = aws_acm_certificate.cert.domain_validation_options[count.index].resource_record_type
@@ -55,15 +65,23 @@ resource "aws_route53_record" "cert_validation" {
   ]
 }
 
-resource "aws_route53_record" "cert_validation-parser" {
-  name    = aws_acm_certificate.parser.domain_validation_options.0.resource_record_name
-  type    = aws_acm_certificate.parser.domain_validation_options.0.resource_record_type
+resource "aws_route53_record" "cert_validation-api" {
+  count   = 2
+  name    = aws_acm_certificate.api.domain_validation_options[count.index].resource_record_name
+  type    = aws_acm_certificate.api.domain_validation_options[count.index].resource_record_type
   zone_id = data.aws_route53_zone.main.zone_id
-  records = [aws_acm_certificate.parser.domain_validation_options.0.resource_record_value]
+  records = [aws_acm_certificate.api.domain_validation_options[count.index].resource_record_value]
   ttl     = 60
 }
 
 resource "aws_acm_certificate_validation" "cert" {
+  provider = aws.us-east-1
+
   certificate_arn         = aws_acm_certificate.cert.arn
-  validation_record_fqdns = concat(aws_route53_record.cert_validation.*.fqdn, [aws_route53_record.cert_validation-parser.fqdn])
+  validation_record_fqdns = aws_route53_record.cert_validation.*.fqdn
+}
+
+resource "aws_acm_certificate_validation" "cert-api" {
+  certificate_arn         = aws_acm_certificate.api.arn
+  validation_record_fqdns = aws_route53_record.cert_validation-api.*.fqdn
 }
