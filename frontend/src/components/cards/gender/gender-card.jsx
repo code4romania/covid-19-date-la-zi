@@ -1,11 +1,11 @@
-import React from "react";
-import ReactEcharts from "echarts-for-react";
-import { Card } from "../../layout/card/card";
-import { Constants } from "../../../config/globals";
-import { formatDate } from "../../../utils/date";
-import "./gender-card.css";
+import React from 'react';
+import ReactEcharts from 'echarts-for-react';
+import { Card } from '../../layout/card/card';
+import { Constants } from '../../../config/globals';
+import { formatDate } from '../../../utils/date';
+import './gender-card.css';
 
-export const EMBED_PATH_GENDER = "gen";
+export const EMBED_PATH_GENDER = 'gen';
 export class GenderCard extends React.PureComponent {
   getChartOptions(state) {
     let data = [
@@ -30,25 +30,25 @@ export class GenderCard extends React.PureComponent {
 
     return {
       tooltip: {
-        trigger: "item",
-        formatter: "{b}: {c}%",
+        trigger: 'item',
+        formatter: '{b}: {c}%',
       },
       legend: {
-        orient: "horizontal",
-        icon: "circle",
+        orient: 'horizontal',
+        icon: 'circle',
         bottom: 0,
         tooltip: {
           show: false,
-          trigger: "item",
+          trigger: 'item',
         },
       },
       animation: false,
       series: [
         {
-          id: "gender-chart",
-          name: "Bolnavi",
-          type: "pie",
-          radius: ["55%", "90%"],
+          id: 'gender-chart',
+          name: 'Bolnavi',
+          type: 'pie',
+          radius: ['55%', '90%'],
           avoidLabelOverlap: false,
           bottom: 40,
           label: {
@@ -80,7 +80,7 @@ export class GenderCard extends React.PureComponent {
         <div className="pie-chart">
           <ReactEcharts
             id="gender-chart"
-            style={{ height: "400px" }}
+            style={{ height: '400px' }}
             option={this.getChartOptions(state)}
           />
         </div>
