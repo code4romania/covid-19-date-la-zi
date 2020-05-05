@@ -33,20 +33,24 @@ jobs:
         working-directory: ${{ env.working-directory }}
         run: npm run lint
 
+      - name: Set up env
+        working-directory: ${{ env.working-directory }}
+        run: ./env.sh
+
       - name: Build
         working-directory: ${{ env.working-directory }}
         run: npm run build
         env:
           REACT_APP_API_URL: "https://di5ds1eotmbx1.cloudfront.net/"
 
-      - name: Deploy to S3 Staging
+      - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
           args: --acl public-read --delete
         env:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET_PROD }}
 
-      - name: Invalidate Cloudfront Staging
+      - name: Invalidate Cloudfront
         uses: muratiger/invalidate-cloudfront-and-wait-for-completion-action@master
         env:
           DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID_PROD }}
