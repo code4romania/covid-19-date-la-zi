@@ -54,5 +54,5 @@ export const Constants = {
 };
 
 export const ApiURL = {
-  allData: Constants.api + '/data',
+  allData: Constants.api + '/latestData.json',
 };
