@@ -37,7 +37,7 @@ jobs:
         working-directory: ${{ env.working-directory }}
         run: npm run build
         env:
-          REACT_APP_API_URL: "https://di5ds1eotmbx1.cloudfront.net"
+          REACT_APP_API_URL: "https://datelazi.ro"
 
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
