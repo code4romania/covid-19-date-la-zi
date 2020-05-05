@@ -1,9 +1,9 @@
 on:
   push:
     branches:
-      - feature/pipeline-rewrite
-    # paths:
-    #   - "frontend/**"
+      - master
+    paths:
+      - "frontend/**"
 
 name: Deploy frontend
 env:
