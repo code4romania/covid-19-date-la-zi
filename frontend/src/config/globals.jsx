@@ -1,5 +1,4 @@
 export const Constants = {
-  api: process.env.REACT_APP_API_URL,
 
   womenColor: '#F77EB9',
   menColor: '#7EBCFF',
@@ -32,5 +31,5 @@ export const Constants = {
   dailyRecordsLimit: 14,
 };
 export const ApiURL = {
-  allData: Constants.api + '/latestData.json',
+  allData: '/latestData.json',
 };
