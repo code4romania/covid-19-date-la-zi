@@ -78,10 +78,10 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: fe-build
-          path: build/
+          path: frontend/build/
 
   deploy:
-    name: Prepare Infrastructure
+    name: Deploy
     runs-on: ubuntu-latest
     needs: [build-api, build-frontend]
 
