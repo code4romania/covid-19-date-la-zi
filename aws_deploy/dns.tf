@@ -27,13 +27,6 @@ module "api_dns" {
   destination = [module.api.dns]
 }
 
-module "parser_dns" {
-  source      = "./dns"
-  zone_id     = data.aws_route53_zone.main.zone_id
-  domain      = local.domain_parser
-  destination = [module.parser.dns]
-}
-
 locals {
   alt_certs = terraform.workspace == "production" ? [local.domain_frontend] : []
 }
@@ -51,8 +44,7 @@ resource "aws_acm_certificate" "cert" {
 }
 
 resource "aws_acm_certificate" "api" {
-  domain_name               = module.api_dns.fqdn
-  subject_alternative_names = [module.parser_dns.fqdn]
+  domain_name = module.api_dns.fqdn
 
   validation_method = "DNS"
   lifecycle {
@@ -76,11 +68,10 @@ resource "aws_route53_record" "cert_validation" {
 }
 
 resource "aws_route53_record" "cert_validation-api" {
-  count   = 2
-  name    = aws_acm_certificate.api.domain_validation_options[count.index].resource_record_name
-  type    = aws_acm_certificate.api.domain_validation_options[count.index].resource_record_type
+  name    = aws_acm_certificate.api.domain_validation_options[0].resource_record_name
+  type    = aws_acm_certificate.api.domain_validation_options[0].resource_record_type
   zone_id = data.aws_route53_zone.main.zone_id
-  records = [aws_acm_certificate.api.domain_validation_options[count.index].resource_record_value]
+  records = [aws_acm_certificate.api.domain_validation_options[0].resource_record_value]
   ttl     = 60
 }
 

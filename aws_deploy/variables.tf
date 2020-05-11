@@ -11,6 +11,3 @@ variable "prefix" {
 variable "IMAGE_API" {
   type = string
 }
-variable "IMAGE_PARSER" {
-  type = string
-}

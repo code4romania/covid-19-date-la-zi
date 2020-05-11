@@ -52,22 +52,3 @@ resource "aws_security_group" "intra" {
     Name = "${local.name}-intra"
   }
 }
-
-resource "aws_kms_key" "ssm_key" {
-  description         = "${local.name} key for SSM parameters"
-  enable_key_rotation = true
-}
-
-resource "aws_ssm_parameter" "parser_access_key_id" {
-  name   = "/${local.name}/parser_access_key_id"
-  value  = aws_iam_access_key.parser.id
-  type   = "SecureString"
-  key_id = aws_kms_key.ssm_key.id
-}
-
-resource "aws_ssm_parameter" "parser_secret_access_key" {
-  name   = "/${local.name}/parser_secret_access_key"
-  value  = aws_iam_access_key.parser.secret
-  type   = "SecureString"
-  key_id = aws_kms_key.ssm_key.id
-}
