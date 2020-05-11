@@ -3,6 +3,16 @@ data "aws_route53_zone" "main" {
   private_zone = false
 }
 
+resource "aws_route53_record" "root" {
+  count   = terraform.workspace == "production" ? 1 : 0
+  zone_id = data.aws_route53_zone.main.id
+  name    = local.domain_root
+  type    = "CNAME"
+
+  ttl     = 60
+  records = [aws_cloudfront_distribution.main.domain_name]
+}
+
 module "frontend_dns" {
   source      = "./dns"
   zone_id     = data.aws_route53_zone.main.zone_id
