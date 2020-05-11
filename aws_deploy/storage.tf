@@ -76,30 +76,6 @@ resource "aws_s3_bucket" "storage" {
   force_destroy = true
 
   acl = "public-read"
-  #   policy = <<POLICY
-  # {
-  #     "Version": "2012-10-17",
-  #     "Statement": [
-  #         {
-  #             "Effect": "Allow",
-  #             "Principal": "*",
-  #             "Action": "s3:GetObject",
-  #             "Resource": [
-  #               "arn:aws:s3:::${local.name}",
-  #               "arn:aws:s3:::${local.name}/*"
-  #             ]
-  #         },
-  #         {
-  #             "Effect": "Allow",
-  #             "Principal": "*",
-  #             "Action": "s3:ListBucket",
-  #             "Resource": [
-  #               "arn:aws:s3:::${local.name}"
-  #             ]
-  #         }
-  #     ]
-  # }
-  #   POLICY
 
   website {
     index_document = "index.html"
