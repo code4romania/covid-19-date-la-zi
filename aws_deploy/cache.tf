@@ -1,4 +1,9 @@
 resource "aws_cloudfront_distribution" "main" {
+
+  depends_on = [
+    aws_acm_certificate_validation.cert
+  ]
+
   enabled         = true
   is_ipv6_enabled = true
   price_class     = "PriceClass_100"
