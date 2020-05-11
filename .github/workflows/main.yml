@@ -6,28 +6,12 @@ on:
 name: CI
 
 env:
-  IMAGE_PARSER: datelazi-parser
   IMAGE_API: datelazi-api
   TF_WORKSPACE: "staging"
   # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
-  build-parser:
-    name: Build Parser container
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkoout
-        uses: actions/checkout@v2
-
-      - name: Build Docker image
-        run: |
-          cd backend
-          docker build . \
-            --tag $IMAGE_PARSER:$GITHUB_SHA \
-            --file Dockerfile-parser
-
   build-api:
     name: Build API container
     runs-on: ubuntu-latest
@@ -79,8 +63,7 @@ jobs:
       - name: "Prep TF Vars"
         run: |
           cat << EOF > aws_deploy/github.tfvars
-          IMAGE_API    = "$IMAGE_API:$GITHUB_SHA"
-          IMAGE_PARSER = "$IMAGE_PARSER:$GITHUB_SHA"
+          IMAGE_API = "$IMAGE_API:$GITHUB_SHA"
           EOF
           cat aws_deploy/github.tfvars
 
