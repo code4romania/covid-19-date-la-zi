@@ -89,7 +89,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
         with:
-          tf_actions_version: 0.12.23
+          tf_actions_version: 0.12.24
           tf_actions_subcommand: "fmt"
           tf_actions_working_dir: "aws_deploy"
           tf_actions_comment: true
@@ -98,7 +98,7 @@ jobs:
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
       #   with:
-      #     tf_actions_version: 0.12.23
+      #     tf_actions_version: 0.12.24
       #     tf_actions_subcommand: "init"
       #     tf_actions_working_dir: "aws_deploy"
       #     tf_actions_comment: true
@@ -107,7 +107,7 @@ jobs:
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
       #   with:
-      #     tf_actions_version: 0.12.23
+      #     tf_actions_version: 0.12.24
       #     tf_actions_subcommand: "validate"
       #     tf_actions_working_dir: "aws_deploy"
       #     tf_actions_comment: true
@@ -116,7 +116,7 @@ jobs:
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
       #   with:
-      #     tf_actions_version: 0.12.23
+      #     tf_actions_version: 0.12.24
       #     tf_actions_subcommand: "plan"
       #     tf_actions_working_dir: "aws_deploy"
       #     tf_actions_comment: true
