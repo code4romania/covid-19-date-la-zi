@@ -8,7 +8,6 @@ name: CI
 env:
   IMAGE_PARSER: datelazi-parser
   IMAGE_API: datelazi-api
-  IMAGE_FRONTEND: datelazi-frontend
   TF_WORKSPACE: "staging"
   # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -45,18 +44,29 @@ jobs:
             --file Dockerfile-api
 
   build-frontend:
-    name: Build FrontEnd container
     runs-on: ubuntu-latest
-
+    env:
+      working-directory: "./frontend"
     steps:
-      - name: Checkoout
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Build Docker image
-        run: |
-          cd frontend
-          docker build . \
-            --tag $IMAGE_FRONTEND:$GITHUB_SHA
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Install Dependencies
+        working-directory: ${{env.working-directory}}
+        run: yarn
+
+      - name: Lint
+        working-directory: ${{env.working-directory}}
+        run: yarn lint
+
+      - name: Build
+        working-directory: ${{env.working-directory}}
+        run: yarn build
 
   check-infra:
     name: Test Infrastructure
@@ -69,9 +79,8 @@ jobs:
       - name: "Prep TF Vars"
         run: |
           cat << EOF > aws_deploy/github.tfvars
-          IMAGE_FRONTEND = "$IMAGE_FRONTEND:$GITHUB_SHA"
-          IMAGE_API      = "$IMAGE_API:$GITHUB_SHA"
-          IMAGE_PARSER   = "$IMAGE_PARSER:$GITHUB_SHA"
+          IMAGE_API    = "$IMAGE_API:$GITHUB_SHA"
+          IMAGE_PARSER = "$IMAGE_PARSER:$GITHUB_SHA"
           EOF
           cat aws_deploy/github.tfvars
 
