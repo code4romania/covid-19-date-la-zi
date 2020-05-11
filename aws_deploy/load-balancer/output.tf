@@ -8,7 +8,7 @@ output "target_group_arn" {
 
 output "aws_alb_listener" {
   value      = {}
-  depends_on = [aws_alb_listener.main]
+  depends_on = [aws_alb_listener.secure]
 }
 
 output "zone_id" {

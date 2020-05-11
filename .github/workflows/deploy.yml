@@ -7,50 +7,11 @@ on:
 name: Deploy
 
 env:
-  IMAGE_PARSER: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-parser
   IMAGE_API: ${{ secrets.DOCKER_HUB_ORGANIZATION }}/datelazi-api
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
-  build-parser:
-    name: Build Parser container
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkoout
-        uses: actions/checkout@v2
-
-      - name: Build Docker image
-        run: |
-          cd backend
-          docker build . \
-            --tag $IMAGE_PARSER:$GITHUB_SHA \
-            --file Dockerfile-parser
-      - name: Upload Docker image
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop'
-        run: |
-          echo ${{ secrets.DOCKER_HUB_PASSWORD }} | \
-          docker login \
-            -u ${{ secrets.DOCKER_HUB_USERNAME }} \
-            --password-stdin
-          docker push $IMAGE_PARSER:$GITHUB_SHA
-      - name: Tag Staging
-        if: github.ref == 'refs/heads/develop'
-        run: |
-          docker tag \
-            $IMAGE_PARSER:$GITHUB_SHA \
-            $IMAGE_PARSER:staging
-          docker push $IMAGE_PARSER:staging
-
-      - name: Tag Latest
-        if: github.ref == 'refs/heads/master'
-        run: |
-          docker tag \
-            $IMAGE_PARSER:$GITHUB_SHA \
-            $IMAGE_PARSER:latest
-          docker push $IMAGE_PARSER:latest
-
   build-api:
     name: Build API container
     runs-on: ubuntu-latest
@@ -122,7 +83,7 @@ jobs:
   deploy:
     name: Prepare Infrastructure
     runs-on: ubuntu-latest
-    needs: [build-parser, build-api, build-frontend]
+    needs: [build-api, build-frontend]
 
     steps:
       - name: Checkout
@@ -144,22 +105,21 @@ jobs:
       - name: "Prep TF Vars"
         run: |
           cat << EOF > aws_deploy/github.tfvars
-          IMAGE_API    = "$IMAGE_API:$GITHUB_SHA"
-          IMAGE_PARSER = "$IMAGE_PARSER:$GITHUB_SHA"
+          IMAGE_API = "$IMAGE_API:$GITHUB_SHA"
           EOF
           cat aws_deploy/github.tfvars
 
       - name: "Terraform Init"
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: 0.12.23
+          tf_actions_version: 0.12.24
           tf_actions_subcommand: "init"
           tf_actions_working_dir: "aws_deploy"
           tf_actions_comment: false
       - name: "Terraform Plan"
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: 0.12.23
+          tf_actions_version: 0.12.24
           tf_actions_subcommand: "plan"
           tf_actions_working_dir: "aws_deploy"
           tf_actions_comment: false
@@ -173,7 +133,7 @@ jobs:
       - name: "Terraform Apply"
         uses: hashicorp/terraform-github-actions@master
         with:
-          tf_actions_version: 0.12.23
+          tf_actions_version: 0.12.24
           tf_actions_subcommand: "apply"
           tf_actions_working_dir: "aws_deploy"
           tf_actions_comment: false

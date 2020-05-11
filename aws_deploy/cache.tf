@@ -1,4 +1,9 @@
 resource "aws_cloudfront_distribution" "main" {
+
+  depends_on = [
+    aws_acm_certificate_validation.cert
+  ]
+
   enabled         = true
   is_ipv6_enabled = true
   price_class     = "PriceClass_100"
@@ -11,7 +16,7 @@ resource "aws_cloudfront_distribution" "main" {
 
   origin {
     domain_name = aws_s3_bucket.storage.website_endpoint
-    origin_id   = local.name
+    origin_id   = aws_s3_bucket.storage.bucket
 
     custom_origin_config {
       http_port                = 80
@@ -34,7 +39,7 @@ resource "aws_cloudfront_distribution" "main" {
   }
 
   default_cache_behavior {
-    target_origin_id = local.name
+    target_origin_id = aws_s3_bucket.storage.bucket
 
     allowed_methods        = ["GET", "HEAD"]
     cached_methods         = ["GET", "HEAD"]
