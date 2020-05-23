@@ -3,25 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@code4ro/taskforce-fe-components": "1.0.22",
+    "@code4ro/taskforce-fe-components": "1.0.28",
     "bulma": "^0.8.0",
     "downloadjs": "^1.4.7",
     "echarts": "^4.7.0",
-    "echarts-for-react": "^2.0.15-beta.1",
+    "echarts-for-react": "^2.0.16",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-ga": "^2.7.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "babel-eslint": "10.0.3",
+    "@testing-library/jest-dom": "^5.8.0",
+    "@testing-library/react": "^10.0.4",
+    "@testing-library/user-event": "^10.3.5",
+    "babel-eslint": "10.1.0",
     "eslint-config-standard-jsx": "^8.1.0",
-    "husky": "^4.2.3"
+    "husky": "^4.2.5"
   },
   "scripts": {
     "start": "react-scripts start",
