@@ -32,6 +32,13 @@ export class AgeCategory extends React.PureComponent {
       tooltip: {
         trigger: 'axis',
       },
+      dataZoom: [
+        {
+          type: 'slider',
+          start: 60,
+          end: 100,
+        },
+      ],
       series,
     };
   };

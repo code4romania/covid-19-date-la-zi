@@ -126,7 +126,7 @@ class DashboardNoContext extends React.PureComponent {
       [currentDayStats.parsedOnString]: currentDayStats,
       ...historicalData,
     };
-    const dataEntries = Object.entries(newData).slice(0, 14).reverse();
+    const dataEntries = Object.entries(newData).slice(0, 35).reverse();
 
     for (let i = 0; i < dataEntries.length - 1; i++) {
       const key = dataEntries[i + 1][0];
