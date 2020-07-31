@@ -509,17 +509,6 @@ class DashboardNoContext extends React.PureComponent {
 
           <section className="cards-row">
             <div className="columns">
-              <div className="column">
-                <AgeCategory
-                  title="Cazuri per categorie de vârstă, în timp"
-                  state={this.state.ageCategory}
-                />
-              </div>
-            </div>
-          </section>
-
-          <section className="cards-row">
-            <div className="columns">
               <div className="column is-three-quarters">
                 <CasesPerDayCard state={this.state.daily} />
               </div>
@@ -528,6 +517,17 @@ class DashboardNoContext extends React.PureComponent {
                   to="/"
                   title="Cazuri după gen"
                   state={this.state.gender}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section className="cards-row">
+            <div className="columns">
+              <div className="column">
+                <AgeCategory
+                  title="Cazuri per categorie de vârstă, în timp"
+                  state={this.state.ageCategory}
                 />
               </div>
             </div>

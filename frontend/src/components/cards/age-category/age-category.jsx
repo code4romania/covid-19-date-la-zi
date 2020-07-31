@@ -18,11 +18,11 @@ export class AgeCategory extends React.PureComponent {
     return {
       grid: {
         left: 40,
-        top: 20,
+        top: 40,
         right: 0,
         bottom: 20,
       },
-      legend: {},
+      legend: { type: 'scroll' },
       icon: 'roundRect',
       xAxis: {
         type: 'category',
