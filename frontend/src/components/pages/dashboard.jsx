@@ -34,6 +34,10 @@ import { SocialsShare } from '@code4ro/taskforce-fe-components';
 import './dashboard.css';
 import { withToastProvider } from '../layout/toast/withToastProvider';
 import { InstrumentsWrapper } from '../layout/instruments/instruments';
+import {
+  AgeCategory,
+  EMBED_PATH_AGE_CATEGORY,
+} from '../cards/age-category/age-category';
 
 class DashboardNoContext extends React.PureComponent {
   constructor(props) {
@@ -55,6 +59,7 @@ class DashboardNoContext extends React.PureComponent {
       lastUpdate: defaultState, // object
       dailyTable: defaultState, // object
       countiesTable: defaultState,
+      ageCategory: defaultState,
     };
   }
 
@@ -71,6 +76,7 @@ class DashboardNoContext extends React.PureComponent {
       lastUpdate: defaultState, // object,
       dailyTable: defaultState, // object
       countiesTable: defaultState,
+      ageCategory: defaultState,
     });
   }
 
@@ -104,7 +110,49 @@ class DashboardNoContext extends React.PureComponent {
       averageAge: this.parseAverageAge(result),
       lastUpdate: this.parseLastUpdate(result),
       countiesTable: this.parseCountiesTable(result),
+      ageCategory: this.parseAgeCategory(result),
     });
+  }
+
+  parseAgeCategory(result) {
+    const { historicalData, currentDayStats } = result;
+    const {
+      ageHistogram: { lastUpdatedOn, stale },
+    } = result.charts;
+
+    const ageCategories = {};
+    const dateStrings = [];
+    const newData = {
+      [currentDayStats.parsedOnString]: currentDayStats,
+      ...historicalData,
+    };
+    const dataEntries = Object.entries(newData).slice(0, 14).reverse();
+
+    for (let i = 0; i < dataEntries.length - 1; i++) {
+      const key = dataEntries[i + 1][0];
+      const currentValue = dataEntries[i][1];
+      const nextValue = dataEntries[i + 1][1];
+      dateStrings.push(formatShortDate(key));
+
+      Object.entries(currentValue.distributionByAge).forEach(
+        ([ageGroup, currentCases]) => {
+          const cases = nextValue.distributionByAge[ageGroup] - currentCases;
+          if (Array.isArray(ageCategories[ageGroup])) {
+            ageCategories[ageGroup].push(cases);
+          } else {
+            ageCategories[ageGroup] = [cases];
+          }
+        }
+      );
+    }
+
+    return {
+      isLoaded: true,
+      lastUpdatedOn,
+      ageCategories,
+      dateStrings,
+      stale,
+    };
   }
 
   parseCountiesTable(result) {
@@ -329,6 +377,14 @@ class DashboardNoContext extends React.PureComponent {
         />,
       ],
       [
+        EMBED_PATH_AGE_CATEGORY,
+        <AgeCategory
+          key={EMBED_PATH_AGE_CATEGORY}
+          title="Cazuri per categorie de vârstă, în timp"
+          state={this.state.ageCategory}
+        />,
+      ],
+      [
         EMBED_PATH_AGE,
         <AgeCard
           key={EMBED_PATH_AGE}
@@ -450,6 +506,17 @@ class DashboardNoContext extends React.PureComponent {
           </section>
 
           <SummaryRow state={this.state.summary} />
+
+          <section className="cards-row">
+            <div className="columns">
+              <div className="column">
+                <AgeCategory
+                  title="Cazuri per categorie de vârstă, în timp"
+                  state={this.state.ageCategory}
+                />
+              </div>
+            </div>
+          </section>
 
           <section className="cards-row">
             <div className="columns">
