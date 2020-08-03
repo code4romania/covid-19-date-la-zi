@@ -18,11 +18,13 @@ export class AgeCategory extends React.PureComponent {
     return {
       grid: {
         left: 40,
-        top: 40,
-        right: 0,
-        bottom: 20,
+        top: 10,
+        right: 10,
+        bottom: 80,
       },
-      legend: { type: 'scroll' },
+      legend: {
+        bottom: 0,
+      },
       icon: 'roundRect',
       xAxis: {
         type: 'category',
@@ -37,6 +39,7 @@ export class AgeCategory extends React.PureComponent {
           type: 'slider',
           start: 60,
           end: 100,
+          bottom: 50,
         },
       ],
       series,
@@ -57,6 +60,9 @@ export class AgeCategory extends React.PureComponent {
       >
         <ReactEcharts
           id="age-category"
+          style={{
+            height: '470px',
+          }}
           option={this.getChartOptions(state)}
           theme="light"
         />

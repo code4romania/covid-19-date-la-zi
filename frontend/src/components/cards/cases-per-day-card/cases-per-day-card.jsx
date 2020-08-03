@@ -154,8 +154,8 @@ export class CasesPerDayCard extends React.PureComponent {
       grid: {
         left: '1%',
         right: 0,
-        bottom: '20px',
-        top: '20px',
+        bottom: 20,
+        top: 20,
         containLabel: true,
       },
       series: [
@@ -200,7 +200,6 @@ export class CasesPerDayCard extends React.PureComponent {
         <ReactEcharts
           style={{
             height: '470px',
-            width: '100%',
           }}
           option={this.getChartOptions(records)}
           theme="light"
