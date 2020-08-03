@@ -52,30 +52,30 @@ jobs:
         working-directory: ${{env.working-directory}}
         run: yarn build
 
-  check-infra:
-    name: Test Infrastructure
-    runs-on: ubuntu-latest
+  # check-infra:
+  #   name: Test Infrastructure
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
 
-      - name: "Prep TF Vars"
-        run: |
-          cat << EOF > aws_deploy/github.tfvars
-          IMAGE_API = "$IMAGE_API:$GITHUB_SHA"
-          EOF
-          cat aws_deploy/github.tfvars
+  #     - name: "Prep TF Vars"
+  #       run: |
+  #         cat << EOF > aws_deploy/github.tfvars
+  #         IMAGE_API = "$IMAGE_API:$GITHUB_SHA"
+  #         EOF
+  #         cat aws_deploy/github.tfvars
 
-      - name: "Terraform Format"
-        uses: hashicorp/terraform-github-actions@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
-        with:
-          tf_actions_version: 0.12.24
-          tf_actions_subcommand: "fmt"
-          tf_actions_working_dir: "aws_deploy"
-          tf_actions_comment: true
+  #     - name: "Terraform Format"
+  #       uses: hashicorp/terraform-github-actions@master
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
+  #       with:
+  #         tf_actions_version: 0.12.24
+  #         tf_actions_subcommand: "fmt"
+  #         tf_actions_working_dir: "aws_deploy"
+  #         tf_actions_comment: true
       # - name: "Terraform Init"
       #   uses: hashicorp/terraform-github-actions@master
       #   env:

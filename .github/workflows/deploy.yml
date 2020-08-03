@@ -1,8 +1,10 @@
 on:
   push:
-    branches:
-      - develop
-      - master
+    # branches:
+    #   - develop
+    #   - master
+    branches-ignore:
+      - '**'
 
 name: Deploy
 
