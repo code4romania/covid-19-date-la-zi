@@ -50,6 +50,14 @@ export const InstrumentsWrapper = () => (
       </section>
       <section>
         <InstrumentsItem
+          color="orange"
+          title="Monitorizează-ți starea de sănătate"
+          ctaLink='https://jurnalmedical.ro'
+          ctaText="Fă-ți cont pe Jurnal Medical"
+        />
+      </section>
+      <section>
+        <InstrumentsItem
           color="green"
           title="Instalează-ţi extensia de Firefox"
           ctaLink="https://addons.mozilla.org/en-US/firefox/addon/covid-19-%C8%99tiri-oficiale/"
