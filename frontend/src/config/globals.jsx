@@ -1,26 +1,5 @@
-// Anything that was defined in /public/env-config.js (this file is created via docker for deployment reasons so we can
-// specify the API_URL, for example)
-let windowEnvironment = window._env_;
-if (windowEnvironment === undefined) {
-  windowEnvironment = {};
-}
-
 export const Constants = {
-  api:
-    windowEnvironment.REACT_APP_API_URL ||
-    process.env.REACT_APP_API_URL ||
-    'https://code4rocoviz19api-demo.azurewebsites.net/api/v2',
-  isDev:
-    windowEnvironment.ENV === 'development' ||
-    process.env.NODE_ENV === 'development',
-  isProd:
-    windowEnvironment.ENV === 'production' ||
-    process.env.NODE_ENV === 'production',
-
-  specifyUnknownData:
-    (windowEnvironment.SPECIFY_UNKNOWN_DATA ||
-      process.env.REACT_APP_SPECIFY_UNKNOWN_DATA ||
-      'false') === 'true',
+  api: process.env.REACT_APP_API_URL || 'https://datelazi.ro',
 
   womenColor: '#F77EB9',
   menColor: '#7EBCFF',
@@ -52,7 +31,6 @@ export const Constants = {
 
   dailyRecordsLimit: 14,
 };
-
 export const ApiURL = {
-  allData: Constants.api + '/data',
+  allData: Constants.api + '/latestData.json',
 };

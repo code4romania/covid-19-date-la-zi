@@ -6,29 +6,12 @@ on:
 name: CI
 
 env:
-  IMAGE_PARSER: datelazi-parser
   IMAGE_API: datelazi-api
-  IMAGE_FRONTEND: datelazi-frontend
   TF_WORKSPACE: "staging"
   # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
-  build-parser:
-    name: Build Parser container
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkoout
-        uses: actions/checkout@v2
-
-      - name: Build Docker image
-        run: |
-          cd backend
-          docker build . \
-            --tag $IMAGE_PARSER:$GITHUB_SHA \
-            --file Dockerfile-parser
-
   build-api:
     name: Build API container
     runs-on: ubuntu-latest
@@ -45,51 +28,60 @@ jobs:
             --file Dockerfile-api
 
   build-frontend:
-    name: Build FrontEnd container
     runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkoout
-        uses: actions/checkout@v2
-
-      - name: Build Docker image
-        run: |
-          cd frontend
-          docker build . \
-            --tag $IMAGE_FRONTEND:$GITHUB_SHA
-
-  check-infra:
-    name: Test Infrastructure
-    runs-on: ubuntu-latest
-
+    env:
+      working-directory: "./frontend"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: "Prep TF Vars"
-        run: |
-          cat << EOF > aws_deploy/github.tfvars
-          IMAGE_FRONTEND = "$IMAGE_FRONTEND:$GITHUB_SHA"
-          IMAGE_API      = "$IMAGE_API:$GITHUB_SHA"
-          IMAGE_PARSER   = "$IMAGE_PARSER:$GITHUB_SHA"
-          EOF
-          cat aws_deploy/github.tfvars
-
-      - name: "Terraform Format"
-        uses: hashicorp/terraform-github-actions@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
+      - name: Install node
+        uses: actions/setup-node@v1
         with:
-          tf_actions_version: 0.12.23
-          tf_actions_subcommand: "fmt"
-          tf_actions_working_dir: "aws_deploy"
-          tf_actions_comment: true
+          node-version: "12.x"
+
+      - name: Install Dependencies
+        working-directory: ${{env.working-directory}}
+        run: yarn
+
+      - name: Lint
+        working-directory: ${{env.working-directory}}
+        run: yarn lint
+
+      - name: Build
+        working-directory: ${{env.working-directory}}
+        run: yarn build
+
+  # check-infra:
+  #   name: Test Infrastructure
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+
+  #     - name: "Prep TF Vars"
+  #       run: |
+  #         cat << EOF > aws_deploy/github.tfvars
+  #         IMAGE_API = "$IMAGE_API:$GITHUB_SHA"
+  #         EOF
+  #         cat aws_deploy/github.tfvars
+
+  #     - name: "Terraform Format"
+  #       uses: hashicorp/terraform-github-actions@master
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
+  #       with:
+  #         tf_actions_version: 0.12.24
+  #         tf_actions_subcommand: "fmt"
+  #         tf_actions_working_dir: "aws_deploy"
+  #         tf_actions_comment: true
       # - name: "Terraform Init"
       #   uses: hashicorp/terraform-github-actions@master
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
       #   with:
-      #     tf_actions_version: 0.12.23
+      #     tf_actions_version: 0.12.24
       #     tf_actions_subcommand: "init"
       #     tf_actions_working_dir: "aws_deploy"
       #     tf_actions_comment: true
@@ -98,7 +90,7 @@ jobs:
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
       #   with:
-      #     tf_actions_version: 0.12.23
+      #     tf_actions_version: 0.12.24
       #     tf_actions_subcommand: "validate"
       #     tf_actions_working_dir: "aws_deploy"
       #     tf_actions_comment: true
@@ -107,7 +99,7 @@ jobs:
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.TERRAFORM_PR_GITHUB_TOKEN }}
       #   with:
-      #     tf_actions_version: 0.12.23
+      #     tf_actions_version: 0.12.24
       #     tf_actions_subcommand: "plan"
       #     tf_actions_working_dir: "aws_deploy"
       #     tf_actions_comment: true

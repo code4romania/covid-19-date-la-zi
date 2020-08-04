@@ -92,6 +92,10 @@ resource "aws_appautoscaling_target" "main" {
   role_arn           = ""
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
+
+  depends_on = [
+    aws_ecs_service.main
+  ]
 }
 
 resource "aws_appautoscaling_policy" "main" {
