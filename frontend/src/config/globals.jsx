@@ -1,5 +1,5 @@
 export const Constants = {
-  api: process.env.REACT_APP_API_URL,
+  api: process.env.REACT_APP_API_URL || 'https://datelazi.ro',
 
   womenColor: '#F77EB9',
   menColor: '#7EBCFF',
