@@ -31,9 +31,6 @@
     "lint": "eslint ./src --ext .js,.jsx",
     "lint:fix": "yarn lint --fix"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
