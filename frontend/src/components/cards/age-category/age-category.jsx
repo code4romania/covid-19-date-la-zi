@@ -16,33 +16,44 @@ export class AgeCategory extends React.PureComponent {
         name: key,
       }));
     return {
-      grid: {
-        left: 40,
-        top: 10,
-        right: 10,
-        bottom: 80,
+      baseOption: {
+        grid: {
+          left: 40,
+          top: 10,
+          right: 10,
+          bottom: 80,
+        },
+        legend: {
+          bottom: 0,
+        },
+        icon: 'roundRect',
+        xAxis: {
+          type: 'category',
+          data: dateStrings,
+        },
+        yAxis: {},
+        tooltip: {
+          trigger: 'axis',
+        },
+        dataZoom: [
+          {
+            type: 'slider',
+            start: 60,
+            end: 100,
+            bottom: 50,
+          },
+        ],
+        series,
       },
-      legend: {
-        bottom: 0,
-      },
-      icon: 'roundRect',
-      xAxis: {
-        type: 'category',
-        data: dateStrings,
-      },
-      yAxis: {},
-      tooltip: {
-        trigger: 'axis',
-      },
-      dataZoom: [
+      media: [
         {
-          type: 'slider',
-          start: 60,
-          end: 100,
-          bottom: 50,
+          query: { maxWidth: 400 },
+          option: {
+            grid: { bottom: 140 },
+            dataZoom: [{ bottom: 100 }],
+          },
         },
       ],
-      series,
     };
   };
 

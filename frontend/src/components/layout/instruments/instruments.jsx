@@ -52,7 +52,7 @@ export const InstrumentsWrapper = () => (
         <InstrumentsItem
           color="orange"
           title="Monitorizează-ți starea de sănătate"
-          ctaLink='https://jurnalmedical.ro'
+          ctaLink="https://jurnalmedical.ro"
           ctaText="Fă-ți cont pe Jurnal Medical"
         />
       </section>
