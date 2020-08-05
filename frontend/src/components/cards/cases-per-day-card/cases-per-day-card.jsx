@@ -118,37 +118,10 @@ export class CasesPerDayCard extends React.PureComponent {
         axisPointer: {
           axis: 'x',
         },
-        formatter: function (params, ticket, callback) {
-          const confirmed = params[0];
-          const cured = params[1];
-          const deaths = params[2];
-
-          if (confirmed.axisValue === ' ') {
-            return null;
-          } else {
-            return (
-              '<h4 style="color: white">' +
-              confirmed.axisValue +
-              '</h4><span>' +
-              deaths.seriesName +
-              ': ' +
-              deaths.value +
-              '<br />' +
-              cured.seriesName +
-              ': ' +
-              cured.value +
-              '<br />' +
-              confirmed.seriesName +
-              ': ' +
-              confirmed.value +
-              '</span>'
-            );
-          }
-        },
       },
       legend: {
         data: labels,
-        bottom: '0px',
+        bottom: 0,
         icon: 'circle',
       },
       grid: {
