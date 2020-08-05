@@ -21,7 +21,7 @@ export class AgeCategory extends React.PureComponent {
           left: 40,
           top: 10,
           right: 10,
-          bottom: 80,
+          bottom: 100,
         },
         legend: {
           bottom: 0,
@@ -38,7 +38,7 @@ export class AgeCategory extends React.PureComponent {
         dataZoom: [
           {
             type: 'slider',
-            start: 60,
+            start: 80,
             end: 100,
             bottom: 50,
           },
@@ -49,7 +49,7 @@ export class AgeCategory extends React.PureComponent {
         {
           query: { maxWidth: 400 },
           option: {
-            grid: { bottom: 140 },
+            grid: { bottom: 160 },
             dataZoom: [{ bottom: 100 }],
           },
         },
