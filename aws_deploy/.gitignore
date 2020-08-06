@@ -1,4 +1,0 @@
-.terraform/
-*.tfvars
-*.tfstate*
-fe_build/
