@@ -1,4 +1,4 @@
-![logo](frontend/src/images/logo-coviz.svg)
+![logo](src/images/logo-coviz.svg)
 
 # Date la zi • [Live](https://datelazi.ro/)
 
@@ -24,33 +24,65 @@ If you plan on contributing code to the project, it's very important to read the
 It's very important to create your own fork, push code to branches into your fork, then creating PRs that go into the original project's `develop` branch.
 It's all very detailed in the link above.
 
+## Overview
+
+The project's most interesting data is found in the `dashboard` page. It gets the information from the API
+in form of a JSON response, then parses it and groups it into several objects that are passed to
+individual cards who in turn display certain charts depending on the provided data.
+
+We use the react wrapper for [echartsjs](https://www.echartsjs.com/examples/en/index.html) -
+[echarts-for-react](https://github.com/hustcc/echarts-for-react)
+and [Bulma](https://bulma.io) for stylesheets.
+
+The information displayed in this app is provided directly by the Ministry Of Health.
+
+## Setup
+
+We use `yarn` so you should [install that first](https://classic.yarnpkg.com/en/docs/install#mac-stable) if you don't already have it.
+
+### Install project dependencies
+
+```
+yarn
+```
+
+### Run the project in development mode
+
+```
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.
+
+You will also see any lint errors in the console.
+
 If you need any assistance you can contact the project's technical lead, [@CristiHabliuc](https://github.com/CristiHabliuc) on github / `@cristi` on Code 4 Romania's Slack.
 
 ## Built With
 
 ### Programming languages
 
-- Backend: .NET Core
 - Frontend: React JS
 
 ## Deployment
 
 The builds are automatically deployed when changes are merged as follows:
 
-- Merging a PR into `develop` will trigger the deployment into our staging environment, found at `https://staging.datelazi.ro`
+- Merging a PR into `develop` will trigger the deployment into our staging environment, found at `https://date-la-zi-git-develop.code4romania.vercel.app`
 - Merging a PR into `master` (usually only production releases from `develop`) will trigger the deployment into our production environment, found at `https://datelazi.ro`
 
-Read these guides for running locally depending on the module: 
+## Old setup
 
-- [Frontend](frontend/README.md)
-- [Backend](backend/README.md)
+For the old setup, that includes: Github Actions, Terraform for AWS deployment and a C# backend, please take a look at [https://github.com/code4romania/date-la-zi/releases/tag/v1.0](https://github.com/code4romania/date-la-zi/releases/tag/v1.0)
 
 ## Feedback
 
-* Request a new feature on GitHub.
-* Vote for popular feature requests.
-* File a bug in GitHub Issues.
-* Email us with other feedback contact@code4.ro
+- Request a new feature on GitHub.
+- Vote for popular feature requests.
+- File a bug in GitHub Issues.
+- Email us with other feedback contact@code4.ro
 
 ## License
 
