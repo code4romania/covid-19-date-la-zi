@@ -1,7 +1,4 @@
 {
-  "env": {
-    "REACT_APP_API_URL": "https://di5ds1eotmbx1.cloudfront.net"
-  },
   "rewrites": [
     { "source": "/latestData.json", "destination": "https://di5ds1eotmbx1.cloudfront.net/latestData.json" }
   ]
