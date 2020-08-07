@@ -70,12 +70,12 @@ If you need any assistance you can contact the project's technical lead, [@Crist
 
 The builds are automatically deployed when changes are merged as follows:
 
-- Merging a PR into `develop` will trigger the deployment into our staging environment, found at `https://date-la-zi-git-develop.code4romania.vercel.app`
-- Merging a PR into `master` (usually only production releases from `develop`) will trigger the deployment into our production environment, found at `https://datelazi.ro`
+- Merging a PR into `develop` will trigger the deployment into our staging environment, found at [https://date-la-zi-git-develop.code4romania.vercel.app](https://date-la-zi-git-develop.code4romania.vercel.app)
+- Merging a PR into `master` (usually only production releases from `develop`) will trigger the deployment into our production environment, found at [https://datelazi.ro](https://datelazi.ro)
 
 ## Old setup
 
-For the old setup, that includes: Github Actions, Terraform for AWS deployment and a C# backend, please take a look at [https://github.com/code4romania/date-la-zi/releases/tag/v1.0](https://github.com/code4romania/date-la-zi/releases/tag/v1.0)
+For the old setup, that includes: Github Actions, Terraform for AWS deployment and a C# backend, please take a look at [https://github.com/code4romania/date-la-zi/releases/tag/old-setup](https://github.com/code4romania/date-la-zi/releases/tag/old-setup)
 
 ## Feedback
 
