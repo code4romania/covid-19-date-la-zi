@@ -119,14 +119,16 @@ class DashboardNoContext extends React.PureComponent {
     const {
       ageHistogram: { lastUpdatedOn, stale },
     } = result.charts;
-
     const ageCategories = {};
     const dateStrings = [];
     const newData = {
       [currentDayStats.parsedOnString]: currentDayStats,
       ...historicalData,
     };
-    const dataEntries = Object.entries(newData).reverse();
+
+    const dataEntries = Object.entries(newData)
+      .filter(([key, value]) => stale && key <= lastUpdatedOn)
+      .reverse();
 
     for (let i = 0; i < dataEntries.length - 1; i++) {
       const key = dataEntries[i + 1][0];
