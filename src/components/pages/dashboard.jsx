@@ -127,7 +127,7 @@ class DashboardNoContext extends React.PureComponent {
     };
 
     const dataEntries = Object.entries(newData)
-      .filter(([key, value]) => stale && key <= lastUpdatedOn)
+      .filter(([key, value]) => key <= lastUpdatedOn)
       .reverse();
 
     for (let i = 0; i < dataEntries.length - 1; i++) {
