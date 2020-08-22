@@ -138,11 +138,13 @@ class DashboardNoContext extends React.PureComponent {
 
       Object.entries(currentValue.distributionByAge).forEach(
         ([ageGroup, currentCases]) => {
-          const cases = nextValue.distributionByAge[ageGroup] - currentCases;
-          if (Array.isArray(ageCategories[ageGroup])) {
-            ageCategories[ageGroup].push(cases);
-          } else {
-            ageCategories[ageGroup] = [cases];
+          if (ageGroup != "în procesare") {
+            const cases = nextValue.distributionByAge[ageGroup] - currentCases;
+            if (Array.isArray(ageCategories[ageGroup])) {
+              ageCategories[ageGroup].push(cases);
+            } else {
+              ageCategories[ageGroup] = [cases];
+            }
           }
         }
       );
