@@ -22,7 +22,7 @@ export class CountiesMap extends React.PureComponent {
         max: this.props.state.counties[0].value,
         left: 'left',
         top: 'bottom',
-        text: ['Ridicat', 'Scazut'],
+        text: ['Ridicat', 'Scăzut'],
         calculable: false,
         inRange: {
           color: [Constants.countyLowestColor, Constants.countyHighestColor],
@@ -55,7 +55,7 @@ export class CountiesMap extends React.PureComponent {
       <Card
         error={error}
         isLoaded={isLoaded}
-        title="Cazuri confirmate pe judete"
+        title="Cazuri confirmate pe județe"
         subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={stale}
         embedPath={EMBED_COUNTIES_MAP}
