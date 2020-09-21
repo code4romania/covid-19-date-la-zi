@@ -60,7 +60,7 @@ export class CasesPerDayCard extends React.PureComponent {
             <img
               src={ChevronImageLeft}
               className="navigation-chevron"
-              alt="Pagina anterioara"
+              alt="Pagina anterioară"
             />
           </div>
           <div
@@ -70,7 +70,7 @@ export class CasesPerDayCard extends React.PureComponent {
             <img
               src={ChevronImageRight}
               className="navigation-chevron"
-              alt="Pagina urmatoare"
+              alt="Pagina următoare"
             />
           </div>
         </div>
@@ -165,7 +165,7 @@ export class CasesPerDayCard extends React.PureComponent {
       <Card
         isLoaded={isLoaded}
         title="Număr de cazuri pe zile"
-        subtitle={`De la ${from} pana la ${to}`}
+        subtitle={`De la ${from} până la ${to}`}
         isStale={isStale}
         error={error}
         embedPath={EMBED_PATH_CASES_PER_DAY}

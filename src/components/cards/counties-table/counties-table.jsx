@@ -61,7 +61,7 @@ export class CountiesTable extends React.PureComponent {
             <img
               src={ChevronImageLeft}
               className="navigation-chevron"
-              alt="Pagina anterioara"
+              alt="Pagina anterioară"
             />
           </div>
           <div
@@ -74,7 +74,7 @@ export class CountiesTable extends React.PureComponent {
             <img
               src={ChevronImageRight}
               className="navigation-chevron"
-              alt="Pagina urmatoare"
+              alt="Pagina următoare"
             />
           </div>
         </div>
@@ -103,10 +103,13 @@ export class CountiesTable extends React.PureComponent {
       counties,
       isInProcess,
     } = this.state;
-    const cloneOfCounties = [...counties];
+    const cloneOfCounties = [...counties].sort((a, b) => {
+      return parseInt(b.value, 10) - parseInt(a.value, 10);
+    });
+
     if (isInProcess) {
       cloneOfCounties.push({
-        name: `In procesare ${isInProcess}`,
+        name: `În procesare ${isInProcess}`,
         value: '',
         totalValuePopulation: '',
       });
@@ -115,7 +118,7 @@ export class CountiesTable extends React.PureComponent {
       <Card
         error={error}
         isLoaded={isLoaded}
-        title="Cazuri confirmate pe judet"
+        title="Cazuri confirmate pe județ"
         subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         embedPath={EMBED_COUNTIES_TABLE}
         isStale={stale}
