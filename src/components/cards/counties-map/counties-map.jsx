@@ -13,20 +13,22 @@ export class CountiesMap extends React.PureComponent {
         trigger: 'item',
         formatter: (item) => `
           <strong style="color:#fff">${item.name}</strong></br>
-          Cazuri: ${item.data.numberInfected}</br>
-          Cazuri per mie: ${item.value}‰`,
+          Cazuri totale: ${item.data.countyInfectionsNumbers}</br>
+          Incidență cumulată: ${item.value}`,
       },
       visualMap: {
+        type: 'piecewise',
         show: true,
-        min: 0,
-        max: this.props.state.counties[0].value,
+        pieces: [
+          { min: 3, color: Constants.red },
+          { min: 1.5, max: 3, color: Constants.orange },
+          { min: 1, max: 1.5, color: Constants.yellow },
+          { max: 1, color: Constants.green },
+        ],
         left: 'left',
         top: 'bottom',
         text: ['Ridicat', 'Scăzut'],
         calculable: false,
-        inRange: {
-          color: [Constants.countyLowestColor, Constants.countyHighestColor],
-        },
       },
       series: [
         {
@@ -55,7 +57,7 @@ export class CountiesMap extends React.PureComponent {
       <Card
         error={error}
         isLoaded={isLoaded}
-        title="Cazuri confirmate pe județe"
+        title=" Incidenta cumulata a cazurilor la nivel județean în ultimele 14 zile la mia de locuitori"
         subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={stale}
         embedPath={EMBED_COUNTIES_MAP}

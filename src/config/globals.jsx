@@ -6,12 +6,8 @@ export const Constants = {
   childrenColor: '#bbbbbb',
   unknownColor: '#9FB3C7',
 
-  symptomaticColor: '#F8AF69',
   confirmedColor: '#66A4FB',
   curedColor: '#65E0E0',
-
-  countyLowestColor: '#FFFF66',
-  countyHighestColor: '#DC143C',
 
   deathColor: 'black',
 
@@ -21,16 +17,14 @@ export const Constants = {
   unknownGenderText: 'Necunoscuți',
 
   magenta: '#F1B8FF',
-  orange: '#FDC862',
+  red: '#b71c1c',
+  orange: '#f57c00',
+  yellow: '#fdd835',
   green: '#A4E064',
-  grey: '#B2BECE',
-  lightblue: '#A5D7FC',
-
-  oldestColor: '#CB466E',
-  processingColor: '#FFDE9F',
 
   dailyRecordsLimit: 14,
 };
+
 export const ApiURL = {
   allData: Constants.api + '/latestData.json',
 };
