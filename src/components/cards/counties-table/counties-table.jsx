@@ -98,7 +98,6 @@ export class CountiesTable extends React.PureComponent {
     const cloneOfCounties = [...counties].sort(
       (a, b) => parseInt(b.value, 10) - parseInt(a.value, 10)
     );
-
     return (
       <Card
         error={error}
