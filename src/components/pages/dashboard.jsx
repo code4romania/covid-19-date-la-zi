@@ -158,30 +158,26 @@ class DashboardNoContext extends React.PureComponent {
   }
 
   parseCountiesTable(result) {
-    const { countyInfectionsNumbers } = result.currentDayStats;
+    const { countyInfectionsNumbers, incidence } = result.currentDayStats;
     const {
-      counties: { lastUpdatedOn, stale },
+      incidenceStats: { lastUpdatedOn, stale },
     } = result.charts;
 
-    const counties = Object.entries(countyInfectionsNumbers)
-      .filter(([key]) => key !== '-')
+    const counties = Object.entries(incidence)
       .map(([key, entry]) => ({
         name: mnemonics[key][0],
-        value: ((1000 * entry) / mnemonics[key][1]).toFixed(2),
-        totalPopulation: mnemonics[key][1],
-        numberInfected: entry,
+        value: entry,
+        countyInfectionsNumbers: countyInfectionsNumbers[key],
         county: key,
       }))
       .sort((a, b) =>
         // reversed by count
         a.value > b.value ? -1 : 1
       );
-    const isInProcess = countyInfectionsNumbers['-'];
     return {
       error: null,
       isLoaded: true,
       counties,
-      isInProcess,
       lastUpdatedOn,
       stale,
     };

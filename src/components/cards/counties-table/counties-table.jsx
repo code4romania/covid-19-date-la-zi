@@ -17,7 +17,6 @@ export class CountiesTable extends React.PureComponent {
       isLoaded: false,
       error: null,
       counties: [],
-      isInProcess: 0,
     };
   }
 
@@ -37,7 +36,7 @@ export class CountiesTable extends React.PureComponent {
         return (
           <tr key={`dailyTable${index}`}>
             <td>{row.name}</td>
-            <td className="has-text-right">{row.numberInfected}</td>
+            <td className="has-text-right">{row.countyInfectionsNumbers}</td>
             <td className="has-text-right">{row.value}</td>
           </tr>
         );
@@ -95,30 +94,15 @@ export class CountiesTable extends React.PureComponent {
   }
 
   render() {
-    const {
-      isLoaded,
-      error,
-      lastUpdatedOn,
-      stale,
-      counties,
-      isInProcess,
-    } = this.state;
-    const cloneOfCounties = [...counties].sort((a, b) => {
-      return parseInt(b.value, 10) - parseInt(a.value, 10);
-    });
-
-    if (isInProcess) {
-      cloneOfCounties.push({
-        name: `În procesare ${isInProcess}`,
-        value: '',
-        totalValuePopulation: '',
-      });
-    }
+    const { isLoaded, error, lastUpdatedOn, stale, counties } = this.state;
+    const cloneOfCounties = [...counties].sort(
+      (a, b) => parseInt(b.value, 10) - parseInt(a.value, 10)
+    );
     return (
       <Card
         error={error}
         isLoaded={isLoaded}
-        title="Cazuri confirmate pe județ"
+        title="Incidenta cumulata a cazurilor la nivel județean în ultimele 14 zile la mia de locuitori"
         subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         embedPath={EMBED_COUNTIES_TABLE}
         isStale={stale}
@@ -128,8 +112,8 @@ export class CountiesTable extends React.PureComponent {
             <thead>
               <tr>
                 <th>Județ</th>
-                <th className="has-text-right">Cazuri per județ</th>
-                <th className="has-text-right">Cazuri la mia de locuitori</th>
+                <th className="has-text-right">Cazuri totale</th>
+                <th className="has-text-right">Incidență cumulată</th>
               </tr>
             </thead>
             <tbody>
