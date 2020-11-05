@@ -53,6 +53,7 @@ class DashboardNoContext extends React.PureComponent {
       isLoaded: defaultState.isLoaded,
       summary: defaultState,
       daily: defaultState, // object
+      cumulative: defaultState, // object
       gender: defaultState, // object
       age: defaultState, // object
       averageAge: defaultState, // object
@@ -70,6 +71,7 @@ class DashboardNoContext extends React.PureComponent {
       isLoaded: defaultState.isLoaded || false,
       summary: defaultState,
       daily: defaultState, // object
+      cumulative: defaultState, // object
       gender: defaultState, // object
       age: defaultState, // object
       averageAge: defaultState, // object
@@ -104,7 +106,8 @@ class DashboardNoContext extends React.PureComponent {
     this.setState({
       isLoaded: true,
       summary: this.parseSummary(result),
-      daily: this.parseDailyStats(result),
+      daily: this.parseDailyStats(result, { cumulative: false }),
+      cumulative: this.parseDailyStats(result, { cumulative: true }),
       gender: this.parseGenderStats(result),
       age: this.parseAgeStats(result),
       averageAge: this.parseAverageAge(result),
@@ -218,11 +221,12 @@ class DashboardNoContext extends React.PureComponent {
     };
   }
 
-  parseDailyStats(result) {
+  parseDailyStats(result, options) {
     const {
       dailyStats: { lastUpdatedOn, stale },
     } = result.charts;
     const { historicalData, currentDayStats } = result;
+    const { cumulative } = options;
 
     const confirmedCasesHistory = [];
     const curedCasesHistory = [];
@@ -239,15 +243,21 @@ class DashboardNoContext extends React.PureComponent {
     for (let i = 0; i < dataEntries.length - 1; i++) {
       const numberInfected = dataEntries[i][1].numberInfected;
       const nextNumberInfected = dataEntries[i + 1][1].numberInfected;
-      confirmedCasesHistory.push(nextNumberInfected - numberInfected);
+      confirmedCasesHistory.push(
+        cumulative ? numberInfected : nextNumberInfected - numberInfected
+      );
 
       const numberCured = dataEntries[i][1].numberCured;
       const nextNumberCured = dataEntries[i + 1][1].numberCured;
-      curedCasesHistory.push(nextNumberCured - numberCured);
+      curedCasesHistory.push(
+        cumulative ? numberCured : nextNumberCured - numberCured
+      );
 
       const numberDeceased = dataEntries[i][1].numberDeceased;
       const nextNumberDeceased = dataEntries[i + 1][1].numberDeceased;
-      deathCasesHistory.push(nextNumberDeceased - numberDeceased);
+      deathCasesHistory.push(
+        cumulative ? numberDeceased : nextNumberDeceased - numberDeceased
+      );
 
       dateStrings.push(formatShortDate(dataEntries[i][0]));
     }
@@ -371,7 +381,8 @@ class DashboardNoContext extends React.PureComponent {
         EMBED_PATH_CASES_PER_DAY,
         <CasesPerDayCard
           key={EMBED_PATH_CASES_PER_DAY}
-          state={this.state.daily}
+          daily={this.state.daily}
+          cumulative={this.state.cumulative}
         />,
       ],
       [
@@ -508,7 +519,10 @@ class DashboardNoContext extends React.PureComponent {
           <section className="cards-row">
             <div className="columns">
               <div className="column is-three-quarters">
-                <CasesPerDayCard state={this.state.daily} />
+                <CasesPerDayCard
+                  daily={this.state.daily}
+                  cumulative={this.state.cumulative}
+                />
               </div>
               <div className="column is-one-quarter">
                 <GenderCard
