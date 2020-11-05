@@ -6,7 +6,7 @@ export const Tabs = ({ tabList, activeTab, onSelect }) =>
     <ul className="is-marginless">
       {tabList.map(tab =>
         <li
-          className={activeTab === tab.value && 'is-active'}
+          className={activeTab === tab.value ? 'is-active': null}
           onClick={() => onSelect(tab)}
           key={tab.value}
         >
