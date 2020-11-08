@@ -57,7 +57,6 @@ export class CasesPerDayCard extends React.PureComponent {
           color: 'gray',
           fontWeight: 'bold',
           rotate: 45,
-          interval: 0,
         },
       },
       yAxis: {
