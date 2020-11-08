@@ -10,7 +10,8 @@ export const Tabs = ({ tabList, activeTab, onSelect }) =>
           onClick={() => onSelect(tab)}
           key={tab.value}
         >
-          <a href={`#${tab.value}`}>
+          {/* eslint-disable-next-line */}
+          <a>
             <span>
               {tab.label}
             </span>
