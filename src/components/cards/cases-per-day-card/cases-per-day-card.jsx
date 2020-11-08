@@ -78,7 +78,7 @@ export class CasesPerDayCard extends React.PureComponent {
       },
       grid: {
         left: '1%',
-        right: 0,
+        right: '1%',
         bottom: 80,
         top: 20,
         containLabel: true,
