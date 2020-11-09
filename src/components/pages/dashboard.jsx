@@ -261,6 +261,7 @@ class DashboardNoContext extends React.PureComponent {
 
       dateStrings.push(formatShortDate(dataEntries[i][0]));
     }
+    dateStrings.shift();
     dateStrings.push(formatShortDate(dataEntries[dataEntries.length - 1][0]));
 
     return {
