@@ -240,29 +240,46 @@ class DashboardNoContext extends React.PureComponent {
       .filter(([, value]) => value.complete)
       .reverse();
 
-    for (let i = 0; i < dataEntries.length - 1; i++) {
+    for (let i = 0; i <= dataEntries.length - 1; i++) {
       const numberInfected = dataEntries[i][1].numberInfected;
-      const nextNumberInfected = dataEntries[i + 1][1].numberInfected;
+      const nextNumberInfected = dataEntries[i + 1]?.[1].numberInfected;
+      const prevNumberInfected = dataEntries[i - 1]?.[1].numberInfected;
+      const numberInfectedByDay = nextNumberInfected ?
+        nextNumberInfected - numberInfected :
+        numberInfected - prevNumberInfected;
+
       confirmedCasesHistory.push(
-        cumulative ? numberInfected : nextNumberInfected - numberInfected
+        cumulative ? numberInfected : numberInfectedByDay
       );
 
       const numberCured = dataEntries[i][1].numberCured;
-      const nextNumberCured = dataEntries[i + 1][1].numberCured;
+      const nextNumberCured = dataEntries[i + 1]?.[1]?.numberCured;
+      const prevNumberCured = dataEntries[i - 1]?.[1]?.numberCured;
+      const numberCuredByDay = nextNumberCured ?
+        nextNumberCured - numberCured :
+        numberCured - prevNumberCured;
+
       curedCasesHistory.push(
-        cumulative ? numberCured : nextNumberCured - numberCured
+        cumulative ? numberCured : numberCuredByDay
       );
 
       const numberDeceased = dataEntries[i][1].numberDeceased;
-      const nextNumberDeceased = dataEntries[i + 1][1].numberDeceased;
+      const nextNumberDeceased = dataEntries[i + 1]?.[1]?.numberDeceased;
+      const prevNumberDeceased = dataEntries[i - 1]?.[1]?.numberDeceased;
+      const numberDeceasedByDay = nextNumberDeceased ?
+        nextNumberDeceased - numberDeceased :
+        numberDeceased - prevNumberDeceased;
+
       deathCasesHistory.push(
-        cumulative ? numberDeceased : nextNumberDeceased - numberDeceased
+        cumulative ? numberDeceased : numberDeceasedByDay
       );
 
       dateStrings.push(formatShortDate(dataEntries[i][0]));
     }
-    dateStrings.shift();
-    dateStrings.push(formatShortDate(dataEntries[dataEntries.length - 1][0]));
+
+    if(!cumulative){
+      dateStrings.shift()
+    }
 
     return {
       isLoaded: true,
