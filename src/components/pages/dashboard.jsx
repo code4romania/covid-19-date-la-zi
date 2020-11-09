@@ -244,7 +244,7 @@ class DashboardNoContext extends React.PureComponent {
       const numberInfected = dataEntries[i][1].numberInfected;
       const nextNumberInfected = dataEntries[i + 1]?.[1].numberInfected;
       const prevNumberInfected = dataEntries[i - 1]?.[1].numberInfected;
-      const numberInfectedByDay = nextNumberInfected ?
+      const numberInfectedByDay = !isNaN(nextNumberInfected) ?
         nextNumberInfected - numberInfected :
         numberInfected - prevNumberInfected;
 
@@ -255,7 +255,7 @@ class DashboardNoContext extends React.PureComponent {
       const numberCured = dataEntries[i][1].numberCured;
       const nextNumberCured = dataEntries[i + 1]?.[1]?.numberCured;
       const prevNumberCured = dataEntries[i - 1]?.[1]?.numberCured;
-      const numberCuredByDay = nextNumberCured ?
+      const numberCuredByDay = !isNaN(nextNumberCured) ?
         nextNumberCured - numberCured :
         numberCured - prevNumberCured;
 
@@ -266,7 +266,7 @@ class DashboardNoContext extends React.PureComponent {
       const numberDeceased = dataEntries[i][1].numberDeceased;
       const nextNumberDeceased = dataEntries[i + 1]?.[1]?.numberDeceased;
       const prevNumberDeceased = dataEntries[i - 1]?.[1]?.numberDeceased;
-      const numberDeceasedByDay = nextNumberDeceased ?
+      const numberDeceasedByDay = !isNaN(nextNumberDeceased) ?
         nextNumberDeceased - numberDeceased :
         numberDeceased - prevNumberDeceased;
 
