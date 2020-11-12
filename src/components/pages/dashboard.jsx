@@ -53,6 +53,7 @@ class DashboardNoContext extends React.PureComponent {
       isLoaded: defaultState.isLoaded,
       summary: defaultState,
       daily: defaultState, // object
+      cumulative: defaultState, // object
       gender: defaultState, // object
       age: defaultState, // object
       averageAge: defaultState, // object
@@ -70,6 +71,7 @@ class DashboardNoContext extends React.PureComponent {
       isLoaded: defaultState.isLoaded || false,
       summary: defaultState,
       daily: defaultState, // object
+      cumulative: defaultState, // object
       gender: defaultState, // object
       age: defaultState, // object
       averageAge: defaultState, // object
@@ -104,7 +106,8 @@ class DashboardNoContext extends React.PureComponent {
     this.setState({
       isLoaded: true,
       summary: this.parseSummary(result),
-      daily: this.parseDailyStats(result),
+      daily: this.parseDailyStats(result, { cumulative: false }),
+      cumulative: this.parseDailyStats(result, { cumulative: true }),
       gender: this.parseGenderStats(result),
       age: this.parseAgeStats(result),
       averageAge: this.parseAverageAge(result),
@@ -218,11 +221,12 @@ class DashboardNoContext extends React.PureComponent {
     };
   }
 
-  parseDailyStats(result) {
+  parseDailyStats(result, options) {
     const {
       dailyStats: { lastUpdatedOn, stale },
     } = result.charts;
     const { historicalData, currentDayStats } = result;
+    const { cumulative } = options;
 
     const confirmedCasesHistory = [];
     const curedCasesHistory = [];
@@ -236,22 +240,46 @@ class DashboardNoContext extends React.PureComponent {
       .filter(([, value]) => value.complete)
       .reverse();
 
-    for (let i = 0; i < dataEntries.length - 1; i++) {
+    for (let i = 0; i <= dataEntries.length - 1; i++) {
       const numberInfected = dataEntries[i][1].numberInfected;
-      const nextNumberInfected = dataEntries[i + 1][1].numberInfected;
-      confirmedCasesHistory.push(nextNumberInfected - numberInfected);
+      const nextNumberInfected = dataEntries[i + 1]?.[1].numberInfected;
+      const prevNumberInfected = dataEntries[i - 1]?.[1].numberInfected;
+      const numberInfectedByDay = !isNaN(nextNumberInfected) ?
+        nextNumberInfected - numberInfected :
+        numberInfected - prevNumberInfected;
+
+      confirmedCasesHistory.push(
+        cumulative ? numberInfected : numberInfectedByDay
+      );
 
       const numberCured = dataEntries[i][1].numberCured;
-      const nextNumberCured = dataEntries[i + 1][1].numberCured;
-      curedCasesHistory.push(nextNumberCured - numberCured);
+      const nextNumberCured = dataEntries[i + 1]?.[1]?.numberCured;
+      const prevNumberCured = dataEntries[i - 1]?.[1]?.numberCured;
+      const numberCuredByDay = !isNaN(nextNumberCured) ?
+        nextNumberCured - numberCured :
+        numberCured - prevNumberCured;
+
+      curedCasesHistory.push(
+        cumulative ? numberCured : numberCuredByDay
+      );
 
       const numberDeceased = dataEntries[i][1].numberDeceased;
-      const nextNumberDeceased = dataEntries[i + 1][1].numberDeceased;
-      deathCasesHistory.push(nextNumberDeceased - numberDeceased);
+      const nextNumberDeceased = dataEntries[i + 1]?.[1]?.numberDeceased;
+      const prevNumberDeceased = dataEntries[i - 1]?.[1]?.numberDeceased;
+      const numberDeceasedByDay = !isNaN(nextNumberDeceased) ?
+        nextNumberDeceased - numberDeceased :
+        numberDeceased - prevNumberDeceased;
+
+      deathCasesHistory.push(
+        cumulative ? numberDeceased : numberDeceasedByDay
+      );
 
       dateStrings.push(formatShortDate(dataEntries[i][0]));
     }
-    dateStrings.push(formatShortDate(dataEntries[dataEntries.length - 1][0]));
+
+    if(!cumulative){
+      dateStrings.shift()
+    }
 
     return {
       isLoaded: true,
@@ -371,7 +399,8 @@ class DashboardNoContext extends React.PureComponent {
         EMBED_PATH_CASES_PER_DAY,
         <CasesPerDayCard
           key={EMBED_PATH_CASES_PER_DAY}
-          state={this.state.daily}
+          daily={this.state.daily}
+          cumulative={this.state.cumulative}
         />,
       ],
       [
@@ -508,7 +537,10 @@ class DashboardNoContext extends React.PureComponent {
           <section className="cards-row">
             <div className="columns">
               <div className="column is-three-quarters">
-                <CasesPerDayCard state={this.state.daily} />
+                <CasesPerDayCard
+                  daily={this.state.daily}
+                  cumulative={this.state.cumulative}
+                />
               </div>
               <div className="column is-one-quarter">
                 <GenderCard

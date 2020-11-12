@@ -1,101 +1,54 @@
 import React from 'react';
 import ReactEcharts from 'echarts-for-react';
-import ChevronImageLeft from './../../../images/chevrons-left.svg';
-import ChevronImageRight from './../../../images/chevrons-right.svg';
 import { Card } from '../../layout/card/card';
+import { Tabs } from '../../layout/tabs/tabs';
 import { Constants } from '../../../config/globals';
 
+const VIEW_TABS = [
+  {
+    label: 'Creștere zilnică',
+    value: 'daily',
+  },
+  { label: 'Creștere cumulativă', value: 'cumulative' },
+];
 export const EMBED_PATH_CASES_PER_DAY = 'cazuri-pe-zi';
 export class CasesPerDayCard extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      page: 1,
-      limit: Constants.dailyRecordsLimit,
+      activeTab: VIEW_TABS[0].value,
     };
-  }
-
-  getPage(array, defaultEmptyValue) {
-    const { page, limit } = this.state;
-    if (array !== undefined && limit > 0) {
-      const start = array.length - page * limit;
-      if (start < 0) {
-        let pad = new Array(0 - start).fill(defaultEmptyValue || 0);
-        return pad.concat(array.slice(0, limit + start));
-      } else {
-        return array.slice(start, start + limit);
-      }
-    } else {
-      return array;
-    }
-  }
-
-  gotoPreviousPage() {
-    let state = this.state;
-    state.page += 1;
-    this.setState(state);
-    this.forceUpdate();
-  }
-
-  gotoNextPage() {
-    let state = this.state;
-    state.page -= 1;
-    this.setState(state);
-    this.forceUpdate();
-  }
-
-  displayPagination(records, isLoaded) {
-    const { page, limit } = this.state;
-
-    if (isLoaded) {
-      return (
-        <div className="navigation">
-          <div
-            className={
-              'button ' + (records.length - page * limit < 0 ? 'hide' : '')
-            }
-            onClick={(e) => this.gotoPreviousPage()}
-          >
-            <img
-              src={ChevronImageLeft}
-              className="navigation-chevron"
-              alt="Pagina anterioară"
-            />
-          </div>
-          <div
-            className={'button right ' + (page === 1 ? 'hide' : '')}
-            onClick={(e) => this.gotoNextPage()}
-          >
-            <img
-              src={ChevronImageRight}
-              className="navigation-chevron"
-              alt="Pagina următoare"
-            />
-          </div>
-        </div>
-      );
-    }
   }
 
   getDateRange(records) {
     if (records.dates === undefined) {
       return {};
     }
-    const dates = this.getPage(records.dates, null).filter((x) => !!x);
+    const dates = records.dates.filter((x) => !!x);
     return {
       from: dates[0],
       to: dates[dates.length - 1],
     };
   }
 
-  getChartOptions(records) {
-    const dates = this.getPage(records.dates, ' ');
-    const listConfirmed = this.getPage(records.confirmedCasesHistory);
-    const listCured = this.getPage(records.curedCasesHistory);
-    const listDeaths = this.getPage(records.deathCasesHistory);
+  getZoomStartPercentage = (dates) => {
+    const datesCount = dates?.length;
+    const daysToShow = 14;
+    return datesCount ? (datesCount - daysToShow) * 100 / datesCount : 0;
+  }
 
+  getChartOptions(records) {
+    const dates = records.dates;
+    const listConfirmed = records.confirmedCasesHistory;
+    const listCured = records.curedCasesHistory;
+    const listDeaths = records.deathCasesHistory;
     const labels = ['Confirmați', 'Vindecați', 'Decedaţi'];
+    const chartType =
+      this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line';
+    const chartStack = chartType === 'bar' ? 'one' : false;
+    const zoomStart = this.getZoomStartPercentage(dates);
+
     return {
       xAxis: {
         type: 'category',
@@ -104,7 +57,6 @@ export class CasesPerDayCard extends React.PureComponent {
           color: 'gray',
           fontWeight: 'bold',
           rotate: 45,
-          interval: 0,
         },
       },
       yAxis: {
@@ -126,39 +78,53 @@ export class CasesPerDayCard extends React.PureComponent {
       },
       grid: {
         left: '1%',
-        right: 0,
-        bottom: 20,
+        right: '1%',
+        bottom: 80,
         top: 20,
         containLabel: true,
       },
+      dataZoom: [
+        {
+          type: 'slider',
+          start: zoomStart,
+          end: 100,
+          bottom: 50,
+        },
+      ],
       series: [
         {
           data: listConfirmed,
           name: labels[0],
-          stack: 'one',
-          type: 'bar',
+          stack: chartStack,
+          type: chartType,
           color: Constants.confirmedColor,
         },
         {
           data: listCured,
           name: labels[1],
-          stack: 'one',
-          type: 'bar',
+          stack: chartStack,
+          type: chartType,
           color: Constants.curedColor,
         },
         {
           data: listDeaths,
           name: labels[2],
-          stack: 'one',
-          type: 'bar',
+          stack: chartStack,
+          type: chartType,
           color: Constants.deathColor,
         },
       ],
     };
   }
 
+  handleClickTab = (tab) => {
+    this.setState({ activeTab: tab.value });
+  };
+
   render() {
-    const records = this.props.state;
+    const { activeTab } = this.state;
+    const { daily, cumulative } = this.props;
+    const records = activeTab === VIEW_TABS[0].value ? daily : cumulative;
     const { isLoaded, error, isStale } = records;
     const { from, to } = this.getDateRange(records);
     return (
@@ -173,17 +139,22 @@ export class CasesPerDayCard extends React.PureComponent {
         <ReactEcharts
           style={{
             height: '470px',
+            marginBottom: '1rem',
           }}
           option={this.getChartOptions(records)}
           theme="light"
         />
-        <AccessibillityCasesPerDayTable
-          dates={this.getPage(records.dates, ' ')}
-          listConfirmed={this.getPage(records.confirmedCasesHistory)}
-          listCured={this.getPage(records.curedCasesHistory)}
-          listDeaths={this.getPage(records.deathCasesHistory)}
+        <Tabs
+          tabList={VIEW_TABS}
+          activeTab={activeTab}
+          onSelect={this.handleClickTab}
         />
-        {this.displayPagination(records.dates, isLoaded)}
+        <AccessibillityCasesPerDayTable
+          dates={records.dates}
+          listConfirmed={records.confirmedCasesHistory}
+          listCured={records.curedCasesHistory}
+          listDeaths={records.deathCasesHistory}
+        />
       </Card>
     );
   }
