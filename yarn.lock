@@ -1322,10 +1322,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@code4ro/taskforce-fe-components@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@code4ro/taskforce-fe-components/-/taskforce-fe-components-2.0.0.tgz#1fe93179db5975945fb68dc90afde158799b466a"
-  integrity sha512-AqxGbm46+zRznm2GFIxff0r74ds1f4mwGRfvCYPcziChUz3FWSy1r7o7QBLovPs1efu2Bj4PtDK2zY2vT65YnA==
+"@code4ro/taskforce-fe-components@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@code4ro/taskforce-fe-components/-/taskforce-fe-components-2.0.1.tgz#6729f74f71411e8a8cd49b915d4f6d6402239bc3"
+  integrity sha512-+XOqD0V3EAzkhquQ7x23nClm1oqtGer7JS+zggtRxtkGJxjYdaLk2taehsptGtJqwnDKdVFkBIhzMLZvvEMf5g==
   dependencies:
     bulma "^0.9.0"
     date-fns "^2.11.1"

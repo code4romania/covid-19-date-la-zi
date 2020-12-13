@@ -1,9 +1,11 @@
 import React from 'react';
 import {
   Hero,
+  BannerImage,
   Instruments,
   InstrumentsItem
 } from '@code4ro/taskforce-fe-components';
+import rovaccinareImage from '../../../images/rovaccinare.jpg';
 
 export const InstrumentsWrapper = () => (
   <>
@@ -12,6 +14,16 @@ export const InstrumentsWrapper = () => (
     </div>
 
     <Instruments layout="grid">
+      <section>
+        <BannerImage
+          link="https://vaccinare-covid.gov.ro/"
+          image={{
+            src: rovaccinareImage,
+            alt: '#ROVACCINARE',
+            title: '#ROVACCINARE'
+          }}
+        />
+      </section>
       <section>
         <InstrumentsItem
           color="green"
