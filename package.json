@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@code4ro/taskforce-fe-components": "2.0.0",
+    "@code4ro/taskforce-fe-components": "2.0.1",
     "bulma": "^0.8.0",
     "downloadjs": "^1.4.7",
     "echarts": "^4.8.0",
