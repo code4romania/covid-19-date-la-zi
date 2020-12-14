@@ -2,7 +2,7 @@
 # the repo. Unless a later match takes precedence,
 # they will be requested for review when someone 
 # opens a pull request.
-*       @catileptic @RaduCStefanescu @CristiHabliuc @bvizureanu
+*       @catileptic @CristiHabliuc @bvizureanu
 
 # More details on creating a codeowners file:
 # https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners
