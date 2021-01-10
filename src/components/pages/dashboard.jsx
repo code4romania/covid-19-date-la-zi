@@ -6,6 +6,8 @@ import {
   PROP_SHOW_CONFIRMED_CASES,
   PROP_SHOW_CURED_CASES,
   PROP_SHOW_DEATH_CASES,
+  PROP_SHOW_TOTAL_VACCINE,
+  PROP_SHOW_VACCINE_IMMUNIZATION,
   SummaryRow,
 } from '../layout/rows/summary-row';
 import { EMBED_PATH_GENDER, GenderCard } from '../cards/gender/gender-card';
@@ -50,71 +52,37 @@ class DashboardNoContext extends React.PureComponent {
 
     this.state = {
       error: defaultState.error,
-      isLoaded: defaultState.isLoaded,
       summary: defaultState,
       daily: defaultState, // object
       cumulative: defaultState, // object
       gender: defaultState, // object
       age: defaultState, // object
       averageAge: defaultState, // object
-      lastUpdate: defaultState, // object
       dailyTable: defaultState, // object
       countiesTable: defaultState,
       ageCategory: defaultState,
     };
   }
 
-  // resets all object states with this object
-  resetState(defaultState) {
-    this.setState({
-      error: defaultState.error || null,
-      isLoaded: defaultState.isLoaded || false,
-      summary: defaultState,
-      daily: defaultState, // object
-      cumulative: defaultState, // object
-      gender: defaultState, // object
-      age: defaultState, // object
-      averageAge: defaultState, // object
-      lastUpdate: defaultState, // object,
-      dailyTable: defaultState, // object
-      countiesTable: defaultState,
-      ageCategory: defaultState,
-    });
-  }
-
   componentDidMount() {
-    this.resetState({
-      isLoaded: false,
-      error: null,
-    });
-
     fetch(ApiURL.allData)
       .then((res) => res.json())
       .then((result) => {
         if (result.error != null) {
           this.setState({ error: result.error, isLoaded: true });
         } else {
-          this.parseAPIResponse(result);
+          this.setState({
+            summary: this.parseSummary(result),
+            daily: this.parseDailyStats(result, { cumulative: false }),
+            cumulative: this.parseDailyStats(result, { cumulative: true }),
+            gender: this.parseGenderStats(result),
+            age: this.parseAgeStats(result),
+            averageAge: this.parseAverageAge(result),
+            countiesTable: this.parseCountiesTable(result),
+            ageCategory: this.parseAgeCategory(result),
+          });
         }
-      })
-      .catch((error) => {
-        this.resetState({ error, isLoaded: true });
       });
-  }
-
-  parseAPIResponse(result) {
-    this.setState({
-      isLoaded: true,
-      summary: this.parseSummary(result),
-      daily: this.parseDailyStats(result, { cumulative: false }),
-      cumulative: this.parseDailyStats(result, { cumulative: true }),
-      gender: this.parseGenderStats(result),
-      age: this.parseAgeStats(result),
-      averageAge: this.parseAverageAge(result),
-      lastUpdate: this.parseLastUpdate(result),
-      countiesTable: this.parseCountiesTable(result),
-      ageCategory: this.parseAgeCategory(result),
-    });
   }
 
   parseAgeCategory(result) {
@@ -187,173 +155,237 @@ class DashboardNoContext extends React.PureComponent {
   }
 
   parseSummary(result) {
-    const {
-      numberInfected,
-      numberCured,
-      numberDeceased,
-    } = result.currentDayStats;
-    const {
-      dailyStats: { lastUpdatedOn, stale },
-    } = result.charts;
-    const { historicalData } = result;
-    const totalCasesHistory = [];
-    const curedCasesHistory = [];
-    const deathCasesHistory = [];
+    try {
+      const {
+        numberInfected,
+        numberCured,
+        numberDeceased,
+        numberTotalDosesAdministered,
+        vaccines,
+      } = result.currentDayStats;
+      const {
+        dailyStats: { stale: dailyStale, lastUpdatedOn: dailyLastUpdate },
+        vaccineQuickStats: {
+          stale: vaccineQuickStale,
+          lastUpdatedOn: vaccineQuickLastUpdate,
+        },
+        immunizationStats: {
+          stale: vaccineDetaileStale,
+          lastUpdatedOn: vaccineDetaileLastUpdate,
+        },
+      } = result.charts;
+      const { historicalData } = result;
+      const totalCasesHistory = [];
+      const curedCasesHistory = [];
+      const deathCasesHistory = [];
+      const dosesAdministeredHistory = [];
+      const immunityHistory = [];
 
-    Object.entries(historicalData)
-      .reverse()
-      .forEach(([, entry]) => {
-        totalCasesHistory.push(entry.numberInfected || 0);
-        curedCasesHistory.push(entry.numberCured || 0);
-        deathCasesHistory.push(entry.numberDeceased || 0);
-      });
+      Object.entries(historicalData)
+        .reverse()
+        .forEach(([, entry]) => {
+          totalCasesHistory.push(entry.numberInfected || 0);
+          curedCasesHistory.push(entry.numberCured || 0);
+          deathCasesHistory.push(entry.numberDeceased || 0);
+          dosesAdministeredHistory.push(
+            entry.numberTotalDosesAdministered || 0
+          );
+          immunityHistory.push(
+            entry.vaccines?.pfizer.second + entry.vaccines?.moderna.second || 0
+          );
+        });
 
-    return {
-      isLoaded: true,
-      totalCases: numberInfected,
-      totalCasesHistory,
-      curedCases: numberCured,
-      curedCasesHistory,
-      deathCases: numberDeceased,
-      deathCasesHistory,
-      lastUpdatedOn,
-      stale,
-    };
+      totalCasesHistory.push(numberInfected);
+      curedCasesHistory.push(numberCured);
+      deathCasesHistory.push(numberDeceased);
+      dosesAdministeredHistory.push(numberTotalDosesAdministered);
+      immunityHistory.push(vaccines?.pfizer.second + vaccines?.moderna.second);
+
+      const totalImmunity = immunityHistory.reduce((a, b) => a + b, 0);
+
+      return {
+        isLoaded: true,
+        totalCases: numberInfected,
+        totalCasesHistory,
+        curedCases: numberCured,
+        curedCasesHistory,
+        deathCases: numberDeceased,
+        deathCasesHistory,
+        totalDosesAdministered: numberTotalDosesAdministered,
+        dosesAdministeredHistory,
+        totalImmunity,
+        immunityHistory,
+        dailyStale,
+        dailyLastUpdate,
+        vaccineQuickStale,
+        vaccineQuickLastUpdate,
+        vaccineDetaileStale,
+        vaccineDetaileLastUpdate,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        error,
+        isLoaded: false,
+      };
+    }
   }
 
   parseDailyStats(result, options) {
-    const {
-      dailyStats: { lastUpdatedOn, stale },
-    } = result.charts;
-    const { historicalData, currentDayStats } = result;
-    const { cumulative } = options;
+    try {
+      const {
+        dailyStats: { lastUpdatedOn, stale },
+      } = result.charts;
+      const { historicalData, currentDayStats } = result;
+      const { cumulative } = options;
 
-    const confirmedCasesHistory = [];
-    const curedCasesHistory = [];
-    const deathCasesHistory = [];
-    const dateStrings = [];
-    const newData = {
-      [currentDayStats.parsedOnString]: currentDayStats,
-      ...historicalData,
-    };
-    const dataEntries = Object.entries(newData)
-      .filter(([, value]) => value.complete)
-      .reverse();
+      const confirmedCasesHistory = [];
+      const curedCasesHistory = [];
+      const deathCasesHistory = [];
+      const dateStrings = [];
+      const newData = {
+        [currentDayStats.parsedOnString]: currentDayStats,
+        ...historicalData,
+      };
+      const dataEntries = Object.entries(newData)
+        .filter(([, value]) => value.complete)
+        .reverse();
 
-    for (let i = 0; i <= dataEntries.length - 1; i++) {
-      const numberInfected = dataEntries[i][1].numberInfected;
-      const nextNumberInfected = dataEntries[i + 1]?.[1].numberInfected;
-      const prevNumberInfected = dataEntries[i - 1]?.[1].numberInfected;
-      const numberInfectedByDay = !isNaN(nextNumberInfected) ?
-        nextNumberInfected - numberInfected :
-        numberInfected - prevNumberInfected;
+      for (let i = 0; i <= dataEntries.length - 1; i++) {
+        const numberInfected = dataEntries[i][1].numberInfected;
+        const nextNumberInfected = dataEntries[i + 1]?.[1].numberInfected;
+        const prevNumberInfected = dataEntries[i - 1]?.[1].numberInfected;
+        const numberInfectedByDay = !isNaN(nextNumberInfected)
+          ? nextNumberInfected - numberInfected
+          : numberInfected - prevNumberInfected;
 
-      confirmedCasesHistory.push(
-        cumulative ? numberInfected : numberInfectedByDay
-      );
+        confirmedCasesHistory.push(
+          cumulative ? numberInfected : numberInfectedByDay
+        );
 
-      const numberCured = dataEntries[i][1].numberCured;
-      const nextNumberCured = dataEntries[i + 1]?.[1]?.numberCured;
-      const prevNumberCured = dataEntries[i - 1]?.[1]?.numberCured;
-      const numberCuredByDay = !isNaN(nextNumberCured) ?
-        nextNumberCured - numberCured :
-        numberCured - prevNumberCured;
+        const numberCured = dataEntries[i][1].numberCured;
+        const nextNumberCured = dataEntries[i + 1]?.[1]?.numberCured;
+        const prevNumberCured = dataEntries[i - 1]?.[1]?.numberCured;
+        const numberCuredByDay = !isNaN(nextNumberCured)
+          ? nextNumberCured - numberCured
+          : numberCured - prevNumberCured;
 
-      curedCasesHistory.push(
-        cumulative ? numberCured : numberCuredByDay
-      );
+        curedCasesHistory.push(cumulative ? numberCured : numberCuredByDay);
 
-      const numberDeceased = dataEntries[i][1].numberDeceased;
-      const nextNumberDeceased = dataEntries[i + 1]?.[1]?.numberDeceased;
-      const prevNumberDeceased = dataEntries[i - 1]?.[1]?.numberDeceased;
-      const numberDeceasedByDay = !isNaN(nextNumberDeceased) ?
-        nextNumberDeceased - numberDeceased :
-        numberDeceased - prevNumberDeceased;
+        const numberDeceased = dataEntries[i][1].numberDeceased;
+        const nextNumberDeceased = dataEntries[i + 1]?.[1]?.numberDeceased;
+        const prevNumberDeceased = dataEntries[i - 1]?.[1]?.numberDeceased;
+        const numberDeceasedByDay = !isNaN(nextNumberDeceased)
+          ? nextNumberDeceased - numberDeceased
+          : numberDeceased - prevNumberDeceased;
 
-      deathCasesHistory.push(
-        cumulative ? numberDeceased : numberDeceasedByDay
-      );
+        deathCasesHistory.push(
+          cumulative ? numberDeceased : numberDeceasedByDay
+        );
 
-      dateStrings.push(formatShortDate(dataEntries[i][0]));
+        dateStrings.push(formatShortDate(dataEntries[i][0]));
+      }
+
+      if (!cumulative) {
+        dateStrings.shift();
+      }
+
+      return {
+        isLoaded: true,
+        dates: dateStrings,
+        confirmedCasesHistory,
+        curedCasesHistory,
+        deathCasesHistory,
+        lastUpdatedOn,
+        stale,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        error,
+        isLoaded: false,
+      };
     }
-
-    if(!cumulative){
-      dateStrings.shift()
-    }
-
-    return {
-      isLoaded: true,
-      dates: dateStrings,
-      confirmedCasesHistory,
-      curedCasesHistory,
-      deathCasesHistory,
-      lastUpdatedOn,
-      stale,
-    };
   }
 
   parseGenderStats(result) {
-    const { currentDayStats } = result;
-    const {
-      genderStats: { lastUpdatedOn, stale },
-    } = result.charts;
-    const men = currentDayStats.percentageOfMen;
-    const women = currentDayStats.percentageOfWomen;
-    const children = currentDayStats.percentageOfChildren;
+    try {
+      const { currentDayStats } = result;
+      const {
+        genderStats: { lastUpdatedOn, stale },
+      } = result.charts;
+      const men = currentDayStats.percentageOfMen;
+      const women = currentDayStats.percentageOfWomen;
+      const children = currentDayStats.percentageOfChildren;
 
-    return {
-      isLoaded: true,
-      men,
-      women,
-      children,
-      lastUpdatedOn,
-      stale,
-    };
+      return {
+        isLoaded: true,
+        men,
+        women,
+        children,
+        lastUpdatedOn,
+        stale,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        error,
+        isLoaded: false,
+      };
+    }
   }
 
   parseAgeStats(result) {
-    const { distributionByAge } = result.currentDayStats;
-    const {
-      ageHistogram: { lastUpdatedOn, stale },
-    } = result.charts;
-    const distributionByAgeEntries = Object.entries(distributionByAge);
-    const total = distributionByAgeEntries.reduce(
-      (acc, [, entry]) => acc + entry,
-      0
-    );
-    const data = distributionByAgeEntries.map(([key, entry]) => ({
-      value: entry,
-      name: key,
-      percentage: Math.round((100 * entry) / total),
-    }));
+    try {
+      const { distributionByAge } = result.currentDayStats;
+      const {
+        ageHistogram: { lastUpdatedOn, stale },
+      } = result.charts;
+      const distributionByAgeEntries = Object.entries(distributionByAge);
+      const total = distributionByAgeEntries.reduce(
+        (acc, [, entry]) => acc + entry,
+        0
+      );
+      const data = distributionByAgeEntries.map(([key, entry]) => ({
+        value: entry,
+        name: key,
+        percentage: Math.round((100 * entry) / total),
+      }));
 
-    return {
-      isLoaded: true,
-      data,
-      lastUpdatedOn,
-      stale,
-    };
+      return {
+        isLoaded: true,
+        data,
+        lastUpdatedOn,
+        stale,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        error,
+        isLoaded: false,
+      };
+    }
   }
 
   parseAverageAge(result) {
-    const { averageAge } = result.currentDayStats;
-    const {
-      averageAge: { lastUpdatedOn, stale },
-    } = result.charts;
-    return {
-      isLoaded: true,
-      averageAge,
-      lastUpdatedOn,
-      stale,
-    };
-  }
-
-  parseLastUpdate(result) {
-    const { parsedOnString } = result.currentDayStats;
-    return {
-      isLoaded: true,
-      lastUpdateOnString: parsedOnString,
-    };
+    try {
+      const { averageAge } = result.currentDayStats;
+      const {
+        averageAge: { lastUpdatedOn, stale },
+      } = result.charts;
+      return {
+        isLoaded: true,
+        averageAge,
+        lastUpdatedOn,
+        stale,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        error,
+        isLoaded: false,
+      };
+    }
   }
 
   shareableLink() {
@@ -380,7 +412,7 @@ class DashboardNoContext extends React.PureComponent {
         }
       })
       .catch((error) => {
-        this.resetState({ error: error, isLoaded: true });
+        this.setState({ error: result.error, isLoaded: true });
       });
   };
 
@@ -460,6 +492,22 @@ class DashboardNoContext extends React.PureComponent {
         />,
       ],
       [
+        PROP_SHOW_TOTAL_VACCINE,
+        <SummaryRow
+          key={PROP_SHOW_TOTAL_VACCINE}
+          visibleCards={[PROP_SHOW_TOTAL_VACCINE]}
+          state={this.state.summary}
+        />,
+      ],
+      [
+        PROP_SHOW_VACCINE_IMMUNIZATION,
+        <SummaryRow
+          key={PROP_SHOW_VACCINE_IMMUNIZATION}
+          visibleCards={[PROP_SHOW_VACCINE_IMMUNIZATION]}
+          state={this.state.summary}
+        />,
+      ],
+      [
         EMBED_COUNTIES_MAP,
         <CountiesMap
           key={EMBED_COUNTIES_MAP}
@@ -517,14 +565,9 @@ class DashboardNoContext extends React.PureComponent {
 
               <SocialsShare currentPage={link} />
             </div>
-            <div className="level">
-              {lastUpdate && (
-                <p className="level-left">
-                  Date actualizate {formatDate(lastUpdate)}.
-                </p>
-              )}
+            <div className="is-flex is-justify-content-right">
               <button
-                className="button is-primary is-light levelRight"
+                className="button is-primary is-light"
                 onClick={this.handleDownloadAllData}
               >
                 Descarcă datele

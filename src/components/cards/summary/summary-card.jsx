@@ -9,34 +9,42 @@ export class SummaryCard extends React.PureComponent {
     return {
       xAxis: {
         type: 'category',
-        xAxisData: data.xAxisData
+        xAxisData: data.xAxisData,
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
       },
       series: [
         {
           data: data,
-          type: 'line'
-        }
-      ]
+          type: 'line',
+        },
+      ],
     };
   }
 
   render() {
     const {
       title,
+      subTitle,
       data,
       special,
       total,
       isLoaded,
       error,
-      embedPath
+      embedPath,
+      stale,
     } = this.props;
     return (
-      <Card isLoaded={isLoaded} error={error} embedPath={embedPath}>
-        <h3 className="is-uppercase summary-title">{title}</h3>
-        <h4 className="is-inline-block total">{total}</h4>
+      <Card
+        isLoaded={isLoaded}
+        error={error}
+        isStale={stale}
+        embedPath={embedPath}
+        title={title}
+        subtitle={subTitle}
+      >
+        <h4 className="is-inline-block">{total}</h4>
         {special && (
           <span className="is-inline-block special">
             <span
@@ -55,7 +63,7 @@ export class SummaryCard extends React.PureComponent {
             <ReactEcharts
               style={{
                 height: '100%',
-                width: '100%'
+                width: '100%',
               }}
               option={this.getChartOptions(data)}
               theme={SUMMARY_CHART_THEME}

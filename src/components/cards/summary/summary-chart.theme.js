@@ -1,5 +1,4 @@
-
-import echarts from 'echarts';
+import { registerTheme } from 'echarts';
 
 export const SUMMARY_CHART_THEME = 'summary chart';
 
@@ -19,8 +18,8 @@ function axisCommon() {
     },
     splitArea: {
       show: false,
-    }
-  }
+    },
+  };
 }
 
 let summaryChartTheme = {
@@ -43,19 +42,24 @@ let summaryChartTheme = {
     y: 0,
     x2: 0,
     y2: 0.8,
-    colorStops: [{
-      offset: 0, color: '#9FB3C7'
-    }, {
-      offset: 1, color: 'rgba(128, 128, 128, 0)'
-    }],
-    global: false
+    colorStops: [
+      {
+        offset: 0,
+        color: '#9FB3C7',
+      },
+      {
+        offset: 1,
+        color: 'rgba(128, 128, 128, 0)',
+      },
+    ],
+    global: false,
   },
   grid: {
     left: 0,
     top: 0,
     right: 0,
-    bottom: 0
-  }
+    bottom: 0,
+  },
 };
 
-echarts.registerTheme(SUMMARY_CHART_THEME, summaryChartTheme)
+registerTheme(SUMMARY_CHART_THEME, summaryChartTheme);
