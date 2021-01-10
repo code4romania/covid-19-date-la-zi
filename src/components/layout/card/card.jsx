@@ -9,8 +9,8 @@ export class Card extends React.PureComponent {
   state = {
     viewport: {
       width: 0,
-      height: 0
-    }
+      height: 0,
+    },
   };
 
   componentDidUpdate(prevProps) {
@@ -25,8 +25,8 @@ export class Card extends React.PureComponent {
     this.setState({
       viewport: {
         width: node.clientWidth + 5, // + 5 just to make sure no scroll is displayed
-        height: node.clientHeight + 5
-      }
+        height: node.clientHeight + 5,
+      },
     });
   }
 
@@ -38,7 +38,7 @@ export class Card extends React.PureComponent {
       isLoaded,
       error,
       embedPath,
-      isStale
+      isStale,
     } = this.props;
 
     if (error) {
@@ -46,7 +46,6 @@ export class Card extends React.PureComponent {
         <div className="is-error is-block">Nu am putut încărca datele</div>
       );
     }
-
     return isLoaded ? (
       <div className={`card ${isStale ? 'card--warning' : ''}`}>
         {title && (
@@ -77,9 +76,9 @@ Card.propType = {
   isLoaded: PropTypes.bool,
   error: PropTypes.string,
   embedPath: PropTypes.string,
-  isStale: PropTypes.bool
+  isStale: PropTypes.bool,
 };
 
 Card.defaultProps = {
-  isStale: false
+  isStale: false,
 };

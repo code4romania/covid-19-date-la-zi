@@ -3,7 +3,7 @@
 }
 
 .page-header h1 {
-    background: url(/images/icon-circle.svg) no-repeat;
+    background: url(./../../../images/icon-circle.svg) no-repeat;
     background-size: 1em;
     color: var(--accent-color);
     padding-left: 1.2em;

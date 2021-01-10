@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import echarts from 'echarts';
+import { registerMap } from 'echarts';
 import 'bulma/css/bulma.css';
 import '@code4ro/taskforce-fe-components/dist/index.css';
 import './index.css';
@@ -11,7 +11,7 @@ import roGeoJson from './config/roGeo';
 import { Embeddable } from './components/pages/embed';
 import { BannerChartsPage } from './components/pages/banner-charts';
 
-echarts.registerMap('RO', roGeoJson);
+registerMap('RO', roGeoJson);
 
 ReactDOM.render(
   <BrowserRouter>
