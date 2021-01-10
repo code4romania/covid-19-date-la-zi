@@ -128,24 +128,24 @@ export class SummaryRow extends React.PureComponent {
           stale={vaccineQuickStale}
         />,
       ],
-      [
-        PROP_SHOW_VACCINE_IMMUNIZATION,
-        <SummaryCard
-          key={PROP_SHOW_VACCINE_IMMUNIZATION}
-          isLoaded={isLoaded}
-          error={error}
-          to="/"
-          title="Imunizați"
-          subTitle={`Ultima actualizare ${formatDate(
-            vaccineDetaileLastUpdate
-          )}`}
-          total={totalImmunity}
-          special={this.specialValueForImmunization(state)}
-          data={state.immunityHistory}
-          embedPath={PROP_SHOW_VACCINE_IMMUNIZATION}
-          stale={vaccineDetaileStale}
-        />,
-      ],
+      // [
+      //   PROP_SHOW_VACCINE_IMMUNIZATION,
+      //   <SummaryCard
+      //     key={PROP_SHOW_VACCINE_IMMUNIZATION}
+      //     isLoaded={isLoaded}
+      //     error={error}
+      //     to="/"
+      //     title="Imunizați"
+      //     subTitle={`Ultima actualizare ${formatDate(
+      //       vaccineDetaileLastUpdate
+      //     )}`}
+      //     total={totalImmunity}
+      //     special={this.specialValueForImmunization(state)}
+      //     data={state.immunityHistory}
+      //     embedPath={PROP_SHOW_VACCINE_IMMUNIZATION}
+      //     stale={vaccineDetaileStale}
+      //   />,
+      // ],
     ]);
 
     const { visibleCards } = this.props;
