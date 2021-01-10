@@ -10,7 +10,7 @@ import './banner-charts.css';
 
 const BANNER_SIZES = ['landscape', 'ultraWide', 'portrait'];
 
-export const BannerChartsPage = () => {
+export default () => {
   const [latestData, setLatestData] = useState({});
   const [totals, setTotals] = useState({});
   const [trends, setTrends] = useState({});

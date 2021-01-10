@@ -5,7 +5,7 @@ import { Dashboard } from './dashboard';
 import LogoImage from '../../images/logo-coviz.svg';
 import './embed.css';
 
-export function Embeddable() {
+export default () => {
   return (
     <BrowserRouter>
       <div className="embed-container">
@@ -32,4 +32,4 @@ export function Embeddable() {
       </div>
     </BrowserRouter>
   );
-}
+};

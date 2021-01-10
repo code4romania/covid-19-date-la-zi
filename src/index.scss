@@ -1,0 +1,62 @@
+$card-header-shadow: 0;
+$card-shadow: 0;
+
+@import "./_fonts.scss";
+@import "~bulma/sass/utilities/_all.sass";
+@import "~bulma/sass/base/_all.sass";
+@import "~bulma/sass/helpers/typography.sass";
+@import "~bulma/sass/helpers/visibility.sass";
+@import "~bulma/sass/helpers/color.sass";
+@import "~bulma/sass/components/card.sass";
+@import "~bulma/sass/components/tabs.sass";
+
+:root {
+  --accent-color: #1c1080;
+  --main-color: #000;
+}
+
+body {
+  margin: 0;
+  font-family: "Titillium Web", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.container {
+  padding-right: 1.25rem;
+  padding-left: 1.25rem;
+}
+
+.content p {
+  margin: 1em 0;
+}
+
+.button.hide {
+  display: none;
+}
+
+.button.right {
+  float: right;
+}
+.button:first-child {
+  margin-right: 10px;
+}
+
+.navigation-chevron {
+  width: 24px;
+  height: 24px;
+}
+
+.card .navigation {
+  padding-top: 5px;
+  bottom: 0px;
+  display: block;
+  width: 100%;
+  min-width: 100%;
+  height: 35px;
+}
