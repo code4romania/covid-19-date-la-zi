@@ -1,8 +1,9 @@
 import * as React from 'react';
 import './embed-button.css';
+import Embed from './../../../images/embed.svg';
 import { useToast } from '../toast/withToastProvider';
 
-export const EmbedButton = props => {
+export const EmbedButton = (props) => {
   const toast = useToast();
   const { path, viewPort } = props;
 
@@ -35,8 +36,10 @@ export const EmbedButton = props => {
     <div className="fab-action">
       <div className="tooltip">
         <img
-          src="/images/favicon/embed.png"
+          src={Embed}
           alt="embed"
+          width="16"
+          height="16"
           className="fab-icon"
           onClick={handleCopyEmbedCode}
         />

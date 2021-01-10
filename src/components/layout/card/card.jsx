@@ -51,7 +51,7 @@ export class Card extends React.PureComponent {
         {title && (
           <header className="card-header">
             <div className="card-header-title has-text-weight-normal">
-              <h3 className="card-title has-text-weight-bold">{title}</h3>
+              <h2 className="card-title has-text-weight-bold">{title}</h2>
               {subtitle && <small>{subtitle}</small>}
             </div>
           </header>

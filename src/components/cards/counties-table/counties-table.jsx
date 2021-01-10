@@ -61,6 +61,8 @@ export class CountiesTable extends React.PureComponent {
               src={ChevronImageLeft}
               className="navigation-chevron"
               alt="Pagina anterioară"
+              width="24"
+              height="24"
             />
           </div>
           <div
@@ -74,6 +76,8 @@ export class CountiesTable extends React.PureComponent {
               src={ChevronImageRight}
               className="navigation-chevron"
               alt="Pagina următoare"
+              width="24"
+              height="24"
             />
           </div>
         </div>
