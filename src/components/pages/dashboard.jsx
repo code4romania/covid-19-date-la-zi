@@ -536,31 +536,23 @@ class DashboardNoContext extends React.PureComponent {
             <PageHeader title="Date Oficiale" />
             <div className="content">
               <p>
-                Accesul la date din surse oficiale ce descriu evoluția cazurilor
-                de COVID-19 în România este esențial în adoptarea măsurilor de
-                sănătate publică împotriva pandemiei. Astfel, venim în sprijinul
-                publicului și al mass-media din România prin accesibilizarea
-                datelor punându-le într-o formă grafică ușor de parcurs, urmând
-                modelul portalului de informare din{' '}
-                <a
-                  href="https://co.vid19.sg/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Singapore
-                </a>
-                .
+                Accesul la date din surse oficiale cu privire la evoluția
+                cazurilor de COVID-19 și a programului de vaccinare în România
+                este esențial în adoptarea măsurilor de sănătate publică
+                împotriva pandemiei. Astfel, venim în sprijinul publicului și al
+                mass-media din România prin accesibilizarea datelor punându-le
+                într-o formă grafică ușor de parcurs.
               </p>
               <p>
-                Infografiile se actualizează periodic și sunt centralizate în
+                Infografiile se actualizează zilnic și sunt centralizate în
                 graficele de mai jos.
               </p>
               <p>
-                Acest proiect este realizat pro-bono în parteneriat cu Guvernul
-                României prin Autoritatea pentru Digitalizarea României.
-                Funcționarea acestei platforme depinde exclusiv de conținutul
-                datelor și informațiilor care vor fi furnizate de către Guvernul
-                României.
+                Acest proiect este realizat pro-bono de către Asociația Code for
+                Romania în parteneriat cu Guvernul României prin Autoritatea
+                pentru Digitalizarea României. Funcționarea acestei platforme
+                depinde exclusiv de conținutul datelor și informațiilor care vor
+                fi furnizate de către Guvernul României.
               </p>
 
               <SocialsShare currentPage={link} />
