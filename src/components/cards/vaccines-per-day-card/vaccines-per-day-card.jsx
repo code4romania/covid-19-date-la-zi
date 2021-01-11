@@ -3,7 +3,7 @@ import ReactEcharts from 'echarts-for-react';
 import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
 import { Tabs } from '../../layout/tabs/tabs';
-import { formatShortDate } from '../../../utils/date';
+import { formatDate } from '../../../utils/date';
 
 const VIEW_TABS = [
   {
@@ -40,15 +40,39 @@ export class VaccinesPerDayCard extends React.PureComponent {
   };
 
   getChartOptions(records) {
-    const {activeTab} = this.state;
-    const {dates, pfizerDaily, pfizerCumulative, modernaDaily, modernaCumulative} = records;
+    const { activeTab } = this.state;
+    const {
+      dates,
+      pfizerDaily,
+      pfizerCumulative,
+      modernaDaily,
+      modernaCumulative,
+    } = records;
     const labels = ['Pfizer BioNTech', 'Moderna'];
     const chartType =
       this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line';
     const chartStack = chartType === 'bar' ? 'one' : false;
     const zoomStart = this.getZoomStartPercentage(dates);
-    const listPfizer = activeTab === VIEW_TABS[0].value ? pfizerDaily : pfizerCumulative;
-    const listModerna = activeTab === VIEW_TABS[0].value ? modernaDaily : modernaCumulative;
+    const listPfizer =
+      activeTab === VIEW_TABS[0].value ? pfizerDaily : pfizerCumulative;
+    const listModerna =
+      activeTab === VIEW_TABS[0].value ? modernaDaily : modernaCumulative;
+    const series = [
+      listPfizer?.length && {
+        data: listPfizer,
+        name: labels[0],
+        stack: chartStack,
+        type: chartType,
+        color: Constants.pfizerColor,
+      },
+      listModerna?.length && {
+        data: listModerna,
+        name: labels[1],
+        stack: chartStack,
+        type: chartType,
+        color: Constants.modernaColor,
+      },
+    ];
 
     return {
       xAxis: {
@@ -92,22 +116,7 @@ export class VaccinesPerDayCard extends React.PureComponent {
           bottom: 50,
         },
       ],
-      series: [
-        {
-          data: listPfizer,
-          name: labels[0],
-          stack: chartStack,
-          type: chartType,
-          color: Constants.pfizerColor,
-        },
-        {
-          data: listModerna,
-          name: labels[1],
-          stack: chartStack,
-          type: chartType,
-          color: Constants.modernaColor,
-        },
-      ],
+      series: series,
     };
   }
 
@@ -129,14 +138,16 @@ export class VaccinesPerDayCard extends React.PureComponent {
       modernaCumulative,
       lastUpdatedOn,
     } = state;
-    const pfizerList = activeTab === VIEW_TABS[0].value ? pfizerDaily : pfizerCumulative;
-    const modernaList = activeTab === VIEW_TABS[0].value ? modernaDaily : modernaCumulative;
+    const pfizerList =
+      activeTab === VIEW_TABS[0].value ? pfizerDaily : pfizerCumulative;
+    const modernaList =
+      activeTab === VIEW_TABS[0].value ? modernaDaily : modernaCumulative;
 
     return (
       <Card
         isLoaded={isLoaded}
         title={title}
-        subtitle={`Ultima actualizare: ${formatShortDate(lastUpdatedOn)}`}
+        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={isStale}
         error={error}
         embedPath={EMBED_PATH_VACCINES_PER_DAY}
