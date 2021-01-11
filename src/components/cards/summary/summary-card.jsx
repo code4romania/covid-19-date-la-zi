@@ -44,7 +44,7 @@ export class SummaryCard extends React.PureComponent {
         title={title}
         subtitle={subTitle}
       >
-        <h4 className="is-inline-block">{total}</h4>
+        <h3 className="is-inline-block">{total}</h3>
         {special && (
           <span className="is-inline-block special">
             <span

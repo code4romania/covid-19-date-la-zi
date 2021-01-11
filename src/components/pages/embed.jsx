@@ -20,8 +20,8 @@ export default () => {
           >
             <img
               src={LogoImage}
-              height="37"
               width="120"
+              height="37"
               alt="Date La Zi Logo"
             />
           </a>

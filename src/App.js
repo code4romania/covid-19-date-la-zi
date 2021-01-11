@@ -2,14 +2,14 @@ import React, { useEffect, Suspense, lazy } from 'react';
 import {
   Header,
   DevelopedBy,
-  IncubatedBy
+  IncubatedBy,
 } from '@code4ro/taskforce-fe-components';
 import {
   BrowserRouter as Router,
   Link,
   Switch,
   Route,
-  useHistory
+  useHistory,
 } from 'react-router-dom';
 import LogoSvg from './images/logo-coviz.svg';
 import { initializeGA, logPageView } from './analyticsTracker';
@@ -23,14 +23,19 @@ initializeGA();
 
 const Logo = () => (
   <Link to="/">
-    <img width="110" alt="Covid-19. Ce trebuie să fac?" src={LogoSvg} />
+    <img
+      width="110"
+      height="30"
+      alt="Covid-19. Ce trebuie să fac?"
+      src={LogoSvg}
+    />
   </Link>
 );
 
 const MenuItems = [
   <Link to="/about" key="des">
     Despre proiect
-  </Link>
+  </Link>,
 ];
 
 const AppWrapper = () => {
