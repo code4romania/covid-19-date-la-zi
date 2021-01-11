@@ -23,6 +23,9 @@ export const Constants = {
   green: '#A4E064',
 
   dailyRecordsLimit: 14,
+
+  pfizerColor: '#00AFF0',
+  modernaColor: '#e31936'
 };
 
 export const ApiURL = {

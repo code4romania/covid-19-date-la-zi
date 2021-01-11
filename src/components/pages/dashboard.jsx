@@ -28,7 +28,7 @@ import {
   CountiesTable,
   EMBED_COUNTIES_TABLE,
 } from '../cards/counties-table/counties-table';
-import { formatDate, formatShortDate } from '../../utils/date';
+import { formatShortDate } from '../../utils/date';
 import download from 'downloadjs';
 
 import { SocialsShare } from '@code4ro/taskforce-fe-components';
@@ -40,6 +40,7 @@ import {
   AgeCategory,
   EMBED_PATH_AGE_CATEGORY,
 } from '../cards/age-category/age-category';
+import { VaccinesPerDayCard } from '../cards/vaccines-per-day-card/vaccines-per-day-card';
 
 class DashboardNoContext extends React.PureComponent {
   constructor(props) {
@@ -61,6 +62,7 @@ class DashboardNoContext extends React.PureComponent {
       dailyTable: defaultState, // object
       countiesTable: defaultState,
       ageCategory: defaultState,
+      vaccinesHistory: defaultState,
     };
   }
 
@@ -80,6 +82,7 @@ class DashboardNoContext extends React.PureComponent {
             averageAge: this.parseAverageAge(result),
             countiesTable: this.parseCountiesTable(result),
             ageCategory: this.parseAgeCategory(result),
+            vaccinesHistory: this.parseVaccinesHistory(result),
           });
         }
       });
@@ -170,8 +173,12 @@ class DashboardNoContext extends React.PureComponent {
           lastUpdatedOn: vaccineQuickLastUpdate,
         },
         immunizationStats: {
-          stale: vaccineDetaileStale,
-          lastUpdatedOn: vaccineDetaileLastUpdate,
+          stale: imunizationStale,
+          lastUpdatedOn: imunizationLastUpdate,
+        },
+        vaccineDetailedStats: {
+          stale: vaccineDetailedStale,
+          lastUpdatedOn: vaccineDetailedLastUpdate,
         },
       } = result.charts;
       const { historicalData } = result;
@@ -219,8 +226,10 @@ class DashboardNoContext extends React.PureComponent {
         dailyLastUpdate,
         vaccineQuickStale,
         vaccineQuickLastUpdate,
-        vaccineDetaileStale,
-        vaccineDetaileLastUpdate,
+        imunizationStale,
+        imunizationLastUpdate,
+        vaccineDetailedStale,
+        vaccineDetailedLastUpdate,
       };
     } catch (error) {
       console.error(error);
@@ -298,6 +307,64 @@ class DashboardNoContext extends React.PureComponent {
         deathCasesHistory,
         lastUpdatedOn,
         stale,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        error,
+        isLoaded: false,
+      };
+    }
+  }
+
+  parseVaccinesHistory(result) {
+    try {
+      const { historicalData } = result;
+      const {
+        vaccineDetailedStats: {
+          stale: vaccineDetailedStale,
+          lastUpdatedOn: vaccineDetailedLastUpdate,
+        },
+      } = result.charts;
+      const dateStrings = [];
+      const pfizerVaccinesDaily = [];
+      const pfizerVaccinesCumulative = [];
+      const modernaVaccinesDaily = [];
+      const modernaVaccinesCumulative = [];
+
+      Object.entries(historicalData)
+        .reverse()
+        .forEach(([date, entry]) => {
+          if (entry.vaccines) {
+            const { pfizer, moderna } = entry.vaccines;
+            if (
+              pfizer.first + pfizer.second ||
+              moderna.first + moderna.second
+            ) {
+              pfizerVaccinesDaily.push(pfizer.first + pfizer.second || 0);
+              pfizerVaccinesCumulative.push(
+                (pfizerVaccinesCumulative[dateStrings.length - 1] ||
+                  0) + pfizer.first + pfizer.second
+              );
+              modernaVaccinesDaily.push(moderna.first + pfizer.second || 0);
+              modernaVaccinesCumulative.push(
+                (modernaVaccinesCumulative[dateStrings.length - 1] ||
+                  0) + moderna.first + moderna.second
+              );
+              dateStrings.push(formatShortDate(date));
+            }
+          }
+        });
+
+      return {
+        isLoaded: true,
+        isStale: vaccineDetailedStale,
+        lastUpdatedOn: vaccineDetailedLastUpdate,
+        dates: dateStrings,
+        pfizerDaily: pfizerVaccinesDaily,
+        pfizerCumulative: pfizerVaccinesCumulative,
+        modernaDaily: modernaVaccinesDaily,
+        modernaCumulative: modernaVaccinesCumulative,
       };
     } catch (error) {
       console.error(error);
@@ -566,6 +633,17 @@ class DashboardNoContext extends React.PureComponent {
           </section>
 
           <SummaryRow state={this.state.summary} />
+
+          <section className="cards-row">
+            <div className="columns">
+              <div className="column">
+                <VaccinesPerDayCard
+                  state={this.state.vaccinesHistory}
+                  title="Doze administrate pe zile"
+                />
+              </div>
+            </div>
+          </section>
 
           <section className="cards-row">
             <div className="columns">
