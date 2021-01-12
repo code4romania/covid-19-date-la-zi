@@ -337,7 +337,7 @@ class DashboardNoContext extends React.PureComponent {
       const pfizerRecords = [];
       const modernaRecords = [];
 
-      const newData = {
+      const newData = vaccineDetailedStale ? historicalData : {
         [currentDayStats.parsedOnString]: currentDayStats,
         ...historicalData,
       };
