@@ -319,7 +319,7 @@ class DashboardNoContext extends React.PureComponent {
 
   parseVaccinesHistory(result) {
     try {
-      const { historicalData } = result;
+      const { historicalData, currentDayStats } = result;
       const {
         vaccineDetailedStats: {
           stale: vaccineDetailedStale,
@@ -332,7 +332,12 @@ class DashboardNoContext extends React.PureComponent {
       const modernaVaccinesDaily = [];
       const modernaVaccinesCumulative = [];
 
-      Object.entries(historicalData)
+      const newData = {
+        [currentDayStats.parsedOnString]: currentDayStats,
+        ...historicalData,
+      };
+
+      Object.entries(newData)
         .reverse()
         .forEach(([date, entry]) => {
           if (entry.vaccines) {
