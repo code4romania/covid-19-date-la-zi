@@ -337,10 +337,12 @@ class DashboardNoContext extends React.PureComponent {
       const pfizerRecords = [];
       const modernaRecords = [];
 
-      const newData = vaccineDetailedStale ? historicalData : {
-        [currentDayStats.parsedOnString]: currentDayStats,
-        ...historicalData,
-      };
+      const newData = vaccineDetailedStale
+        ? historicalData
+        : {
+          [currentDayStats.parsedOnString]: currentDayStats,
+          ...historicalData,
+        };
 
       Object.entries(newData)
         .reverse()
@@ -349,25 +351,27 @@ class DashboardNoContext extends React.PureComponent {
             const { pfizer, moderna } = entry.vaccines;
             if (pfizer.first + pfizer.second) {
               pfizerRecords.push(
-                cumulative? ((pfizerRecords[dateStrings.length - 1] || 0) +
+                cumulative
+                  ? (pfizerRecords[dateStrings.length - 1] || 0) +
                       pfizer.first +
                       pfizer.second
-                )
-                  : pfizer.first + pfizer.second || 0)
+                  : pfizer.first + pfizer.second || 0
+              );
             }
             if (moderna.first + moderna.second) {
               modernaRecords = push(
-                cumulative ?
-                  ((modernaRecords[dateStrings.length - 1] || 0) +
-                  moderna.first +
-                  moderna.second
-                  ) : moderna.first + pfizer.second || 0)
+                cumulative
+                  ? (modernaRecords[dateStrings.length - 1] || 0) +
+                      moderna.first +
+                      moderna.second
+                  : moderna.first + pfizer.second || 0
+              );
             }
             dateStrings.push(formatShortDate(date));
           }
         });
 
-      if (!cumulative) {
+      if (!vaccineDetailedStale && !cumulative) {
         dateStrings.shift();
       }
 
