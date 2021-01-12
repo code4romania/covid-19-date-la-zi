@@ -371,10 +371,6 @@ class DashboardNoContext extends React.PureComponent {
           }
         });
 
-      if (!vaccineDetailedStale && !cumulative) {
-        dateStrings.shift();
-      }
-
       return {
         isLoaded: true,
         isStale: vaccineDetailedStale,
