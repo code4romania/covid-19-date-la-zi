@@ -43,20 +43,16 @@ export class VaccinesPerDayCard extends React.PureComponent {
     const { activeTab } = this.state;
     const {
       dates,
-      pfizerDaily,
-      pfizerCumulative,
-      modernaDaily,
-      modernaCumulative,
+      pfizer,
+      moderna,
     } = records;
     const labels = ['Pfizer BioNTech', 'Moderna'];
     const chartType =
       this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line';
     const chartStack = chartType === 'bar' ? 'one' : false;
     const zoomStart = this.getZoomStartPercentage(dates);
-    const listPfizer =
-      activeTab === VIEW_TABS[0].value ? pfizerDaily : pfizerCumulative;
-    const listModerna =
-      activeTab === VIEW_TABS[0].value ? modernaDaily : modernaCumulative;
+    const listPfizer = pfizer;
+    const listModerna = moderna;
     const series = [
       listPfizer?.length && {
         data: listPfizer,
@@ -125,28 +121,21 @@ export class VaccinesPerDayCard extends React.PureComponent {
   };
 
   render() {
-    const { state, title } = this.props;
     const { activeTab } = this.state;
+    const { daily, cumulative } = this.props;
+    const records = activeTab === VIEW_TABS[0].value ? daily : cumulative
     const {
       isLoaded,
       isStale,
       error,
       dates,
-      pfizerDaily,
-      pfizerCumulative,
-      modernaDaily,
-      modernaCumulative,
       lastUpdatedOn,
-    } = state;
-    const pfizerList =
-      activeTab === VIEW_TABS[0].value ? pfizerDaily : pfizerCumulative;
-    const modernaList =
-      activeTab === VIEW_TABS[0].value ? modernaDaily : modernaCumulative;
+    } = records;
 
     return (
       <Card
         isLoaded={isLoaded}
-        title={title}
+        title="Doze administrate pe zile"
         subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={isStale}
         error={error}
@@ -157,7 +146,7 @@ export class VaccinesPerDayCard extends React.PureComponent {
             height: '470px',
             marginBottom: '1rem',
           }}
-          option={this.getChartOptions(state)}
+          option={this.getChartOptions(records)}
           theme="light"
         />
         <Tabs
@@ -167,10 +156,13 @@ export class VaccinesPerDayCard extends React.PureComponent {
         />
         <AccessibillityCasesPerDayTable
           dates={dates}
-          listPfizer={pfizerList}
-          listModerna={modernaList}
+          listPfizer={records.pfizer}
+          listModerna={records.moderna}
         />
-        <p>În cazul vaccinului Pfizer BioNTech sunt necesare două doze pentru imunizare.</p>
+        <p>
+          În cazul vaccinului Pfizer BioNTech sunt necesare două doze pentru
+          imunizare.
+        </p>
       </Card>
     );
   }

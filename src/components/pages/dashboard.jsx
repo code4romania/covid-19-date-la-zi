@@ -62,7 +62,8 @@ class DashboardNoContext extends React.PureComponent {
       dailyTable: defaultState, // object
       countiesTable: defaultState,
       ageCategory: defaultState,
-      vaccinesHistory: defaultState,
+      vaccinesDaily: defaultState,
+      vaccinesCumulative: defaultState,
     };
   }
 
@@ -82,7 +83,12 @@ class DashboardNoContext extends React.PureComponent {
             averageAge: this.parseAverageAge(result),
             countiesTable: this.parseCountiesTable(result),
             ageCategory: this.parseAgeCategory(result),
-            vaccinesHistory: this.parseVaccinesHistory(result),
+            vaccinesDaily: this.parseVaccinesHistory(result, {
+              cumulative: false,
+            }),
+            vaccinesCumulative: this.parseVaccinesHistory(result, {
+              cumulative: true,
+            }),
           });
         }
       });
@@ -317,9 +323,10 @@ class DashboardNoContext extends React.PureComponent {
     }
   }
 
-  parseVaccinesHistory(result) {
+  parseVaccinesHistory(result, options) {
     try {
       const { historicalData, currentDayStats } = result;
+      const { cumulative } = options;
       const {
         vaccineDetailedStats: {
           stale: vaccineDetailedStale,
@@ -327,10 +334,8 @@ class DashboardNoContext extends React.PureComponent {
         },
       } = result.charts;
       const dateStrings = [];
-      const pfizerVaccinesDaily = [];
-      const pfizerVaccinesCumulative = [];
-      const modernaVaccinesDaily = [];
-      const modernaVaccinesCumulative = [];
+      const pfizerRecords = [];
+      const modernaRecords = [];
 
       const newData = {
         [currentDayStats.parsedOnString]: currentDayStats,
@@ -343,34 +348,36 @@ class DashboardNoContext extends React.PureComponent {
           if (entry.vaccines) {
             const { pfizer, moderna } = entry.vaccines;
             if (pfizer.first + pfizer.second) {
-              pfizerVaccinesDaily.push(pfizer.first + pfizer.second || 0);
-              pfizerVaccinesCumulative.push(
-                (pfizerVaccinesCumulative[dateStrings.length - 1] || 0) +
-                  pfizer.first +
-                  pfizer.second
-              );
+              pfizerRecords.push(
+                cumulative? ((pfizerRecords[dateStrings.length - 1] || 0) +
+                      pfizer.first +
+                      pfizer.second
+                )
+                  : pfizer.first + pfizer.second || 0)
             }
             if (moderna.first + moderna.second) {
-              modernaVaccinesDaily.push(moderna.first + pfizer.second || 0);
-              modernaVaccinesCumulative.push(
-                (modernaVaccinesCumulative[dateStrings.length - 1] || 0) +
+              modernaRecords = push(
+                cumulative ?
+                  ((modernaRecords[dateStrings.length - 1] || 0) +
                   moderna.first +
                   moderna.second
-              );
+                  ) : moderna.first + pfizer.second || 0)
             }
             dateStrings.push(formatShortDate(date));
           }
         });
+
+      if (!cumulative) {
+        dateStrings.shift();
+      }
 
       return {
         isLoaded: true,
         isStale: vaccineDetailedStale,
         lastUpdatedOn: vaccineDetailedLastUpdate,
         dates: dateStrings,
-        pfizerDaily: pfizerVaccinesDaily,
-        pfizerCumulative: pfizerVaccinesCumulative,
-        modernaDaily: modernaVaccinesDaily,
-        modernaCumulative: modernaVaccinesCumulative,
+        pfizer: pfizerRecords,
+        moderna: modernaRecords,
       };
     } catch (error) {
       console.error(error);
@@ -646,8 +653,8 @@ class DashboardNoContext extends React.PureComponent {
             <div className="columns">
               <div className="column">
                 <VaccinesPerDayCard
-                  state={this.state.vaccinesHistory}
-                  title="Doze administrate pe zile"
+                  daily={this.state.vaccinesDaily}
+                  cumulative={this.state.vaccinesCumulative}
                 />
               </div>
             </div>
