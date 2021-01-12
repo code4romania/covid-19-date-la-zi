@@ -557,12 +557,14 @@ class DashboardNoContext extends React.PureComponent {
 
               <SocialsShare currentPage={link} />
             </div>
-            <button
-              className="button is-primary is-light"
-              onClick={this.handleDownloadAllData}
-            >
-              Descarcă datele
-            </button>
+            <div className="is-flex is-justify-content-flex-end">
+              <button
+                className="button is-primary is-light"
+                onClick={this.handleDownloadAllData}
+              >
+                Descarcă datele
+              </button>
+            </div>
           </section>
 
           <SummaryRow state={this.state.summary} />
