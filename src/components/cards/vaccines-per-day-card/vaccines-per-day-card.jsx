@@ -135,7 +135,7 @@ export class VaccinesPerDayCard extends React.PureComponent {
     return (
       <Card
         isLoaded={isLoaded}
-        title="Doze administrate pe zile"
+        title="Doze de vaccin administrate pe zile"
         subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={isStale}
         error={error}
