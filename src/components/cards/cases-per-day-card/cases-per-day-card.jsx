@@ -73,7 +73,6 @@ export class CasesPerDayCard extends React.PureComponent {
           axis: 'x',
         },
         formatter: function(params){
-          console.log(params)
           const date = `${params[0].axisValueLabel}`
           const cases = params.map((param) => `
           <span style="${tooltipItemStyle}">
@@ -82,11 +81,11 @@ export class CasesPerDayCard extends React.PureComponent {
             ></span>
             <p style={"text-align: right;"}>${param.seriesName}: ${param.value}</p>
           </span>`)
-          const tooltipBox = `
+
+          return `
             ${date}
             ${cases.reverse().join('')}
           `
-          return tooltipBox
         }
       },
       legend: {
