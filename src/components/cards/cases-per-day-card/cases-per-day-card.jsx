@@ -46,6 +46,8 @@ export class CasesPerDayCard extends React.PureComponent {
     const labels = ['Confirmați', 'Vindecați', 'Decedaţi'];
     const chartType =
       this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line';
+    const tooltipItemColorStyle = 'border-radius: 50%; margin-right: 6px; width: 10px; height: 10px;'
+    const tooltipItemStyle = 'height: 20px; display: flex; flex-wrap: nowrap; align-items: center;'
     const chartStack = chartType === 'bar' ? 'one' : false;
     const zoomStart = this.getZoomStartPercentage(dates);
 
@@ -70,6 +72,21 @@ export class CasesPerDayCard extends React.PureComponent {
         axisPointer: {
           axis: 'x',
         },
+        formatter: function(params){
+          const date = `${params[0].axisValueLabel}`
+          const cases = params.map((param) => `
+          <span style="${tooltipItemStyle}">
+            <span
+            style="${tooltipItemColorStyle} background-color: ${param.color};"
+            ></span>
+            <p style={"text-align: right;"}>${param.seriesName}: ${param.value}</p>
+          </span>`)
+
+          return `
+            ${date}
+            ${cases.reverse().join('')}
+          `
+        }
       },
       legend: {
         data: labels,
