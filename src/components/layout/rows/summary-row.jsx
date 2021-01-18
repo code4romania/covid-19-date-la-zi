@@ -1,5 +1,4 @@
 import React from 'react';
-import { round } from 'prelude-ls';
 import { SummaryCard } from '../../cards/summary/summary-card';
 import { formatDate } from '../../../utils/date';
 
@@ -13,7 +12,7 @@ export const PROP_SHOW_VACCINE_IMMUNIZATION = 'vaccine_immunization';
 // Their management is the same though, using a single API call
 export class SummaryRow extends React.PureComponent {
   specialValueForCured(state) {
-    const curedPercentage = round(100 * (state.curedCases / state.totalCases));
+    const curedPercentage = Math.round(100 * (state.curedCases / state.totalCases));
     return {
       value: curedPercentage + '%',
       label: 'din total',
@@ -22,7 +21,7 @@ export class SummaryRow extends React.PureComponent {
   }
 
   specialValueForDeaths(state) {
-    const deathPercentage = round(100 * (state.deathCases / state.totalCases));
+    const deathPercentage = Math.round(100 * (state.deathCases / state.totalCases));
     return {
       value: deathPercentage + '%',
       label: 'din total',
@@ -31,7 +30,7 @@ export class SummaryRow extends React.PureComponent {
   }
 
   specialValueForImmunization(state) {
-    const immunizationPercentage = round(
+    const immunizationPercentage = Math.round(
       100 * (state.totalImmunity / 19414458)
     );
     return {
@@ -54,8 +53,8 @@ export class SummaryRow extends React.PureComponent {
       dailyLastUpdate,
       vaccineQuickStale,
       vaccineQuickLastUpdate,
-      vaccineDetaileStale,
-      vaccineDetaileLastUpdate,
+      imunizationStale,
+      imunizationLastUpdate
     } = state;
     const totalCases = this.formattedString(state.totalCases);
     const cured = this.formattedString(state.curedCases);
@@ -128,24 +127,24 @@ export class SummaryRow extends React.PureComponent {
           stale={vaccineQuickStale}
         />,
       ],
-      // [
-      //   PROP_SHOW_VACCINE_IMMUNIZATION,
-      //   <SummaryCard
-      //     key={PROP_SHOW_VACCINE_IMMUNIZATION}
-      //     isLoaded={isLoaded}
-      //     error={error}
-      //     to="/"
-      //     title="Imunizați"
-      //     subTitle={`Ultima actualizare ${formatDate(
-      //       vaccineDetaileLastUpdate
-      //     )}`}
-      //     total={totalImmunity}
-      //     special={this.specialValueForImmunization(state)}
-      //     data={state.immunityHistory}
-      //     embedPath={PROP_SHOW_VACCINE_IMMUNIZATION}
-      //     stale={vaccineDetaileStale}
-      //   />,
-      // ],
+      [
+        PROP_SHOW_VACCINE_IMMUNIZATION,
+        <SummaryCard
+          key={PROP_SHOW_VACCINE_IMMUNIZATION}
+          isLoaded={isLoaded}
+          error={error}
+          to="/"
+          title="Imunizați"
+          subTitle={`Ultima actualizare ${formatDate(
+            imunizationLastUpdate
+          )}`}
+          total={totalImmunity}
+          special={this.specialValueForImmunization(state)}
+          data={state.immunityHistory}
+          embedPath={PROP_SHOW_VACCINE_IMMUNIZATION}
+          stale={imunizationStale}
+        />,
+      ],
     ]);
 
     const { visibleCards } = this.props;
