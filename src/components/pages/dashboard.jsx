@@ -182,10 +182,6 @@ class DashboardNoContext extends React.PureComponent {
           stale: imunizationStale,
           lastUpdatedOn: imunizationLastUpdate,
         },
-        vaccineDetailedStats: {
-          stale: vaccineDetailedStale,
-          lastUpdatedOn: vaccineDetailedLastUpdate,
-        },
       } = result.charts;
       const { historicalData } = result;
       const totalCasesHistory = [];
@@ -204,15 +200,17 @@ class DashboardNoContext extends React.PureComponent {
             entry.numberTotalDosesAdministered || 0
           );
           immunityHistory.push(
-            entry.vaccines?.pfizer.second + entry.vaccines?.moderna.second || 0
+            entry.vaccines?.pfizer.immunized + entry.vaccines?.moderna.immunized || 0
           );
         });
 
       totalCasesHistory.push(numberInfected);
       curedCasesHistory.push(numberCured);
       deathCasesHistory.push(numberDeceased);
-      dosesAdministeredHistory.push(numberTotalDosesAdministered);
-      immunityHistory.push(vaccines?.pfizer.second + vaccines?.moderna.second);
+      if(!imunizationStale){
+        dosesAdministeredHistory.push(numberTotalDosesAdministered);
+        immunityHistory.push(vaccines?.pfizer.immunized + vaccines?.moderna.immunized);
+      }
 
       const totalImmunity = immunityHistory.reduce((a, b) => a + b, 0);
 
@@ -234,8 +232,6 @@ class DashboardNoContext extends React.PureComponent {
         vaccineQuickLastUpdate,
         imunizationStale,
         imunizationLastUpdate,
-        vaccineDetailedStale,
-        vaccineDetailedLastUpdate,
       };
     } catch (error) {
       console.error(error);
@@ -349,22 +345,22 @@ class DashboardNoContext extends React.PureComponent {
         .forEach(([date, entry]) => {
           if (entry.vaccines) {
             const { pfizer, moderna } = entry.vaccines;
-            if (pfizer.first + pfizer.second) {
+            if (pfizer.total_administered + pfizer.immunized) {
               pfizerRecords.push(
                 cumulative
                   ? (pfizerRecords[dateStrings.length - 1] || 0) +
-                      pfizer.first +
-                      pfizer.second
-                  : pfizer.first + pfizer.second || 0
+                      pfizer.total_administered +
+                      pfizer.immunized
+                  : pfizer.total_administered + pfizer.immunized || 0
               );
             }
-            if (moderna.first + moderna.second) {
+            if (moderna.total_administered + moderna.immunized) {
               modernaRecords = push(
                 cumulative
                   ? (modernaRecords[dateStrings.length - 1] || 0) +
-                      moderna.first +
-                      moderna.second
-                  : moderna.first + pfizer.second || 0
+                      moderna.total_administered +
+                      moderna.immunized
+                  : moderna.total_administered + pfizer.immunized || 0
               );
             }
             dateStrings.push(formatShortDate(date));
