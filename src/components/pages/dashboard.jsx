@@ -345,22 +345,18 @@ class DashboardNoContext extends React.PureComponent {
         .forEach(([date, entry]) => {
           if (entry.vaccines) {
             const { pfizer, moderna } = entry.vaccines;
-            if (pfizer.total_administered + pfizer.immunized) {
+            if (pfizer.total_administered) {
               pfizerRecords.push(
                 cumulative
                   ? (pfizerRecords[dateStrings.length - 1] || 0) +
-                      pfizer.total_administered +
-                      pfizer.immunized
-                  : pfizer.total_administered + pfizer.immunized || 0
+                      pfizer.total_administered : pfizer.total_administered  || 0
               );
             }
-            if (moderna.total_administered + moderna.immunized) {
-              modernaRecords = push(
+            if (moderna.total_administered) {
+              modernaRecords.push(
                 cumulative
                   ? (modernaRecords[dateStrings.length - 1] || 0) +
-                      moderna.total_administered +
-                      moderna.immunized
-                  : moderna.total_administered + pfizer.immunized || 0
+                      moderna.total_administered : moderna.total_administered || 0
               );
             }
             dateStrings.push(formatShortDate(date));
