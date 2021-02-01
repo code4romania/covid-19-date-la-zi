@@ -31,8 +31,8 @@ export class SummaryRow extends React.PureComponent {
 
   specialValueForImmunization(state) {
     const immunizationPercentage = Math.round(
-      100 * (state.totalImmunity / 19414458)
-    );
+      (100 * (state.totalImmunity / 19414458)) * 100
+    ) / 100;
     return {
       value: immunizationPercentage + '%',
       label: 'din total',
