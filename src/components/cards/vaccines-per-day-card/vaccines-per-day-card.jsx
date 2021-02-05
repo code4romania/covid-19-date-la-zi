@@ -160,7 +160,7 @@ export class VaccinesPerDayCard extends React.PureComponent {
           listModerna={records.moderna}
         />
         <p>
-          În cazul vaccinului Pfizer BioNTech sunt necesare două doze pentru
+          În cazul vaccinelor Pfizer BioNTech și Moderna sunt necesare două doze pentru
           imunizare.
         </p>
       </Card>
