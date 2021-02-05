@@ -12,7 +12,8 @@ export const PROP_SHOW_VACCINE_IMMUNIZATION = 'vaccine_immunization';
 // Their management is the same though, using a single API call
 export class SummaryRow extends React.PureComponent {
   specialValueForCured(state) {
-    const curedPercentage = Math.round(100 * (state.curedCases / state.totalCases));
+    const curedPercentage = Math.round((100 * (state.curedCases / state.totalCases)) * 100
+    ) / 100;
     return {
       value: curedPercentage + '%',
       label: 'din total',
@@ -21,7 +22,8 @@ export class SummaryRow extends React.PureComponent {
   }
 
   specialValueForDeaths(state) {
-    const deathPercentage = Math.round(100 * (state.deathCases / state.totalCases));
+    const deathPercentage = Math.round((100 * (state.deathCases / state.totalCases)) * 100
+    ) / 100;
     return {
       value: deathPercentage + '%',
       label: 'din total',
