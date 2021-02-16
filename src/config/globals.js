@@ -25,7 +25,8 @@ export const Constants = {
   dailyRecordsLimit: 14,
 
   pfizerColor: '#0C7BDC',
-  modernaColor: '#FEC20B'
+  modernaColor: '#FEC20B',
+  astraZenecaColor: '#e66100',
 };
 
 export const ApiURL = {

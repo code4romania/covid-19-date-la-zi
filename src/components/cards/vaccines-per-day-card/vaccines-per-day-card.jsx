@@ -45,14 +45,16 @@ export class VaccinesPerDayCard extends React.PureComponent {
       dates,
       pfizer,
       moderna,
+      astraZeneca
     } = records;
-    const labels = ['Pfizer BioNTech', 'Moderna'];
+    const labels = ['Pfizer BioNTech', 'Moderna', 'AstraZeneca'];
     const chartType =
       this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line';
     const chartStack = chartType === 'bar' ? 'one' : false;
     const zoomStart = this.getZoomStartPercentage(dates);
     const listPfizer = pfizer;
     const listModerna = moderna;
+    const listAstraZeneca = astraZeneca;
     const series = [
       listPfizer?.length && {
         data: listPfizer,
@@ -67,6 +69,13 @@ export class VaccinesPerDayCard extends React.PureComponent {
         stack: chartStack,
         type: chartType,
         color: Constants.modernaColor,
+      },
+      listAstraZeneca?.length && {
+        data: listAstraZeneca,
+        name: labels[2],
+        stack: chartStack,
+        type: chartType,
+        color: Constants.astraZenecaColor,
       },
     ];
 
@@ -158,9 +167,10 @@ export class VaccinesPerDayCard extends React.PureComponent {
           dates={dates}
           listPfizer={records.pfizer}
           listModerna={records.moderna}
+          listAstraZeneca={records.astraZeneca}
         />
         <p>
-          În cazul vaccinelor Pfizer BioNTech și Moderna sunt necesare două doze pentru
+          În cazul vaccinelor Pfizer BioNTech, Moderna și AstraZeneca sunt necesare două doze pentru
           imunizare.
         </p>
       </Card>
