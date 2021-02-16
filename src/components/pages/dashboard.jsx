@@ -200,7 +200,8 @@ class DashboardNoContext extends React.PureComponent {
             entry.numberTotalDosesAdministered || 0
           );
           immunityHistory.push(
-            entry.vaccines?.pfizer.immunized + entry.vaccines?.moderna.immunized || 0
+            entry.vaccines?.pfizer.immunized + entry.vaccines?.moderna.immunized +
+            entry.vaccines?.astra_zeneca.immunized || 0
           );
         });
 
@@ -332,6 +333,7 @@ class DashboardNoContext extends React.PureComponent {
       const dateStrings = [];
       const pfizerRecords = [];
       const modernaRecords = [];
+      const astraZeneca = [];
 
       const newData = vaccineDetailedStale
         ? historicalData
@@ -344,7 +346,7 @@ class DashboardNoContext extends React.PureComponent {
         .reverse()
         .forEach(([date, entry]) => {
           if (entry.vaccines) {
-            const { pfizer, moderna } = entry.vaccines;
+            const { pfizer, moderna, astra_zeneca } = entry.vaccines;
             pfizerRecords.push(
               cumulative
                 ? (pfizerRecords[dateStrings.length - 1] || 0) +
@@ -354,6 +356,11 @@ class DashboardNoContext extends React.PureComponent {
               cumulative
                 ? (modernaRecords[dateStrings.length - 1] || 0) +
                     moderna.total_administered : moderna.total_administered || 0
+            );
+            astraZeneca.push(
+              cumulative
+                ? (astraZeneca[dateStrings.length - 1] || 0) +
+                    astra_zeneca.total_administered : astra_zeneca.total_administered || 0
             );
             dateStrings.push(formatShortDate(date));
           }
@@ -366,6 +373,7 @@ class DashboardNoContext extends React.PureComponent {
         dates: dateStrings,
         pfizer: pfizerRecords,
         moderna: modernaRecords,
+        astraZeneca: astraZeneca,
       };
     } catch (error) {
       console.error(error);
