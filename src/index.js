@@ -17,7 +17,7 @@ import {
   LegendPlainComponent,
   VisualMapComponent,
 } from 'echarts/components';
-import { CanvasRenderer } from 'echarts/renderers';
+import { SVGRenderer } from 'echarts/renderers';
 
 // Register the required components
 echarts.use([
@@ -30,7 +30,7 @@ echarts.use([
   DataZoomComponent,
   LegendPlainComponent,
   VisualMapComponent,
-  CanvasRenderer,
+  SVGRenderer,
 ]);
 echarts.registerMap('RO', roGeoJson);
 
