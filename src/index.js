@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { registerMap } from 'echarts';
+import * as echarts from 'echarts/core';
 import '@code4ro/taskforce-fe-components/dist/index.css';
 import './index.scss';
 import App from './App';
@@ -9,8 +9,30 @@ import * as serviceWorker from './serviceWorker';
 import roGeoJson from './config/roGeo';
 const Embeddable = lazy(() => import('./components/pages/embed'));
 const BannerChartsPage = lazy(() => import('./components/pages/banner-charts'));
+import { LineChart, BarChart, PieChart, MapChart } from 'echarts/charts';
+import {
+  GridComponent,
+  TooltipComponent,
+  DataZoomComponent,
+  LegendPlainComponent,
+  VisualMapComponent,
+} from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';
 
-registerMap('RO', roGeoJson);
+// Register the required components
+echarts.use([
+  LineChart,
+  BarChart,
+  PieChart,
+  MapChart,
+  GridComponent,
+  TooltipComponent,
+  DataZoomComponent,
+  LegendPlainComponent,
+  VisualMapComponent,
+  CanvasRenderer,
+]);
+echarts.registerMap('RO', roGeoJson);
 
 ReactDOM.render(
   <BrowserRouter>

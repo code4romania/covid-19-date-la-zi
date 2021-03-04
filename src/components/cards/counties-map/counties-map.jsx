@@ -13,7 +13,7 @@ export class CountiesMap extends React.PureComponent {
       tooltip: {
         trigger: 'item',
         formatter: (item) => `
-          <strong style="color:#fff">${item.name}</strong></br>
+          <b>${item.name}</b></br>
           Cazuri totale: ${item.data.countyInfectionsNumbers}</br>
           Incidență cumulată: ${item.value}`,
       },

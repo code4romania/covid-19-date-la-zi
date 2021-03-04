@@ -1,4 +1,4 @@
-import { registerTheme } from 'echarts';
+import * as echarts from 'echarts/core';
 
 export const SUMMARY_CHART_THEME = 'summary chart';
 
@@ -62,4 +62,4 @@ let summaryChartTheme = {
   },
 };
 
-registerTheme(SUMMARY_CHART_THEME, summaryChartTheme);
+echarts.registerTheme(SUMMARY_CHART_THEME, summaryChartTheme);
