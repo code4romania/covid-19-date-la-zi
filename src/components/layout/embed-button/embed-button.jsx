@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import './embed-button.css';
 import Embed from './../../../images/embed.svg';
 import { useToast } from '../toast/withToastProvider';

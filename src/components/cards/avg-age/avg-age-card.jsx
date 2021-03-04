@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Card } from '../../layout/card/card';
 import './avg-age-card.css';
 import { formatDate } from '../../../utils/date';
