@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactEcharts from 'echarts-for-react';
+import ReactEChartsCore from 'echarts-for-react/lib/core';
+import * as echarts from 'echarts/core';
 import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
 import { formatDate } from '../../../utils/date';
@@ -81,7 +82,9 @@ export class AgeCard extends React.PureComponent {
         embedPath={EMBED_PATH_AGE}
       >
         <div className="pie-chart">
-          <ReactEcharts
+          <ReactEChartsCore
+            echarts={echarts}
+            lazyUpdate
             id="age-chart"
             style={{
               height: '250px',

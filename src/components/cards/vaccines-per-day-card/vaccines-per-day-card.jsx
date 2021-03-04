@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactEcharts from 'echarts-for-react';
+import ReactEChartsCore from 'echarts-for-react/lib/core';
+import * as echarts from 'echarts/core';
 import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
 import { Tabs } from '../../layout/tabs/tabs';
@@ -150,7 +151,9 @@ export class VaccinesPerDayCard extends React.PureComponent {
         error={error}
         embedPath={EMBED_PATH_VACCINES_PER_DAY}
       >
-        <ReactEcharts
+        <ReactEChartsCore
+          echarts={echarts}
+          lazyUpdate
           style={{
             height: '470px',
             marginBottom: '1rem',

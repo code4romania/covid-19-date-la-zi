@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactEcharts from 'echarts-for-react';
+import ReactEChartsCore from 'echarts-for-react/lib/core';
+import * as echarts from 'echarts/core';
 import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
 import { formatDate } from '../../../utils/date';
@@ -64,7 +65,9 @@ export class CountiesMap extends React.PureComponent {
         embedPath={EMBED_COUNTIES_MAP}
       >
         {counties && (
-          <ReactEcharts
+          <ReactEChartsCore
+            echarts={echarts}
+            lazyUpdate
             option={this.getChartOptions(counties)}
             style={{ height: '400px' }}
             className="react_for_echarts"

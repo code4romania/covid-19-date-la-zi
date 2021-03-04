@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactEcharts from 'echarts-for-react';
+import ReactEChartsCore from 'echarts-for-react/lib/core';
+import * as echarts from 'echarts/core';
 import { Card } from '../../layout/card/card';
 import { formatDate } from '../../../utils/date';
 
@@ -69,7 +70,9 @@ export class AgeCategory extends React.PureComponent {
         isStale={stale}
         embedPath={EMBED_PATH_AGE_CATEGORY}
       >
-        <ReactEcharts
+        <ReactEChartsCore
+          echarts={echarts}
+          lazyUpdate
           id="age-category"
           style={{
             height: '470px',

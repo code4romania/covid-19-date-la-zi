@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import ReactEcharts from 'echarts-for-react';
+import ReactEChartsCore from 'echarts-for-react/lib/core';
+import * as echarts from 'echarts/core';
 import { Constants, ApiURL } from '../../config/globals';
 import partnerLogo from '../../images/partener.png';
 import DeveloperLogo from '../../images/code4romania.svg';
@@ -165,7 +166,9 @@ export default () => {
               </div>
 
               {size !== 'ultraWide' && (
-                <ReactEcharts
+                <ReactEChartsCore
+                  echarts={echarts}
+                  lazyUpdate
                   style={{
                     height: size === 'portrait' ? '320px' : '240px',
                     width: '100%',
@@ -202,7 +205,9 @@ export default () => {
               </div>
 
               {size !== 'ultraWide' && (
-                <ReactEcharts
+                <ReactEChartsCore
+                  echarts={echarts}
+                  lazyUpdate
                   style={{
                     height: size === 'portrait' ? '320px' : '240px',
                     width: '100%',
@@ -239,7 +244,9 @@ export default () => {
               </div>
 
               {size !== 'ultraWide' && (
-                <ReactEcharts
+                <ReactEChartsCore
+                  echarts={echarts}
+                  lazyUpdate
                   style={{
                     height: size === 'portrait' ? '320px' : '240px',
                     width: '100%',

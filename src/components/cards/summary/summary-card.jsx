@@ -1,5 +1,6 @@
 import React from 'react';
-import ReactEcharts from 'echarts-for-react';
+import ReactEChartsCore from 'echarts-for-react/lib/core';
+import * as echarts from 'echarts/core';
 import { Card } from '../../layout/card/card';
 import './summary-card.css';
 import { SUMMARY_CHART_THEME } from './summary-chart.theme';
@@ -60,7 +61,9 @@ export class SummaryCard extends React.PureComponent {
         )}
         {data && (
           <div className="mini-chart">
-            <ReactEcharts
+            <ReactEChartsCore
+              echarts={echarts}
+              lazyUpdate
               style={{
                 height: '100%',
                 width: '100%',

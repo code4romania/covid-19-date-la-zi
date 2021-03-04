@@ -1,9 +1,11 @@
 import React from 'react';
-import ReactEcharts from 'echarts-for-react';
+import ReactEChartsCore from 'echarts-for-react/lib/core';
+import * as echarts from 'echarts/core';
 import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
 import { formatDate } from '../../../utils/date';
 import './gender-card.css';
+
 
 export const EMBED_PATH_GENDER = 'gen';
 export class GenderCard extends React.PureComponent {
@@ -78,7 +80,9 @@ export class GenderCard extends React.PureComponent {
         embedPath={EMBED_PATH_GENDER}
       >
         <div className="pie-chart">
-          <ReactEcharts
+          <ReactEChartsCore
+            echarts={echarts}
+            lazyUpdate
             id="gender-chart"
             style={{ height: '400px' }}
             option={this.getChartOptions(state)}
