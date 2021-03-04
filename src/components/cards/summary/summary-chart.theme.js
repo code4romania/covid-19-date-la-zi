@@ -2,31 +2,29 @@ import * as echarts from 'echarts/core';
 
 export const SUMMARY_CHART_THEME = 'summary chart';
 
-function axisCommon() {
-  return {
-    axisLine: {
-      show: false,
-    },
-    axisTick: {
-      show: false,
-    },
-    axisLabel: {
-      show: false,
-    },
-    splitLine: {
-      show: false,
-    },
-    splitArea: {
-      show: false,
-    },
-  };
-}
+const axisCommon = {
+  axisLine: {
+    show: false,
+  },
+  axisTick: {
+    show: false,
+  },
+  axisLabel: {
+    show: false,
+  },
+  splitLine: {
+    show: false,
+  },
+  splitArea: {
+    show: false,
+  },
+};
 
 let summaryChartTheme = {
-  timeAxis: axisCommon(),
-  logAxis: axisCommon(),
-  valueAxis: axisCommon(),
-  categoryAxis: axisCommon(),
+  timeAxis: axisCommon,
+  logAxis: axisCommon,
+  valueAxis: axisCommon,
+  categoryAxis: axisCommon,
   line: {
     symbol: 'none',
     lineStyle: {
@@ -53,12 +51,6 @@ let summaryChartTheme = {
       },
     ],
     global: false,
-  },
-  grid: {
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
   },
 };
 
