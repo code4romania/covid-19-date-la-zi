@@ -1,0 +1,32 @@
+{
+  "name": "nextdate",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ./src --ext .js,.jsx",
+    "lint:fix": "yarn lint --fix"
+  },
+  "dependencies": {
+    "@code4ro/taskforce-fe-components": "2.0.1",
+    "bulma": "^0.9.1",
+    "downloadjs": "^1.4.7",
+    "echarts": "^5.0.2",
+    "echarts-for-react": "^3.0.1",
+    "next": "10.0.8",
+    "prop-types": "^15.7.2",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  },
+  "devDependencies": {
+    "husky": "^4.3.7",
+    "sass": "^1.32.8"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
+  }
+}

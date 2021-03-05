@@ -1,23 +1,21 @@
-import React, { Suspense, lazy } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import * as echarts from 'echarts/core';
-import '@code4ro/taskforce-fe-components/dist/index.css';
-import './index.scss';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import roGeoJson from './config/roGeo';
-const Embeddable = lazy(() => import('./components/pages/embed'));
-const BannerChartsPage = lazy(() => import('./components/pages/banner-charts'));
-import { LineChart, BarChart, PieChart, MapChart } from 'echarts/charts';
+import React, { Suspense, lazy } from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import * as echarts from "echarts/core";
+import "@code4ro/taskforce-fe-components/dist/index.css";
+import "./index.scss";
+import App from "./App";
+const Embeddable = lazy(() => import("./components/pages/embed"));
+const BannerChartsPage = lazy(() => import("./components/pages/banner-charts"));
+import { LineChart, BarChart, PieChart, MapChart } from "echarts/charts";
 import {
   GridComponent,
   TooltipComponent,
   DataZoomComponent,
   LegendPlainComponent,
   VisualMapComponent,
-} from 'echarts/components';
-import { SVGRenderer } from 'echarts/renderers';
+} from "echarts/components";
+import { SVGRenderer } from "echarts/renderers";
 
 // Register the required components
 echarts.use([
@@ -32,7 +30,7 @@ echarts.use([
   VisualMapComponent,
   SVGRenderer,
 ]);
-echarts.registerMap('RO', roGeoJson);
+echarts.registerMap("RO", roGeoJson);
 
 ReactDOM.render(
   <BrowserRouter>
@@ -50,7 +48,7 @@ ReactDOM.render(
       </Switch>
     </Suspense>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
