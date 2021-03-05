@@ -21,6 +21,8 @@ module.exports = {
   optimize: {
     bundle: true,
     minify: true,
+    treeshake: true,
+    splitting: true,
     target: 'es2018',
   },
   packageOptions: {
