@@ -4,9 +4,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import * as echarts from 'echarts/core';
 import '@code4ro/taskforce-fe-components/dist/index.css';
 import './index.scss';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import roGeoJson from './config/roGeo';
+import App from './App.jsx';
+import roGeoJson from './config/roGeo.json';
 const Embeddable = lazy(() => import('./components/pages/embed'));
 const BannerChartsPage = lazy(() => import('./components/pages/banner-charts'));
 import { LineChart, BarChart, PieChart, MapChart } from 'echarts/charts';
@@ -50,10 +49,11 @@ ReactDOM.render(
       </Switch>
     </Suspense>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// Hot Module Replacement (HMR) - Remove this snippet to remove HMR.
+// Learn more: https://www.snowpack.dev/concepts/hot-module-replacement
+if (import.meta.hot) {
+  import.meta.hot.accept();
+}

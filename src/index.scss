@@ -1,15 +1,15 @@
 $card-header-shadow: 0;
 $card-shadow: 0;
 
-@import "./_fonts.scss";
-@import "~bulma/sass/utilities/_all.sass";
-@import "~bulma/sass/base/_all.sass";
-@import "~bulma/sass/helpers/typography.sass";
-@import "~bulma/sass/helpers/visibility.sass";
-@import "~bulma/sass/helpers/flexbox.sass";
-@import "~bulma/sass/helpers/color.sass";
-@import "~bulma/sass/components/card.sass";
-@import "~bulma/sass/components/tabs.sass";
+@import './_fonts.scss';
+@import 'node_modules/bulma/sass/utilities/_all.sass';
+@import 'node_modules/bulma/sass/base/_all.sass';
+@import 'node_modules/bulma/sass/helpers/typography.sass';
+@import 'node_modules/bulma/sass/helpers/visibility.sass';
+@import 'node_modules/bulma/sass/helpers/flexbox.sass';
+@import 'node_modules/bulma/sass/helpers/color.sass';
+@import 'node_modules/bulma/sass/components/card.sass';
+@import 'node_modules/bulma/sass/components/tabs.sass';
 
 :root {
   --accent-color: #1c1080;
@@ -18,13 +18,13 @@ $card-shadow: 0;
 
 body {
   margin: 0;
-  font-family: "Titillium Web", sans-serif;
+  font-family: 'Titillium Web', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 

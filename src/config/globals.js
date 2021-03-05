@@ -1,5 +1,7 @@
 export const Constants = {
-  api: process.env.REACT_APP_API_URL || 'https://d35p9e4fm9h3wo.cloudfront.net',
+  api:
+    import.meta.env.SNOWPACK_PUBLIC_API_URL ||
+    'https://d35p9e4fm9h3wo.cloudfront.net',
 
   womenColor: '#F77EB9',
   menColor: '#7EBCFF',
