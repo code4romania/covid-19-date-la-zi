@@ -45,57 +45,38 @@ import {
 } from "../components/cards/age-category/age-category";
 import { VaccinesPerDayCard } from "../components/cards/vaccines-per-day-card/vaccines-per-day-card";
 
-class DashboardNoContext extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export async function getStaticProps(context) {
+  const res = await fetch(ApiURL.allData);
+  const data = await res.json();
 
-    const defaultState = {
-      isLoaded: false,
-      error: null,
-    };
-
-    this.state = {
-      error: defaultState.error,
-      summary: defaultState,
-      daily: defaultState, // object
-      cumulative: defaultState, // object
-      gender: defaultState, // object
-      age: defaultState, // object
-      averageAge: defaultState, // object
-      dailyTable: defaultState, // object
-      countiesTable: defaultState,
-      ageCategory: defaultState,
-      vaccinesDaily: defaultState,
-      vaccinesCumulative: defaultState,
+  if (!data) {
+    return {
+      notFound: true,
     };
   }
 
-  componentDidMount() {
-    fetch(ApiURL.allData)
-      .then((res) => res.json())
-      .then((result) => {
-        if (result.error != null) {
-          this.setState({ error: result.error, isLoaded: true });
-        } else {
-          this.setState({
-            summary: this.parseSummary(result),
-            daily: this.parseDailyStats(result, { cumulative: false }),
-            cumulative: this.parseDailyStats(result, { cumulative: true }),
-            gender: this.parseGenderStats(result),
-            age: this.parseAgeStats(result),
-            averageAge: this.parseAverageAge(result),
-            countiesTable: this.parseCountiesTable(result),
-            ageCategory: this.parseAgeCategory(result),
-            vaccinesDaily: this.parseVaccinesHistory(result, {
-              cumulative: false,
-            }),
-            vaccinesCumulative: this.parseVaccinesHistory(result, {
-              cumulative: true,
-            }),
-          });
-        }
-      });
-  }
+  return {
+    props: { data }, // will be passed to the page component as props
+  };
+}
+
+class DashboardNoContext extends React.Component {
+  state = {
+    summary: this.parseSummary(this.props.data),
+    daily: this.parseDailyStats(this.props.data, { cumulative: false }),
+    cumulative: this.parseDailyStats(this.props.data, { cumulative: true }),
+    gender: this.parseGenderStats(this.props.data),
+    age: this.parseAgeStats(this.props.data),
+    averageAge: this.parseAverageAge(this.props.data),
+    countiesTable: this.parseCountiesTable(this.props.data),
+    ageCategory: this.parseAgeCategory(this.props.data),
+    vaccinesDaily: this.parseVaccinesHistory(this.props.data, {
+      cumulative: false,
+    }),
+    vaccinesCumulative: this.parseVaccinesHistory(this.props.data, {
+      cumulative: true,
+    }),
+  };
 
   parseAgeCategory(result) {
     const { historicalData, currentDayStats } = result;

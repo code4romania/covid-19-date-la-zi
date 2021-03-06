@@ -8,11 +8,11 @@ export const EmbedButton = (props) => {
   const { path, viewPort } = props;
 
   const footerHeight = 75;
-  const getEmbeddableCode = `<iframe
-            scrolling="no"
-            src="${window.location.origin.toString()}/embed/${path}"
-            width="${viewPort.width}"
-            height="${viewPort.height + footerHeight}"></iframe>`;
+  // const getEmbeddableCode = `<iframe
+  //           scrolling="no"
+  //           src="${window.location.origin.toString()}/embed/${path}"
+  //           width="${viewPort.width}"
+  //           height="${viewPort.height + footerHeight}"></iframe>`;
 
   const handleCopyEmbedCode = () => {
     const auxiliaryField = document.createElement('textarea');
@@ -28,9 +28,9 @@ export const EmbedButton = (props) => {
   };
 
   // if already embedded hide the button
-  if (window.location.pathname === `/embed/${path}`) {
-    return <span />;
-  }
+  // if (window.location.pathname === `/embed/${path}`) {
+  //   return <span />;
+  // }
 
   return (
     <div className="fab-action">
