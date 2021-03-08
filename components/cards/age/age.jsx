@@ -3,6 +3,7 @@ import ReactECharts from 'echarts-for-react';
 import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
 import { formatDate } from '../../../utils/date';
+import { parseAgeStats } from '../../../utils/parse';
 
 export const EMBED_PATH_AGE = 'varsta';
 export class AgeCard extends React.PureComponent {
@@ -70,10 +71,9 @@ export class AgeCard extends React.PureComponent {
 
   render() {
     const { title, state } = this.props;
-    const { isLoaded, error, lastUpdatedOn, stale } = state;
+    const { error, lastUpdatedOn, stale, ...parsedData } = parseAgeStats(state);
     return (
       <Card
-        isLoaded={isLoaded}
         error={error}
         title={title}
         subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
@@ -89,7 +89,7 @@ export class AgeCard extends React.PureComponent {
               height: '250px',
               width: '100%',
             }}
-            option={this.getChartOptions(state)}
+            option={this.getChartOptions(parsedData)}
             theme="light"
           />
         </div>

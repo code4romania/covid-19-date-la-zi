@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
 import { Card } from '../../layout/card/card';
-import './summary-card.module.css';
+import styles from './summary-card.module.css';
 import { SUMMARY_CHART_THEME } from './summary-chart.theme';
 
 export class SummaryCard extends React.PureComponent {
@@ -30,14 +30,12 @@ export class SummaryCard extends React.PureComponent {
       data,
       special,
       total,
-      isLoaded,
       error,
       embedPath,
       stale,
     } = this.props;
     return (
       <Card
-        isLoaded={isLoaded}
         error={error}
         isStale={stale}
         embedPath={embedPath}
@@ -46,7 +44,7 @@ export class SummaryCard extends React.PureComponent {
       >
         <h3 className="is-inline-block">{total}</h3>
         {special && (
-          <span className="is-inline-block special">
+          <span className={`${styles.special} is-inline-block`}>
             <span
               className={
                 special.isGood ? 'has-text-success' : 'has-text-danger'
@@ -59,7 +57,7 @@ export class SummaryCard extends React.PureComponent {
           </span>
         )}
         {data && (
-          <div className="mini-chart">
+          <div className={styles.mini_chart}>
             <ReactECharts
               lazyUpdate
               opts={{renderer: 'svg'}}

@@ -1,41 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
-import Loader from '../../loader';
 import { EmbedButton } from '../embed-button/embed-button';
 import styles from './card.module.css';
 
 export class Card extends React.PureComponent {
-  state = {
-    viewport: {
-      width: 0,
-      height: 0,
-    },
-  };
-
-  componentDidUpdate(prevProps) {
-    if (this.props.isLoaded !== prevProps.isLoaded) {
-      this.handleLoadedEvent();
-    }
-  }
-
-  handleLoadedEvent() {
-    const node = ReactDOM.findDOMNode(this);
-
-    this.setState({
-      viewport: {
-        width: node.clientWidth + 5, // + 5 just to make sure no scroll is displayed
-        height: node.clientHeight + 5,
-      },
-    });
-  }
-
   render() {
     const {
       title,
       subtitle,
       children,
-      isLoaded,
       error,
       embedPath,
       isStale,
@@ -43,29 +16,27 @@ export class Card extends React.PureComponent {
 
     if (error) {
       return (
-        <div className={`${styles.is_error} ${styles.is-block}`}>Nu am putut încărca datele</div>
+        <div className={`${styles.is_error} is-block`}>Nu am putut încărca datele</div>
       );
     }
-    return isLoaded ? (
-      <div className={`card ${isStale ? 'card--warning' : ''}`}>
+    return (
+      <div className={`${styles.card} ${isStale ? styles.card__warning : ''}`}>
         {title && (
           <header className={styles.card_header}>
-            <div className={`${styles.card_header_title} has-text-weight-normal`}>
-              <h2 className={`${styles.card_title} has-text-weight-bold`}>{title}</h2>
+            <div className={`${styles.card_header_title} card-header-title has-text-weight-normal`}>
+              <h2 className="has-text-weight-bold">{title}</h2>
               {subtitle && <small>{subtitle}</small>}
             </div>
           </header>
         )}
-        <div className={styles.card_content}>
-          <div className={styles.content}>{children}</div>
+        <div className={`card-content ${isStale ? styles.card__warning_content : ''}`}>
+          <div className="content">{children}</div>
           {embedPath && (
-            <EmbedButton path={embedPath} viewPort={this.state.viewport} />
+            <EmbedButton path={embedPath}/>
           )}
         </div>
       </div>
-    ) : (
-      <Loader />
-    );
+    )
   }
 }
 
@@ -73,7 +44,6 @@ Card.propType = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   children: PropTypes.node.isRequired,
-  isLoaded: PropTypes.bool,
   error: PropTypes.string,
   embedPath: PropTypes.string,
   isStale: PropTypes.bool,

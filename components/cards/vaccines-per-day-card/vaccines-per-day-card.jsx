@@ -4,6 +4,7 @@ import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
 import { Tabs } from '../../layout/tabs/tabs';
 import { formatDate } from '../../../utils/date';
+import { parseVaccinesHistory } from '../../../utils/parse';
 
 const VIEW_TABS = [
   {
@@ -14,13 +15,9 @@ const VIEW_TABS = [
 ];
 export const EMBED_PATH_VACCINES_PER_DAY = 'doze-pe-zi';
 export class VaccinesPerDayCard extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activeTab: VIEW_TABS[0].value,
-    };
-  }
+  state = {
+    activeTab: VIEW_TABS[0].value,
+  };
 
   getDateRange(records) {
     if (records.dates === undefined) {
@@ -40,7 +37,6 @@ export class VaccinesPerDayCard extends React.PureComponent {
   };
 
   getChartOptions(records) {
-    const { activeTab } = this.state;
     const {
       dates,
       pfizer,
@@ -131,10 +127,14 @@ export class VaccinesPerDayCard extends React.PureComponent {
 
   render() {
     const { activeTab } = this.state;
-    const { daily, cumulative } = this.props;
+    const daily = parseVaccinesHistory(this.props.state, {
+      cumulative: false,
+    })
+    const cumulative = parseVaccinesHistory(this.props.state, {
+      cumulative: true,
+    })
     const records = activeTab === VIEW_TABS[0].value ? daily : cumulative
     const {
-      isLoaded,
       isStale,
       error,
       dates,
@@ -143,7 +143,6 @@ export class VaccinesPerDayCard extends React.PureComponent {
 
     return (
       <Card
-        isLoaded={isLoaded}
         title="Doze de vaccin administrate pe zile"
         subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={isStale}

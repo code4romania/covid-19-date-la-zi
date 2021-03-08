@@ -16,18 +16,13 @@
     "echarts": "^5.0.2",
     "echarts-for-react": "^3.0.1",
     "next": "10.0.8",
-    "next-transpile-modules": "^6.3.0",
     "prop-types": "^15.7.2",
     "react": "17.0.1",
-    "react-dom": "17.0.1"
+    "react-dom": "17.0.1",
+    "react-hot-toast": "^1.0.2"
   },
   "devDependencies": {
     "husky": "^4.3.7",
     "sass": "^1.32.8"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint"
-    }
   }
 }

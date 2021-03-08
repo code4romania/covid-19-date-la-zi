@@ -3,6 +3,7 @@ import ReactECharts from 'echarts-for-react';
 import { Card } from '../../layout/card/card';
 import { Tabs } from '../../layout/tabs/tabs';
 import { Constants } from '../../../config/globals';
+import { parseDailyStats } from '../../../utils/parse'
 
 const VIEW_TABS = [
   {
@@ -13,13 +14,10 @@ const VIEW_TABS = [
 ];
 export const EMBED_PATH_CASES_PER_DAY = 'cazuri-pe-zi';
 export class CasesPerDayCard extends React.PureComponent {
-  constructor(props) {
-    super(props);
+  state = {
+    activeTab: VIEW_TABS[0].value,
+  };
 
-    this.state = {
-      activeTab: VIEW_TABS[0].value,
-    };
-  }
 
   getDateRange(records) {
     if (records.dates === undefined) {
@@ -140,13 +138,13 @@ export class CasesPerDayCard extends React.PureComponent {
 
   render() {
     const { activeTab } = this.state;
-    const { daily, cumulative } = this.props;
+    const daily = parseDailyStats(this.props.state, { cumulative: false });
+    const cumulative = parseDailyStats(this.props.state, { cumulative: true });
     const records = activeTab === VIEW_TABS[0].value ? daily : cumulative;
-    const { isLoaded, error, isStale } = records;
+    const { error, isStale } = records;
     const { from, to } = this.getDateRange(records);
     return (
       <Card
-        isLoaded={isLoaded}
         title="Număr de cazuri pe zile"
         subtitle={`De la ${from} până la ${to}`}
         isStale={isStale}

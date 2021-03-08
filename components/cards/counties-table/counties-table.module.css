@@ -1,29 +1,42 @@
-.perDayTable {
+.per_day_table {
     max-width: 100%;
     width: 100%;
     min-height: 500px;
     position: relative;
 }
 
-.perDayTable table {
+.table {
     table-layout: fixed;
     width: 100%;
     max-width: 100%;
 }
 
 @media only screen and (max-width: 812px) {
-    .perDayTable table tbody td {
+    .td {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
 
-    .perDayTable .button:first-child {
+    .button:first-child {
         margin-bottom: 10px;
     }
 }
 
-.perDayTable table tbody tr:hover {
+.tr:hover {
     background-color: #3d3b3b83;
     color: white;
 }
 
+.navigation_chevron {
+    width: 24px;
+    height: 24px;
+}
+  
+.navigation {
+    padding-top: 5px;
+    bottom: 0px;
+    display: block;
+    width: 100%;
+    min-width: 100%;
+    height: 35px;
+}

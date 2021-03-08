@@ -3,6 +3,7 @@ import ReactECharts from 'echarts-for-react';
 import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
 import { formatDate } from '../../../utils/date';
+import { parseCountiesTable } from '../../../utils/parse';
 
 export const EMBED_COUNTIES_MAP = 'counties-map';
 
@@ -51,13 +52,11 @@ export class CountiesMap extends React.PureComponent {
   }
 
   render() {
-    const { state } = this.props;
-    const { isLoaded, error, counties, stale, lastUpdatedOn } = state;
+    const { error, counties, stale, lastUpdatedOn } = parseCountiesTable(this.props.state);
 
     return (
       <Card
         error={error}
-        isLoaded={isLoaded}
         title=" Incidenta cumulata a cazurilor la nivel județean în ultimele 14 zile la mia de locuitori"
         subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={stale}

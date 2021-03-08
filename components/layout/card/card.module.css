@@ -1,13 +1,15 @@
 .card {
     border: 1px solid #e2e5ed;
+    position: relative;
+    height: 100%;
 }
-.card--warning small {
+.card__warning small {
     background: #fff177;
     border-radius: 5px;
     padding: 2px 8px;
     margin-top: 5px;
 }
-.card--warning .card-content {
+.card__warning_content {
     opacity: 0.6;
 }
 .card_header {
@@ -20,7 +22,7 @@
     align-items: flex-start;
 }
 
-.is-error {
+.is_error {
     color: red;
     text-align: center;
     margin: auto 0;

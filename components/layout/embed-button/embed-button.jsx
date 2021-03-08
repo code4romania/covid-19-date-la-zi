@@ -1,18 +1,17 @@
 import React from 'react';
 import Image from 'next/image'
-import './embed-button.module.css';
-import { useToast } from '../toast/withToastProvider';
+import toast, { Toaster } from 'react-hot-toast';
+import styles from './embed-button.module.css';
+import {Constants} from '../../../config/globals'
 
 export const EmbedButton = (props) => {
-  // const toast = useToast();
-  const { path, viewPort } = props;
+  const { path } = props;
 
-  const footerHeight = 75;
-  // const getEmbeddableCode = `<iframe
-  //           scrolling="no"
-  //           src="${window.location.origin.toString()}/embed/${path}"
-  //           width="${viewPort.width}"
-  //           height="${viewPort.height + footerHeight}"></iframe>`;
+  const getEmbeddableCode = `<iframe
+            scrolling="no"
+            src="${Constants.shareableLink}/embed/${path}"
+            width="311"
+            height="752"></iframe>`;
 
   const handleCopyEmbedCode = () => {
     const auxiliaryField = document.createElement('textarea');
@@ -23,27 +22,20 @@ export const EmbedButton = (props) => {
     document.execCommand('copy');
 
     auxiliaryField.remove();
-
-    // toast.add('Codul de embed a fost copiat în clipboard');
+    toast.success('Codul de embed a fost copiat în clipboard')
   };
 
-  // if already embedded hide the button
-  // if (window.location.pathname === `/embed/${path}`) {
-  //   return <span />;
-  // }
-
   return (
-    <div className="fab-action">
-      <div className="tooltip">
-        <Image
-          src="/images/embed.svg"
-          alt="embed"
-          width={16}
-          height={16}
-          className="fab-icon"
-          onClick={handleCopyEmbedCode}
-        />
-      </div>
+    <div className={styles.fab_action}>
+      <Image
+        src="/images/embed.svg"
+        alt="embed"
+        width={16}
+        height={16}
+        layout="fixed"
+        onClick={handleCopyEmbedCode}
+      />
+      <Toaster position="bottom-right" />
     </div>
   );
 };

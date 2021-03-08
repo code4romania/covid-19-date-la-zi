@@ -1,49 +1,20 @@
 import React from "react";
-import { ApiURL } from "../config/globals";
-import { PageHeader } from "../components/layout/page-header/page-header";
-import { mnemonics } from "../config/mnemonics";
-import {
-  PROP_SHOW_CONFIRMED_CASES,
-  PROP_SHOW_CURED_CASES,
-  PROP_SHOW_DEATH_CASES,
-  PROP_SHOW_TOTAL_VACCINE,
-  PROP_SHOW_VACCINE_IMMUNIZATION,
-  SummaryRow,
-} from "../components/layout/rows/summary-row";
-import {
-  EMBED_PATH_GENDER,
-  GenderCard,
-} from "../components/cards/gender/gender-card";
-import {
-  CasesPerDayCard,
-  EMBED_PATH_CASES_PER_DAY,
-} from "../components/cards/cases-per-day-card/cases-per-day-card";
-import {
-  AverageAgeCard,
-  EMBED_PATH_AVERAGE_AGE,
-} from "../components/cards/avg-age/avg-age-card";
-import { AgeCard, EMBED_PATH_AGE } from "../components/cards/age/age";
-import {
-  CountiesMap,
-  EMBED_COUNTIES_MAP,
-} from "../components/cards/counties-map/counties-map";
-import {
-  CountiesTable,
-  EMBED_COUNTIES_TABLE,
-} from "../components/cards/counties-table/counties-table";
-import { formatShortDate } from "../utils/date";
 import download from "downloadjs";
-
+import styles from "./index.module.css";
 import { SocialsShare } from "@code4ro/taskforce-fe-components";
-
-import "./index.module.css";
-import { withToastProvider } from "../components/layout/toast/withToastProvider";
+import { ApiURL, Constants } from "../config/globals";
+import { PageHeader } from "../components/layout/page-header/page-header";
+import { SummaryRow } from "../components/layout/rows/summary-row";
+import { GenderCard } from "../components/cards/gender/gender-card";
+import { CasesPerDayCard } from "../components/cards/cases-per-day-card/cases-per-day-card";
+import { AverageAgeCard } from "../components/cards/avg-age/avg-age-card";
+import { AgeCard } from "../components/cards/age/age";
+import { CountiesMap } from "../components/cards/counties-map/counties-map";
+import { CountiesTable } from "../components/cards/counties-table/counties-table";
 import { InstrumentsWrapper } from "../components/layout/instruments/instruments";
-import {
-  AgeCategory,
-  EMBED_PATH_AGE_CATEGORY,
-} from "../components/cards/age-category/age-category";
+import { AgeCategory } from "../components/cards/age-category/age-category";
 import { VaccinesPerDayCard } from "../components/cards/vaccines-per-day-card/vaccines-per-day-card";
+import DefaultLayout from "../components/layout/default-layout";
 
 export async function getStaticProps(context) {
   const res = await fetch(ApiURL.allData);
@@ -57,416 +28,20 @@ export async function getStaticProps(context) {
 
   return {
     props: { data }, // will be passed to the page component as props
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every second
+    revalidate: 300, // In seconds (5min)
   };
 }
 
-class DashboardNoContext extends React.Component {
-  state = {
-    summary: this.parseSummary(this.props.data),
-    daily: this.parseDailyStats(this.props.data, { cumulative: false }),
-    cumulative: this.parseDailyStats(this.props.data, { cumulative: true }),
-    gender: this.parseGenderStats(this.props.data),
-    age: this.parseAgeStats(this.props.data),
-    averageAge: this.parseAverageAge(this.props.data),
-    countiesTable: this.parseCountiesTable(this.props.data),
-    ageCategory: this.parseAgeCategory(this.props.data),
-    vaccinesDaily: this.parseVaccinesHistory(this.props.data, {
-      cumulative: false,
-    }),
-    vaccinesCumulative: this.parseVaccinesHistory(this.props.data, {
-      cumulative: true,
-    }),
-  };
-
-  parseAgeCategory(result) {
-    const { historicalData, currentDayStats } = result;
-    const {
-      ageHistogram: { lastUpdatedOn, stale },
-    } = result.charts;
-    const ageCategories = {};
-    const dateStrings = [];
-    const newData = {
-      [currentDayStats.parsedOnString]: currentDayStats,
-      ...historicalData,
-    };
-
-    const dataEntries = Object.entries(newData)
-      .filter(([key, value]) => key <= lastUpdatedOn)
-      .reverse();
-
-    for (let i = 0; i < dataEntries.length - 1; i++) {
-      const key = dataEntries[i + 1][0];
-      const currentValue = dataEntries[i][1];
-      const nextValue = dataEntries[i + 1][1];
-      dateStrings.push(formatShortDate(key));
-
-      Object.entries(currentValue.distributionByAge)
-        .filter(([ageGroup]) => ageGroup !== "în procesare")
-        .forEach(([ageGroup, currentCases]) => {
-          const cases = nextValue.distributionByAge[ageGroup] - currentCases;
-          if (Array.isArray(ageCategories[ageGroup])) {
-            ageCategories[ageGroup].push(cases);
-          } else {
-            ageCategories[ageGroup] = [cases];
-          }
-        });
-    }
-
-    return {
-      isLoaded: true,
-      lastUpdatedOn,
-      ageCategories,
-      dateStrings,
-      stale,
-    };
-  }
-
-  parseCountiesTable(result) {
-    const { countyInfectionsNumbers, incidence } = result.currentDayStats;
-    const {
-      incidenceStats: { lastUpdatedOn, stale },
-    } = result.charts;
-
-    const counties = Object.entries(incidence)
-      .map(([key, entry]) => ({
-        name: mnemonics[key][0],
-        value: entry,
-        countyInfectionsNumbers: countyInfectionsNumbers[key],
-        county: key,
-      }))
-      .sort((a, b) =>
-        // reversed by count
-        a.value > b.value ? -1 : 1
-      );
-    return {
-      error: null,
-      isLoaded: true,
-      counties,
-      lastUpdatedOn,
-      stale,
-    };
-  }
-
-  parseSummary(result) {
-    try {
-      const {
-        numberInfected,
-        numberCured,
-        numberDeceased,
-        numberTotalDosesAdministered,
-        vaccines,
-      } = result.currentDayStats;
-      const {
-        dailyStats: { stale: dailyStale, lastUpdatedOn: dailyLastUpdate },
-        vaccineQuickStats: {
-          stale: vaccineQuickStale,
-          lastUpdatedOn: vaccineQuickLastUpdate,
-        },
-        immunizationStats: {
-          stale: imunizationStale,
-          lastUpdatedOn: imunizationLastUpdate,
-        },
-      } = result.charts;
-      const { historicalData } = result;
-      const totalCasesHistory = [];
-      const curedCasesHistory = [];
-      const deathCasesHistory = [];
-      const dosesAdministeredHistory = [];
-      const immunityHistory = [];
-
-      Object.entries(historicalData)
-        .reverse()
-        .forEach(([, entry]) => {
-          totalCasesHistory.push(entry.numberInfected || 0);
-          curedCasesHistory.push(entry.numberCured || 0);
-          deathCasesHistory.push(entry.numberDeceased || 0);
-          dosesAdministeredHistory.push(
-            entry.numberTotalDosesAdministered || 0
-          );
-          immunityHistory.push(
-            entry.vaccines?.pfizer.immunized +
-              entry.vaccines?.moderna.immunized +
-              entry.vaccines?.astra_zeneca.immunized || 0
-          );
-        });
-
-      totalCasesHistory.push(numberInfected);
-      curedCasesHistory.push(numberCured);
-      deathCasesHistory.push(numberDeceased);
-      if (!imunizationStale) {
-        dosesAdministeredHistory.push(numberTotalDosesAdministered);
-        immunityHistory.push(
-          vaccines?.pfizer.immunized + vaccines?.moderna.immunized
-        );
-      }
-
-      const totalImmunity = immunityHistory.reduce((a, b) => a + b, 0);
-
-      return {
-        isLoaded: true,
-        totalCases: numberInfected,
-        totalCasesHistory,
-        curedCases: numberCured,
-        curedCasesHistory,
-        deathCases: numberDeceased,
-        deathCasesHistory,
-        totalDosesAdministered: numberTotalDosesAdministered,
-        dosesAdministeredHistory,
-        totalImmunity,
-        immunityHistory,
-        dailyStale,
-        dailyLastUpdate,
-        vaccineQuickStale,
-        vaccineQuickLastUpdate,
-        imunizationStale,
-        imunizationLastUpdate,
-      };
-    } catch (error) {
-      console.error(error);
-      return {
-        error,
-        isLoaded: false,
-      };
-    }
-  }
-
-  parseDailyStats(result, options) {
-    try {
-      const {
-        dailyStats: { lastUpdatedOn, stale },
-      } = result.charts;
-      const { historicalData, currentDayStats } = result;
-      const { cumulative } = options;
-
-      const confirmedCasesHistory = [];
-      const curedCasesHistory = [];
-      const deathCasesHistory = [];
-      const dateStrings = [];
-      const newData = {
-        [currentDayStats.parsedOnString]: currentDayStats,
-        ...historicalData,
-      };
-      const dataEntries = Object.entries(newData)
-        .filter(([, value]) => value.complete)
-        .reverse();
-
-      for (let i = 0; i <= dataEntries.length - 1; i++) {
-        const numberInfected = dataEntries[i][1].numberInfected;
-        const nextNumberInfected = dataEntries[i + 1]?.[1].numberInfected;
-        const prevNumberInfected = dataEntries[i - 1]?.[1].numberInfected;
-        const numberInfectedByDay = !isNaN(nextNumberInfected)
-          ? nextNumberInfected - numberInfected
-          : numberInfected - prevNumberInfected;
-
-        confirmedCasesHistory.push(
-          cumulative ? numberInfected : numberInfectedByDay
-        );
-
-        const numberCured = dataEntries[i][1].numberCured;
-        const nextNumberCured = dataEntries[i + 1]?.[1]?.numberCured;
-        const prevNumberCured = dataEntries[i - 1]?.[1]?.numberCured;
-        const numberCuredByDay = !isNaN(nextNumberCured)
-          ? nextNumberCured - numberCured
-          : numberCured - prevNumberCured;
-
-        curedCasesHistory.push(cumulative ? numberCured : numberCuredByDay);
-
-        const numberDeceased = dataEntries[i][1].numberDeceased;
-        const nextNumberDeceased = dataEntries[i + 1]?.[1]?.numberDeceased;
-        const prevNumberDeceased = dataEntries[i - 1]?.[1]?.numberDeceased;
-        const numberDeceasedByDay = !isNaN(nextNumberDeceased)
-          ? nextNumberDeceased - numberDeceased
-          : numberDeceased - prevNumberDeceased;
-
-        deathCasesHistory.push(
-          cumulative ? numberDeceased : numberDeceasedByDay
-        );
-
-        dateStrings.push(formatShortDate(dataEntries[i][0]));
-      }
-
-      if (!cumulative) {
-        dateStrings.shift();
-      }
-
-      return {
-        isLoaded: true,
-        dates: dateStrings,
-        confirmedCasesHistory,
-        curedCasesHistory,
-        deathCasesHistory,
-        lastUpdatedOn,
-        stale,
-      };
-    } catch (error) {
-      console.error(error);
-      return {
-        error,
-        isLoaded: false,
-      };
-    }
-  }
-
-  parseVaccinesHistory(result, options) {
-    try {
-      const { historicalData, currentDayStats } = result;
-      const { cumulative } = options;
-      const {
-        vaccineDetailedStats: {
-          stale: vaccineDetailedStale,
-          lastUpdatedOn: vaccineDetailedLastUpdate,
-        },
-      } = result.charts;
-      const dateStrings = [];
-      const pfizerRecords = [];
-      const modernaRecords = [];
-      const astraZeneca = [];
-
-      const newData = vaccineDetailedStale
-        ? historicalData
-        : {
-            [currentDayStats.parsedOnString]: currentDayStats,
-            ...historicalData,
-          };
-
-      Object.entries(newData)
-        .reverse()
-        .forEach(([date, entry]) => {
-          if (entry.vaccines) {
-            const { pfizer, moderna, astra_zeneca } = entry.vaccines;
-            pfizerRecords.push(
-              cumulative
-                ? (pfizerRecords[dateStrings.length - 1] || 0) +
-                    pfizer.total_administered
-                : pfizer.total_administered || 0
-            );
-            modernaRecords.push(
-              cumulative
-                ? (modernaRecords[dateStrings.length - 1] || 0) +
-                    moderna.total_administered
-                : moderna.total_administered || 0
-            );
-            astraZeneca.push(
-              cumulative
-                ? (astraZeneca[dateStrings.length - 1] || 0) +
-                    astra_zeneca.total_administered
-                : astra_zeneca.total_administered || 0
-            );
-            dateStrings.push(formatShortDate(date));
-          }
-        });
-
-      return {
-        isLoaded: true,
-        isStale: vaccineDetailedStale,
-        lastUpdatedOn: vaccineDetailedLastUpdate,
-        dates: dateStrings,
-        pfizer: pfizerRecords,
-        moderna: modernaRecords,
-        astraZeneca: astraZeneca,
-      };
-    } catch (error) {
-      console.error(error);
-      return {
-        error,
-        isLoaded: false,
-      };
-    }
-  }
-
-  parseGenderStats(result) {
-    try {
-      const { currentDayStats } = result;
-      const {
-        genderStats: { lastUpdatedOn, stale },
-      } = result.charts;
-      const men = currentDayStats.percentageOfMen;
-      const women = currentDayStats.percentageOfWomen;
-      const children = currentDayStats.percentageOfChildren;
-
-      return {
-        isLoaded: true,
-        men,
-        women,
-        children,
-        lastUpdatedOn,
-        stale,
-      };
-    } catch (error) {
-      console.error(error);
-      return {
-        error,
-        isLoaded: false,
-      };
-    }
-  }
-
-  parseAgeStats(result) {
-    try {
-      const { distributionByAge } = result.currentDayStats;
-      const {
-        ageHistogram: { lastUpdatedOn, stale },
-      } = result.charts;
-      const distributionByAgeEntries = Object.entries(distributionByAge);
-      const total = distributionByAgeEntries.reduce(
-        (acc, [, entry]) => acc + entry,
-        0
-      );
-      const data = distributionByAgeEntries.map(([key, entry]) => ({
-        value: entry,
-        name: key,
-        percentage: Math.round((100 * entry) / total),
-      }));
-
-      return {
-        isLoaded: true,
-        data,
-        lastUpdatedOn,
-        stale,
-      };
-    } catch (error) {
-      console.error(error);
-      return {
-        error,
-        isLoaded: false,
-      };
-    }
-  }
-
-  parseAverageAge(result) {
-    try {
-      const { averageAge } = result.currentDayStats;
-      const {
-        averageAge: { lastUpdatedOn, stale },
-      } = result.charts;
-      return {
-        isLoaded: true,
-        averageAge,
-        lastUpdatedOn,
-        stale,
-      };
-    } catch (error) {
-      console.error(error);
-      return {
-        error,
-        isLoaded: false,
-      };
-    }
-  }
-
-  shareableLink() {
-    // return !!window.location.host
-    //   ? window.location.protocol + "//" + window.location.host
-    //   : "https://datelazi.ro";
-    return "https://datelazi.ro";
-  }
-
+class Dashboard extends React.Component {
   handleDownloadAllData = () => {
     fetch(ApiURL.allData)
       .then((res) => res.json())
       .then((result) => {
         if (result.error != null) {
-          this.setState({ error: result.error, isLoaded: true });
+          this.setState({ error: result.error });
         } else {
           const filename = this.getNormalizedFileName(
             result.lasUpdatedOnString
@@ -479,7 +54,7 @@ class DashboardNoContext extends React.Component {
         }
       })
       .catch((error) => {
-        this.setState({ error: result.error, isLoaded: true });
+        this.setState({ error: result.error });
       });
   };
 
@@ -488,118 +63,10 @@ class DashboardNoContext extends React.Component {
   }
 
   render() {
-    const lastUpdate = !!this.state.lastUpdate
-      ? this.state.lastUpdate.lastUpdateOnString
-      : "-";
-    const link = this.shareableLink();
-
-    const keyToCard = new Map([
-      [
-        EMBED_PATH_CASES_PER_DAY,
-        <CasesPerDayCard
-          key={EMBED_PATH_CASES_PER_DAY}
-          daily={this.state.daily}
-          cumulative={this.state.cumulative}
-        />,
-      ],
-      [
-        EMBED_PATH_AGE_CATEGORY,
-        <AgeCategory
-          key={EMBED_PATH_AGE_CATEGORY}
-          title="Cazuri per categorie de vârstă, în timp"
-          state={this.state.ageCategory}
-        />,
-      ],
-      [
-        EMBED_PATH_AGE,
-        <AgeCard
-          key={EMBED_PATH_AGE}
-          title="Cazuri după vârstă"
-          state={this.state.age}
-        />,
-      ],
-      [
-        EMBED_PATH_AVERAGE_AGE,
-        <AverageAgeCard
-          key={EMBED_PATH_AVERAGE_AGE}
-          title="Vârsta medie a cazurilor"
-          state={this.state.averageAge}
-        />,
-      ],
-      [
-        EMBED_PATH_GENDER,
-        <GenderCard
-          key={EMBED_PATH_GENDER}
-          title="Cazuri după gen"
-          state={this.state.gender}
-        />,
-      ],
-      [
-        PROP_SHOW_CONFIRMED_CASES,
-        <SummaryRow
-          key={PROP_SHOW_CONFIRMED_CASES}
-          visibleCards={[PROP_SHOW_CONFIRMED_CASES]}
-          state={this.state.summary}
-        />,
-      ],
-      [
-        PROP_SHOW_CURED_CASES,
-        <SummaryRow
-          key={PROP_SHOW_CURED_CASES}
-          visibleCards={[PROP_SHOW_CURED_CASES]}
-          state={this.state.summary}
-        />,
-      ],
-      [
-        PROP_SHOW_DEATH_CASES,
-        <SummaryRow
-          key={PROP_SHOW_DEATH_CASES}
-          visibleCards={[PROP_SHOW_DEATH_CASES]}
-          state={this.state.summary}
-        />,
-      ],
-      [
-        PROP_SHOW_TOTAL_VACCINE,
-        <SummaryRow
-          key={PROP_SHOW_TOTAL_VACCINE}
-          visibleCards={[PROP_SHOW_TOTAL_VACCINE]}
-          state={this.state.summary}
-        />,
-      ],
-      [
-        PROP_SHOW_VACCINE_IMMUNIZATION,
-        <SummaryRow
-          key={PROP_SHOW_VACCINE_IMMUNIZATION}
-          visibleCards={[PROP_SHOW_VACCINE_IMMUNIZATION]}
-          state={this.state.summary}
-        />,
-      ],
-      [
-        EMBED_COUNTIES_MAP,
-        <CountiesMap
-          key={EMBED_COUNTIES_MAP}
-          state={this.state.countiesTable}
-        />,
-      ],
-      [
-        EMBED_COUNTIES_TABLE,
-        <CountiesTable
-          key={EMBED_COUNTIES_TABLE}
-          state={this.state.countiesTable}
-        />,
-      ],
-    ]);
-
-    let particularChartComponent;
-    if (this.props.match) {
-      const { particularChart } = this.props.match.params;
-      particularChartComponent = keyToCard.get(particularChart);
-    }
-
     return (
-      particularChartComponent || (
+      <DefaultLayout>
         <div className="container">
-          <section className="cards-row">
+          <section className={styles.cards_row}>
             <PageHeader title="Date Oficiale" />
             <div className="content">
               <p>
@@ -622,7 +89,7 @@ class DashboardNoContext extends React.Component {
                 fi furnizate de către Guvernul României.
               </p>
 
-              <SocialsShare currentPage={link} />
+              <SocialsShare currentPage={Constants.shareableLink} />
             </div>
             <div className="is-flex is-justify-content-flex-end">
               <button
@@ -634,68 +101,62 @@ class DashboardNoContext extends React.Component {
             </div>
           </section>
 
-          <SummaryRow state={this.state.summary} />
+          <SummaryRow state={this.props.data} />
 
-          <section className="cards-row">
+          <section className={styles.cards_row}>
             <div className="columns">
               <div className="column">
-                <VaccinesPerDayCard
-                  daily={this.state.vaccinesDaily}
-                  cumulative={this.state.vaccinesCumulative}
-                />
+                <VaccinesPerDayCard state={this.props.data} />
               </div>
             </div>
           </section>
 
-          <section className="cards-row">
+          <section className={styles.cards_row}>
             <div className="columns">
               <div className="column is-three-quarters">
-                <CasesPerDayCard
-                  daily={this.state.daily}
-                  cumulative={this.state.cumulative}
-                />
+                <CasesPerDayCard state={this.props.data} />
               </div>
               <div className="column is-one-quarter">
                 <GenderCard
                   to="/"
                   title="Cazuri după gen"
-                  state={this.state.gender}
+                  state={this.props.data}
                 />
               </div>
             </div>
           </section>
 
-          <section className="cards-row">
+          <section className={styles.cards_row}>
             <div className="columns">
               <div className="column">
                 <AgeCategory
                   title="Cazuri per categorie de vârstă, în timp"
-                  state={this.state.ageCategory}
+                  state={this.props.data}
                 />
               </div>
             </div>
           </section>
 
-          <section className="cards-row">
+          <section className={styles.cards_row}>
             <div className="columns">
               <div className="column is-two-quarter">
-                <CountiesMap state={this.state.countiesTable} />
+                <CountiesMap state={this.props.data} />
               </div>
               <div className="column is-two-quarter">
-                <CountiesTable state={this.state.countiesTable} />
+                <CountiesTable state={this.props.data} />
               </div>
             </div>
           </section>
 
-          <section className="cards-row">
+          <section className={styles.cards_row}>
             <div className="columns">
               <div className="column is-two-quarter">
-                <AgeCard title="Cazuri după vârstă" state={this.state.age} />
+                <AgeCard title="Cazuri după vârstă" state={this.props.data} />
               </div>
               <div className="column is-one-quarter">
                 <AverageAgeCard
                   title="Vârsta medie a cazurilor"
-                  state={this.state.averageAge}
+                  state={this.props.data}
                 />
               </div>
             </div>
@@ -705,10 +166,9 @@ class DashboardNoContext extends React.Component {
             <InstrumentsWrapper />
           </aside>
         </div>
-      )
+      </DefaultLayout>
     );
   }
 }
 
-// export default withToastProvider(DashboardNoContext);
-export default DashboardNoContext;
+export default Dashboard;

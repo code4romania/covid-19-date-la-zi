@@ -1,6 +1,7 @@
 import React from 'react';
 import { SummaryCard } from '../../cards/summary/summary-card';
 import { formatDate } from '../../../utils/date';
+import { parseSummary } from '../../../utils/parse';
 
 export const PROP_SHOW_CONFIRMED_CASES = 'confirmed_cases';
 export const PROP_SHOW_CURED_CASES = 'cured_cases';
@@ -47,10 +48,9 @@ export class SummaryRow extends React.PureComponent {
   }
 
   render() {
-    const state = this.props.state;
+    const state = parseSummary(this.props.state);
     const {
       error,
-      isLoaded,
       dailyStale,
       dailyLastUpdate,
       vaccineQuickStale,
@@ -71,7 +71,6 @@ export class SummaryRow extends React.PureComponent {
         PROP_SHOW_CONFIRMED_CASES,
         <SummaryCard
           key={PROP_SHOW_CONFIRMED_CASES}
-          isLoaded={isLoaded}
           error={error}
           to="/"
           title="Cazuri confirmate"
@@ -86,7 +85,6 @@ export class SummaryRow extends React.PureComponent {
         PROP_SHOW_CURED_CASES,
         <SummaryCard
           key={PROP_SHOW_CURED_CASES}
-          isLoaded={isLoaded}
           error={error}
           to="/"
           title="Vindecați"
@@ -102,7 +100,6 @@ export class SummaryRow extends React.PureComponent {
         PROP_SHOW_DEATH_CASES,
         <SummaryCard
           key={PROP_SHOW_DEATH_CASES}
-          isLoaded={isLoaded}
           error={error}
           to="/"
           title="Decedați"
@@ -118,7 +115,6 @@ export class SummaryRow extends React.PureComponent {
         PROP_SHOW_TOTAL_VACCINE,
         <SummaryCard
           key={PROP_SHOW_TOTAL_VACCINE}
-          isLoaded={isLoaded}
           error={error}
           to="/"
           title="Doze de vaccin administrate"
@@ -133,7 +129,6 @@ export class SummaryRow extends React.PureComponent {
         PROP_SHOW_VACCINE_IMMUNIZATION,
         <SummaryCard
           key={PROP_SHOW_VACCINE_IMMUNIZATION}
-          isLoaded={isLoaded}
           error={error}
           to="/"
           title="Imunizați"

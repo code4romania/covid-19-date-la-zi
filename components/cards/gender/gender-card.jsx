@@ -3,8 +3,7 @@ import ReactECharts from 'echarts-for-react';
 import { Card } from '../../layout/card/card';
 import { Constants } from '../../../config/globals';
 import { formatDate } from '../../../utils/date';
-import './gender-card.module.css';
-
+import { parseGenderStats } from '../../../utils/parse';
 
 export const EMBED_PATH_GENDER = 'gen';
 export class GenderCard extends React.PureComponent {
@@ -67,26 +66,23 @@ export class GenderCard extends React.PureComponent {
 
   render() {
     const { title, state } = this.props;
-    const { isLoaded, error, lastUpdatedOn, stale } = state;
+    const { error, lastUpdatedOn, stale, ...parsedData } = parseGenderStats(state);
 
     return (
       <Card
-        isLoaded={isLoaded}
         error={error}
         title={title}
         subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={stale}
         embedPath={EMBED_PATH_GENDER}
       >
-        <div className="pie-chart">
-          <ReactECharts
-            lazyUpdate
-            opts={{renderer: 'svg'}}
-            id="gender-chart"
-            style={{ height: '400px' }}
-            option={this.getChartOptions(state)}
-          />
-        </div>
+        <ReactECharts
+          lazyUpdate
+          opts={{renderer: 'svg'}}
+          id="gender-chart"
+          style={{ height: '400px' }}
+          option={this.getChartOptions(parsedData)}
+        />
       </Card>
     );
   }

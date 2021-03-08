@@ -8,7 +8,7 @@ export class PageHeader extends React.PureComponent {
     return (
       <div className={styles.page_header}>
         {title && <h1 className={styles.title}>{title}</h1>}
-        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+        {subtitle && <p>{subtitle}</p>}
       </div>
     );
   }
