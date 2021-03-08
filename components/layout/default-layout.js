@@ -14,6 +14,7 @@ const Logo = () => (
       width="110"
       height="30"
       alt="Covid-19. Ce trebuie să fac?"
+      priority={true}
     />
   </Link>
 );
