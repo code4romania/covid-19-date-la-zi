@@ -11,7 +11,6 @@ export class CountiesTable extends React.PureComponent {
   state = {
     page: 0,
     limit: 10,
-    parsedData: parseCountiesTable(this.props.state)
   };
 
   displayTable(counties) {
@@ -19,26 +18,25 @@ export class CountiesTable extends React.PureComponent {
 
     return counties
       .slice(page * limit, limit * (page + 1))
-      .map((row, index) => {
-        return (
+      .map((row, index) => (
           <tr key={`dailyTable${index}`}>
             <td className={styles.td}>{row.name}</td>
             <td className="has-text-right">{row.countyInfectionsNumbers}</td>
             <td className="has-text-right">{row.value}</td>
           </tr>
-        );
-      });
+        )
+      );
   }
 
-  displayPagination() {
-    const { limit, page, parsedData: {counties} } = this.state;
+  displayPagination(counties) {
+    const { limit, page } = this.state;
     const shouldDisplayPagination = counties.length > limit;
     if (shouldDisplayPagination) {
       return (
         <div className={styles.navigation}>
           <div
             className={'button ' + (page === 0 ? 'hide' : '')}
-            onClick={(e) => this.changePage(-1)}
+            onClick={(e) => this.changePage(-1, counties)}
           >
             <Image
               src="/images/chevrons-left.svg"
@@ -53,7 +51,7 @@ export class CountiesTable extends React.PureComponent {
               'button right ' +
               ((page + 1) * limit >= counties.length ? 'hide' : '')
             }
-            onClick={(e) => this.changePage(1)}
+            onClick={(e) => this.changePage(1, counties)}
           >
             <Image
               src="/images/chevrons-right.svg"
@@ -68,8 +66,8 @@ export class CountiesTable extends React.PureComponent {
     }
   }
 
-  changePage(inc) {
-    const { page, limit, parsedData: {counties} } = this.state;
+  changePage(inc, counties) {
+    const { page, limit } = this.state;
 
     if (inc < 0 && page !== 0) {
       this.setState({ page: page + inc });
@@ -81,10 +79,11 @@ export class CountiesTable extends React.PureComponent {
   }
 
   render() {
-    const { error, lastUpdatedOn, stale, counties} = this.state.parsedData;
-    const cloneOfCounties = [...counties].sort(
+    const { error, lastUpdatedOn, stale, counties} = parseCountiesTable(this.props.state);
+    const sortedCounties = counties.sort(
       (a, b) => parseInt(b.value, 10) - parseInt(a.value, 10)
     );
+    
     return (
       <Card
         error={error}
@@ -103,11 +102,11 @@ export class CountiesTable extends React.PureComponent {
               </tr>
             </thead>
             <tbody>
-              {cloneOfCounties && this.displayTable(cloneOfCounties)}
+              {sortedCounties && this.displayTable(sortedCounties)}
             </tbody>
           </table>
 
-          {this.displayPagination()}
+          {this.displayPagination(sortedCounties)}
         </div>
       </Card>
     );

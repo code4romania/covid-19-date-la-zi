@@ -21,7 +21,7 @@ const Logo = () => (
 
 const MenuItems = [
   <Link href="/about" key="des">
-    Despre proiect
+    <a>Despre proiect</a>
   </Link>,
 ];
 
