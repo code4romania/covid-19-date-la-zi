@@ -1,34 +1,34 @@
 export const Constants = {
-  api: process.env.REACT_APP_API_URL || "https://d35p9e4fm9h3wo.cloudfront.net",
-  shareableLink: "https://datelazi.ro",
-  womenColor: "#F77EB9",
-  menColor: "#7EBCFF",
-  childrenColor: "#bbbbbb",
-  unknownColor: "#9FB3C7",
+  api: process.env.REACT_APP_API_URL || 'https://d35p9e4fm9h3wo.cloudfront.net',
+  shareableLink: 'https://datelazi.ro',
+  womenColor: '#F77EB9',
+  menColor: '#7EBCFF',
+  childrenColor: '#bbbbbb',
+  unknownColor: '#9FB3C7',
 
-  confirmedColor: "#66A4FB",
-  curedColor: "#65E0E0",
+  confirmedColor: '#66A4FB',
+  curedColor: '#65E0E0',
 
-  deathColor: "black",
+  deathColor: 'black',
 
-  womenText: "Femei",
-  menText: "Bărbați",
-  childrenText: "Copii < 18 ani",
-  unknownGenderText: "Necunoscuți",
+  womenText: 'Femei',
+  menText: 'Bărbați',
+  childrenText: 'Copii < 18 ani',
+  unknownGenderText: 'Necunoscuți',
 
-  magenta: "#F1B8FF",
-  red: "#b71c1c",
-  orange: "#f57c00",
-  yellow: "#fdd835",
-  green: "#A4E064",
+  magenta: '#F1B8FF',
+  red: '#b71c1c',
+  orange: '#f57c00',
+  yellow: '#fdd835',
+  green: '#A4E064',
 
   dailyRecordsLimit: 14,
 
-  pfizerColor: "#0C7BDC",
-  modernaColor: "#FEC20B",
-  astraZenecaColor: "#e66100",
+  pfizerColor: '#0C7BDC',
+  modernaColor: '#FEC20B',
+  astraZenecaColor: '#e66100',
 };
 
 export const ApiURL = {
-  allData: Constants.api + "/latestData.json",
+  allData: Constants.api + '/latestData.json',
 };

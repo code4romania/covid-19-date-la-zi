@@ -44,7 +44,7 @@ export class SummaryRow extends React.PureComponent {
   }
 
   formattedString(number) {
-    return !!number ? number.toLocaleString() : 0;
+    return number ? number.toLocaleString() : 0;
   }
 
   render() {

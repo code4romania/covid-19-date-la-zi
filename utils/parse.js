@@ -1,38 +1,38 @@
-import { formatShortDate } from "./date";
-import { mnemonics } from "../config/mnemonics";
+import { formatShortDate } from './date'
+import { mnemonics } from '../config/mnemonics'
 
 export function parseAgeCategory(result) {
-  const { historicalData, currentDayStats } = result;
+  const { historicalData, currentDayStats } = result
   const {
     ageHistogram: { lastUpdatedOn, stale },
-  } = result.charts;
-  const ageCategories = {};
-  const dateStrings = [];
+  } = result.charts
+  const ageCategories = {}
+  const dateStrings = []
   const newData = {
     [currentDayStats.parsedOnString]: currentDayStats,
     ...historicalData,
-  };
+  }
 
   const dataEntries = Object.entries(newData)
-    .filter(([key, value]) => key <= lastUpdatedOn)
-    .reverse();
+    .filter(([key]) => key <= lastUpdatedOn)
+    .reverse()
 
   for (let i = 0; i < dataEntries.length - 1; i++) {
-    const key = dataEntries[i + 1][0];
-    const currentValue = dataEntries[i][1];
-    const nextValue = dataEntries[i + 1][1];
-    dateStrings.push(formatShortDate(key));
+    const key = dataEntries[i + 1][0]
+    const currentValue = dataEntries[i][1]
+    const nextValue = dataEntries[i + 1][1]
+    dateStrings.push(formatShortDate(key))
 
     Object.entries(currentValue.distributionByAge)
-      .filter(([ageGroup]) => ageGroup !== "în procesare")
+      .filter(([ageGroup]) => ageGroup !== 'în procesare')
       .forEach(([ageGroup, currentCases]) => {
-        const cases = nextValue.distributionByAge[ageGroup] - currentCases;
+        const cases = nextValue.distributionByAge[ageGroup] - currentCases
         if (Array.isArray(ageCategories[ageGroup])) {
-          ageCategories[ageGroup].push(cases);
+          ageCategories[ageGroup].push(cases)
         } else {
-          ageCategories[ageGroup] = [cases];
+          ageCategories[ageGroup] = [cases]
         }
-      });
+      })
   }
 
   return {
@@ -40,14 +40,14 @@ export function parseAgeCategory(result) {
     ageCategories,
     dateStrings,
     stale,
-  };
+  }
 }
 
 export function parseCountiesTable(result) {
-  const { countyInfectionsNumbers, incidence } = result.currentDayStats;
+  const { countyInfectionsNumbers, incidence } = result.currentDayStats
   const {
     incidenceStats: { lastUpdatedOn, stale },
-  } = result.charts;
+  } = result.charts
 
   const counties = Object.entries(incidence)
     .map(([key, entry]) => ({
@@ -59,14 +59,14 @@ export function parseCountiesTable(result) {
     .sort((a, b) =>
       // reversed by count
       a.value > b.value ? -1 : 1
-    );
+    )
 
   return {
     error: null,
     counties,
     lastUpdatedOn,
     stale,
-  };
+  }
 }
 
 export function parseSummary(result) {
@@ -77,7 +77,7 @@ export function parseSummary(result) {
       numberDeceased,
       numberTotalDosesAdministered,
       vaccines,
-    } = result.currentDayStats;
+    } = result.currentDayStats
     const {
       dailyStats: { stale: dailyStale, lastUpdatedOn: dailyLastUpdate },
       vaccineQuickStats: {
@@ -88,39 +88,39 @@ export function parseSummary(result) {
         stale: imunizationStale,
         lastUpdatedOn: imunizationLastUpdate,
       },
-    } = result.charts;
-    const { historicalData } = result;
-    const totalCasesHistory = [];
-    const curedCasesHistory = [];
-    const deathCasesHistory = [];
-    const dosesAdministeredHistory = [];
-    const immunityHistory = [];
+    } = result.charts
+    const { historicalData } = result
+    const totalCasesHistory = []
+    const curedCasesHistory = []
+    const deathCasesHistory = []
+    const dosesAdministeredHistory = []
+    const immunityHistory = []
 
     Object.entries(historicalData)
       .reverse()
       .forEach(([, entry]) => {
-        totalCasesHistory.push(entry.numberInfected || 0);
-        curedCasesHistory.push(entry.numberCured || 0);
-        deathCasesHistory.push(entry.numberDeceased || 0);
-        dosesAdministeredHistory.push(entry.numberTotalDosesAdministered || 0);
+        totalCasesHistory.push(entry.numberInfected || 0)
+        curedCasesHistory.push(entry.numberCured || 0)
+        deathCasesHistory.push(entry.numberDeceased || 0)
+        dosesAdministeredHistory.push(entry.numberTotalDosesAdministered || 0)
         immunityHistory.push(
           entry.vaccines?.pfizer.immunized +
             entry.vaccines?.moderna.immunized +
             entry.vaccines?.astra_zeneca.immunized || 0
-        );
-      });
+        )
+      })
 
-    totalCasesHistory.push(numberInfected);
-    curedCasesHistory.push(numberCured);
-    deathCasesHistory.push(numberDeceased);
+    totalCasesHistory.push(numberInfected)
+    curedCasesHistory.push(numberCured)
+    deathCasesHistory.push(numberDeceased)
     if (!imunizationStale) {
-      dosesAdministeredHistory.push(numberTotalDosesAdministered);
+      dosesAdministeredHistory.push(numberTotalDosesAdministered)
       immunityHistory.push(
         vaccines?.pfizer.immunized + vaccines?.moderna.immunized
-      );
+      )
     }
 
-    const totalImmunity = immunityHistory.reduce((a, b) => a + b, 0);
+    const totalImmunity = immunityHistory.reduce((a, b) => a + b, 0)
 
     return {
       totalCases: numberInfected,
@@ -139,12 +139,12 @@ export function parseSummary(result) {
       vaccineQuickLastUpdate,
       imunizationStale,
       imunizationLastUpdate,
-    };
+    }
   } catch (error) {
-    console.error(error);
+    console.error(error)
     return {
       error,
-    };
+    }
   }
 }
 
@@ -152,57 +152,57 @@ export function parseDailyStats(result, options) {
   try {
     const {
       dailyStats: { lastUpdatedOn, stale },
-    } = result.charts;
-    const { historicalData, currentDayStats } = result;
-    const { cumulative } = options;
+    } = result.charts
+    const { historicalData, currentDayStats } = result
+    const { cumulative } = options
 
-    const confirmedCasesHistory = [];
-    const curedCasesHistory = [];
-    const deathCasesHistory = [];
-    const dateStrings = [];
+    const confirmedCasesHistory = []
+    const curedCasesHistory = []
+    const deathCasesHistory = []
+    const dateStrings = []
     const newData = {
       [currentDayStats.parsedOnString]: currentDayStats,
       ...historicalData,
-    };
+    }
     const dataEntries = Object.entries(newData)
       .filter(([, value]) => value.complete)
-      .reverse();
+      .reverse()
 
     for (let i = 0; i <= dataEntries.length - 1; i++) {
-      const numberInfected = dataEntries[i][1].numberInfected;
-      const nextNumberInfected = dataEntries[i + 1]?.[1].numberInfected;
-      const prevNumberInfected = dataEntries[i - 1]?.[1].numberInfected;
+      const numberInfected = dataEntries[i][1].numberInfected
+      const nextNumberInfected = dataEntries[i + 1]?.[1].numberInfected
+      const prevNumberInfected = dataEntries[i - 1]?.[1].numberInfected
       const numberInfectedByDay = !isNaN(nextNumberInfected)
         ? nextNumberInfected - numberInfected
-        : numberInfected - prevNumberInfected;
+        : numberInfected - prevNumberInfected
 
       confirmedCasesHistory.push(
         cumulative ? numberInfected : numberInfectedByDay
-      );
+      )
 
-      const numberCured = dataEntries[i][1].numberCured;
-      const nextNumberCured = dataEntries[i + 1]?.[1]?.numberCured;
-      const prevNumberCured = dataEntries[i - 1]?.[1]?.numberCured;
+      const numberCured = dataEntries[i][1].numberCured
+      const nextNumberCured = dataEntries[i + 1]?.[1]?.numberCured
+      const prevNumberCured = dataEntries[i - 1]?.[1]?.numberCured
       const numberCuredByDay = !isNaN(nextNumberCured)
         ? nextNumberCured - numberCured
-        : numberCured - prevNumberCured;
+        : numberCured - prevNumberCured
 
-      curedCasesHistory.push(cumulative ? numberCured : numberCuredByDay);
+      curedCasesHistory.push(cumulative ? numberCured : numberCuredByDay)
 
-      const numberDeceased = dataEntries[i][1].numberDeceased;
-      const nextNumberDeceased = dataEntries[i + 1]?.[1]?.numberDeceased;
-      const prevNumberDeceased = dataEntries[i - 1]?.[1]?.numberDeceased;
+      const numberDeceased = dataEntries[i][1].numberDeceased
+      const nextNumberDeceased = dataEntries[i + 1]?.[1]?.numberDeceased
+      const prevNumberDeceased = dataEntries[i - 1]?.[1]?.numberDeceased
       const numberDeceasedByDay = !isNaN(nextNumberDeceased)
         ? nextNumberDeceased - numberDeceased
-        : numberDeceased - prevNumberDeceased;
+        : numberDeceased - prevNumberDeceased
 
-      deathCasesHistory.push(cumulative ? numberDeceased : numberDeceasedByDay);
+      deathCasesHistory.push(cumulative ? numberDeceased : numberDeceasedByDay)
 
-      dateStrings.push(formatShortDate(dataEntries[i][0]));
+      dateStrings.push(formatShortDate(dataEntries[i][0]))
     }
 
     if (!cumulative) {
-      dateStrings.shift();
+      dateStrings.shift()
     }
 
     return {
@@ -212,63 +212,63 @@ export function parseDailyStats(result, options) {
       deathCasesHistory,
       lastUpdatedOn,
       stale,
-    };
+    }
   } catch (error) {
-    console.error(error);
+    console.error(error)
     return {
       error,
-    };
+    }
   }
 }
 
 export function parseVaccinesHistory(result, options) {
   try {
-    const { historicalData, currentDayStats } = result;
-    const { cumulative } = options;
+    const { historicalData, currentDayStats } = result
+    const { cumulative } = options
     const {
       vaccineDetailedStats: {
         stale: vaccineDetailedStale,
         lastUpdatedOn: vaccineDetailedLastUpdate,
       },
-    } = result.charts;
-    const dateStrings = [];
-    const pfizerRecords = [];
-    const modernaRecords = [];
-    const astraZeneca = [];
+    } = result.charts
+    const dateStrings = []
+    const pfizerRecords = []
+    const modernaRecords = []
+    const astraZeneca = []
 
     const newData = vaccineDetailedStale
       ? historicalData
       : {
           [currentDayStats.parsedOnString]: currentDayStats,
           ...historicalData,
-        };
+        }
 
     Object.entries(newData)
       .reverse()
       .forEach(([date, entry]) => {
         if (entry.vaccines) {
-          const { pfizer, moderna, astra_zeneca } = entry.vaccines;
+          const { pfizer, moderna, astra_zeneca } = entry.vaccines
           pfizerRecords.push(
             cumulative
               ? (pfizerRecords[dateStrings.length - 1] || 0) +
                   pfizer.total_administered
               : pfizer.total_administered || 0
-          );
+          )
           modernaRecords.push(
             cumulative
               ? (modernaRecords[dateStrings.length - 1] || 0) +
                   moderna.total_administered
               : moderna.total_administered || 0
-          );
+          )
           astraZeneca.push(
             cumulative
               ? (astraZeneca[dateStrings.length - 1] || 0) +
                   astra_zeneca.total_administered
               : astra_zeneca.total_administered || 0
-          );
-          dateStrings.push(formatShortDate(date));
+          )
+          dateStrings.push(formatShortDate(date))
         }
-      });
+      })
 
     return {
       isStale: vaccineDetailedStale,
@@ -277,24 +277,24 @@ export function parseVaccinesHistory(result, options) {
       pfizer: pfizerRecords,
       moderna: modernaRecords,
       astraZeneca: astraZeneca,
-    };
+    }
   } catch (error) {
-    console.error(error);
+    console.error(error)
     return {
       error,
-    };
+    }
   }
 }
 
 export function parseGenderStats(result) {
   try {
-    const { currentDayStats } = result;
+    const { currentDayStats } = result
     const {
       genderStats: { lastUpdatedOn, stale },
-    } = result.charts;
-    const men = currentDayStats.percentageOfMen;
-    const women = currentDayStats.percentageOfWomen;
-    const children = currentDayStats.percentageOfChildren;
+    } = result.charts
+    const men = currentDayStats.percentageOfMen
+    const women = currentDayStats.percentageOfWomen
+    const children = currentDayStats.percentageOfChildren
 
     return {
       men,
@@ -302,60 +302,60 @@ export function parseGenderStats(result) {
       children,
       lastUpdatedOn,
       stale,
-    };
+    }
   } catch (error) {
-    console.error(error);
+    console.error(error)
     return {
       error,
-    };
+    }
   }
 }
 
 export function parseAgeStats(result) {
   try {
-    const { distributionByAge } = result.currentDayStats;
+    const { distributionByAge } = result.currentDayStats
     const {
       ageHistogram: { lastUpdatedOn, stale },
-    } = result.charts;
-    const distributionByAgeEntries = Object.entries(distributionByAge);
+    } = result.charts
+    const distributionByAgeEntries = Object.entries(distributionByAge)
     const total = distributionByAgeEntries.reduce(
       (acc, [, entry]) => acc + entry,
       0
-    );
+    )
     const data = distributionByAgeEntries.map(([key, entry]) => ({
       value: entry,
       name: key,
       percentage: Math.round((100 * entry) / total),
-    }));
+    }))
 
     return {
       data,
       lastUpdatedOn,
       stale,
-    };
+    }
   } catch (error) {
-    console.error(error);
+    console.error(error)
     return {
       error,
-    };
+    }
   }
 }
 
 export function parseAverageAge(result) {
   try {
-    const { averageAge } = result.currentDayStats;
+    const { averageAge } = result.currentDayStats
     const {
       averageAge: { lastUpdatedOn, stale },
-    } = result.charts;
+    } = result.charts
     return {
       averageAge,
       lastUpdatedOn,
       stale,
-    };
+    }
   } catch (error) {
-    console.error(error);
+    console.error(error)
     return {
       error,
-    };
+    }
   }
 }

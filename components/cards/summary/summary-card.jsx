@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactECharts from 'echarts-for-react';
-import { Card } from '../../layout/card/card';
-import styles from './summary-card.module.css';
-import { SUMMARY_CHART_THEME } from './summary-chart.theme';
+import React from 'react'
+import ReactECharts from 'echarts-for-react'
+import { Card } from '../../layout/card/card'
+import styles from './summary-card.module.css'
+import { SUMMARY_CHART_THEME } from './summary-chart.theme'
 
 export class SummaryCard extends React.PureComponent {
   getChartOptions(data) {
@@ -20,7 +20,7 @@ export class SummaryCard extends React.PureComponent {
           type: 'line',
         },
       ],
-    };
+    }
   }
 
   render() {
@@ -33,7 +33,7 @@ export class SummaryCard extends React.PureComponent {
       error,
       embedPath,
       stale,
-    } = this.props;
+    } = this.props
     return (
       <Card
         error={error}
@@ -60,7 +60,7 @@ export class SummaryCard extends React.PureComponent {
           <div className={styles.mini_chart}>
             <ReactECharts
               lazyUpdate
-              opts={{renderer: 'svg'}}
+              opts={{ renderer: 'svg' }}
               style={{
                 height: '100%',
                 width: '100%',
@@ -71,6 +71,6 @@ export class SummaryCard extends React.PureComponent {
           </div>
         )}
       </Card>
-    );
+    )
   }
 }

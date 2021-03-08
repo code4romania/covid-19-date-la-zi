@@ -1,9 +1,9 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { PageHeader } from "./../components/layout/page-header/page-header";
-import { InstrumentsWrapper } from "./../components/layout/instruments/instruments";
-import DefaultLayout from "../components/layout/default-layout";
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { PageHeader } from './../components/layout/page-header/page-header';
+import { InstrumentsWrapper } from './../components/layout/instruments/instruments';
+import DefaultLayout from '../components/layout/default-layout';
 
 const About = () => {
   return (
@@ -25,10 +25,10 @@ const About = () => {
           <p>
             Credem că este important ca publicul larg să aibă acces la un
             instrument ușor de utilizat pentru a urmări dimensiunea focarului,
-            pentru a vizualiza date corecte din surse sigure.{" "}
+            pentru a vizualiza date corecte din surse sigure.{' '}
             <Link href="/">
               <a>Datelazi.ro</a>
-            </Link>{" "}
+            </Link>{' '}
             prezintă infografii actualizate periodic cu datele furnizate de
             autoritățile competente.
           </p>

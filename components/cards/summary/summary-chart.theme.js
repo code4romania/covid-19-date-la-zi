@@ -1,6 +1,6 @@
-import { registerTheme } from "echarts";
+import { registerTheme } from 'echarts';
 
-export const SUMMARY_CHART_THEME = "summary chart";
+export const SUMMARY_CHART_THEME = 'summary chart';
 
 const axisCommon = {
   axisLine: {
@@ -26,16 +26,16 @@ let summaryChartTheme = {
   valueAxis: axisCommon,
   categoryAxis: axisCommon,
   line: {
-    symbol: "none",
+    symbol: 'none',
     lineStyle: {
-      color: "#9FB3C7",
-      width: "2",
-      type: "solid",
+      color: '#9FB3C7',
+      width: '2',
+      type: 'solid',
     },
     areaStyle: {},
   },
   color: {
-    type: "linear",
+    type: 'linear',
     x: 0,
     y: 0,
     x2: 0,
@@ -43,11 +43,11 @@ let summaryChartTheme = {
     colorStops: [
       {
         offset: 0,
-        color: "#9FB3C7",
+        color: '#9FB3C7',
       },
       {
         offset: 1,
-        color: "rgba(128, 128, 128, 0)",
+        color: 'rgba(128, 128, 128, 0)',
       },
     ],
     global: false,

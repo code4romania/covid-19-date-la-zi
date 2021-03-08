@@ -1,14 +1,14 @@
-import { useEffect } from "react";
-import { registerMap } from "echarts";
-import "@code4ro/taskforce-fe-components/dist/index.css";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import * as gtag from "../utils/gtag";
+import { useEffect } from 'react';
+import { registerMap } from 'echarts';
+import '@code4ro/taskforce-fe-components/dist/index.css';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import * as gtag from '../utils/gtag';
 
-import "./../styles/index.scss";
-import roGeoJson from "./../config/roGeo.json";
+import './../styles/index.scss';
+import roGeoJson from './../config/roGeo.json';
 
-registerMap("RO", roGeoJson);
+registerMap('RO', roGeoJson);
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -16,9 +16,9 @@ function MyApp({ Component, pageProps }) {
     const handleRouteChange = (url) => {
       gtag.pageview(url);
     };
-    router.events.on("routeChangeComplete", handleRouteChange);
+    router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
+      router.events.off('routeChangeComplete', handleRouteChange);
     };
   }, [router.events]);
 

@@ -1,11 +1,11 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 import {
   Header,
   DevelopedBy,
   IncubatedBy,
-} from "@code4ro/taskforce-fe-components";
-import FooterWrapper from "./footer/footer";
+} from '@code4ro/taskforce-fe-components';
+import FooterWrapper from './footer/footer';
 
 const Logo = () => (
   <Link href="/">

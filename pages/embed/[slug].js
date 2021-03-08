@@ -1,6 +1,6 @@
-import React from "react";
-import { withRouter } from "next/router";
-import { ApiURL } from "../../config/globals";
+import React from 'react'
+import { withRouter } from 'next/router'
+import { ApiURL } from '../../config/globals'
 import {
   PROP_SHOW_CONFIRMED_CASES,
   PROP_SHOW_CURED_CASES,
@@ -8,34 +8,34 @@ import {
   PROP_SHOW_TOTAL_VACCINE,
   PROP_SHOW_VACCINE_IMMUNIZATION,
   SummaryRow,
-} from "../../components/layout/rows/summary-row";
+} from '../../components/layout/rows/summary-row'
 import {
   EMBED_PATH_GENDER,
   GenderCard,
-} from "../../components/cards/gender/gender-card";
+} from '../../components/cards/gender/gender-card'
 import {
   CasesPerDayCard,
   EMBED_PATH_CASES_PER_DAY,
-} from "../../components/cards/cases-per-day-card/cases-per-day-card";
+} from '../../components/cards/cases-per-day-card/cases-per-day-card'
 import {
   AverageAgeCard,
   EMBED_PATH_AVERAGE_AGE,
-} from "../../components/cards/avg-age/avg-age-card";
-import { AgeCard, EMBED_PATH_AGE } from "../../components/cards/age/age";
+} from '../../components/cards/avg-age/avg-age-card'
+import { AgeCard, EMBED_PATH_AGE } from '../../components/cards/age/age'
 import {
   CountiesMap,
   EMBED_COUNTIES_MAP,
-} from "../../components/cards/counties-map/counties-map";
+} from '../../components/cards/counties-map/counties-map'
 import {
   CountiesTable,
   EMBED_COUNTIES_TABLE,
-} from "../../components/cards/counties-table/counties-table";
+} from '../../components/cards/counties-table/counties-table'
 import {
   AgeCategory,
   EMBED_PATH_AGE_CATEGORY,
-} from "../../components/cards/age-category/age-category";
-import { DevelopedBy } from "@code4ro/taskforce-fe-components";
-import Image from "next/image";
+} from '../../components/cards/age-category/age-category'
+import { DevelopedBy } from '@code4ro/taskforce-fe-components'
+import Image from 'next/image'
 
 export async function getStaticPaths() {
   const slugList = [
@@ -50,26 +50,26 @@ export async function getStaticPaths() {
     EMBED_COUNTIES_MAP,
     EMBED_COUNTIES_TABLE,
     EMBED_PATH_AGE_CATEGORY,
-  ];
+  ]
   const paths = slugList.map((slug) => ({
     params: {
       slug,
     },
-  }));
+  }))
   return {
     paths,
     fallback: false,
-  };
+  }
 }
 
-export async function getStaticProps(context) {
-  const res = await fetch(ApiURL.allData);
-  const data = await res.json();
+export async function getStaticProps() {
+  const res = await fetch(ApiURL.allData)
+  const data = await res.json()
 
   if (!data) {
     return {
       notFound: true,
-    };
+    }
   }
 
   return {
@@ -78,12 +78,12 @@ export async function getStaticProps(context) {
     // - When a request comes in
     // - At most once every second
     revalidate: 300, // In seconds (5min)
-  };
+  }
 }
 
 class EmbedPage extends React.Component {
   render() {
-    const { slug } = this.props.router.query;
+    const { slug } = this.props.router.query
     const keyToCard = new Map([
       [
         EMBED_PATH_CASES_PER_DAY,
@@ -172,7 +172,7 @@ class EmbedPage extends React.Component {
         EMBED_COUNTIES_TABLE,
         <CountiesTable key={EMBED_COUNTIES_TABLE} state={this.props.data} />,
       ],
-    ]);
+    ])
 
     return (
       <div className="embed_container">
@@ -196,8 +196,8 @@ class EmbedPage extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default withRouter(EmbedPage);
+export default withRouter(EmbedPage)

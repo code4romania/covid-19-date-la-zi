@@ -19,12 +19,12 @@ export class CountiesTable extends React.PureComponent {
     return counties
       .slice(page * limit, limit * (page + 1))
       .map((row, index) => (
-          <tr key={`dailyTable${index}`}>
-            <td className={styles.td}>{row.name}</td>
-            <td className="has-text-right">{row.countyInfectionsNumbers}</td>
-            <td className="has-text-right">{row.value}</td>
-          </tr>
-        )
+        <tr key={`dailyTable${index}`}>
+          <td className={styles.td}>{row.name}</td>
+          <td className="has-text-right">{row.countyInfectionsNumbers}</td>
+          <td className="has-text-right">{row.value}</td>
+        </tr>
+      )
       );
   }
 
@@ -36,7 +36,7 @@ export class CountiesTable extends React.PureComponent {
         <div className={styles.navigation}>
           <div
             className={'button ' + (page === 0 ? 'hide' : '')}
-            onClick={(e) => this.changePage(-1, counties)}
+            onClick={() => this.changePage(-1, counties)}
           >
             <Image
               src="/images/chevrons-left.svg"
@@ -51,7 +51,7 @@ export class CountiesTable extends React.PureComponent {
               'button right ' +
               ((page + 1) * limit >= counties.length ? 'hide' : '')
             }
-            onClick={(e) => this.changePage(1, counties)}
+            onClick={() => this.changePage(1, counties)}
           >
             <Image
               src="/images/chevrons-right.svg"
@@ -83,7 +83,7 @@ export class CountiesTable extends React.PureComponent {
     const sortedCounties = counties.sort(
       (a, b) => parseInt(b.value, 10) - parseInt(a.value, 10)
     );
-    
+
     return (
       <Card
         error={error}

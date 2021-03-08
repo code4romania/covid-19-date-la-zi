@@ -1,29 +1,29 @@
-import React from "react";
-import download from "downloadjs";
-import styles from "./index.module.css";
-import { SocialsShare } from "@code4ro/taskforce-fe-components";
-import { ApiURL, Constants } from "../config/globals";
-import { PageHeader } from "../components/layout/page-header/page-header";
-import { SummaryRow } from "../components/layout/rows/summary-row";
-import { GenderCard } from "../components/cards/gender/gender-card";
-import { CasesPerDayCard } from "../components/cards/cases-per-day-card/cases-per-day-card";
-import { AverageAgeCard } from "../components/cards/avg-age/avg-age-card";
-import { AgeCard } from "../components/cards/age/age";
-import { CountiesMap } from "../components/cards/counties-map/counties-map";
-import { CountiesTable } from "../components/cards/counties-table/counties-table";
-import { InstrumentsWrapper } from "../components/layout/instruments/instruments";
-import { AgeCategory } from "../components/cards/age-category/age-category";
-import { VaccinesPerDayCard } from "../components/cards/vaccines-per-day-card/vaccines-per-day-card";
-import DefaultLayout from "../components/layout/default-layout";
+import React from 'react'
+import download from 'downloadjs'
+import styles from './index.module.css'
+import { SocialsShare } from '@code4ro/taskforce-fe-components'
+import { ApiURL, Constants } from '../config/globals'
+import { PageHeader } from '../components/layout/page-header/page-header'
+import { SummaryRow } from '../components/layout/rows/summary-row'
+import { GenderCard } from '../components/cards/gender/gender-card'
+import { CasesPerDayCard } from '../components/cards/cases-per-day-card/cases-per-day-card'
+import { AverageAgeCard } from '../components/cards/avg-age/avg-age-card'
+import { AgeCard } from '../components/cards/age/age'
+import { CountiesMap } from '../components/cards/counties-map/counties-map'
+import { CountiesTable } from '../components/cards/counties-table/counties-table'
+import { InstrumentsWrapper } from '../components/layout/instruments/instruments'
+import { AgeCategory } from '../components/cards/age-category/age-category'
+import { VaccinesPerDayCard } from '../components/cards/vaccines-per-day-card/vaccines-per-day-card'
+import DefaultLayout from '../components/layout/default-layout'
 
-export async function getStaticProps(context) {
-  const res = await fetch(ApiURL.allData);
-  const data = await res.json();
+export async function getStaticProps() {
+  const res = await fetch(ApiURL.allData)
+  const data = await res.json()
 
   if (!data) {
     return {
       notFound: true,
-    };
+    }
   }
 
   return {
@@ -32,7 +32,7 @@ export async function getStaticProps(context) {
     // - When a request comes in
     // - At most once every second
     revalidate: 300, // In seconds (5min)
-  };
+  }
 }
 
 class Dashboard extends React.Component {
@@ -41,25 +41,23 @@ class Dashboard extends React.Component {
       .then((res) => res.json())
       .then((result) => {
         if (result.error != null) {
-          this.setState({ error: result.error });
+          this.setState({ error: result.error })
         } else {
-          const filename = this.getNormalizedFileName(
-            result.lasUpdatedOnString
-          );
+          const filename = this.getNormalizedFileName(result.lasUpdatedOnString)
           download(
             JSON.stringify(result),
             `date_${filename}.json`,
-            "application/json"
-          );
+            'application/json'
+          )
         }
       })
       .catch((error) => {
-        this.setState({ error: result.error });
-      });
-  };
+        this.setState({ error })
+      })
+  }
 
   getNormalizedFileName(filename) {
-    return filename.replace(/\s+/g, "_").toLowerCase();
+    return filename.replace(/\s+/g, '_').toLowerCase()
   }
 
   render() {
@@ -167,8 +165,8 @@ class Dashboard extends React.Component {
           </aside>
         </div>
       </DefaultLayout>
-    );
+    )
   }
 }
 
-export default Dashboard;
+export default Dashboard
