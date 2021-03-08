@@ -196,7 +196,7 @@ const AccessibillityCasesPerDayTable = (props) => {
     });
   }
   return (
-    <table role="table" style={{ position: 'absolute', left: -99999 }}>
+    <table role="table" className="sr-only">
       <tbody>
         <tr role="row">
           <th role="columnheader">Dată</th>
