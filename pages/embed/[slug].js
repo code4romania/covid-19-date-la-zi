@@ -202,6 +202,7 @@ class EmbedPage extends React.Component {
               width="120"
               height="37"
               alt="Date La Zi Logo"
+              priority={true}
             />
           </a>
           <div>
