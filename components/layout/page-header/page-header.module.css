@@ -1,0 +1,14 @@
+.page_header {
+    margin-top: 30px;
+}
+
+.title {
+    background: url(/images/icon-circle.svg) no-repeat;
+    background-size: 1em;
+    color: var(--accent-color);
+    padding-left: 1.2em;
+    color: #363636;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1.125;
+}

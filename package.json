@@ -1,49 +1,38 @@
 {
-  "name": "date-la-zi",
+  "name": "nextdate",
   "version": "0.1.0",
   "private": true,
-  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --ext .js,.jsx",
+    "lint:fix": "yarn lint --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "dependencies": {
     "@code4ro/taskforce-fe-components": "2.0.1",
     "bulma": "^0.9.1",
     "downloadjs": "^1.4.7",
     "echarts": "^5.0.2",
     "echarts-for-react": "^3.0.1",
+    "next": "10.0.8",
     "prop-types": "^15.7.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-ga": "^3.3.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.1"
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-hot-toast": "^1.0.2"
   },
   "devDependencies": {
-    "babel-eslint": "10.1.0",
-    "node-sass": "^4.14.1",
-    "eslint-config-standard-jsx": "^8.1.0",
-    "husky": "^4.3.7"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "eject": "react-scripts eject",
-    "lint": "eslint ./src --ext .js,.jsx",
-    "lint:fix": "yarn lint --fix"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint"
-    }
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-react": "^7.22.0",
+    "husky": "^4.3.7",
+    "prettier": "^2.2.1",
+    "sass": "^1.32.8"
   }
 }

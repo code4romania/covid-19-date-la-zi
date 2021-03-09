@@ -66,7 +66,7 @@ If you need any assistance you can contact the project's technical lead, [@Crist
 
 ### Programming languages
 
-- Frontend: React JS
+- Frontend: Next JS
 
 ## Deployment
 
