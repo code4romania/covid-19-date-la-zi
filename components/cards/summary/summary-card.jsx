@@ -7,6 +7,9 @@ import { SUMMARY_CHART_THEME } from './summary-chart.theme'
 export class SummaryCard extends React.PureComponent {
   getChartOptions(data) {
     return {
+      aria: {
+        show: true,
+      },
       xAxis: {
         type: 'category',
         xAxisData: data.xAxisData,

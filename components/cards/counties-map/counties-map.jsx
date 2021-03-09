@@ -1,15 +1,18 @@
-import React from 'react';
-import ReactECharts from 'echarts-for-react';
-import { Card } from '../../layout/card/card';
-import { Constants } from '../../../config/globals';
-import { formatDate } from '../../../utils/date';
-import { parseCountiesTable } from '../../../utils/parse';
+import React from 'react'
+import ReactECharts from 'echarts-for-react'
+import { Card } from '../../layout/card/card'
+import { Constants } from '../../../config/globals'
+import { formatDate } from '../../../utils/date'
+import { parseCountiesTable } from '../../../utils/parse'
 
-export const EMBED_COUNTIES_MAP = 'counties-map';
+export const EMBED_COUNTIES_MAP = 'counties-map'
 
 export class CountiesMap extends React.PureComponent {
   getChartOptions(data) {
     return {
+      aria: {
+        show: true,
+      },
       tooltip: {
         trigger: 'item',
         formatter: (item) => `
@@ -48,11 +51,13 @@ export class CountiesMap extends React.PureComponent {
           data,
         },
       ],
-    };
+    }
   }
 
   render() {
-    const { error, counties, stale, lastUpdatedOn } = parseCountiesTable(this.props.state);
+    const { error, counties, stale, lastUpdatedOn } = parseCountiesTable(
+      this.props.state
+    )
 
     return (
       <Card
@@ -65,13 +70,13 @@ export class CountiesMap extends React.PureComponent {
         {counties && (
           <ReactECharts
             lazyUpdate
-            opts={{renderer: 'svg'}}
+            opts={{ renderer: 'svg' }}
             option={this.getChartOptions(counties)}
             style={{ height: '400px' }}
             className="react_for_echarts"
           />
         )}
       </Card>
-    );
+    )
   }
 }

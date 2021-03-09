@@ -1,15 +1,15 @@
 $card-header-shadow: 0;
 $card-shadow: 0;
 
-@import "./_fonts.scss";
-@import "~bulma/sass/utilities/_all.sass";
-@import "~bulma/sass/base/_all.sass";
-@import "~bulma/sass/helpers/typography.sass";
-@import "~bulma/sass/helpers/visibility.sass";
-@import "~bulma/sass/helpers/flexbox.sass";
-@import "~bulma/sass/helpers/color.sass";
-@import "~bulma/sass/components/card.sass";
-@import "~bulma/sass/components/tabs.sass";
+@import './_fonts.scss';
+@import '~bulma/sass/utilities/_all.sass';
+@import '~bulma/sass/base/_all.sass';
+@import '~bulma/sass/helpers/typography.sass';
+@import '~bulma/sass/helpers/visibility.sass';
+@import '~bulma/sass/helpers/flexbox.sass';
+@import '~bulma/sass/helpers/color.sass';
+@import '~bulma/sass/components/card.sass';
+@import '~bulma/sass/components/tabs.sass';
 
 :root {
   --accent-color: #1c1080;
@@ -18,13 +18,13 @@ $card-shadow: 0;
 
 body {
   margin: 0;
-  font-family: "Titillium Web", sans-serif;
+  font-family: 'Titillium Web', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
@@ -48,7 +48,6 @@ code {
   margin-right: 10px;
 }
 
-
 .embed_container {
   padding: 3px;
   overflow: hidden;
@@ -65,38 +64,27 @@ code {
 
 @media only screen and (max-width: 760px) {
   .embed_footer .caption {
-      display: none;
+    display: none;
   }
 
   .embed_footer .developed-by {
-      flex-direction: row;
-      padding: 0;
+    flex-direction: row;
+    padding: 0;
   }
 
   .embed_footer .developed-by .logo-wrapper {
-      padding-right: 20px;
+    padding-right: 20px;
   }
 
   .embed_footer .developed-by > div {
-      border: 0;
-      justify-content: space-around;
+    border: 0;
+    justify-content: space-around;
   }
 }
 
 @media only screen and (max-width: 400px) {
   .embed_footer {
-      padding-top: 10px;
-      flex-direction: column;
+    padding-top: 10px;
+    flex-direction: column;
   }
-}
-
-.sr-only {
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  height: 1px;
-  width: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
 }

@@ -163,17 +163,17 @@ class EmbedPage extends React.Component {
         />,
       ],
       [
-        EMBED_PATH_VACCINES_PER_DAY,
-        <VaccinesPerDayCard
-          key={EMBED_PATH_VACCINES_PER_DAY}
-          state={this.props.data}
-        />,
-      ],
-      [
         PROP_SHOW_VACCINE_IMMUNIZATION,
         <SummaryRow
           key={PROP_SHOW_VACCINE_IMMUNIZATION}
           visibleCards={[PROP_SHOW_VACCINE_IMMUNIZATION]}
+          state={this.props.data}
+        />,
+      ],
+      [
+        EMBED_PATH_VACCINES_PER_DAY,
+        <VaccinesPerDayCard
+          key={EMBED_PATH_VACCINES_PER_DAY}
           state={this.props.data}
         />,
       ],

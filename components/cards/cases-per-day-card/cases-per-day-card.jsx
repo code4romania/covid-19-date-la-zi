@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactECharts from 'echarts-for-react';
-import { Card } from '../../layout/card/card';
-import { Tabs } from '../../layout/tabs/tabs';
-import { Constants } from '../../../config/globals';
+import React from 'react'
+import ReactECharts from 'echarts-for-react'
+import { Card } from '../../layout/card/card'
+import { Tabs } from '../../layout/tabs/tabs'
+import { Constants } from '../../../config/globals'
 import { parseDailyStats } from '../../../utils/parse'
 
 const VIEW_TABS = [
@@ -11,45 +11,49 @@ const VIEW_TABS = [
     value: 'daily',
   },
   { label: 'Creștere cumulativă', value: 'cumulative' },
-];
-export const EMBED_PATH_CASES_PER_DAY = 'cazuri-pe-zi';
+]
+export const EMBED_PATH_CASES_PER_DAY = 'cazuri-pe-zi'
 export class CasesPerDayCard extends React.PureComponent {
   state = {
     activeTab: VIEW_TABS[0].value,
-  };
-
+  }
 
   getDateRange(records) {
     if (records.dates === undefined) {
-      return {};
+      return {}
     }
-    const dates = records.dates.filter((x) => !!x);
+    const dates = records.dates.filter((x) => !!x)
     return {
       from: dates[0],
       to: dates[dates.length - 1],
-    };
+    }
   }
 
   getZoomStartPercentage = (dates) => {
-    const datesCount = dates?.length;
-    const daysToShow = 14;
-    return datesCount ? (datesCount - daysToShow) * 100 / datesCount : 0;
+    const datesCount = dates?.length
+    const daysToShow = 14
+    return datesCount ? ((datesCount - daysToShow) * 100) / datesCount : 0
   }
 
   getChartOptions(records) {
-    const dates = records.dates;
-    const listConfirmed = records.confirmedCasesHistory;
-    const listCured = records.curedCasesHistory;
-    const listDeaths = records.deathCasesHistory;
-    const labels = ['Confirmați', 'Vindecați', 'Decedaţi'];
+    const dates = records.dates
+    const listConfirmed = records.confirmedCasesHistory
+    const listCured = records.curedCasesHistory
+    const listDeaths = records.deathCasesHistory
+    const labels = ['Confirmați', 'Vindecați', 'Decedaţi']
     const chartType =
-      this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line';
-    const tooltipItemColorStyle = 'border-radius: 50%; margin-right: 6px; width: 10px; height: 10px;'
-    const tooltipItemStyle = 'height: 20px; display: flex; flex-wrap: nowrap; align-items: center;'
-    const chartStack = chartType === 'bar' ? 'one' : false;
-    const zoomStart = this.getZoomStartPercentage(dates);
+      this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line'
+    const tooltipItemColorStyle =
+      'border-radius: 50%; margin-right: 6px; width: 10px; height: 10px;'
+    const tooltipItemStyle =
+      'height: 20px; display: flex; flex-wrap: nowrap; align-items: center;'
+    const chartStack = chartType === 'bar' ? 'one' : false
+    const zoomStart = this.getZoomStartPercentage(dates)
 
     return {
+      aria: {
+        show: true,
+      },
       xAxis: {
         type: 'category',
         data: dates,
@@ -70,21 +74,23 @@ export class CasesPerDayCard extends React.PureComponent {
         axisPointer: {
           axis: 'x',
         },
-        formatter: function(params){
+        formatter: function (params) {
           const date = `${params[0].axisValueLabel}`
-          const cases = params.map((param) => `
+          const cases = params.map(
+            (param) => `
           <span style="${tooltipItemStyle}">
             <span
             style="${tooltipItemColorStyle} background-color: ${param.color};"
             ></span>
             <p style={"text-align: right;"}>${param.seriesName}: ${param.value}</p>
-          </span>`)
+          </span>`
+          )
 
           return `
             ${date}
             ${cases.reverse().join('')}
           `
-        }
+        },
       },
       legend: {
         data: labels,
@@ -129,20 +135,20 @@ export class CasesPerDayCard extends React.PureComponent {
           color: Constants.deathColor,
         },
       ],
-    };
+    }
   }
 
   handleClickTab = (tab) => {
-    this.setState({ activeTab: tab.value });
-  };
+    this.setState({ activeTab: tab.value })
+  }
 
   render() {
-    const { activeTab } = this.state;
-    const daily = parseDailyStats(this.props.state, { cumulative: false });
-    const cumulative = parseDailyStats(this.props.state, { cumulative: true });
-    const records = activeTab === VIEW_TABS[0].value ? daily : cumulative;
-    const { error, isStale } = records;
-    const { from, to } = this.getDateRange(records);
+    const { activeTab } = this.state
+    const daily = parseDailyStats(this.props.state, { cumulative: false })
+    const cumulative = parseDailyStats(this.props.state, { cumulative: true })
+    const records = activeTab === VIEW_TABS[0].value ? daily : cumulative
+    const { error, isStale } = records
+    const { from, to } = this.getDateRange(records)
     return (
       <Card
         title="Număr de cazuri pe zile"
@@ -153,66 +159,19 @@ export class CasesPerDayCard extends React.PureComponent {
       >
         <ReactECharts
           lazyUpdate
-          opts={{renderer: 'svg'}}
+          opts={{ renderer: 'svg' }}
           style={{
             height: '470px',
             marginBottom: '1rem',
           }}
           option={this.getChartOptions(records)}
-          theme="light"
         />
         <Tabs
           tabList={VIEW_TABS}
           activeTab={activeTab}
           onSelect={this.handleClickTab}
         />
-        <AccessibillityCasesPerDayTable
-          dates={records.dates}
-          listConfirmed={records.confirmedCasesHistory}
-          listCured={records.curedCasesHistory}
-          listDeaths={records.deathCasesHistory}
-        />
       </Card>
-    );
+    )
   }
 }
-
-/*
-A table containg the data from cases-per-day-card that is hidden and can be only
-accessed by screen readers
-*/
-const AccessibillityCasesPerDayTable = (props) => {
-  /*Putting the data from props inside one single array to use map inside the return function*/
-  const records = [];
-  for (let i = props.dates.length - 1; i >= 0; i--) {
-    if (props.dates[i] === ' ') {
-      break;
-    }
-    records.push({
-      date: props.dates[i],
-      confirmed: props.listConfirmed[i],
-      cured: props.listCured[i],
-      deaths: props.listDeaths[i],
-    });
-  }
-  return (
-    <table role="table" className="sr-only">
-      <tbody>
-        <tr role="row">
-          <th role="columnheader">Dată</th>
-          <th role="columnheader">Confirmaţi</th>
-          <th role="columnheader">Vindecaţi</th>
-          <th role="columnheader">Decedaţi</th>
-        </tr>
-        {records.map((record, index) => (
-          <tr role="row" key={index}>
-            <td role="cell">{record.date}</td>
-            <td role="cell">{record.confirmed}</td>
-            <td role="cell">{record.cured}</td>
-            <td role="cell">{record.deaths}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};

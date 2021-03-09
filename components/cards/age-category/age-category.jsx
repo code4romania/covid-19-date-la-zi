@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactECharts from 'echarts-for-react';
-import { Card } from '../../layout/card/card';
-import { formatDate } from '../../../utils/date';
-import { parseAgeCategory } from '../../../utils/parse';
+import React from 'react'
+import ReactECharts from 'echarts-for-react'
+import { Card } from '../../layout/card/card'
+import { formatDate } from '../../../utils/date'
+import { parseAgeCategory } from '../../../utils/parse'
 
-export const EMBED_PATH_AGE_CATEGORY = 'categorie-varsta';
+export const EMBED_PATH_AGE_CATEGORY = 'categorie-varsta'
 export class AgeCategory extends React.PureComponent {
   getChartOptions = (state) => {
-    const { ageCategories, dateStrings } = state;
+    const { ageCategories, dateStrings } = state
     const series =
       ageCategories &&
       Object.entries(ageCategories).map(([key, value]) => ({
@@ -15,8 +15,11 @@ export class AgeCategory extends React.PureComponent {
         type: 'line',
         smooth: true,
         name: key,
-      }));
+      }))
     return {
+      aria: {
+        show: true,
+      },
       baseOption: {
         grid: {
           left: 40,
@@ -55,12 +58,14 @@ export class AgeCategory extends React.PureComponent {
           },
         },
       ],
-    };
-  };
+    }
+  }
 
   render() {
-    const { title, state } = this.props;
-    const { error, lastUpdatedOn, stale, ...parsedData } = parseAgeCategory(state);
+    const { title, state } = this.props
+    const { error, lastUpdatedOn, stale, ...parsedData } = parseAgeCategory(
+      state
+    )
     return (
       <Card
         error={error}
@@ -71,15 +76,14 @@ export class AgeCategory extends React.PureComponent {
       >
         <ReactECharts
           lazyUpdate
-          opts={{renderer: 'svg'}}
+          opts={{ renderer: 'svg' }}
           id="age-category"
           style={{
             height: '470px',
           }}
           option={this.getChartOptions(parsedData)}
-          theme="light"
         />
       </Card>
-    );
+    )
   }
 }

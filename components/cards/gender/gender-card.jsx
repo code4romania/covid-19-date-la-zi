@@ -1,34 +1,37 @@
-import React from 'react';
-import ReactECharts from 'echarts-for-react';
-import { Card } from '../../layout/card/card';
-import { Constants } from '../../../config/globals';
-import { formatDate } from '../../../utils/date';
-import { parseGenderStats } from '../../../utils/parse';
+import React from 'react'
+import ReactECharts from 'echarts-for-react'
+import { Card } from '../../layout/card/card'
+import { Constants } from '../../../config/globals'
+import { formatDate } from '../../../utils/date'
+import { parseGenderStats } from '../../../utils/parse'
 
-export const EMBED_PATH_GENDER = 'gen';
+export const EMBED_PATH_GENDER = 'gen'
 export class GenderCard extends React.PureComponent {
   getChartOptions(state) {
     let data = [
       { value: state.women, name: Constants.womenText },
       { value: state.men, name: Constants.menText },
-    ];
+    ]
 
-    let colors = [Constants.womenColor, Constants.menColor];
+    let colors = [Constants.womenColor, Constants.menColor]
 
     if (state.children > 0) {
-      data.push({ value: state.children, name: Constants.childrenText });
-      colors.push(Constants.childrenColor);
+      data.push({ value: state.children, name: Constants.childrenText })
+      colors.push(Constants.childrenColor)
     }
 
     if (Constants.specifyUnknownData) {
       data.push({
         value: state.unknown,
         name: Constants.unknownGenderText,
-      });
-      colors.push(Constants.unknownColor);
+      })
+      colors.push(Constants.unknownColor)
     }
 
     return {
+      aria: {
+        show: true,
+      },
       tooltip: {
         trigger: 'item',
         formatter: '{b}: {c}%',
@@ -61,12 +64,14 @@ export class GenderCard extends React.PureComponent {
           color: colors,
         },
       ],
-    };
+    }
   }
 
   render() {
-    const { title, state } = this.props;
-    const { error, lastUpdatedOn, stale, ...parsedData } = parseGenderStats(state);
+    const { title, state } = this.props
+    const { error, lastUpdatedOn, stale, ...parsedData } = parseGenderStats(
+      state
+    )
 
     return (
       <Card
@@ -78,12 +83,12 @@ export class GenderCard extends React.PureComponent {
       >
         <ReactECharts
           lazyUpdate
-          opts={{renderer: 'svg'}}
+          opts={{ renderer: 'svg' }}
           id="gender-chart"
           style={{ height: '400px' }}
           option={this.getChartOptions(parsedData)}
         />
       </Card>
-    );
+    )
   }
 }

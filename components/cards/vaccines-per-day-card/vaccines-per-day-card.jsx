@@ -1,10 +1,10 @@
-import React from 'react';
-import ReactECharts from 'echarts-for-react';
-import { Card } from '../../layout/card/card';
-import { Constants } from '../../../config/globals';
-import { Tabs } from '../../layout/tabs/tabs';
-import { formatDate } from '../../../utils/date';
-import { parseVaccinesHistory } from '../../../utils/parse';
+import React from 'react'
+import ReactECharts from 'echarts-for-react'
+import { Card } from '../../layout/card/card'
+import { Constants } from '../../../config/globals'
+import { Tabs } from '../../layout/tabs/tabs'
+import { formatDate } from '../../../utils/date'
+import { parseVaccinesHistory } from '../../../utils/parse'
 
 const VIEW_TABS = [
   {
@@ -12,45 +12,40 @@ const VIEW_TABS = [
     value: 'daily',
   },
   { label: 'Creștere cumulativă', value: 'cumulative' },
-];
-export const EMBED_PATH_VACCINES_PER_DAY = 'doze-pe-zi';
+]
+export const EMBED_PATH_VACCINES_PER_DAY = 'doze-pe-zi'
 export class VaccinesPerDayCard extends React.PureComponent {
   state = {
     activeTab: VIEW_TABS[0].value,
-  };
+  }
 
   getDateRange(records) {
     if (records.dates === undefined) {
-      return {};
+      return {}
     }
-    const dates = records.dates.filter((x) => !!x);
+    const dates = records.dates.filter((x) => !!x)
     return {
       from: dates[0],
       to: dates[dates.length - 1],
-    };
+    }
   }
 
   getZoomStartPercentage = (dates) => {
-    const datesCount = dates?.length;
-    const daysToShow = 14;
-    return datesCount ? ((datesCount - daysToShow) * 100) / datesCount : 0;
-  };
+    const datesCount = dates?.length
+    const daysToShow = 14
+    return datesCount ? ((datesCount - daysToShow) * 100) / datesCount : 0
+  }
 
   getChartOptions(records) {
-    const {
-      dates,
-      pfizer,
-      moderna,
-      astraZeneca
-    } = records;
-    const labels = ['Pfizer BioNTech', 'Moderna', 'AstraZeneca'];
+    const { dates, pfizer, moderna, astraZeneca } = records
+    const labels = ['Pfizer BioNTech', 'Moderna', 'AstraZeneca']
     const chartType =
-      this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line';
-    const chartStack = chartType === 'bar' ? 'one' : false;
-    const zoomStart = this.getZoomStartPercentage(dates);
-    const listPfizer = pfizer;
-    const listModerna = moderna;
-    const listAstraZeneca = astraZeneca;
+      this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line'
+    const chartStack = chartType === 'bar' ? 'one' : false
+    const zoomStart = this.getZoomStartPercentage(dates)
+    const listPfizer = pfizer
+    const listModerna = moderna
+    const listAstraZeneca = astraZeneca
     const series = [
       listPfizer?.length && {
         data: listPfizer,
@@ -73,9 +68,12 @@ export class VaccinesPerDayCard extends React.PureComponent {
         type: chartType,
         color: Constants.astraZenecaColor,
       },
-    ];
+    ]
 
     return {
+      aria: {
+        show: true,
+      },
       xAxis: {
         type: 'category',
         data: dates,
@@ -118,15 +116,15 @@ export class VaccinesPerDayCard extends React.PureComponent {
         },
       ],
       series: series,
-    };
+    }
   }
 
   handleClickTab = (tab) => {
-    this.setState({ activeTab: tab.value });
-  };
+    this.setState({ activeTab: tab.value })
+  }
 
   render() {
-    const { activeTab } = this.state;
+    const { activeTab } = this.state
     const daily = parseVaccinesHistory(this.props.state, {
       cumulative: false,
     })
@@ -134,12 +132,7 @@ export class VaccinesPerDayCard extends React.PureComponent {
       cumulative: true,
     })
     const records = activeTab === VIEW_TABS[0].value ? daily : cumulative
-    const {
-      isStale,
-      error,
-      dates,
-      lastUpdatedOn,
-    } = records;
+    const { isStale, error, lastUpdatedOn } = records
 
     return (
       <Card
@@ -151,70 +144,23 @@ export class VaccinesPerDayCard extends React.PureComponent {
       >
         <ReactECharts
           lazyUpdate
-          opts={{renderer: 'svg'}}
+          opts={{ renderer: 'svg' }}
           style={{
             height: '470px',
             marginBottom: '1rem',
           }}
           option={this.getChartOptions(records)}
-          theme="light"
         />
         <Tabs
           tabList={VIEW_TABS}
           activeTab={activeTab}
           onSelect={this.handleClickTab}
         />
-        <AccessibillityCasesPerDayTable
-          dates={dates}
-          listPfizer={records.pfizer}
-          listModerna={records.moderna}
-          listAstraZeneca={records.astraZeneca}
-        />
         <p>
-          În cazul vaccinelor Pfizer BioNTech, Moderna și AstraZeneca sunt necesare două doze pentru
-          imunizare.
+          În cazul vaccinelor Pfizer BioNTech, Moderna și AstraZeneca sunt
+          necesare două doze pentru imunizare.
         </p>
       </Card>
-    );
+    )
   }
 }
-
-/*
-A table containg the data from cases-per-day-card that is hidden and can be only
-accessed by screen readers
-*/
-const AccessibillityCasesPerDayTable = (props) => {
-  /*Putting the data from props inside one single array to use map inside the return function*/
-  const records = [];
-  for (let i = props.dates.length - 1; i >= 0; i--) {
-    if (props.dates[i] === ' ') {
-      break;
-    }
-    // records.push({
-    //   date: props.dates[i],
-    //   confirmed: props.listConfirmed[i],
-    //   cured: props.listCured[i],
-    //   deaths: props.listDeaths[i],
-    // });
-  }
-  return (
-    <table role="table" className="sr-only">
-      <tbody>
-        <tr role="row">
-          <th role="columnheader">Dată</th>
-          <th role="columnheader">Confirmaţi</th>
-          <th role="columnheader">Vindecaţi</th>
-          <th role="columnheader">Decedaţi</th>
-        </tr>
-        {records.map((record, index) => (
-          <tr role="row" key={index}>
-            <td role="cell">{record.date}</td>
-            <td role="cell">{record.confirmed}</td>
-            <td role="cell">{record.cured}</td>
-            <td role="cell">{record.deaths}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
-};
