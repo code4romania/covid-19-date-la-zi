@@ -14,6 +14,10 @@ import {
   GenderCard,
 } from '../../components/cards/gender/gender-card'
 import {
+  EMBED_PATH_VACCINES_PER_DAY,
+  VaccinesPerDayCard,
+} from '../../components/cards/vaccines-per-day-card/vaccines-per-day-card'
+import {
   CasesPerDayCard,
   EMBED_PATH_CASES_PER_DAY,
 } from '../../components/cards/cases-per-day-card/cases-per-day-card'
@@ -44,12 +48,14 @@ export async function getStaticPaths() {
     PROP_SHOW_DEATH_CASES,
     PROP_SHOW_TOTAL_VACCINE,
     PROP_SHOW_VACCINE_IMMUNIZATION,
+    EMBED_PATH_VACCINES_PER_DAY,
     EMBED_PATH_GENDER,
     EMBED_PATH_CASES_PER_DAY,
     EMBED_PATH_AVERAGE_AGE,
     EMBED_COUNTIES_MAP,
     EMBED_COUNTIES_TABLE,
     EMBED_PATH_AGE_CATEGORY,
+    EMBED_PATH_AGE,
   ]
   const paths = slugList.map((slug) => ({
     params: {
@@ -153,6 +159,13 @@ class EmbedPage extends React.Component {
         <SummaryRow
           key={PROP_SHOW_TOTAL_VACCINE}
           visibleCards={[PROP_SHOW_TOTAL_VACCINE]}
+          state={this.props.data}
+        />,
+      ],
+      [
+        EMBED_PATH_VACCINES_PER_DAY,
+        <VaccinesPerDayCard
+          key={EMBED_PATH_VACCINES_PER_DAY}
           state={this.props.data}
         />,
       ],
