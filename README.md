@@ -1,6 +1,6 @@
 ![logo](src/images/logo-coviz.svg)
 
-# Date la zi • [Live](https://datelazi.ro/)
+# Date la zi • [Live](https://datelazi.ro/) 
 
 ## Vizualization App to track the COVID-19 virus epidemic
 
