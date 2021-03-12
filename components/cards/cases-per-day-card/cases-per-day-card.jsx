@@ -3,6 +3,7 @@ import ReactECharts from 'echarts-for-react'
 import { Card } from '../../layout/card/card'
 import { Tabs } from '../../layout/tabs/tabs'
 import { Constants } from '../../../config/globals'
+import { formatDate } from '../../../utils/date'
 import { parseDailyStats } from '../../../utils/parse'
 
 const VIEW_TABS = [
@@ -16,17 +17,6 @@ export const EMBED_PATH_CASES_PER_DAY = 'cazuri-pe-zi'
 export class CasesPerDayCard extends React.PureComponent {
   state = {
     activeTab: VIEW_TABS[0].value,
-  }
-
-  getDateRange(records) {
-    if (records.dates === undefined) {
-      return {}
-    }
-    const dates = records.dates.filter((x) => !!x)
-    return {
-      from: dates[0],
-      to: dates[dates.length - 1],
-    }
   }
 
   getZoomStartPercentage = (dates) => {
@@ -147,12 +137,11 @@ export class CasesPerDayCard extends React.PureComponent {
     const daily = parseDailyStats(this.props.state, { cumulative: false })
     const cumulative = parseDailyStats(this.props.state, { cumulative: true })
     const records = activeTab === VIEW_TABS[0].value ? daily : cumulative
-    const { error, isStale } = records
-    const { from, to } = this.getDateRange(records)
+    const { error, isStale, lastUpdatedOn } = records
     return (
       <Card
         title="Număr de cazuri pe zile"
-        subtitle={`De la ${from} până la ${to}`}
+        subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         isStale={isStale}
         error={error}
         embedPath={EMBED_PATH_CASES_PER_DAY}
