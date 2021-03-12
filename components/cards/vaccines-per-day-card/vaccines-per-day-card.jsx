@@ -19,17 +19,6 @@ export class VaccinesPerDayCard extends React.PureComponent {
     activeTab: VIEW_TABS[0].value,
   }
 
-  getDateRange(records) {
-    if (records.dates === undefined) {
-      return {}
-    }
-    const dates = records.dates.filter((x) => !!x)
-    return {
-      from: dates[0],
-      to: dates[dates.length - 1],
-    }
-  }
-
   getZoomStartPercentage = (dates) => {
     const datesCount = dates?.length
     const daysToShow = 14
