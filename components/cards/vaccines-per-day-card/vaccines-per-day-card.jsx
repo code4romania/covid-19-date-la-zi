@@ -60,9 +60,6 @@ export class VaccinesPerDayCard extends React.PureComponent {
     ]
 
     return {
-      aria: {
-        show: true,
-      },
       xAxis: {
         type: 'category',
         data: dates,
@@ -145,6 +142,12 @@ export class VaccinesPerDayCard extends React.PureComponent {
           activeTab={activeTab}
           onSelect={this.handleClickTab}
         />
+        <AccessibillityCasesPerDayTable
+          dates={records.dates}
+          listPfizer={records.pfizer}
+          listModerna={records.moderna}
+          listAstraZeneca={records.astraZeneca}
+        />
         <p>
           În cazul vaccinelor Pfizer BioNTech, Moderna și AstraZeneca sunt
           necesare două doze pentru imunizare.
@@ -152,4 +155,45 @@ export class VaccinesPerDayCard extends React.PureComponent {
       </Card>
     )
   }
+}
+
+/*
+A table containg the data from cases-per-day-card that is hidden and can be only
+accessed by screen readers
+*/
+const AccessibillityCasesPerDayTable = (props) => {
+  const records = []
+  for (let i = props.dates.length - 1; i >= 0; i--) {
+    if (props.dates[i] === ' ') {
+      break
+    }
+    records.push({
+      date: props.dates[i],
+      pfizer: props.listPfizer[i],
+      astraZeneca: props.listAstraZeneca[i],
+      moderna: props.listModerna[i],
+    })
+  }
+  return (
+    <table role="table" className="sr-only">
+      <thead>
+        <tr role="row">
+          <th role="columnheader">Dată</th>
+          <th role="columnheader">Pfizer</th>
+          <th role="columnheader">Astra Zeneca</th>
+          <th role="columnheader">Moderna</th>
+        </tr>
+      </thead>
+      <tbody>
+        {records.map((record, index) => (
+          <tr role="row" key={index}>
+            <td role="cell">{record.date}</td>
+            <td role="cell">{record.pfizer}</td>
+            <td role="cell">{record.astraZeneca}</td>
+            <td role="cell">{record.moderna}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
 }

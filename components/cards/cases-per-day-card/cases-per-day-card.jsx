@@ -160,7 +160,55 @@ export class CasesPerDayCard extends React.PureComponent {
           activeTab={activeTab}
           onSelect={this.handleClickTab}
         />
+        {/* <AccessibillityCasesPerDayTable
+          dates={records.dates}
+          listConfirmed={records.confirmedCasesHistory}
+          listCured={records.curedCasesHistory}
+          listDeaths={records.deathCasesHistory}
+        /> */}
       </Card>
     )
   }
+}
+
+/*
+A table containg the data from cases-per-day-card that is hidden and can be only
+accessed by screen readers
+*/
+// eslint-disable-next-line no-unused-vars
+const AccessibillityCasesPerDayTable = (props) => {
+  const records = []
+  for (let i = props.dates.length - 1; i >= 0; i--) {
+    if (props.dates[i] === ' ') {
+      break
+    }
+    records.push({
+      date: props.dates[i],
+      confirmed: props.listConfirmed[i],
+      cured: props.listCured[i],
+      deaths: props.listDeaths[i],
+    })
+  }
+  return (
+    <table role="table" className="sr-only">
+      <thead>
+        <tr role="row">
+          <th role="columnheader">Dată</th>
+          <th role="columnheader">Confirmaţi</th>
+          <th role="columnheader">Vindecaţi</th>
+          <th role="columnheader">Decedaţi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {records.map((record, index) => (
+          <tr role="row" key={index}>
+            <td role="cell">{record.date}</td>
+            <td role="cell">{record.confirmed}</td>
+            <td role="cell">{record.cured}</td>
+            <td role="cell">{record.deaths}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
 }
