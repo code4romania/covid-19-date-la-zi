@@ -1,5 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/latestData.json", "destination": "https://d35p9e4fm9h3wo.cloudfront.net/latestData.json" }
-  ]
-}

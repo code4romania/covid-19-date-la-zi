@@ -17,7 +17,7 @@ import { VaccinesPerDayCard } from '../components/cards/vaccines-per-day-card/va
 import DefaultLayout from '../components/layout/default-layout'
 
 export async function getStaticProps() {
-  const res = await fetch(ApiURL.allData)
+  const res = await fetch(ApiURL.smallData)
   const data = await res.json()
 
   if (!data) {
