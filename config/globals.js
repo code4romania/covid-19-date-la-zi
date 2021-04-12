@@ -1,5 +1,5 @@
 export const Constants = {
-  api: process.env.REACT_APP_API_URL || 'https://d35p9e4fm9h3wo.cloudfront.net',
+  api: process.env.NEXT_PUBLIC_API_URL,
   shareableLink: 'https://datelazi.ro',
   womenColor: '#F77EB9',
   menColor: '#7EBCFF',
@@ -27,8 +27,9 @@ export const Constants = {
   pfizerColor: '#0C7BDC',
   modernaColor: '#FEC20B',
   astraZenecaColor: '#e66100',
-};
+}
 
 export const ApiURL = {
   allData: Constants.api + '/latestData.json',
-};
+  smallData: Constants.api + '/smallData.json',
+}

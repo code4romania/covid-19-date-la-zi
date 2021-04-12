@@ -69,7 +69,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(ApiURL.allData)
+  const res = await fetch(ApiURL.smallData)
   const data = await res.json()
 
   if (!data) {
