@@ -116,7 +116,9 @@ export function parseSummary(result) {
     if (!imunizationStale) {
       dosesAdministeredHistory.push(numberTotalDosesAdministered)
       immunityHistory.push(
-        vaccines?.pfizer.immunized + vaccines?.moderna.immunized
+        vaccines?.pfizer.immunized +
+          vaccines?.moderna.immunized +
+          vaccines?.astra_zeneca.immunized || 0
       )
     }
 
