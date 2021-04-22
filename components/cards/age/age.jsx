@@ -21,6 +21,7 @@ export class AgeCard extends React.PureComponent {
         type: 'value',
         axisLabel: {
           color: 'gray',
+          rotate: 45,
         },
       },
       yAxis: {
