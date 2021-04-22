@@ -34,6 +34,10 @@ export class AgeCategory extends React.PureComponent {
         xAxis: {
           type: 'category',
           data: dateStrings,
+          axisLabel: {
+            color: 'gray',
+            rotate: 45,
+          },
         },
         yAxis: {},
         tooltip: {
