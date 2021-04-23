@@ -102,7 +102,11 @@ export function parseSummary(result) {
         totalCasesHistory.push(entry.numberInfected || 0)
         curedCasesHistory.push(entry.numberCured || 0)
         deathCasesHistory.push(entry.numberDeceased || 0)
-        dosesAdministeredHistory.push(entry.numberTotalDosesAdministered || 0)
+        dosesAdministeredHistory.push(
+          entry.vaccines?.pfizer.total_administered +
+            entry.vaccines?.moderna.total_administered +
+            entry.vaccines?.astra_zeneca.total_administered || 0
+        )
         immunityHistory.push(
           entry.vaccines?.pfizer.immunized +
             entry.vaccines?.moderna.immunized +
