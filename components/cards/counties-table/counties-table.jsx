@@ -20,9 +20,9 @@ export class CountiesTable extends React.PureComponent {
       .slice(page * limit, limit * (page + 1))
       .map((row, index) => (
         <tr key={`dailyTable${index}`}>
-          <td className={styles.td}>{row.name}</td>
-          <td className="has-text-right">{row.countyInfectionsNumbers}</td>
-          <td className="has-text-right">{row.value}</td>
+          <td tabIndex="0" className={styles.td}>{row.name}</td>
+          <td tabIndex="0" className="has-text-right">{row.countyInfectionsNumbers}</td>
+          <td tabIndex="0" className="has-text-right">{row.value}</td>
         </tr>
       )
       );
@@ -96,9 +96,9 @@ export class CountiesTable extends React.PureComponent {
           <table className={styles.table}>
             <thead>
               <tr className={styles.tr}>
-                <th>Județ</th>
-                <th className="has-text-right">Cazuri totale</th>
-                <th className="has-text-right">Incidență cumulată</th>
+                <th tabIndex="0">Județ</th>
+                <th tabIndex="0" className="has-text-right">Cazuri totale</th>
+                <th tabIndex="0" className="has-text-right">Incidență cumulată</th>
               </tr>
             </thead>
             <tbody>
