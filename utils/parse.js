@@ -1,4 +1,4 @@
-import { formatShortDate } from './date'
+import { formatDate } from './date'
 import { mnemonics } from '../config/mnemonics'
 
 export function parseAgeCategory(result) {
@@ -21,7 +21,7 @@ export function parseAgeCategory(result) {
     const key = dataEntries[i + 1][0]
     const currentValue = dataEntries[i][1]
     const nextValue = dataEntries[i + 1][1]
-    dateStrings.push(formatShortDate(key))
+    dateStrings.push(formatDate(key))
 
     Object.entries(currentValue.distributionByAge)
       .filter(([ageGroup]) => ageGroup !== 'în procesare')
@@ -200,7 +200,7 @@ export function parseDailyStats(result, options) {
 
       deathCasesHistory.push(cumulative ? numberDeceased : numberDeceasedByDay)
 
-      dateStrings.push(formatShortDate(dataEntries[i][0]))
+      dateStrings.push(formatDate(dataEntries[i][0]))
     }
 
     if (!cumulative) {
@@ -268,7 +268,7 @@ export function parseVaccinesHistory(result, options) {
                   astra_zeneca.total_administered
               : astra_zeneca.total_administered || 0
           )
-          dateStrings.push(formatShortDate(date))
+          dateStrings.push(formatDate(date))
         }
       })
 
