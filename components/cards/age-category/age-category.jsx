@@ -25,7 +25,7 @@ export class AgeCategory extends React.PureComponent {
           left: 40,
           top: 10,
           right: 10,
-          bottom: 100,
+          bottom: 200,
         },
         legend: {
           bottom: 0,
@@ -57,7 +57,7 @@ export class AgeCategory extends React.PureComponent {
         {
           query: { maxWidth: 400 },
           option: {
-            grid: { bottom: 160 },
+            grid: { bottom: 250 },
             dataZoom: [{ bottom: 100 }],
           },
         },
@@ -83,7 +83,7 @@ export class AgeCategory extends React.PureComponent {
           opts={{ renderer: 'svg' }}
           id="age-category"
           style={{
-            height: '470px',
+            height: '600px',
           }}
           option={this.getChartOptions(parsedData)}
         />
