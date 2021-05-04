@@ -26,7 +26,7 @@ export class VaccinesPerDayCard extends React.PureComponent {
   }
 
   getChartOptions(records) {
-    const { dates, pfizer, moderna, astraZeneca } = records
+    const { dates, pfizer, moderna, astraZeneca, johnsonAndJohnson } = records
     const labels = ['Pfizer BioNTech', 'Moderna', 'AstraZeneca', 'Johnson&Johnson']
     const chartType =
       this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line'
