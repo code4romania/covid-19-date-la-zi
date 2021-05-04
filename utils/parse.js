@@ -118,7 +118,8 @@ export function parseSummary(result) {
       immunityHistory.push(
         vaccines?.pfizer.immunized +
           vaccines?.moderna.immunized +
-          vaccines?.astra_zeneca.immunized || 0
+          vaccines?.astra_zeneca.immunized +
+          vaccines?.johnson_and_johnson.immunized || 0 
       )
     }
 
