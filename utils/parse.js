@@ -236,7 +236,8 @@ export function parseVaccinesHistory(result, options) {
     const dateStrings = []
     const pfizerRecords = []
     const modernaRecords = []
-    const astraZeneca = []
+    const astraZenecaRecords = []
+    const johnsonAndJohnsonRecords = []
 
     const newData = vaccineDetailedStale
       ? historicalData
@@ -249,7 +250,7 @@ export function parseVaccinesHistory(result, options) {
       .reverse()
       .forEach(([date, entry]) => {
         if (entry.vaccines) {
-          const { pfizer, moderna, astra_zeneca } = entry.vaccines
+          const { pfizer, moderna, astra_zeneca, johnson_and_johnson } = entry.vaccines
           pfizerRecords.push(
             cumulative
               ? (pfizerRecords[dateStrings.length - 1] || 0) +
@@ -262,11 +263,17 @@ export function parseVaccinesHistory(result, options) {
                   moderna.total_administered
               : moderna.total_administered || 0
           )
-          astraZeneca.push(
+          astraZenecaRecords.push(
             cumulative
-              ? (astraZeneca[dateStrings.length - 1] || 0) +
+              ? (astraZenecaRecords[dateStrings.length - 1] || 0) +
                   astra_zeneca.total_administered
               : astra_zeneca.total_administered || 0
+          )
+          johnsonAndJohnsonRecords.push(
+            cumulative
+              ? (johnsonAndJohnsonRecords[dateStrings.length - 1] || 0) +
+              johnson_and_johnson.total_administered
+              : johnson_and_johnson.total_administered || 0
           )
           dateStrings.push(formatDate(date))
         }
@@ -278,7 +285,8 @@ export function parseVaccinesHistory(result, options) {
       dates: dateStrings,
       pfizer: pfizerRecords,
       moderna: modernaRecords,
-      astraZeneca: astraZeneca,
+      astraZeneca: astraZenecaRecords,
+      johnsonAndJohnson: johnsonAndJohnsonRecords,
     }
   } catch (error) {
     console.error(error)
