@@ -13,10 +13,19 @@ const VIEW_TABS = [
   },
   { label: 'Creștere cumulativă', value: 'cumulative' },
 ]
+const VACCINES_LABELS = [
+  Constants.pfizerName,
+  Constants.modernaName,
+  Constants.astraZenecaName,
+  Constants.johnsonAndJohnsonName,
+]
+
 export const EMBED_PATH_VACCINES_PER_DAY = 'doze-pe-zi'
+
 export class VaccinesPerDayCard extends React.PureComponent {
   state = {
     activeTab: VIEW_TABS[0].value,
+    selected: VACCINES_LABELS.reduce((o, key) => ({ ...o, [key]: true }), {}),
   }
 
   getZoomStartPercentage = (dates) => {
@@ -25,9 +34,22 @@ export class VaccinesPerDayCard extends React.PureComponent {
     return datesCount ? ((datesCount - daysToShow) * 100) / datesCount : 0
   }
 
+  getLegendIcon = (selected) => {
+    return selected
+      ? 'path://M10.6667 0H1.33333C0.593333 0 0 0.6 0 1.33333V10.6667C0 11.4 0.593333 12 1.33333 12H10.6667C11.4067 12 12 11.4 12 10.6667V1.33333C12 0.6 11.4067 0 10.6667 0ZM4.66667 9.33333L1.33333 6L2.27333 5.06L4.66667 7.44667L9.72667 2.38667L10.6667 3.33333L4.66667 9.33333Z'
+      : 'path://M10.6667 1.33333V10.6667H1.33333V1.33333H10.6667ZM10.6667 0H1.33333C0.6 0 0 0.6 0 1.33333V10.6667C0 11.4 0.6 12 1.33333 12H10.6667C11.4 12 12 11.4 12 10.6667V1.33333C12 0.6 11.4 0 10.6667 0Z'
+  }
+
+  getLegendLabels = (labels) => {
+    return labels.map((label) => ({
+      name: label,
+      icon: this.getLegendIcon(this.state.selected[label]),
+    }))
+  }
+
   getChartOptions(records) {
     const { dates, pfizer, moderna, astraZeneca, johnsonAndJohnson } = records
-    const labels = ['Pfizer BioNTech', 'Moderna', 'AstraZeneca', 'Johnson&Johnson']
+    const labels = this.getLegendLabels(VACCINES_LABELS)
     const chartType =
       this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line'
     const chartStack = chartType === 'bar' ? 'one' : false
@@ -39,28 +61,28 @@ export class VaccinesPerDayCard extends React.PureComponent {
     const series = [
       listPfizer?.length && {
         data: listPfizer,
-        name: labels[0],
+        name: Constants.pfizerName,
         stack: chartStack,
         type: chartType,
         color: Constants.pfizerColor,
       },
       listModerna?.length && {
         data: listModerna,
-        name: labels[1],
+        name: Constants.modernaName,
         stack: chartStack,
         type: chartType,
         color: Constants.modernaColor,
       },
       listAstraZeneca?.length && {
         data: listAstraZeneca,
-        name: labels[2],
+        name: Constants.astraZenecaName,
         stack: chartStack,
         type: chartType,
         color: Constants.astraZenecaColor,
       },
       listJohnsonAndJohnson?.length && {
         data: listJohnsonAndJohnson,
-        name: labels[3],
+        name: Constants.johnsonAndJohnsonName,
         stack: chartStack,
         type: chartType,
         color: Constants.johnsonAndJohnsonColor,
@@ -95,7 +117,6 @@ export class VaccinesPerDayCard extends React.PureComponent {
       legend: {
         data: labels,
         bottom: 0,
-        icon: 'circle',
       },
       grid: {
         left: '1%',
@@ -118,6 +139,10 @@ export class VaccinesPerDayCard extends React.PureComponent {
 
   handleClickTab = (tab) => {
     this.setState({ activeTab: tab.value })
+  }
+
+  onChartLegendselectchanged = ({ selected }) => {
+    this.setState({ selected })
   }
 
   render() {
@@ -147,6 +172,7 @@ export class VaccinesPerDayCard extends React.PureComponent {
             marginBottom: '1rem',
           }}
           option={this.getChartOptions(records)}
+          onEvents={{ legendselectchanged: this.onChartLegendselectchanged }}
         />
         <Tabs
           tabList={VIEW_TABS}

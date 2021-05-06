@@ -24,9 +24,13 @@ export const Constants = {
 
   dailyRecordsLimit: 14,
 
+  pfizerName: 'Pfizer BioNTech',
   pfizerColor: '#0C7BDC',
+  modernaName: 'Moderna',
   modernaColor: '#FEC20B',
+  astraZenecaName: 'AstraZeneca',
   astraZenecaColor: '#e66100',
+  johnsonAndJohnsonName: 'Johnson&Johnson',
   johnsonAndJohnsonColor: '#40B0A6',
 }
 
