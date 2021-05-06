@@ -27,6 +27,7 @@ export const Constants = {
   pfizerColor: '#0C7BDC',
   modernaColor: '#FEC20B',
   astraZenecaColor: '#e66100',
+  johnsonAndJohnsonColor: '#40B0A6',
 }
 
 export const ApiURL = {
