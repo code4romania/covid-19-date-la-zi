@@ -5,6 +5,11 @@ import { Tabs } from '../../layout/tabs/tabs'
 import { Constants } from '../../../config/globals'
 import { formatDate } from '../../../utils/date'
 import { parseDailyStats } from '../../../utils/parse'
+import {
+  getZoomStartPercentage,
+  getLegendLabels,
+  getSelectedState,
+} from '../../../utils/echarts'
 
 const VIEW_TABS = [
   {
@@ -13,16 +18,16 @@ const VIEW_TABS = [
   },
   { label: 'Creștere cumulativă', value: 'cumulative' },
 ]
+const LABELS = [
+  Constants.confirmedText,
+  Constants.curedText,
+  Constants.deathText,
+]
 export const EMBED_PATH_CASES_PER_DAY = 'cazuri-pe-zi'
 export class CasesPerDayCard extends React.PureComponent {
   state = {
     activeTab: VIEW_TABS[0].value,
-  }
-
-  getZoomStartPercentage = (dates) => {
-    const datesCount = dates?.length
-    const daysToShow = 14
-    return datesCount ? ((datesCount - daysToShow) * 100) / datesCount : 0
+    selected: getSelectedState(LABELS),
   }
 
   getChartOptions(records) {
@@ -30,7 +35,7 @@ export class CasesPerDayCard extends React.PureComponent {
     const listConfirmed = records.confirmedCasesHistory
     const listCured = records.curedCasesHistory
     const listDeaths = records.deathCasesHistory
-    const labels = ['Confirmați', 'Vindecați', 'Decedaţi']
+    const labels = getLegendLabels(LABELS, this.state.selected)
     const chartType =
       this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line'
     const tooltipItemColorStyle =
@@ -38,7 +43,7 @@ export class CasesPerDayCard extends React.PureComponent {
     const tooltipItemStyle =
       'height: 20px; display: flex; flex-wrap: nowrap; align-items: center;'
     const chartStack = chartType === 'bar' ? 'one' : false
-    const zoomStart = this.getZoomStartPercentage(dates)
+    const zoomStart = getZoomStartPercentage(dates)
 
     return {
       aria: {
@@ -85,7 +90,6 @@ export class CasesPerDayCard extends React.PureComponent {
       legend: {
         data: labels,
         bottom: 0,
-        icon: 'circle',
       },
       grid: {
         left: '1%',
@@ -105,21 +109,21 @@ export class CasesPerDayCard extends React.PureComponent {
       series: [
         {
           data: listConfirmed,
-          name: labels[0],
+          name: Constants.confirmedText,
           stack: chartStack,
           type: chartType,
           color: Constants.confirmedColor,
         },
         {
           data: listCured,
-          name: labels[1],
+          name: Constants.curedText,
           stack: chartStack,
           type: chartType,
           color: Constants.curedColor,
         },
         {
           data: listDeaths,
-          name: labels[2],
+          name: Constants.deathText,
           stack: chartStack,
           type: chartType,
           color: Constants.deathColor,
@@ -130,6 +134,10 @@ export class CasesPerDayCard extends React.PureComponent {
 
   handleClickTab = (tab) => {
     this.setState({ activeTab: tab.value })
+  }
+
+  onChartLegendselectchanged = ({ selected }) => {
+    this.setState({ selected })
   }
 
   render() {
@@ -154,6 +162,7 @@ export class CasesPerDayCard extends React.PureComponent {
             marginBottom: '1rem',
           }}
           option={this.getChartOptions(records)}
+          onEvents={{ legendselectchanged: this.onChartLegendselectchanged }}
         />
         <Tabs
           tabList={VIEW_TABS}

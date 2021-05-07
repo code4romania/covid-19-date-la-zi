@@ -5,6 +5,11 @@ import { Constants } from '../../../config/globals'
 import { Tabs } from '../../layout/tabs/tabs'
 import { formatDate } from '../../../utils/date'
 import { parseVaccinesHistory } from '../../../utils/parse'
+import {
+  getZoomStartPercentage,
+  getLegendLabels,
+  getSelectedState,
+} from '../../../utils/echarts'
 
 const VIEW_TABS = [
   {
@@ -13,25 +18,28 @@ const VIEW_TABS = [
   },
   { label: 'Creștere cumulativă', value: 'cumulative' },
 ]
+const LABELS = [
+  Constants.pfizerText,
+  Constants.modernaText,
+  Constants.astraZenecaText,
+  Constants.johnsonAndJohnsonText,
+]
+
 export const EMBED_PATH_VACCINES_PER_DAY = 'doze-pe-zi'
+
 export class VaccinesPerDayCard extends React.PureComponent {
   state = {
     activeTab: VIEW_TABS[0].value,
-  }
-
-  getZoomStartPercentage = (dates) => {
-    const datesCount = dates?.length
-    const daysToShow = 14
-    return datesCount ? ((datesCount - daysToShow) * 100) / datesCount : 0
+    selected: getSelectedState(LABELS),
   }
 
   getChartOptions(records) {
     const { dates, pfizer, moderna, astraZeneca, johnsonAndJohnson } = records
-    const labels = ['Pfizer BioNTech', 'Moderna', 'AstraZeneca', 'Johnson&Johnson']
+    const labels = getLegendLabels(LABELS, this.state.selected)
     const chartType =
       this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line'
     const chartStack = chartType === 'bar' ? 'one' : false
-    const zoomStart = this.getZoomStartPercentage(dates)
+    const zoomStart = getZoomStartPercentage(dates)
     const listPfizer = pfizer
     const listModerna = moderna
     const listAstraZeneca = astraZeneca
@@ -39,28 +47,28 @@ export class VaccinesPerDayCard extends React.PureComponent {
     const series = [
       listPfizer?.length && {
         data: listPfizer,
-        name: labels[0],
+        name: Constants.pfizerText,
         stack: chartStack,
         type: chartType,
         color: Constants.pfizerColor,
       },
       listModerna?.length && {
         data: listModerna,
-        name: labels[1],
+        name: Constants.modernaText,
         stack: chartStack,
         type: chartType,
         color: Constants.modernaColor,
       },
       listAstraZeneca?.length && {
         data: listAstraZeneca,
-        name: labels[2],
+        name: Constants.astraZenecaText,
         stack: chartStack,
         type: chartType,
         color: Constants.astraZenecaColor,
       },
       listJohnsonAndJohnson?.length && {
         data: listJohnsonAndJohnson,
-        name: labels[3],
+        name: Constants.johnsonAndJohnsonText,
         stack: chartStack,
         type: chartType,
         color: Constants.johnsonAndJohnsonColor,
@@ -95,7 +103,6 @@ export class VaccinesPerDayCard extends React.PureComponent {
       legend: {
         data: labels,
         bottom: 0,
-        icon: 'circle',
       },
       grid: {
         left: '1%',
@@ -118,6 +125,10 @@ export class VaccinesPerDayCard extends React.PureComponent {
 
   handleClickTab = (tab) => {
     this.setState({ activeTab: tab.value })
+  }
+
+  onChartLegendselectchanged = ({ selected }) => {
+    this.setState({ selected })
   }
 
   render() {
@@ -147,6 +158,7 @@ export class VaccinesPerDayCard extends React.PureComponent {
             marginBottom: '1rem',
           }}
           option={this.getChartOptions(records)}
+          onEvents={{ legendselectchanged: this.onChartLegendselectchanged }}
         />
         <Tabs
           tabList={VIEW_TABS}
@@ -156,8 +168,7 @@ export class VaccinesPerDayCard extends React.PureComponent {
         <p>
           În cazul vaccinelor Pfizer BioNTech, Moderna și AstraZeneca sunt
           necesare două doze pentru imunizare. În cazul vaccinului
-          Johnson&Johnson este necesară o singură doză pentru 
-          imunizare.
+          Johnson&Johnson este necesară o singură doză pentru imunizare.
         </p>
       </Card>
     )

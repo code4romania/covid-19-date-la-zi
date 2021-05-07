@@ -6,9 +6,11 @@ export const Constants = {
   childrenColor: '#bbbbbb',
   unknownColor: '#9FB3C7',
 
+  confirmedText: 'Confirmați',
   confirmedColor: '#66A4FB',
+  curedText: 'Vindecați',
   curedColor: '#65E0E0',
-
+  deathText: 'Decedaţi',
   deathColor: 'black',
 
   womenText: 'Femei',
@@ -24,9 +26,13 @@ export const Constants = {
 
   dailyRecordsLimit: 14,
 
+  pfizerText: 'Pfizer BioNTech',
   pfizerColor: '#0C7BDC',
+  modernaText: 'Moderna',
   modernaColor: '#FEC20B',
+  astraZenecaText: 'AstraZeneca',
   astraZenecaColor: '#e66100',
+  johnsonAndJohnsonText: 'Johnson&Johnson',
   johnsonAndJohnsonColor: '#40B0A6',
 }
 
