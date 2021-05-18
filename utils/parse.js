@@ -106,7 +106,8 @@ export function parseSummary(result) {
         immunityHistory.push(
           entry.vaccines?.pfizer.immunized +
             entry.vaccines?.moderna.immunized +
-            entry.vaccines?.astra_zeneca.immunized || 0
+            entry.vaccines?.astra_zeneca.immunized +
+            entry.vaccines?.johnson_and_johnson.immunized || 0
         )
       })
 
@@ -119,7 +120,7 @@ export function parseSummary(result) {
         vaccines?.pfizer.immunized +
           vaccines?.moderna.immunized +
           vaccines?.astra_zeneca.immunized +
-          vaccines?.johnson_and_johnson.immunized || 0 
+          vaccines?.johnson_and_johnson.immunized || 0
       )
     }
 
@@ -251,7 +252,12 @@ export function parseVaccinesHistory(result, options) {
       .reverse()
       .forEach(([date, entry]) => {
         if (entry.vaccines) {
-          const { pfizer, moderna, astra_zeneca, johnson_and_johnson } = entry.vaccines
+          const {
+            pfizer,
+            moderna,
+            astra_zeneca,
+            johnson_and_johnson,
+          } = entry.vaccines
           pfizerRecords.push(
             cumulative
               ? (pfizerRecords[dateStrings.length - 1] || 0) +
@@ -273,7 +279,7 @@ export function parseVaccinesHistory(result, options) {
           johnsonAndJohnsonRecords.push(
             cumulative
               ? (johnsonAndJohnsonRecords[dateStrings.length - 1] || 0) +
-              johnson_and_johnson.total_administered
+                  johnson_and_johnson.total_administered
               : johnson_and_johnson.total_administered || 0
           )
           dateStrings.push(formatDate(date))
