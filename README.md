@@ -1,6 +1,6 @@
 ![logo](src/images/logo-coviz.svg)
 
-# Date la zi • [Live](https://datelazi.ro/) 
+# Date la zi • [Live](https://datelazi.ro/)
 
 ## Vizualization App to track the COVID-19 virus epidemic
 
@@ -51,7 +51,7 @@ yarn
 ### Run the project in development mode
 
 ```
-yarn start
+yarn run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
