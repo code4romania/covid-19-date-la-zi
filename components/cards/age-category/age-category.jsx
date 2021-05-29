@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactECharts from 'echarts-for-react'
 import { Card } from '../../layout/card/card'
+import { AccessibilityTable } from '../../accessibility-table'
 import { formatDate } from '../../../utils/date'
 import { parseAgeCategory } from '../../../utils/parse'
 import { getLegendLabels, getSelectedState } from '../../../utils/echarts'
@@ -110,6 +111,16 @@ export class AgeCategory extends React.PureComponent {
           }}
           option={this.getChartOptions(parsedData)}
           onEvents={{ legendselectchanged: this.onChartLegendselectchanged }}
+        />
+        <AccessibilityTable
+          isStale={stale}
+          columns={[
+            { name: 'Data', data: parsedData.dateStrings },
+            ...Object.entries(parsedData.ageCategories).map(([name, data]) => ({
+              name,
+              data,
+            })),
+          ]}
         />
       </Card>
     )

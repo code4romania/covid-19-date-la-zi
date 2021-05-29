@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactECharts from 'echarts-for-react'
 import { Card } from '../../layout/card/card'
+import { AccessibilityTable } from '../../accessibility-table'
 import { Constants } from '../../../config/globals'
 import { formatDate } from '../../../utils/date'
 import { parseAgeStats } from '../../../utils/parse'
@@ -76,6 +77,7 @@ export class AgeCard extends React.PureComponent {
   render() {
     const { title, state } = this.props
     const { error, lastUpdatedOn, stale, ...parsedData } = parseAgeStats(state)
+    const data = parsedData.data
     return (
       <Card
         error={error}
@@ -94,6 +96,14 @@ export class AgeCard extends React.PureComponent {
               width: '100%',
             }}
             option={this.getChartOptions(parsedData)}
+          />
+          <AccessibilityTable
+            isStale={stale}
+            columns={[
+              { name: 'Categorie', data: data.map((o) => o.name) },
+              { name: 'Procent', data: data.map((o) => o.percentage) },
+              { name: 'Total', data: data.map((o) => o.value) },
+            ]}
           />
         </div>
       </Card>
