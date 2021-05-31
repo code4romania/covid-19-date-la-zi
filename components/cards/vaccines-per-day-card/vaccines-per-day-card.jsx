@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactECharts from 'echarts-for-react'
 import { Card } from '../../layout/card/card'
+import { AccessibilityTable } from '../../accessibility-table'
 import { Constants } from '../../../config/globals'
 import { Tabs } from '../../layout/tabs/tabs'
 import { formatDate } from '../../../utils/date'
@@ -164,6 +165,16 @@ export class VaccinesPerDayCard extends React.PureComponent {
           tabList={VIEW_TABS}
           activeTab={activeTab}
           onSelect={this.handleClickTab}
+        />
+        <AccessibilityTable
+          isStale={isStale}
+          columns={[
+            { name: 'Data', data: records.dates },
+            { name: 'Pfizer BioNTech', data: records.pfizer },
+            { name: 'Moderna', data: records.moderna },
+            { name: 'AstraZeneca', data: records.astraZeneca },
+            { name: 'Johnson&Johnson', data: records.johnsonAndJohnson },
+          ]}
         />
         <p>
           În cazul vaccinelor Pfizer BioNTech, Moderna și AstraZeneca sunt

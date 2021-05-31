@@ -2,6 +2,7 @@ import React from 'react'
 import ReactECharts from 'echarts-for-react'
 import { Card } from '../../layout/card/card'
 import { Tabs } from '../../layout/tabs/tabs'
+import { AccessibilityTable } from '../../accessibility-table'
 import { Constants } from '../../../config/globals'
 import { formatDate } from '../../../utils/date'
 import { parseDailyStats } from '../../../utils/parse'
@@ -168,6 +169,15 @@ export class CasesPerDayCard extends React.PureComponent {
           tabList={VIEW_TABS}
           activeTab={activeTab}
           onSelect={this.handleClickTab}
+        />
+        <AccessibilityTable
+          isStale={isStale}
+          columns={[
+            { name: 'Data', data: records.dates },
+            { name: 'Cazuri confirmate', data: records.confirmedCasesHistory },
+            { name: 'Cazuri vindecate', data: records.curedCasesHistory },
+            { name: 'Decese', data: records.deathCasesHistory },
+          ]}
         />
       </Card>
     )
