@@ -181,6 +181,10 @@ export class VaccinesPerDayCard extends React.PureComponent {
           necesare două doze pentru imunizare. În cazul vaccinului
           Johnson&Johnson este necesară o singură doză pentru imunizare.
         </p>
+        <p>
+          Datele despre vaccin din 9 iulie se regăsesc în
+          setul de date din 10 iulie. 
+        </p>
       </Card>
     )
   }
