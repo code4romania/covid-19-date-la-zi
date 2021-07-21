@@ -7,9 +7,6 @@ import { SUMMARY_CHART_THEME } from './summary-chart.theme'
 export class SummaryCard extends React.PureComponent {
   getChartOptions(data) {
     return {
-      aria: {
-        show: true,
-      },
       xAxis: {
         type: 'category',
         xAxisData: data.xAxisData,
@@ -37,6 +34,9 @@ export class SummaryCard extends React.PureComponent {
       embedPath,
       stale,
     } = this.props
+
+    const chartLabelId = `chart-label-${embedPath}`;
+
     return (
       <Card
         error={error}
@@ -45,7 +45,7 @@ export class SummaryCard extends React.PureComponent {
         title={title}
         subtitle={subTitle}
       >
-        <h3 className="is-inline-block">{total}</h3>
+        <h3 id={chartLabelId} className="is-inline-block">{total}</h3>
         {special && (
           <span className={`${styles.special} is-inline-block`}>
             <span
@@ -60,7 +60,7 @@ export class SummaryCard extends React.PureComponent {
           </span>
         )}
         {data && (
-          <div className={styles.mini_chart}>
+          <div className={styles.mini_chart} aria-labelledby={chartLabelId}>
             <ReactECharts
               lazyUpdate
               opts={{ renderer: 'svg' }}
