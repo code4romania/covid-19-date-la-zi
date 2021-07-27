@@ -19,15 +19,17 @@ export const AccessibilityTable = (props) => {
   }
 
   return (
-    <table className="is-sr-only">
-      <thead>
-        <tr>
-          {columnNames.map((name) => (
-            <th key={name}>{name}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
+    <div className="is-sr-only">
+      <table>
+        <thead>
+          <tr>
+            {columnNames.map((name) => (
+              <th key={name}>{name}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </div>
   )
 }
