@@ -25,8 +25,8 @@ export class CountiesMap extends React.PureComponent {
         show: true,
         pieces: [
           { min: 3, color: Constants.red, label: '> 3 la 1000' },
-          { min: 1.5, max: 3, color: Constants.yellow, label: '> 1.5 la 1000' },
-          { max: 1.5, color: Constants.green, label: '< 1,5 la 1000' },
+          { min: 2, max: 3, color: Constants.yellow, label: '> 2 la 1000' },
+          { max: 2, color: Constants.green, label: '< 2 la 1000' },
         ],
         left: 'left',
         top: 'bottom',
