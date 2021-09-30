@@ -40,6 +40,14 @@ import {
 } from '../../components/cards/age-category/age-category'
 import { DevelopedBy } from '@code4ro/taskforce-fe-components'
 import Image from 'next/image'
+import {
+  EMBED_LARGE_CITIES_INCIDENTS_TABLE,
+  LargeCitiesIncidentsTable,
+} from '../../components/cards/large-cities-incidents-table/large-cities-incidents-table'
+import {
+  EMBED_SMALL_CITIES_INCIDENTS_TABLE,
+  SmallCitiesIncidentsTable,
+} from '../../components/cards/small-cities-incidents-table/small-cities-incidents-table'
 
 export async function getStaticPaths() {
   const slugList = [
@@ -56,6 +64,8 @@ export async function getStaticPaths() {
     EMBED_COUNTIES_TABLE,
     EMBED_PATH_AGE_CATEGORY,
     EMBED_PATH_AGE,
+    EMBED_LARGE_CITIES_INCIDENTS_TABLE,
+    EMBED_SMALL_CITIES_INCIDENTS_TABLE,
   ]
   const paths = slugList.map((slug) => ({
     params: {
@@ -184,6 +194,20 @@ class EmbedPage extends React.Component {
       [
         EMBED_COUNTIES_TABLE,
         <CountiesTable key={EMBED_COUNTIES_TABLE} state={this.props.data} />,
+      ],
+      [
+        EMBED_LARGE_CITIES_INCIDENTS_TABLE,
+        <LargeCitiesIncidentsTable
+          key={EMBED_LARGE_CITIES_INCIDENTS_TABLE}
+          state={this.props.data}
+        />,
+      ],
+      [
+        EMBED_SMALL_CITIES_INCIDENTS_TABLE,
+        <SmallCitiesIncidentsTable
+          key={EMBED_SMALL_CITIES_INCIDENTS_TABLE}
+          state={this.props.data}
+        />,
       ],
     ])
 

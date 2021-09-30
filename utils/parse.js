@@ -43,6 +43,41 @@ export function parseAgeCategory(result) {
   }
 }
 
+export function parseSmallCitiesIncidentsTable(result) {
+  const { small_cities_incidence } = result.currentDayStats
+  const {
+    detailedIncidenceStats: { lastUpdatedOn, stale },
+  } = result.charts
+  const data = small_cities_incidence.sort((a, b) =>
+    +a.Cazuri > +b.Cazuri ? -1 : 1
+  )
+
+  return {
+    error: null,
+    data,
+    lastUpdatedOn,
+    stale,
+  }
+}
+
+export function parseLargeCitiesIncidentsTable(result) {
+  const { large_cities_incidence } = result.currentDayStats
+  const {
+    detailedIncidenceStats: { lastUpdatedOn, stale },
+  } = result.charts
+
+  const data = large_cities_incidence.sort((a, b) =>
+    +a.Cazuri > +b.Cazuri ? -1 : 1
+  )
+
+  return {
+    error: null,
+    data,
+    lastUpdatedOn,
+    stale,
+  }
+}
+
 export function parseCountiesTable(result) {
   const { countyInfectionsNumbers, incidence } = result.currentDayStats
   const {
@@ -58,7 +93,7 @@ export function parseCountiesTable(result) {
     }))
     .sort((a, b) =>
       // reversed by count
-      a.value > b.value ? -1 : 1
+      +a.value > +b.value ? -1 : 1
     )
 
   return {

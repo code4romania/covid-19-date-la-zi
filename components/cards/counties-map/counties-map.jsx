@@ -38,7 +38,7 @@ export class CountiesMap extends React.PureComponent {
         {
           name: 'Cazuri',
           type: 'map',
-          mapType: 'RO',
+          map: 'RO',
           itemStyle: {
             areaColor: Constants.curedColor,
           },
