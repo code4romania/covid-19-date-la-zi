@@ -63,7 +63,9 @@ export class Table extends React.PureComponent {
     const { page, limit } = this.state
     return (
       <div className={styles.table_wrapper}>
-        <table className={styles.table}>
+        <table
+          className={`${styles.table_custom} table is-striped  is-hoverable is-fullwidth`}
+        >
           <thead>
             <tr className={styles.tr}>
               {headers.map((header, index) => (

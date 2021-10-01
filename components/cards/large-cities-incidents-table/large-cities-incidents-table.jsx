@@ -8,36 +8,33 @@ export const EMBED_LARGE_CITIES_INCIDENTS_TABLE = 'large-cities-incidents-table'
 
 export class LargeCitiesIncidentsTable extends React.PureComponent {
   render() {
-    const {
-      error,
-      lastUpdatedOn,
-      stale,
-      data,
-    } = parseLargeCitiesIncidentsTable(this.props.state)
+    const { error, lastUpdatedOn, stale, data } =
+      parseLargeCitiesIncidentsTable(this.props.state)
+
     const headers = [
-      { className: '', displayName: 'Cazuri', name: 'Cazuri' },
+      { className: '', displayName: 'Nr. crt', name: 'Nr.crt.' },
+      { className: '', displayName: 'Județ', name: 'Județ' },
       {
-        className: 'has-text-right',
-        displayName: 'Incidență',
-        name: 'Incidență',
-      },
-      { className: 'has-text-right', displayName: 'Județ', name: 'Județ' },
-      {
-        className: 'has-text-right',
+        className: '',
         displayName: 'Localitate',
         name: 'Localitate',
       },
-      { className: 'has-text-right', displayName: 'Nr. crt', name: 'Nr.crt.' },
       {
         className: 'has-text-right',
         displayName: 'Populație',
         name: 'Populație',
       },
+      { className: 'has-text-right', displayName: 'Cazuri', name: 'Cazuri' },
+      {
+        className: 'has-text-right',
+        displayName: 'Incidență',
+        name: 'Incidență',
+      },
     ]
     return (
       <Card
         error={error}
-        title="Localitati"
+        title="Lista localităților cu incidența mai mare sau egală cu 3/1000 de locuitori"
         subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         embedPath={EMBED_LARGE_CITIES_INCIDENTS_TABLE}
         isStale={stale}

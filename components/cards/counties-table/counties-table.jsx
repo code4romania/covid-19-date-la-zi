@@ -18,7 +18,11 @@ export class CountiesTable extends React.PureComponent {
         displayName: 'Cazuri totale',
         name: 'countyInfectionsNumbers',
       },
-      { className: 'has-text-right', displayName: 'Județ', name: 'value' },
+      {
+        className: 'has-text-right',
+        displayName: 'Incidență cumulată',
+        name: 'value',
+      },
     ]
     return (
       <Card

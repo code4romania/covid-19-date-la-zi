@@ -1,5 +1,6 @@
 $card-header-shadow: 0;
 $card-shadow: 0;
+$card-content-padding: 1rem;
 
 @import './_fonts.scss';
 @import '~bulma/sass/utilities/_all.sass';
@@ -10,6 +11,7 @@ $card-shadow: 0;
 @import '~bulma/sass/helpers/color.sass';
 @import '~bulma/sass/components/card.sass';
 @import '~bulma/sass/components/tabs.sass';
+@import '~bulma/sass/elements/table.sass';
 
 :root {
   --accent-color: #1c1080;
