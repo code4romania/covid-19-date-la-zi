@@ -1,0 +1,22 @@
+@media only screen and (max-width: 650px) {
+  .table_wrapper {
+    overflow-x: auto;
+  }
+  .table_custom {
+    white-space: nowrap;
+  }
+}
+
+.navigation_chevron {
+  width: 24px;
+  height: 24px;
+}
+
+.navigation {
+  padding-top: 5px;
+  bottom: 0px;
+  display: block;
+  width: 100%;
+  min-width: 100%;
+  height: 35px;
+}

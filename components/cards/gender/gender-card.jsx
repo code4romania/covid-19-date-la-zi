@@ -60,11 +60,10 @@ export class GenderCard extends React.PureComponent {
           radius: ['55%', '90%'],
           avoidLabelOverlap: false,
           bottom: 40,
-          label: {
-            normal: {
+          emphasis: {
+            label: {
               show: false,
             },
-            emphasis: { show: false },
           },
           data: data,
           color: colors,

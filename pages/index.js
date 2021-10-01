@@ -11,6 +11,8 @@ import { AverageAgeCard } from '../components/cards/avg-age/avg-age-card'
 import { AgeCard } from '../components/cards/age/age'
 import { CountiesMap } from '../components/cards/counties-map/counties-map'
 import { CountiesTable } from '../components/cards/counties-table/counties-table'
+import { LargeCitiesIncidentsTable } from '../components/cards/large-cities-incidents-table/large-cities-incidents-table'
+import { SmallCitiesIncidentsTable } from '../components/cards/small-cities-incidents-table/small-cities-incidents-table'
 import { InstrumentsWrapper } from '../components/layout/instruments/instruments'
 import { AgeCategory } from '../components/cards/age-category/age-category'
 import { VaccinesPerDayCard } from '../components/cards/vaccines-per-day-card/vaccines-per-day-card'
@@ -154,6 +156,25 @@ class Dashboard extends React.Component {
               <div className="column is-one-quarter">
                 <AverageAgeCard
                   title="Vârsta medie a cazurilor"
+                  state={this.props.data}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section className={styles.cards_row}>
+            <div className="columns">
+              <div className="column">
+                <LargeCitiesIncidentsTable
+                  title="Cazuri după vârstă"
+                  state={this.props.data}
+                />
+              </div>
+            </div>
+            <div className="columns">
+              <div className="column">
+                <SmallCitiesIncidentsTable
+                  title="Cazuri după vârstă"
                   state={this.props.data}
                 />
               </div>

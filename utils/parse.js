@@ -43,6 +43,41 @@ export function parseAgeCategory(result) {
   }
 }
 
+export function parseSmallCitiesIncidentsTable(result) {
+  const { small_cities_incidence } = result.currentDayStats
+  const {
+    detailedIncidenceStats: { lastUpdatedOn, stale },
+  } = result.charts
+  const data = small_cities_incidence.sort((a, b) =>
+    +a['Incidență'] > +b['Incidență'] ? -1 : 1
+  )
+
+  return {
+    error: null,
+    data,
+    lastUpdatedOn,
+    stale,
+  }
+}
+
+export function parseLargeCitiesIncidentsTable(result) {
+  const { large_cities_incidence } = result.currentDayStats
+  const {
+    detailedIncidenceStats: { lastUpdatedOn, stale },
+  } = result.charts
+
+  const data = large_cities_incidence.sort((a, b) =>
+    +a['Incidența'] > +b['Incidența'] ? -1 : 1
+  )
+
+  return {
+    error: null,
+    data,
+    lastUpdatedOn,
+    stale,
+  }
+}
+
 export function parseCountiesTable(result) {
   const { countyInfectionsNumbers, incidence } = result.currentDayStats
   const {
@@ -58,7 +93,7 @@ export function parseCountiesTable(result) {
     }))
     .sort((a, b) =>
       // reversed by count
-      a.value > b.value ? -1 : 1
+      +a.value > +b.value ? -1 : 1
     )
 
   return {
@@ -252,12 +287,8 @@ export function parseVaccinesHistory(result, options) {
       .reverse()
       .forEach(([date, entry]) => {
         if (entry.vaccines) {
-          const {
-            pfizer,
-            moderna,
-            astra_zeneca,
-            johnson_and_johnson,
-          } = entry.vaccines
+          const { pfizer, moderna, astra_zeneca, johnson_and_johnson } =
+            entry.vaccines
           pfizerRecords.push(
             cumulative
               ? (pfizerRecords[dateStrings.length - 1] || 0) +
