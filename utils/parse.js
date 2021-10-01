@@ -49,7 +49,7 @@ export function parseSmallCitiesIncidentsTable(result) {
     detailedIncidenceStats: { lastUpdatedOn, stale },
   } = result.charts
   const data = small_cities_incidence.sort((a, b) =>
-    +a['Incidență'] > +b['Incidență'] ? 1 : -1
+    +a['Incidență'] > +b['Incidență'] ? -1 : 1
   )
 
   return {
@@ -67,7 +67,7 @@ export function parseLargeCitiesIncidentsTable(result) {
   } = result.charts
 
   const data = large_cities_incidence.sort((a, b) =>
-    +a['Incidența'] > +b['Incidența'] ? 1 : -1
+    +a['Incidența'] > +b['Incidența'] ? -1 : 1
   )
 
   return {
