@@ -12,7 +12,6 @@ export class LargeCitiesIncidentsTable extends React.PureComponent {
       parseLargeCitiesIncidentsTable(this.props.state)
 
     const headers = [
-      { className: '', displayName: 'Nr. crt', name: 'Nr.crt.' },
       { className: '', displayName: 'Județ', name: 'Județ' },
       {
         className: '',
