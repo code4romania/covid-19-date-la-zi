@@ -49,7 +49,7 @@ export function parseSmallCitiesIncidentsTable(result) {
     detailedIncidenceStats: { lastUpdatedOn, stale },
   } = result.charts
   const data = small_cities_incidence.sort((a, b) =>
-    +a.Cazuri > +b.Cazuri ? -1 : 1
+    +a['Nr. crt.'] > +b['Nr. crt.'] ? -1 : 1
   )
 
   return {
@@ -67,7 +67,7 @@ export function parseLargeCitiesIncidentsTable(result) {
   } = result.charts
 
   const data = large_cities_incidence.sort((a, b) =>
-    +a.Cazuri > +b.Cazuri ? -1 : 1
+    +a['Nr.crt.'] > +b['Nr.crt.'] ? -1 : 1
   )
 
   return {
@@ -287,12 +287,8 @@ export function parseVaccinesHistory(result, options) {
       .reverse()
       .forEach(([date, entry]) => {
         if (entry.vaccines) {
-          const {
-            pfizer,
-            moderna,
-            astra_zeneca,
-            johnson_and_johnson,
-          } = entry.vaccines
+          const { pfizer, moderna, astra_zeneca, johnson_and_johnson } =
+            entry.vaccines
           pfizerRecords.push(
             cumulative
               ? (pfizerRecords[dateStrings.length - 1] || 0) +
