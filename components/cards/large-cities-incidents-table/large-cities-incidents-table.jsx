@@ -33,7 +33,7 @@ export class LargeCitiesIncidentsTable extends React.PureComponent {
     return (
       <Card
         error={error}
-        title="Lista localităților cu incidența mai mare sau egală cu 3/1000 de locuitori"
+        title="Lista orașelor cu incidența mai mare sau egală cu 3/1000 de locuitori"
         subtitle={`Ultima actualizare: ${formatDate(lastUpdatedOn)}`}
         embedPath={EMBED_LARGE_CITIES_INCIDENTS_TABLE}
         isStale={stale}
