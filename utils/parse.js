@@ -67,7 +67,7 @@ export function parseLargeCitiesIncidentsTable(result) {
   } = result.charts
 
   const data = large_cities_incidence.sort((a, b) =>
-    parseFloat(a['Incidența']) > parseFloat(b['Incidența']) ? -1 : 1
+    parseFloat(a['Incidență']) > parseFloat(b['Incidență']) ? -1 : 1
   )
 
   return {

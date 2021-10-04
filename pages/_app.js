@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps }) {
         <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/images/favicon/apple-touch-icon.png"
+          href="/images/favicon/apple-icon-180x180.png"
         />
         <link
           rel="icon"
