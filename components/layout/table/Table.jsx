@@ -83,24 +83,21 @@ export const Table = (props) => {
         className={`${styles.table_custom} table is-striped  is-hoverable is-fullwidth`}
       >
         <thead>
-          <tr className={styles.tr}>
+          <tr>
             {headers.map((header, index) => (
-              <th className={header.className} key={index}>
-                <button
-                  type="button"
-                  className={`button is-primary is-light ${styles.mr_0}`}
-                  onClick={() => requestSort(header.name)}
-                >
-                  <span>{header.displayName}</span>
-                  {sortConfig.key === header.name &&
-                    sortConfig.direction === 'ascending' && (
-                      <span className="icon">&#8595;</span>
-                    )}
-                  {sortConfig.key === header.name &&
-                    sortConfig.direction === 'descending' && (
-                      <span className="icon">&#8593;</span>
-                    )}
-                </button>
+              <th
+                className={`${header.className} ${styles.tr}`}
+                key={index}
+                onClick={() => requestSort(header.name)}
+                aria-sort={
+                  sortConfig.key === header.name ? sortConfig.direction : 'none'
+                }
+              >
+                {header.displayName}
+                {sortConfig.key === header.name &&
+                  sortConfig.direction === 'ascending' && <span>&#8595;</span>}
+                {sortConfig.key === header.name &&
+                  sortConfig.direction === 'descending' && <span>&#8593;</span>}
               </th>
             ))}
           </tr>
