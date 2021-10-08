@@ -32,7 +32,7 @@ export class CountiesTable extends React.PureComponent {
         embedPath={EMBED_COUNTIES_TABLE}
         isStale={stale}
       >
-        <Table headers={headers} data={counties} />
+        <Table headers={headers} data={counties} sortByColumn="value" />
       </Card>
     )
   }

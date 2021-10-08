@@ -12,22 +12,22 @@ export class SmallCitiesIncidentsTable extends React.PureComponent {
       parseSmallCitiesIncidentsTable(this.props.state)
 
     const headers = [
-      { className: '', displayName: 'Județ', name: 'Județ' },
+      { className: '', displayName: 'Județ', name: 'judet' },
       {
         className: '',
         displayName: 'Localitate',
-        name: 'Localitate',
+        name: 'localitate',
       },
       {
         className: 'has-text-right',
         displayName: 'Populație',
-        name: 'Populație',
+        name: 'populatie',
       },
-      { className: 'has-text-right', displayName: 'Cazuri', name: 'Cazuri' },
+      { className: 'has-text-right', displayName: 'Cazuri', name: 'cazuri' },
       {
         className: 'has-text-right',
         displayName: 'Incidență',
-        name: 'Incidența',
+        name: 'incidenta',
       },
     ]
 
@@ -39,7 +39,7 @@ export class SmallCitiesIncidentsTable extends React.PureComponent {
         embedPath={EMBED_SMALL_CITIES_INCIDENTS_TABLE}
         isStale={stale}
       >
-        <Table headers={headers} data={data} />
+        <Table headers={headers} data={data} sortByColumn="incidenta" />
       </Card>
     )
   }

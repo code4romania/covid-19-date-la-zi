@@ -48,9 +48,13 @@ export function parseSmallCitiesIncidentsTable(result) {
   const {
     detailedIncidenceStats: { lastUpdatedOn, stale },
   } = result.charts
-  const data = small_cities_incidence.sort((a, b) =>
-    parseFloat(a['Incidența']) > parseFloat(b['Incidența']) ? -1 : 1
-  )
+  const data = small_cities_incidence.map((city) => ({
+    judet: city['Județ'],
+    localitate: city['Localitate'],
+    populatie: parseInt(city['Populație']),
+    cazuri: parseInt(city['Cazuri']),
+    incidenta: parseFloat(city['Incidența']),
+  }))
 
   return {
     error: null,
@@ -65,11 +69,13 @@ export function parseLargeCitiesIncidentsTable(result) {
   const {
     detailedIncidenceStats: { lastUpdatedOn, stale },
   } = result.charts
-
-  const data = large_cities_incidence.sort((a, b) =>
-    parseFloat(a['Incidență']) > parseFloat(b['Incidență']) ? -1 : 1
-  )
-
+  const data = large_cities_incidence.map((city) => ({
+    judet: city['Județ'],
+    localitate: city['Localitate'],
+    populatie: parseInt(city['Populație']),
+    cazuri: parseInt(city['Cazuri']),
+    incidenta: parseFloat(city['Incidență']),
+  }))
   return {
     error: null,
     data,
@@ -87,8 +93,8 @@ export function parseCountiesTable(result) {
   const counties = Object.entries(incidence)
     .map(([key, entry]) => ({
       name: mnemonics[key][0],
-      value: entry,
-      countyInfectionsNumbers: countyInfectionsNumbers[key],
+      value: parseFloat(entry),
+      countyInfectionsNumbers: parseInt(countyInfectionsNumbers[key]),
       county: key,
     }))
     .sort((a, b) => (a.value > b.value ? -1 : 1))

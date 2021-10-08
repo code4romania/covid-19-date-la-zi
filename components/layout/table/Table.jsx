@@ -2,21 +2,42 @@ import React from 'react'
 import Image from 'next/image'
 import styles from './table.module.css'
 
-export class Table extends React.PureComponent {
-  state = {
-    page: 0,
-    limit: 10,
+export const Table = (props) => {
+  const { headers, data, sortByColumn } = props
+  const limit = 10
+  const [page, setPage] = React.useState(0)
+  const [sortConfig, setSortConfig] = React.useState({
+    key: sortByColumn,
+    direction: 'descending',
+  })
+
+  let sortedData = [...data]
+  sortedData.sort((a, b) => {
+    if (a[sortConfig.key] < b[sortConfig.key]) {
+      return sortConfig.direction === 'ascending' ? -1 : 1
+    }
+    if (a[sortConfig.key] > b[sortConfig.key]) {
+      return sortConfig.direction === 'ascending' ? 1 : -1
+    }
+    return 0
+  })
+
+  const requestSort = (key) => {
+    let direction = 'ascending'
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending'
+    }
+    setSortConfig({ key, direction })
   }
 
-  displayPagination(list) {
-    const { limit, page } = this.state
+  const displayPagination = (list) => {
     const shouldDisplayPagination = list.length > limit
     if (shouldDisplayPagination) {
       return (
         <div className={styles.navigation}>
           <div
             className={'button ' + (page === 0 ? 'hide' : '')}
-            onClick={() => this.changePage(-1, list)}
+            onClick={() => changePage(-1, list)}
           >
             <Image
               src="/images/chevrons-left.svg"
@@ -31,7 +52,7 @@ export class Table extends React.PureComponent {
               'button right ' +
               ((page + 1) * limit >= list.length ? 'hide' : '')
             }
-            onClick={() => this.changePage(1, list)}
+            onClick={() => changePage(1, list)}
           >
             <Image
               src="/images/chevrons-right.svg"
@@ -46,50 +67,58 @@ export class Table extends React.PureComponent {
     }
   }
 
-  changePage(inc, list) {
-    const { page, limit } = this.state
-
+  const changePage = (inc, list) => {
     if (inc < 0 && page !== 0) {
-      this.setState({ page: page + inc })
+      setPage(page + inc)
     }
 
     if (inc > 0 && (page + inc) * limit <= list.length) {
-      this.setState({ page: page + inc })
+      setPage(page + inc)
     }
   }
 
-  render() {
-    const { headers, data } = this.props
-    const { page, limit } = this.state
-    return (
-      <div className={styles.table_wrapper}>
-        <table
-          className={`${styles.table_custom} table is-striped  is-hoverable is-fullwidth`}
-        >
-          <thead>
-            <tr className={styles.tr}>
-              {headers.map((header, index) => (
-                <th className={header.className} key={index}>
-                  {header.displayName}
-                </th>
+  return (
+    <div className={styles.table_wrapper}>
+      <table
+        className={`${styles.table_custom} table is-striped  is-hoverable is-fullwidth`}
+      >
+        <thead>
+          <tr className={styles.tr}>
+            {headers.map((header, index) => (
+              <th className={header.className} key={index}>
+                <button
+                  type="button"
+                  className={`button is-primary is-light ${styles.mr_0}`}
+                  onClick={() => requestSort(header.name)}
+                >
+                  <span>{header.displayName}</span>
+                  {sortConfig.key === header.name &&
+                    sortConfig.direction === 'ascending' && (
+                      <span className="icon">&#8595;</span>
+                    )}
+                  {sortConfig.key === header.name &&
+                    sortConfig.direction === 'descending' && (
+                      <span className="icon">&#8593;</span>
+                    )}
+                </button>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {sortedData.slice(page * limit, limit * (page + 1)).map((row, i) => (
+            <tr key={i}>
+              {headers.map((header, j) => (
+                <td className={header.className} key={`${i}${j}`}>
+                  {row[header.name]}
+                </td>
               ))}
             </tr>
-          </thead>
-          <tbody>
-            {data.slice(page * limit, limit * (page + 1)).map((row, i) => (
-              <tr key={i}>
-                {headers.map((header, j) => (
-                  <td className={header.className} key={`${i}${j}`}>
-                    {row[header.name]}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          ))}
+        </tbody>
+      </table>
 
-        {this.displayPagination(data)}
-      </div>
-    )
-  }
+      {displayPagination(data)}
+    </div>
+  )
 }

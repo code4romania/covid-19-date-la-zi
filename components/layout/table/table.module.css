@@ -7,6 +7,10 @@
   }
 }
 
+.mr_0 {
+  margin-right: 0 !important;
+}
+
 .navigation_chevron {
   width: 24px;
   height: 24px;
