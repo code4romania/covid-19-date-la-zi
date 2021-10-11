@@ -7,6 +7,10 @@
   }
 }
 
+.tr {
+  cursor: pointer;
+}
+
 .navigation_chevron {
   width: 24px;
   height: 24px;
