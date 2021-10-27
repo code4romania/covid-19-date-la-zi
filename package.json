@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext .js,.jsx",
+    "lint": "next lint",
     "lint:fix": "yarn lint --fix"
   },
   "husky": {
@@ -18,19 +18,17 @@
     "@code4ro/taskforce-fe-components": "2.0.1",
     "bulma": "^0.9.1",
     "downloadjs": "^1.4.7",
-    "echarts": "^5.0.2",
+    "echarts": "^5.2.1",
     "echarts-for-react": "^3.0.1",
-    "next": "11.1.2",
+    "next": "12.0.1",
     "prop-types": "^15.7.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hot-toast": "^2.1.1"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-react": "^7.22.0",
+    "eslint": "<8.0.0",
+    "eslint-config-next": "12.0.1",
     "husky": "^4.3.7",
     "prettier": "^2.4.1",
     "sass": "^1.32.8"
