@@ -45,7 +45,9 @@ class Dashboard extends React.Component {
         if (result.error != null) {
           this.setState({ error: result.error })
         } else {
-          const filename = this.getNormalizedFileName(result.lasUpdatedOnString)
+          const filename = this.getNormalizedFileName(
+            result.charts.dailyStats.lastUpdatedOn
+          )
           download(
             JSON.stringify(result),
             `date_${filename}.json`,
