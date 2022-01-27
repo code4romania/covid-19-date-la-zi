@@ -143,7 +143,7 @@ export function parseSummary(result) {
         dosesAdministeredHistory.push(entry.numberTotalDosesAdministered || 0)
         immunityHistory.push(
           entry.vaccines?.pfizer.immunized +
-            entry.vaccines?.pfizerPediatric.immunized +
+            entry.vaccines?.pfizer_pediatric.immunized +
             entry.vaccines?.moderna.immunized +
             entry.vaccines?.astra_zeneca.immunized +
             entry.vaccines?.johnson_and_johnson.immunized || 0
@@ -157,7 +157,7 @@ export function parseSummary(result) {
       dosesAdministeredHistory.push(numberTotalDosesAdministered)
       immunityHistory.push(
         vaccines?.pfizer.immunized +
-          vaccines?.pfizerPediatric.immunized + 
+          vaccines?.pfizer_pediatric.immunized + 
           vaccines?.moderna.immunized +
           vaccines?.astra_zeneca.immunized +
           vaccines?.johnson_and_johnson.immunized || 0
