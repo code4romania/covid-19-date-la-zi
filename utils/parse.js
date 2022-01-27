@@ -143,6 +143,7 @@ export function parseSummary(result) {
         dosesAdministeredHistory.push(entry.numberTotalDosesAdministered || 0)
         immunityHistory.push(
           entry.vaccines?.pfizer.immunized +
+            entry.vaccines?.pfizer_pediatric.immunized +
             entry.vaccines?.moderna.immunized +
             entry.vaccines?.astra_zeneca.immunized +
             entry.vaccines?.johnson_and_johnson.immunized || 0
@@ -156,6 +157,7 @@ export function parseSummary(result) {
       dosesAdministeredHistory.push(numberTotalDosesAdministered)
       immunityHistory.push(
         vaccines?.pfizer.immunized +
+          vaccines?.pfizer_pediatric.immunized + 
           vaccines?.moderna.immunized +
           vaccines?.astra_zeneca.immunized +
           vaccines?.johnson_and_johnson.immunized || 0
@@ -275,6 +277,7 @@ export function parseVaccinesHistory(result, options) {
     } = result.charts
     const dateStrings = []
     const pfizerRecords = []
+    const pfizerPediatricRecords = []
     const modernaRecords = []
     const astraZenecaRecords = []
     const johnsonAndJohnsonRecords = []
@@ -290,13 +293,19 @@ export function parseVaccinesHistory(result, options) {
       .reverse()
       .forEach(([date, entry]) => {
         if (entry.vaccines) {
-          const { pfizer, moderna, astra_zeneca, johnson_and_johnson } =
+          const { pfizer, pfizer_pediatric, moderna, astra_zeneca, johnson_and_johnson } =
             entry.vaccines
           pfizerRecords.push(
             cumulative
               ? (pfizerRecords[dateStrings.length - 1] || 0) +
                   pfizer.total_administered
               : pfizer.total_administered || 0
+          )
+          pfizerPediatricRecords.push(
+            cumulative
+              ? (pfizerPediatricRecords[dateStrings.length - 1] || 0) +
+              pfizer_pediatric.total_administered
+              : pfizer_pediatric.total_administered || 0
           )
           modernaRecords.push(
             cumulative
@@ -325,6 +334,7 @@ export function parseVaccinesHistory(result, options) {
       lastUpdatedOn: vaccineDetailedLastUpdate,
       dates: dateStrings,
       pfizer: pfizerRecords,
+      pfizerPediatric: pfizerPediatricRecords,
       moderna: modernaRecords,
       astraZeneca: astraZenecaRecords,
       johnsonAndJohnson: johnsonAndJohnsonRecords,

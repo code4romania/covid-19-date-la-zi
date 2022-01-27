@@ -28,6 +28,8 @@ export const Constants = {
 
   pfizerText: 'Pfizer BioNTech',
   pfizerColor: '#0C7BDC',
+  pfizerPediatricText: 'Pfizer BioNTech Pediatric',
+  pfizerPediatricColor: '#5D3A9B',
   modernaText: 'Moderna',
   modernaColor: '#FEC20B',
   astraZenecaText: 'AstraZeneca',
