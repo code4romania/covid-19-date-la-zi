@@ -21,6 +21,7 @@ const VIEW_TABS = [
 ]
 const LABELS = [
   Constants.pfizerText,
+  Constants.pfizerPediatricText,
   Constants.modernaText,
   Constants.astraZenecaText,
   Constants.johnsonAndJohnsonText,
@@ -35,13 +36,14 @@ export class VaccinesPerDayCard extends React.PureComponent {
   }
 
   getChartOptions(records) {
-    const { dates, pfizer, moderna, astraZeneca, johnsonAndJohnson } = records
+    const { dates, pfizer, pfizerPediatric, moderna, astraZeneca, johnsonAndJohnson } = records
     const labels = getLegendLabels(LABELS, this.state.selected)
     const chartType =
       this.state.activeTab === VIEW_TABS[0].value ? 'bar' : 'line'
     const chartStack = chartType === 'bar' ? 'one' : false
     const zoomStart = getZoomStartPercentage(dates)
     const listPfizer = pfizer
+    const listPfizerPediatric = pfizerPediatric
     const listModerna = moderna
     const listAstraZeneca = astraZeneca
     const listJohnsonAndJohnson = johnsonAndJohnson
@@ -52,6 +54,13 @@ export class VaccinesPerDayCard extends React.PureComponent {
         stack: chartStack,
         type: chartType,
         color: Constants.pfizerColor,
+      },
+      listPfizerPediatric?.length && {
+        data: listPfizerPediatric,
+        name: Constants.pfizerPediatricText,
+        stack: chartStack,
+        type: chartType,
+        color: Constants.pfizerPediatricColor,
       },
       listModerna?.length && {
         data: listModerna,
@@ -171,6 +180,7 @@ export class VaccinesPerDayCard extends React.PureComponent {
           columns={[
             { name: 'Data', data: records.dates },
             { name: 'Pfizer BioNTech', data: records.pfizer },
+            { name: 'Pfizer BioNTech Pediatric', data: records.pfizerPediatric },
             { name: 'Moderna', data: records.moderna },
             { name: 'AstraZeneca', data: records.astraZeneca },
             { name: 'Johnson&Johnson', data: records.johnsonAndJohnson },
