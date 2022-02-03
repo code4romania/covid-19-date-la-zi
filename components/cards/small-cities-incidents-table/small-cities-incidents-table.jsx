@@ -39,7 +39,7 @@ export class SmallCitiesIncidentsTable extends React.PureComponent {
         embedPath={EMBED_SMALL_CITIES_INCIDENTS_TABLE}
         isStale={stale}
       >
-        <Table headers={headers} data={data} sortByColumn="incidenta" />
+        <Table headers={headers} data={data} sortByColumn="incidenta" filterByKey="localitate" />
       </Card>
     )
   }
