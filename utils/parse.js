@@ -193,9 +193,7 @@ export function parseDailyStats(result, options) {
       [currentDayStats.parsedOnString]: currentDayStats,
       ...historicalData,
     }
-    const dataEntries = Object.entries(newData)
-      .filter(([, value]) => value.complete)
-      .reverse()
+    const dataEntries = Object.entries(newData).reverse()
 
     for (let i = 0; i <= dataEntries.length - 1; i++) {
       const numberInfected = dataEntries[i][1].numberInfected
