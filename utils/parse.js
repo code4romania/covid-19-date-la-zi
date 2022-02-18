@@ -44,41 +44,26 @@ export function parseAgeCategory(result) {
 }
 
 export function parseSmallCitiesIncidentsTable(result) {
-  const { small_cities_incidence } = result.currentDayStats
   const {
     detailedIncidenceStats: { lastUpdatedOn, stale },
   } = result.charts
-  const data = small_cities_incidence.map((city) => ({
-    judet: city['Județ'],
-    localitate: city['Localitate'],
-    populatie: parseInt(city['Populație']),
-    cazuri: parseInt(city['Cazuri']),
-    incidenta: parseFloat(city['Incidența']),
-  }))
 
   return {
     error: null,
-    data,
+    data: result.currentDayStats.small_cities_incidence,
     lastUpdatedOn,
     stale,
   }
 }
 
 export function parseLargeCitiesIncidentsTable(result) {
-  const { large_cities_incidence } = result.currentDayStats
   const {
     detailedIncidenceStats: { lastUpdatedOn, stale },
   } = result.charts
-  const data = large_cities_incidence.map((city) => ({
-    judet: city['Județ'],
-    localitate: city['Localitate'],
-    populatie: parseInt(city['Populație']),
-    cazuri: parseInt(city['Cazuri']),
-    incidenta: parseFloat(city['Incidență']),
-  }))
+
   return {
     error: null,
-    data,
+    data: result.currentDayStats.large_cities_incidence,
     lastUpdatedOn,
     stale,
   }
