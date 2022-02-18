@@ -8,32 +8,31 @@ export function parseAgeCategory(result) {
   } = result.charts
   const ageCategories = {}
   const dateStrings = []
-  const newData = {
-    [currentDayStats.parsedOnString]: currentDayStats,
-    ...historicalData,
-  }
 
-  const dataEntries = Object.entries(newData)
-    .filter(([key]) => key <= lastUpdatedOn)
+  const dataEntries = [currentDayStats, ...historicalData]
+    .filter((entry) => entry.parsedOnString <= lastUpdatedOn)
     .reverse()
 
-  for (let i = 0; i < dataEntries.length - 1; i++) {
-    const key = dataEntries[i + 1][0]
-    const currentValue = dataEntries[i][1]
-    const nextValue = dataEntries[i + 1][1]
-    dateStrings.push(formatDate(key))
+  dataEntries.forEach((entry, index) => {
+    if (index + 1 >= dataEntries.length) {
+      return
+    }
 
-    Object.entries(currentValue.distributionByAge)
-      .filter(([ageGroup]) => ageGroup !== 'în procesare')
+    const nextEntry = dataEntries[index + 1]
+
+    dateStrings.push(formatDate(entry.parsedOnString))
+
+    Object.entries(entry.distributionByAge)
+      .filter(([ageGroup]) => ageGroup !== 'processing')
       .forEach(([ageGroup, currentCases]) => {
-        const cases = nextValue.distributionByAge[ageGroup] - currentCases
+        const cases = nextEntry.distributionByAge[ageGroup] - currentCases
         if (Array.isArray(ageCategories[ageGroup])) {
           ageCategories[ageGroup].push(cases)
         } else {
           ageCategories[ageGroup] = [cases]
         }
       })
-  }
+  })
 
   return {
     lastUpdatedOn,
