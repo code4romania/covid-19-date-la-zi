@@ -10,7 +10,7 @@ export function parseAgeCategory(result) {
   const dateStrings = []
 
   const dataEntries = [currentDayStats, ...historicalData]
-    .filter((entry) => entry.parsedOnString <= lastUpdatedOn)
+    .filter((entry) => entry.date <= lastUpdatedOn)
     .reverse()
 
   dataEntries.forEach((entry, index) => {
@@ -20,7 +20,7 @@ export function parseAgeCategory(result) {
 
     const nextEntry = dataEntries[index + 1]
 
-    dateStrings.push(formatDate(entry.parsedOnString))
+    dateStrings.push(formatDate(entry.date))
 
     Object.entries(entry.distributionByAge)
       .filter(([ageGroup]) => ageGroup !== 'processing')
@@ -49,7 +49,7 @@ export function parseSmallCitiesIncidentsTable(result) {
 
   return {
     error: null,
-    data: result.currentDayStats.small_cities_incidence,
+    data: result.currentDayStats.smallCitiesIncidence,
     lastUpdatedOn,
     stale,
   }
@@ -62,7 +62,7 @@ export function parseLargeCitiesIncidentsTable(result) {
 
   return {
     error: null,
-    data: result.currentDayStats.large_cities_incidence,
+    data: result.currentDayStats.largeCitiesIncidence,
     lastUpdatedOn,
     stale,
   }
@@ -217,7 +217,7 @@ export function parseDailyStats(result, options) {
 
       deathCasesHistory.push(cumulative ? deceased : deceasedByDay)
 
-      dateStrings.push(formatDate(entry.parsedOnString))
+      dateStrings.push(formatDate(entry.date))
     })
 
     if (!cumulative) {
@@ -290,7 +290,7 @@ export function parseVaccinesHistory(result, options) {
             entry.vaccines.johnson_and_johnson.total_administered
         )
 
-        dateStrings.push(formatDate(entry.parsedOnString))
+        dateStrings.push(formatDate(entry.date))
       })
     } else {
       newData.forEach((entry) => {
@@ -308,7 +308,7 @@ export function parseVaccinesHistory(result, options) {
           entry.vaccines.johnson_and_johnson.total_administered || 0
         )
 
-        dateStrings.push(formatDate(entry.parsedOnString))
+        dateStrings.push(formatDate(entry.date))
       })
     }
 
