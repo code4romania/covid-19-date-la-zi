@@ -183,42 +183,42 @@ export function parseDailyStats(result, options) {
     const curedCasesHistory = []
     const deathCasesHistory = []
     const dateStrings = []
-    const newData = {
-      [currentDayStats.parsedOnString]: currentDayStats,
-      ...historicalData,
-    }
-    const dataEntries = Object.entries(newData).reverse()
+    const dataEntries = [currentDayStats, ...historicalData].reverse()
 
-    for (let i = 0; i <= dataEntries.length - 1; i++) {
-      const infected = dataEntries[i][1].infected
-      const nextNumberInfected = dataEntries[i + 1]?.[1].infected
-      const prevNumberInfected = dataEntries[i - 1]?.[1].infected
+    dataEntries.forEach((entry, index) => {
+      if (index + 1 >= dataEntries.length) {
+        return
+      }
+
+      const infected = entry.infected
+      const nextNumberInfected = dataEntries[index + 1]?.infected
+      const prevNumberInfected = dataEntries[index - 1]?.infected
       const infectedByDay = !isNaN(nextNumberInfected)
         ? nextNumberInfected - infected
         : infected - prevNumberInfected
 
       confirmedCasesHistory.push(cumulative ? infected : infectedByDay)
 
-      const cured = dataEntries[i][1].cured
-      const nextNumberCured = dataEntries[i + 1]?.[1]?.cured
-      const prevNumberCured = dataEntries[i - 1]?.[1]?.cured
+      const cured = entry.cured
+      const nextNumberCured = dataEntries[index + 1]?.cured
+      const prevNumberCured = dataEntries[index - 1]?.cured
       const curedByDay = !isNaN(nextNumberCured)
         ? nextNumberCured - cured
         : cured - prevNumberCured
 
       curedCasesHistory.push(cumulative ? cured : curedByDay)
 
-      const deceased = dataEntries[i][1].deceased
-      const nextNumberDeceased = dataEntries[i + 1]?.[1]?.deceased
-      const prevNumberDeceased = dataEntries[i - 1]?.[1]?.deceased
+      const deceased = entry.deceased
+      const nextNumberDeceased = dataEntries[index + 1]?.deceased
+      const prevNumberDeceased = dataEntries[index - 1]?.deceased
       const deceasedByDay = !isNaN(nextNumberDeceased)
         ? nextNumberDeceased - deceased
         : deceased - prevNumberDeceased
 
       deathCasesHistory.push(cumulative ? deceased : deceasedByDay)
 
-      dateStrings.push(formatDate(dataEntries[i][0]))
-    }
+      dateStrings.push(formatDate(entry.parsedOnString))
+    })
 
     if (!cumulative) {
       dateStrings.shift()
