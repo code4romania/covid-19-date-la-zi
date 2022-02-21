@@ -93,13 +93,8 @@ export function parseCountiesTable(result) {
 
 export function parseSummary(result) {
   try {
-    const {
-      numberInfected,
-      numberCured,
-      numberDeceased,
-      numberTotalDosesAdministered,
-      vaccines,
-    } = result.currentDayStats
+    const { infected, cured, deceased, totalDosesAdministered, vaccines } =
+      result.currentDayStats
     const {
       dailyStats: { stale: dailyStale, lastUpdatedOn: dailyLastUpdate },
       vaccineQuickStats: {
@@ -121,10 +116,10 @@ export function parseSummary(result) {
     Object.entries(historicalData)
       .reverse()
       .forEach(([, entry]) => {
-        totalCasesHistory.push(entry.numberInfected || 0)
-        curedCasesHistory.push(entry.numberCured || 0)
-        deathCasesHistory.push(entry.numberDeceased || 0)
-        dosesAdministeredHistory.push(entry.numberTotalDosesAdministered || 0)
+        totalCasesHistory.push(entry.infected || 0)
+        curedCasesHistory.push(entry.cured || 0)
+        deathCasesHistory.push(entry.deceased || 0)
+        dosesAdministeredHistory.push(entry.totalDosesAdministered || 0)
         immunityHistory.push(
           entry.vaccines?.pfizer.immunized +
             entry.vaccines?.pfizer_pediatric.immunized +
@@ -134,14 +129,14 @@ export function parseSummary(result) {
         )
       })
 
-    totalCasesHistory.push(numberInfected)
-    curedCasesHistory.push(numberCured)
-    deathCasesHistory.push(numberDeceased)
+    totalCasesHistory.push(infected)
+    curedCasesHistory.push(cured)
+    deathCasesHistory.push(deceased)
     if (!imunizationStale) {
-      dosesAdministeredHistory.push(numberTotalDosesAdministered)
+      dosesAdministeredHistory.push(totalDosesAdministered)
       immunityHistory.push(
         vaccines?.pfizer.immunized +
-          vaccines?.pfizer_pediatric.immunized + 
+          vaccines?.pfizer_pediatric.immunized +
           vaccines?.moderna.immunized +
           vaccines?.astra_zeneca.immunized +
           vaccines?.johnson_and_johnson.immunized || 0
@@ -151,13 +146,13 @@ export function parseSummary(result) {
     const totalImmunity = immunityHistory.reduce((a, b) => a + b, 0)
 
     return {
-      totalCases: numberInfected,
+      totalCases: infected,
       totalCasesHistory,
-      curedCases: numberCured,
+      curedCases: cured,
       curedCasesHistory,
-      deathCases: numberDeceased,
+      deathCases: deceased,
       deathCasesHistory,
-      totalDosesAdministered: numberTotalDosesAdministered,
+      totalDosesAdministered,
       dosesAdministeredHistory,
       totalImmunity,
       immunityHistory,
@@ -195,34 +190,32 @@ export function parseDailyStats(result, options) {
     const dataEntries = Object.entries(newData).reverse()
 
     for (let i = 0; i <= dataEntries.length - 1; i++) {
-      const numberInfected = dataEntries[i][1].numberInfected
-      const nextNumberInfected = dataEntries[i + 1]?.[1].numberInfected
-      const prevNumberInfected = dataEntries[i - 1]?.[1].numberInfected
-      const numberInfectedByDay = !isNaN(nextNumberInfected)
-        ? nextNumberInfected - numberInfected
-        : numberInfected - prevNumberInfected
+      const infected = dataEntries[i][1].infected
+      const nextNumberInfected = dataEntries[i + 1]?.[1].infected
+      const prevNumberInfected = dataEntries[i - 1]?.[1].infected
+      const infectedByDay = !isNaN(nextNumberInfected)
+        ? nextNumberInfected - infected
+        : infected - prevNumberInfected
 
-      confirmedCasesHistory.push(
-        cumulative ? numberInfected : numberInfectedByDay
-      )
+      confirmedCasesHistory.push(cumulative ? infected : infectedByDay)
 
-      const numberCured = dataEntries[i][1].numberCured
-      const nextNumberCured = dataEntries[i + 1]?.[1]?.numberCured
-      const prevNumberCured = dataEntries[i - 1]?.[1]?.numberCured
-      const numberCuredByDay = !isNaN(nextNumberCured)
-        ? nextNumberCured - numberCured
-        : numberCured - prevNumberCured
+      const cured = dataEntries[i][1].cured
+      const nextNumberCured = dataEntries[i + 1]?.[1]?.cured
+      const prevNumberCured = dataEntries[i - 1]?.[1]?.cured
+      const curedByDay = !isNaN(nextNumberCured)
+        ? nextNumberCured - cured
+        : cured - prevNumberCured
 
-      curedCasesHistory.push(cumulative ? numberCured : numberCuredByDay)
+      curedCasesHistory.push(cumulative ? cured : curedByDay)
 
-      const numberDeceased = dataEntries[i][1].numberDeceased
-      const nextNumberDeceased = dataEntries[i + 1]?.[1]?.numberDeceased
-      const prevNumberDeceased = dataEntries[i - 1]?.[1]?.numberDeceased
-      const numberDeceasedByDay = !isNaN(nextNumberDeceased)
-        ? nextNumberDeceased - numberDeceased
-        : numberDeceased - prevNumberDeceased
+      const deceased = dataEntries[i][1].deceased
+      const nextNumberDeceased = dataEntries[i + 1]?.[1]?.deceased
+      const prevNumberDeceased = dataEntries[i - 1]?.[1]?.deceased
+      const deceasedByDay = !isNaN(nextNumberDeceased)
+        ? nextNumberDeceased - deceased
+        : deceased - prevNumberDeceased
 
-      deathCasesHistory.push(cumulative ? numberDeceased : numberDeceasedByDay)
+      deathCasesHistory.push(cumulative ? deceased : deceasedByDay)
 
       dateStrings.push(formatDate(dataEntries[i][0]))
     }
@@ -258,68 +251,76 @@ export function parseVaccinesHistory(result, options) {
       },
     } = result.charts
     const dateStrings = []
-    const pfizerRecords = []
-    const pfizerPediatricRecords = []
-    const modernaRecords = []
-    const astraZenecaRecords = []
-    const johnsonAndJohnsonRecords = []
+    const pfizer = []
+    const pfizerPediatric = []
+    const moderna = []
+    const astraZeneca = []
+    const johnsonAndJohnson = []
 
-    const newData = vaccineDetailedStale
-      ? historicalData
-      : {
-          [currentDayStats.parsedOnString]: currentDayStats,
-          ...historicalData,
+    const newData = (
+      vaccineDetailedStale
+        ? historicalData
+        : [currentDayStats, ...historicalData]
+    ).reverse()
+
+    if (cumulative) {
+      newData.forEach((entry) => {
+        if (!entry.vaccines) {
+          return
         }
 
-    Object.entries(newData)
-      .reverse()
-      .forEach(([date, entry]) => {
-        if (entry.vaccines) {
-          const { pfizer, pfizer_pediatric, moderna, astra_zeneca, johnson_and_johnson } =
-            entry.vaccines
-          pfizerRecords.push(
-            cumulative
-              ? (pfizerRecords[dateStrings.length - 1] || 0) +
-                  pfizer.total_administered
-              : pfizer.total_administered || 0
-          )
-          pfizerPediatricRecords.push(
-            cumulative
-              ? (pfizerPediatricRecords[dateStrings.length - 1] || 0) +
-              pfizer_pediatric.total_administered
-              : pfizer_pediatric.total_administered || 0
-          )
-          modernaRecords.push(
-            cumulative
-              ? (modernaRecords[dateStrings.length - 1] || 0) +
-                  moderna.total_administered
-              : moderna.total_administered || 0
-          )
-          astraZenecaRecords.push(
-            cumulative
-              ? (astraZenecaRecords[dateStrings.length - 1] || 0) +
-                  astra_zeneca.total_administered
-              : astra_zeneca.total_administered || 0
-          )
-          johnsonAndJohnsonRecords.push(
-            cumulative
-              ? (johnsonAndJohnsonRecords[dateStrings.length - 1] || 0) +
-                  johnson_and_johnson.total_administered
-              : johnson_and_johnson.total_administered || 0
-          )
-          dateStrings.push(formatDate(date))
-        }
+        pfizer.push(
+          (pfizer[dateStrings.length - 1] || 0) +
+            entry.vaccines.pfizer.total_administered
+        )
+        pfizerPediatric.push(
+          (pfizerPediatric[dateStrings.length - 1] || 0) +
+            entry.vaccines.pfizer_pediatric.total_administered
+        )
+        moderna.push(
+          (moderna[dateStrings.length - 1] || 0) +
+            entry.vaccines.moderna.total_administered
+        )
+        astraZeneca.push(
+          (astraZeneca[dateStrings.length - 1] || 0) +
+            entry.vaccines.astra_zeneca.total_administered
+        )
+        johnsonAndJohnson.push(
+          (johnsonAndJohnson[dateStrings.length - 1] || 0) +
+            entry.vaccines.johnson_and_johnson.total_administered
+        )
+
+        dateStrings.push(formatDate(entry.parsedOnString))
       })
+    } else {
+      newData.forEach((entry) => {
+        if (!entry.vaccines) {
+          return
+        }
+
+        pfizer.push(entry.vaccines.pfizer.total_administered || 0)
+        pfizerPediatric.push(
+          entry.vaccines.pfizer_pediatric.total_administered || 0
+        )
+        moderna.push(entry.vaccines.moderna.total_administered || 0)
+        astraZeneca.push(entry.vaccines.astra_zeneca.total_administered || 0)
+        johnsonAndJohnson.push(
+          entry.vaccines.johnson_and_johnson.total_administered || 0
+        )
+
+        dateStrings.push(formatDate(entry.parsedOnString))
+      })
+    }
 
     return {
       isStale: vaccineDetailedStale,
       lastUpdatedOn: vaccineDetailedLastUpdate,
       dates: dateStrings,
-      pfizer: pfizerRecords,
-      pfizerPediatric: pfizerPediatricRecords,
-      moderna: modernaRecords,
-      astraZeneca: astraZenecaRecords,
-      johnsonAndJohnson: johnsonAndJohnsonRecords,
+      pfizer,
+      pfizerPediatric,
+      moderna,
+      astraZeneca,
+      johnsonAndJohnson,
     }
   } catch (error) {
     console.error(error)

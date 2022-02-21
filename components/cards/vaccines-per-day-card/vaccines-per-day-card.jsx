@@ -193,7 +193,7 @@ export class VaccinesPerDayCard extends React.PureComponent {
         </p>
         <p>
           Datele despre vaccin din 9 iulie se regăsesc în
-          setul de date din 10 iulie. 
+          setul de date din 10 iulie.
         </p>
       </Card>
     )
