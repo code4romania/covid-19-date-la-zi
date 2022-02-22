@@ -11,7 +11,11 @@ export class SmallCitiesIncidentsTable extends React.PureComponent {
     const { error, lastUpdatedOn, stale, data } = parseCitiesTable(this.props.state, 'smallCities')
 
     const headers = [
-      { className: '', displayName: 'Județ', name: 'county' },
+      {
+        className: '',
+        displayName: 'Județ',
+        name: 'county',
+      },
       {
         className: '',
         displayName: 'Localitate',
@@ -22,7 +26,11 @@ export class SmallCitiesIncidentsTable extends React.PureComponent {
         displayName: 'Populație',
         name: 'population',
       },
-      { className: 'has-text-right', displayName: 'Cazuri', name: 'cases' },
+      {
+        className: 'has-text-right',
+        displayName: 'Cazuri',
+        name: 'cases',
+      },
       {
         className: 'has-text-right',
         displayName: 'Incidență',

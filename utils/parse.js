@@ -13,26 +13,21 @@ export function parseAgeCategory(result) {
     .filter((entry) => entry.date <= lastUpdatedOn)
     .reverse()
 
-  dataEntries.forEach((entry, index) => {
-    if (index + 1 >= dataEntries.length) {
-      return
-    }
+  for (let i = 0; i < dataEntries.length - 1; i++) {
+    const nextValue = dataEntries[i + 1]
+    dateStrings.push(formatDate(nextValue.date))
 
-    const nextEntry = dataEntries[index + 1]
-
-    dateStrings.push(formatDate(entry.date))
-
-    Object.entries(entry.distributionByAge)
-      .filter(([ageGroup]) => ageGroup !== 'processing')
+    Object.entries(dataEntries[i].distributionByAge)
+      .filter(([ageGroup]) => ageGroup !== 'în procesare')
       .forEach(([ageGroup, currentCases]) => {
-        const cases = nextEntry.distributionByAge[ageGroup] - currentCases
+        const cases = nextValue.distributionByAge[ageGroup] - currentCases
         if (Array.isArray(ageCategories[ageGroup])) {
           ageCategories[ageGroup].push(cases)
         } else {
           ageCategories[ageGroup] = [cases]
         }
       })
-  })
+  }
 
   return {
     lastUpdatedOn,
@@ -47,11 +42,13 @@ export function parseCitiesTable(result, column) {
     detailedIncidenceStats: { lastUpdatedOn, stale },
   } = result.charts
 
-  const data = result.currentDayStats[column].map((entry) => {
-    entry.county = mnemonics[entry.county]?.[0] || entry.county
+  const data = JSON.parse(JSON.stringify(result.currentDayStats[column])).map(
+    (entry) => {
+      entry.county = mnemonics[entry.county][0]
 
-    return entry
-  })
+      return entry
+    }
+  )
 
   return {
     error: null,
@@ -176,10 +173,6 @@ export function parseDailyStats(result, options) {
     const dataEntries = [currentDayStats, ...historicalData].reverse()
 
     dataEntries.forEach((entry, index) => {
-      if (index + 1 >= dataEntries.length) {
-        return
-      }
-
       const infected = entry.infected
       const nextNumberInfected = dataEntries[index + 1]?.infected
       const prevNumberInfected = dataEntries[index - 1]?.infected
