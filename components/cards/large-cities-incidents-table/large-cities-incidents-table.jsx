@@ -22,7 +22,7 @@ export class LargeCitiesIncidentsTable extends React.PureComponent {
         displayName: 'Populație',
         name: 'population',
       },
-      { className: 'has-text-right', displayName: 'Cazuri', name: 'cazuri' },
+      { className: 'has-text-right', displayName: 'Cazuri', name: 'cases' },
       {
         className: 'has-text-right',
         displayName: 'Incidență',
