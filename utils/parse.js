@@ -42,46 +42,36 @@ export function parseAgeCategory(result) {
   }
 }
 
-export function parseSmallCitiesIncidentsTable(result) {
+export function parseCitiesTable(result, column) {
   const {
     detailedIncidenceStats: { lastUpdatedOn, stale },
   } = result.charts
 
-  return {
-    error: null,
-    data: result.currentDayStats.smallCities,
-    lastUpdatedOn,
-    stale,
-  }
-}
+  const data = result.currentDayStats[column].map((entry) => {
+    entry.county = mnemonics[entry.county]?.[0] || entry.county
 
-export function parseLargeCitiesIncidentsTable(result) {
-  const {
-    detailedIncidenceStats: { lastUpdatedOn, stale },
-  } = result.charts
+    return entry
+  })
 
   return {
     error: null,
-    data: result.currentDayStats.largeCities,
+    data,
     lastUpdatedOn,
     stale,
   }
 }
 
 export function parseCountiesTable(result) {
-  const { countyInfectionsNumbers, incidence } = result.currentDayStats
   const {
     incidenceStats: { lastUpdatedOn, stale },
   } = result.charts
 
-  const counties = Object.entries(incidence)
-    .map(([key, entry]) => ({
-      name: mnemonics[key][0],
-      value: parseFloat(entry),
-      countyInfectionsNumbers: parseInt(countyInfectionsNumbers[key]),
-      county: key,
-    }))
-    .sort((a, b) => (a.value > b.value ? -1 : 1))
+  const counties = result.currentDayStats.counties.map((entry) => ({
+    name: mnemonics[entry.county][0],
+    county: entry.county,
+    value: entry.incidence,
+    cases: entry.cases,
+  }))
 
   return {
     error: null,

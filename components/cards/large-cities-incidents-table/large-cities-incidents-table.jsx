@@ -1,33 +1,32 @@
 import React from 'react'
 import { Card } from '../../layout/card/card'
 import { formatDate } from '../../../utils/date'
-import { parseLargeCitiesIncidentsTable } from '../../../utils/parse'
+import { parseCitiesTable } from '../../../utils/parse'
 import { Table } from '../../layout/table/Table'
 
 export const EMBED_LARGE_CITIES_INCIDENTS_TABLE = 'large-cities-incidents-table'
 
 export class LargeCitiesIncidentsTable extends React.PureComponent {
   render() {
-    const { error, lastUpdatedOn, stale, data } =
-      parseLargeCitiesIncidentsTable(this.props.state)
+    const { error, lastUpdatedOn, stale, data } = parseCitiesTable(this.props.state, 'largeCities')
 
     const headers = [
-      { className: '', displayName: 'Județ', name: 'judet' },
+      { className: '', displayName: 'Județ', name: 'county' },
       {
         className: '',
         displayName: 'Localitate',
-        name: 'localitate',
+        name: 'city',
       },
       {
         className: 'has-text-right',
         displayName: 'Populație',
-        name: 'populatie',
+        name: 'population',
       },
       { className: 'has-text-right', displayName: 'Cazuri', name: 'cazuri' },
       {
         className: 'has-text-right',
         displayName: 'Incidență',
-        name: 'incidenta',
+        name: 'incidence',
       },
     ]
     return (
@@ -38,7 +37,7 @@ export class LargeCitiesIncidentsTable extends React.PureComponent {
         embedPath={EMBED_LARGE_CITIES_INCIDENTS_TABLE}
         isStale={stale}
       >
-        <Table headers={headers} data={data} sortByColumn="incidenta" />
+        <Table headers={headers} data={data} sortByColumn="incidence" />
       </Card>
     )
   }

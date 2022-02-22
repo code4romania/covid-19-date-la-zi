@@ -16,7 +16,7 @@ export class CountiesTable extends React.PureComponent {
       {
         className: 'has-text-right',
         displayName: 'Cazuri totale',
-        name: 'countyInfectionsNumbers',
+        name: 'cases',
       },
       {
         className: 'has-text-right',
