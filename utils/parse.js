@@ -49,7 +49,7 @@ export function parseSmallCitiesIncidentsTable(result) {
 
   return {
     error: null,
-    data: result.currentDayStats.smallCitiesIncidence,
+    data: result.currentDayStats.smallCities,
     lastUpdatedOn,
     stale,
   }
@@ -62,7 +62,7 @@ export function parseLargeCitiesIncidentsTable(result) {
 
   return {
     error: null,
-    data: result.currentDayStats.largeCitiesIncidence,
+    data: result.currentDayStats.largeCities,
     lastUpdatedOn,
     stale,
   }
