@@ -53,7 +53,7 @@ export function parseSmallCitiesIncidentsTable(result) {
     localitate: city['Localitate'],
     populatie: parseInt(city['Populație']),
     cazuri: parseInt(city['Cazuri']),
-    incidenta: parseFloat(city['Incidența']),
+    incidenta: parseFloat(city['Incidență']),
   }))
 
   return {
