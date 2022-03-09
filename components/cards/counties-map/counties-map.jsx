@@ -17,7 +17,7 @@ export class CountiesMap extends React.PureComponent {
         trigger: 'item',
         formatter: (item) => `
           <b>${item.name}</b></br>
-          Cazuri totale: ${item.data.countyInfectionsNumbers}</br>
+          Cazuri totale: ${item.data.cases}</br>
           Incidență cumulată: ${item.value}`,
       },
       visualMap: {

@@ -2,32 +2,39 @@ import React from 'react'
 import { Card } from '../../layout/card/card'
 import { Table } from '../../layout/table/Table'
 import { formatDate } from '../../../utils/date'
-import { parseSmallCitiesIncidentsTable } from '../../../utils/parse'
+import { parseCitiesTable } from '../../../utils/parse'
 
 export const EMBED_SMALL_CITIES_INCIDENTS_TABLE = 'small-cities-incidents-table'
 
 export class SmallCitiesIncidentsTable extends React.PureComponent {
   render() {
-    const { error, lastUpdatedOn, stale, data } =
-      parseSmallCitiesIncidentsTable(this.props.state)
+    const { error, lastUpdatedOn, stale, data } = parseCitiesTable(this.props.state, 'smallCities')
 
     const headers = [
-      { className: '', displayName: 'Județ', name: 'judet' },
+      {
+        className: '',
+        displayName: 'Județ',
+        name: 'county',
+      },
       {
         className: '',
         displayName: 'Localitate',
-        name: 'localitate',
+        name: 'city',
       },
       {
         className: 'has-text-right',
         displayName: 'Populație',
-        name: 'populatie',
+        name: 'population',
       },
-      { className: 'has-text-right', displayName: 'Cazuri', name: 'cazuri' },
+      {
+        className: 'has-text-right',
+        displayName: 'Cazuri',
+        name: 'cases',
+      },
       {
         className: 'has-text-right',
         displayName: 'Incidență',
-        name: 'incidenta',
+        name: 'incidence',
       },
     ]
 
@@ -39,7 +46,7 @@ export class SmallCitiesIncidentsTable extends React.PureComponent {
         embedPath={EMBED_SMALL_CITIES_INCIDENTS_TABLE}
         isStale={stale}
       >
-        <Table headers={headers} data={data} sortByColumn="incidenta" />
+        <Table headers={headers} data={data} sortByColumn="incidence" />
       </Card>
     )
   }

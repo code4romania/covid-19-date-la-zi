@@ -39,6 +39,6 @@ export const Constants = {
 }
 
 export const ApiURL = {
-  allData: Constants.api + '/latestData.json',
-  smallData: Constants.api + '/smallData.json',
+  allData: Constants.api + '/full',
+  smallData: Constants.api + '/partial',
 }
