@@ -56,7 +56,9 @@ export class SummaryRow extends React.PureComponent {
       vaccineQuickStale,
       vaccineQuickLastUpdate,
       imunizationStale,
-      imunizationLastUpdate
+      imunizationLastUpdate,
+      numberCuredStale,
+      numberCuredLastUpdate
     } = state;
     const totalCases = this.formattedString(state.totalCases);
     const cured = this.formattedString(state.curedCases);
@@ -88,12 +90,12 @@ export class SummaryRow extends React.PureComponent {
           error={error}
           to="/"
           title="Vindecați"
-          subTitle={`Ultima actualizare ${formatDate(dailyLastUpdate)}`}
+          subTitle={`Ultima actualizare ${formatDate(numberCuredLastUpdate)}`}
           total={cured}
           special={this.specialValueForCured(state)}
           data={state.curedCasesHistory}
           embedPath={PROP_SHOW_CURED_CASES}
-          stale={dailyStale}
+          stale={numberCuredStale}
         />,
       ],
       [

@@ -126,6 +126,10 @@ export function parseSummary(result) {
         stale: imunizationStale,
         lastUpdatedOn: imunizationLastUpdate,
       },
+      quickStatsCured: {
+        stale: numberCuredStale,
+        lastUpdatedOn: numberCuredLastUpdate,
+      },
     } = result.charts
     const { historicalData } = result
     const totalCasesHistory = []
@@ -183,6 +187,8 @@ export function parseSummary(result) {
       vaccineQuickLastUpdate,
       imunizationStale,
       imunizationLastUpdate,
+      numberCuredStale,
+      numberCuredLastUpdate
     }
   } catch (error) {
     console.error(error)
