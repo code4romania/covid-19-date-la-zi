@@ -126,7 +126,12 @@ export function parseSummary(result) {
         stale: imunizationStale,
         lastUpdatedOn: imunizationLastUpdate,
       },
+      quickStatsCured: {
+        stale: numberCuredStale,
+        lastUpdatedOn: numberCuredLastUpdate,
+      } = { stale: false, lastUpdatedOn: '2022-03-09' },
     } = result.charts
+
     const { historicalData } = result
     const totalCasesHistory = []
     const curedCasesHistory = []
@@ -157,7 +162,7 @@ export function parseSummary(result) {
       dosesAdministeredHistory.push(numberTotalDosesAdministered)
       immunityHistory.push(
         vaccines?.pfizer.immunized +
-          vaccines?.pfizer_pediatric.immunized + 
+          vaccines?.pfizer_pediatric.immunized +
           vaccines?.moderna.immunized +
           vaccines?.astra_zeneca.immunized +
           vaccines?.johnson_and_johnson.immunized || 0
@@ -183,6 +188,8 @@ export function parseSummary(result) {
       vaccineQuickLastUpdate,
       imunizationStale,
       imunizationLastUpdate,
+      numberCuredStale,
+      numberCuredLastUpdate,
     }
   } catch (error) {
     console.error(error)
@@ -293,8 +300,13 @@ export function parseVaccinesHistory(result, options) {
       .reverse()
       .forEach(([date, entry]) => {
         if (entry.vaccines) {
-          const { pfizer, pfizer_pediatric, moderna, astra_zeneca, johnson_and_johnson } =
-            entry.vaccines
+          const {
+            pfizer,
+            pfizer_pediatric,
+            moderna,
+            astra_zeneca,
+            johnson_and_johnson,
+          } = entry.vaccines
           pfizerRecords.push(
             cumulative
               ? (pfizerRecords[dateStrings.length - 1] || 0) +
@@ -304,7 +316,7 @@ export function parseVaccinesHistory(result, options) {
           pfizerPediatricRecords.push(
             cumulative
               ? (pfizerPediatricRecords[dateStrings.length - 1] || 0) +
-              pfizer_pediatric.total_administered
+                  pfizer_pediatric.total_administered
               : pfizer_pediatric.total_administered || 0
           )
           modernaRecords.push(
