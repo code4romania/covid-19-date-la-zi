@@ -42,9 +42,9 @@ export default async function handler(req, res) {
 
   try {
     await res.unstable_revalidate('/')
-    for (const slug of slugList) {
-      await res.unstable_revalidate(`/embed/${slug}`)
-    }
+    await Promise.all(
+      slugList.map((slug) => res.unstable_revalidate(`/embed/${slug}`))
+    )
 
     return res.json({ revalidated: true })
   } catch (err) {
