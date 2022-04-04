@@ -297,6 +297,7 @@ export function parseVaccinesHistory(result, options) {
         }
 
     Object.entries(newData)
+      .filter(([key]) => key <= vaccineDetailedLastUpdate)
       .reverse()
       .forEach(([date, entry]) => {
         if (entry.vaccines) {
