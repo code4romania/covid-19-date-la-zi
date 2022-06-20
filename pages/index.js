@@ -1,7 +1,7 @@
 import React from 'react'
 import download from 'downloadjs'
 import styles from './index.module.css'
-import { SocialsShare } from '@code4ro/taskforce-fe-components'
+import { Banner, SocialsShare } from '@code4ro/taskforce-fe-components'
 import { ApiURL, Constants } from '../config/globals'
 import { PageHeader } from '../components/layout/page-header/page-header'
 import { SummaryRow } from '../components/layout/rows/summary-row'
@@ -17,6 +17,7 @@ import { InstrumentsWrapper } from '../components/layout/instruments/instruments
 import { AgeCategory } from '../components/cards/age-category/age-category'
 import { VaccinesPerDayCard } from '../components/cards/vaccines-per-day-card/vaccines-per-day-card'
 import DefaultLayout from '../components/layout/default-layout'
+import { formatDate } from '../utils/date'
 
 export async function getStaticProps() {
   const res = await fetch(ApiURL.smallData)
@@ -67,6 +68,14 @@ class Dashboard extends React.Component {
   render() {
     return (
       <DefaultLayout>
+        <Banner
+          className="container"
+          title={
+            'Datele oficiale despre incidenta cazurilor de COVID-19 în România sunt furnizate sumarizat cu o frecventa săptămânală.\n Buletinul informativ este disponibil pe stirioficiale.ro. Ultima actualizare a datelor: ' +
+            formatDate(this.props.data.currentDayStats.parsedOnString)
+          }
+          link="https://stirioficiale.ro"
+        />
         <div className="container">
           <section className={styles.cards_row}>
             <PageHeader title="Date Oficiale" />
