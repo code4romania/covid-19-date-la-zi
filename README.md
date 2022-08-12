@@ -1,4 +1,4 @@
-<img src="public/images/logo-coviz.svg" alt="logo" style="max-width: 320px;"/>
+![logo](public/images/logo-coviz.svg)
 
 # Date la zi • [Live](https://covid19.datelazi.ro/)
 
