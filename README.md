@@ -1,6 +1,6 @@
 ![logo](src/images/logo-coviz.svg)
 
-# Date la zi • [Live](https://datelazi.ro/)
+# Date la zi • [Live](https://covid19.datelazi.ro/)
 
 ## Vizualization App to track the COVID-19 virus epidemic
 
@@ -12,7 +12,7 @@ Clear information of the public, increase in transparency, diminishing panic.
 
 ### How
 
-System that takes in anonymised data from the cases database and transforms it into information understandable by the large public. Adapted for all devices. [See it Live](https://datelazi.ro/)
+System that takes in anonymised data from the cases database and transforms it into information understandable by the large public. Adapted for all devices. [See it Live](https://covid19.datelazi.ro/)
 
 [Contributing](#contributing) | [Built with](#built-with) | [Deployment](#deployment) | [Feedback](#feedback) | [License](#license) | [About Code4Ro](#about-code4ro)
 
@@ -73,7 +73,7 @@ If you need any assistance you can contact the project's technical lead, [@Crist
 The builds are automatically deployed when changes are merged as follows:
 
 - Merging a PR into `develop` will trigger the deployment into our staging environment, found at [https://date-la-zi-git-develop.code4romania.vercel.app](https://date-la-zi-git-develop.code4romania.vercel.app)
-- Merging a PR into `master` (usually only production releases from `develop`) will trigger the deployment into our production environment, found at [https://datelazi.ro](https://datelazi.ro)
+- Merging a PR into `master` (usually only production releases from `develop`) will trigger the deployment into our production environment, found at [https://covid19.datelazi.ro](https://covid19.datelazi.ro)
 
 ## Old setup
 

@@ -67,10 +67,9 @@ class Dashboard extends React.Component {
         <Banner
           className="container"
           title={
-            'Datele oficiale despre incidenta cazurilor de COVID-19 în România sunt furnizate sumarizat cu o frecventa săptămânală.\n Buletinul informativ este disponibil pe stirioficiale.ro. Ultima actualizare a datelor: ' +
-            formatDate(this.props.data.currentDayStats.parsedOnString)
+            'Conform deciziei Autorității pentru Digitalizarea României, informațiile cu privire la incidența cazurilor de COVID-19 în România nu se publica în continuare pe platforma datelazi.ro odată cu ridicarea stării de alertă pe teritoriul României, iar ultima actualizare a informațiilor a avut loc pe 12 iunie 2022. Arhiva datelor este în continuare disponibilă public. Conținutul acestei platforme este migrat pe covid19.datelazi.ro.'
           }
-          link="https://stirioficiale.ro"
+          link="https://covid19.datelazi.ro"
         />
         <div className="container">
           <section className={styles.cards_row}>
