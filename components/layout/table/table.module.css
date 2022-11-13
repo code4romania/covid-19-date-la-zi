@@ -24,3 +24,34 @@
   min-width: 100%;
   height: 35px;
 }
+
+.table_wrapper {
+  min-height: 500px;
+}
+
+.filter {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20%;
+}
+.input {
+  text-overflow: ellipsis;
+}
+.cancelButton {
+  position: absolute;
+  right: 0;
+  top:50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  margin-right: 0 !important;
+  border: none;
+  background: none;
+}
+@media only screen and (max-width: 650px) {
+  .filter {
+    min-width: 50%;
+    bottom: 2.3rem;
+  }
+}

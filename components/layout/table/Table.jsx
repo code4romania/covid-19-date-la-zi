@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from './table.module.css'
 
 export const Table = (props) => {
-  const { headers, data, sortByColumn } = props
+  const { headers, data, sortByColumn, filterByKey } = props
   const limit = 10
   const [page, setPage] = React.useState(0)
   const [sortConfig, setSortConfig] = React.useState({
@@ -21,6 +21,56 @@ export const Table = (props) => {
     }
     return 0
   })
+
+  const [filterString, setFilterString] = React.useState('')
+  React.useEffect(() => {
+    setPage(0)
+  }, [filterString])
+
+  //filter sortedData
+  if (filterByKey && filterString) {
+    //replace diacritics with regular chars
+    const normFilter = filterString
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+    sortedData = sortedData.filter((row) => {
+      if (row[filterByKey]) {
+        //replace diacritics with regular chars
+        const normKey = row[filterByKey]
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+        //tests if selected filter includes the search string, case insensitive
+        return new RegExp(normFilter, 'i').test(normKey)
+      }
+    })
+  }
+
+  const displayFilterInput = () => {
+    if (filterByKey) {
+      return (
+        <div className={`controll ${styles.filter}`}>
+          <button
+            className={
+              `button ${styles.cancelButton} ` + (filterString ? '' : 'hide')
+            }
+            title="Anuleaza filtrarea"
+            onClick={() => setFilterString('')}
+          >
+            &#10006;
+          </button>
+          <input
+            className={`input  ${styles.input}`}
+            type="text"
+            value={filterString}
+            placeholder={`Filtrează după ${filterByKey}`}
+            title={`Filtrează după ${filterByKey}`}
+            onChange={(e) => setFilterString(e.target.value)}
+            onKeyUp={(e) => e.code === 'Escape' && setFilterString('')}
+          />
+        </div>
+      )
+    }
+  }
 
   const requestSort = (key) => {
     let direction = 'ascending'
@@ -116,6 +166,7 @@ export const Table = (props) => {
       </table>
 
       {displayPagination(data)}
+      {displayFilterInput()}
     </div>
   )
 }
