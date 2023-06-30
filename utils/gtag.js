@@ -1,4 +1,4 @@
-export const GA_TRACKING_ID = 'UA-160603540-2'
+export const GA_TRACKING_ID = 'G-4FJRF0S0MW'
 
 const inIframe = () => {
   try {
@@ -10,7 +10,7 @@ const inIframe = () => {
 
 export const canIncludeScript =
   typeof window !== 'undefined' &&
-  window.location.hostname === 'datelazi.ro' &&
+  window.location.hostname === 'covid19.datelazi.ro' &&
   !inIframe()
 
 export const pageview = (url) => {
